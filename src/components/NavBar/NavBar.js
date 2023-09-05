@@ -11,7 +11,7 @@ const NavBar = () => {
         <ul className='menu-items'>
             <li className='menu-item'>
               <HomeIcon className='menu-icon'/>
-              <p >Home</p>
+              <p>Home</p>
             </li>
             <li className='menu-item'>
               <MemoryIcon className='menu-icon'/>
@@ -19,7 +19,7 @@ const NavBar = () => {
             </li>
             <li className='menu-item'>
               <SearchOutlinedIcon className='menu-icon'/>
-              <p>Search Quote</p>
+              <p>Search</p>
             </li>
             <li className='menu-item'>
               <AddCircleIcon className='menu-icon'/>

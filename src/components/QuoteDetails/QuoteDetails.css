@@ -1,0 +1,45 @@
+
+
+.quote-details-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.quote-details-title{
+    font-weight: bold;
+    padding-top: 15px;
+    padding-left: 15px;
+    font-size: 18px;
+    border-bottom: 1px solid rgb(226, 226, 226);
+}
+.quote-details-column{
+    width: 50%;
+    padding: 10px;
+}
+.detail-items{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+.detail-items input{
+    padding: 2px;
+}
+.detail-items select{
+    padding: 4px;
+    width: 50vh;
+}
+.search-name-date{
+    display: flex;
+    justify-content: space-between;
+}
+
+label{
+    font-weight: 400;
+}
+
+.quote-details-components{
+    background-color: orange;
+    width: 100%;
+    height: 100%;
+    margin: 0px 20px;
+}

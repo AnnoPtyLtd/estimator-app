@@ -1,25 +1,46 @@
 
 
-.quote-list{
+.quote-list-container{
     width: 40vh;
-    height: 100px;
-    background-color: rgb(184, 184, 184);
+    height: 100vh;
     display: flex;
+    border-right: 1px solid rgb(226, 226, 226);
     padding: 20px;
     flex-direction: column;
 }
-
-.quote-list p{
-    padding: 20px;
+.quote-list-title{
+    border-bottom: 1px solid black;
+}
+.quote-list-container p{
     font-weight: 500;
+    font-size: 18px;
 }
-.quote-list input{
+.quote-list-container input{
     position: relative;
-    height: 25px;
+    height: 30px;
     width: 100%;
-    margin-right: 20px;
+    border: none;
+    margin-right: 5px;
 }
+
 .search-field{
     display: flex;
     align-items: center;
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+}
+.search-field input{
+    padding: 15px;
+    border-radius: 5px;
+}
+.quote-list{
+    background-color: rgb(152, 152, 152);
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+.quote-list-items{
+    list-style: none;
 }
