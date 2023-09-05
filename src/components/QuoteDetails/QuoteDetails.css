@@ -38,8 +38,18 @@ label{
 }
 
 .quote-details-components{
-    background-color: orange;
     width: 100%;
+    padding: 20px;
+
     height: 100%;
     margin: 0px 20px;
+}
+.quote-details-components h4{
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.component-list{
+    width: 60%;
+    margin-bottom: 10px;
 }

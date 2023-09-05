@@ -1,3 +1,4 @@
+import ComponentCard from '../ComponentCard/ComponentCard'
 import './QuoteDetails.css'
 
 const QuoteDetails = () => {
@@ -30,7 +31,19 @@ const QuoteDetails = () => {
         </div>
       </div>
       <div className='quote-details-components'>
-        <p>container</p>
+        <h4>Components</h4>
+        <div className='component-list'>
+          <ComponentCard></ComponentCard>
+        </div>
+        <div className='component-list'>
+          <ComponentCard></ComponentCard>
+        </div>
+        <div className='component-list'>
+          <ComponentCard></ComponentCard>
+        </div>
+        <div className='component-list'>
+          <ComponentCard></ComponentCard>
+        </div>
       </div>
     </div>
   )

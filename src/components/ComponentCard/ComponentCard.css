@@ -1,0 +1,42 @@
+.component-card-container{
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+}
+.component-card-container:hover{
+    transition: 0.4s;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.component-card-title{
+    font-weight: 400;
+    margin: 10px;
+    font-size: 18px;
+}
+.component-detail{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+
+    padding: 10px;
+}
+
+.component-detail-item{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10%;
+}
+.detail-type{
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+}
+.detail-name{
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+}
+.component-detail-item p{
+    margin: 0;
+}
