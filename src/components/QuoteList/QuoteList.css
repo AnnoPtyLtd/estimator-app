@@ -1,0 +1,25 @@
+
+
+.quote-list{
+    width: 40vh;
+    height: 100px;
+    background-color: rgb(184, 184, 184);
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+}
+
+.quote-list p{
+    padding: 20px;
+    font-weight: 500;
+}
+.quote-list input{
+    position: relative;
+    height: 25px;
+    width: 100%;
+    margin-right: 20px;
+}
+.search-field{
+    display: flex;
+    align-items: center;
+}

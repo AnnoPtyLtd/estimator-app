@@ -1,0 +1,32 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    height: 100vh;
+    border-right: 1px solid rgb(201, 201, 201);
+}
+
+.menu-item {
+    display: flex;
+    background-color: rgb(254, 255, 255);
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    padding: 10px 8px 10px 10px;
+    margin: 5px 5px;
+    border-radius: 5px;
+}
+.menu-item p{
+    margin-left: 4px;
+}
+
+.menu-item {
+    transition: color 0.3s; /* Add a transition for a smooth color change */
+    transition: background-color 0.5s; /* Add a transition for a smooth color change */
+  }
+  
+  .menu-item:hover {
+    cursor: pointer;
+    background-color: #bcf2c7 ;
+    color: #116530; /* Change the color to your desired color on hover */
+  }
