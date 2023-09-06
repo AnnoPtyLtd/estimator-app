@@ -6,7 +6,9 @@
     padding-bottom: 10px;
     margin-bottom: 4%;
     justify-content: space-between;
-    border-right: 1px solid rgb(226, 226, 226);    
+    border-right: 1px solid rgb(226, 226, 226);  
+    transition: 0.3s ease;
+
 }
 
 .menu-item {
@@ -34,8 +36,19 @@
 
 .profile-icon {
     display: flex;
+    
+    align-items: center;
+    padding: 10px 0px 10px 10px;
+    transition: background-color 0.5s, color 0.3s ease; /* Add transitions */
+
+  }
+.profile-icon:hover {
+    display: flex;
     align-items: center;
     padding-left: 10px;
+    cursor: pointer;
+    background-color: #bcf2c7;
+    color: #116530;
 
   }
   
@@ -53,7 +66,7 @@
     height: 30px;
     width: 30px;
   }
-  
+
   
   .menu-item.active {
     transition: 0.4 ease;
@@ -61,3 +74,65 @@
     color: #116530;
   }
   
+
+  /* Add this CSS to your existing styles */
+
+.menu.expanded {
+  width: 160px; /* Original width when expanded */
+}
+
+.menu.collapsed {
+  display: flex;
+  width: 60px; /* Collapsed width when not hovered */
+  
+}
+.menu.collapsed .menu-item {
+  justify-content: center;
+  
+}
+
+
+.menu.collapsed .menu-item p {
+  display: none; /* Hide text when collapsed */
+}
+.menu.collapsed .profile-name {
+  display: none;
+}
+.menu.collapsed .profile-icon {
+  justify-content: center;
+  padding: 0;
+}
+
+.menu.collapsed:hover {
+  width: 160px; /* Expand on hover */
+  
+}
+
+.menu-items {
+  transition: width 0.5s ease; /* Smooth transition for width changes */
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 0px;
+  padding-left: 10px;
+  transition: background-color 0.5s, color 0.3s ease;
+}
+
+.menu-item:hover {
+  cursor: pointer;
+  background-color: #bcf2c7;
+  color: #116530;
+}
+
+.menu-icon {
+  margin-right: 4px;
+}
+
+.menu-item p {
+  margin: 0;
+  font-size: 14px;
+}
+
+

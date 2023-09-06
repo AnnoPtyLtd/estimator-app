@@ -5,6 +5,9 @@
     border-radius: 10px;
 }
 .component-card-container:hover{
+    cursor: pointer;
+}
+.component-card-container:hover{
     transition: 0.4s;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

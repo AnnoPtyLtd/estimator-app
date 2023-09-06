@@ -31,6 +31,9 @@ const QuoteDetails = () => {
         </div>
       </div>
       <div className='quote-details-components'>
+      <div className='add-component'>
+        <button>Add record</button>
+      </div>
         <h4>Components</h4>
         <div className='component-list'>
           <ComponentCard></ComponentCard>

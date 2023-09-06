@@ -27,7 +27,6 @@ const QuoteList = () => {
           <li>quote item 6</li>
         </ul>
       </div>
-      
 
     </div>
   )

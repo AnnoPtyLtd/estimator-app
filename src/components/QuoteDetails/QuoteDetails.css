@@ -12,6 +12,7 @@
     font-size: 18px;
     border-bottom: 2px solid rgb(226, 226, 226);
 }
+
 .quote-details-column{
     width: 50%;
     padding: 10px;
@@ -52,4 +53,32 @@ label{
 .component-list{
     width: 60%;
     margin-bottom: 10px;
+}
+
+
+.add-component{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.add-component button{
+    border: none;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding: 8px;
+    width: 100px;
+    justify-content: end;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #45f248;
+}
+button:hover{
+    background-color: #4cd038;
+    border: none;
+    outline: none;
+}
+
+button:active{
+    background-color: #2db83d;
 }

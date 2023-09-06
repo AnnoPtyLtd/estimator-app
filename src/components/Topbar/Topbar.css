@@ -24,5 +24,10 @@ button{
 }
 button:hover{
     background-color: rgb(255, 17, 17);
+    border: none;
+    outline: none;
+}
 
+button:active{
+    background-color: rgb(255, 63, 63);
 }
