@@ -3,7 +3,9 @@ import './Topbar.css'
 const Topbar = () => {
   return (
     <div className='topbar'>
-      <p>this is the top bar</p>
+      <div className='signout-div'>
+        <button>Sign Out</button>
+      </div>
     </div>
   )
 }

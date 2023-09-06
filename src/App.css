@@ -1,18 +1,2 @@
-*{
-  padding: 0;
-  margin: 0;
-}
 
-.App{
-  display: flex;
-  flex-direction: row;
-}
 
-.right-panel{
-  display: flex;
-  flex-direction: column;
-}
-.quote-section{
-  display: flex;
-  flex-direction: row;
-}

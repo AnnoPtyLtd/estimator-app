@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; /* Add this line to include padding and borders in width calculations */
+}
+
+body {
+  margin: 0;
+}
+
+.home {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+}
+
+.quote-section {
+  display: flex;
+  flex-direction: row;
+}
