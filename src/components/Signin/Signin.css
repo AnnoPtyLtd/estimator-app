@@ -1,0 +1,84 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.signin-main-page {
+    display: flex;
+    justify-content: center;
+
+}
+
+.signin-container {
+    background-color: white;
+    border-radius: 5px;
+    width: 700px;
+    text-align: center;
+    height: 60vh;
+    border: 1px solid rgb(226, 226, 226);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 10%;
+    display: flex;
+}
+
+.signin-rightside {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 25% 10px 0px 15px;
+    color: white;
+    background-image: url('../../assets/signupbackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.signin-welcome {
+    font-weight: 500;
+    font-size: large;
+}
+
+.signin-leftside {
+    display: flex;
+    flex: 1;
+    padding: 20px 20px;
+    background-color: white;
+    flex-direction: column;
+}
+
+.signin-leftside p {
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 10%;
+}
+
+.form-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.form-field input {
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    margin: 15px 5px;
+}
+
+.form-field label {
+    margin: 5px 0px;
+    font-size: 14px;
+}
+
+.form-checkbox {
+    margin-top: 10px;
+}
+
+.signin-button {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: center;
+}
