@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './Signup.css'
@@ -9,7 +10,7 @@ const Signup = () => {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
-
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -26,10 +27,46 @@ const Signup = () => {
             setConfirmPassword(value);
         }
     }
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(fullName, email, password, confirmPassword);
-    }
+    
+        if (!fullName || !email || !password || !confirmPassword) {
+            alert("Please fill in all fields");
+            return;
+        }
+    
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+    
+        try {
+            const response = await fetch("http://localhost:4000/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fullName,
+                    email,
+                    password
+                }),
+            });
+    
+            if (response.status === 200) {
+                // Successful registration
+                alert("User registered successfully");
+                navigate('/signin');
+
+            } else {
+                alert("User registration failed");
+            }
+        } catch (error) {
+            console.error("Error registering user:", error);
+        }
+    };
+    
 
 
     return (
@@ -41,7 +78,7 @@ const Signup = () => {
                 </div>
                 <div className='signup-rightside'>
                     <p>Create an Account</p>
-                    <Form>
+                    <Form action=''>
                         <div className='form-field'>
                             <label> Full Name:</label>
                             <input type='text'

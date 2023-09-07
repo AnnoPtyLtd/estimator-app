@@ -3,13 +3,17 @@
 .quote-list-container{
     width: 40vh;
     display: flex;
-    border-right: 2px solid rgb(226, 226, 226);
-    border-left: 1px solid rgb(226, 226, 226);
+    background-color: #404258;
+    color: #8CABFF;
+    border-right: 2px solid rgb(107, 114, 142);
+    border-left: 1px solid rgb(107, 114, 142);
     padding: 20px;
     flex-direction: column;
 }
 .quote-list-title{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #50577A;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 .quote-list-container p{
     font-weight: 500;
@@ -27,7 +31,7 @@
     display: flex;
     align-items: center;
     margin-top: 10px;
-    border: 1px solid black;
+    border: 1px solid rgb(107, 114, 142);
     border-radius: 5px;
     width: 100%;
 }
@@ -36,7 +40,7 @@
     border-radius: 5px;
 }
 .quote-list{
-    background-color: rgb(152, 152, 152);
+   
     padding: 10px;
     margin: 10px 0px;
 }

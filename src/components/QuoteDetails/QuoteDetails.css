@@ -1,7 +1,8 @@
 
-
 .quote-details-container{
     display: flex;
+    background-color: #404258;
+    color: #8CABFF;
     flex-direction: column;
     width: 100%;
 }
@@ -10,7 +11,7 @@
     padding-top: 15px;
     padding-left: 15px;
     font-size: 18px;
-    border-bottom: 2px solid rgb(226, 226, 226);
+    border-bottom: 2px solid #DDE6ED;
 }
 
 .quote-details-column{

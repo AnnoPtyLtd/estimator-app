@@ -1,33 +1,44 @@
-.topbar{
-    align-items: center;
+.topbar {
     display: flex;
-    height: 50px;
-    width: 100%;
-    padding: 10px;
-    border: 2px solid rgb(226, 226, 226);
+    height: 100px;
+    padding: 5px 10px;
+
+    align-items: center;
+    /* Center vertically */
+    justify-content: space-between;
+    background-color: #404258;
+    color: #d4adfc;
+    border: 2px solid rgb(107, 114, 142);
 }
 
-.signout-div{
-    width: 100%;
-    border: none;
+.topbar-title {
+    display: flex;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    padding-top: 10px;
 }
-button{
+
+.topbar-title p {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+button {
     border: none;
-    float: right;
     padding: 8px;
-    justify-content: end;
     border-radius: 5px;
     color: white;
     font-size: 14px;
     font-weight: bold;
     background-color: rgb(255, 63, 63);
 }
-button:hover{
+
+button:hover {
     background-color: rgb(255, 17, 17);
     border: none;
     outline: none;
 }
 
-button:active{
+button:active {
     background-color: rgb(255, 63, 63);
 }

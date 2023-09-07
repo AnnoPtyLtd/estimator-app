@@ -1,21 +1,23 @@
 .component-card-container{
     display: flex;
     flex-direction: column;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #50577A;
+    color: white;
+    box-shadow: rgba(255, 255, 255, 0.16) 0px 1px 4px;
     border-radius: 10px;
 }
-.component-card-container:hover{
-    cursor: pointer;
-}
+
 .component-card-container:hover{
     transition: 0.4s;
+    cursor: pointer;
     border: none;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
 }
 .component-card-title{
     font-weight: 400;
     margin: 10px;
     font-size: 18px;
+    color: #8CABFF;
 }
 .component-detail{
     display: flex;

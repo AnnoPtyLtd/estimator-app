@@ -30,8 +30,7 @@ const NavBar = () => {
     <div
       className={`menu ${isExpanded ? 'expanded' : 'collapsed'}`}
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+      onMouseLeave={handleMouseLeave}>
       <ul className='menu-items'>
         <li
           className={`menu-item ${activeMenuItem === 0 ? 'active' : ''}`}

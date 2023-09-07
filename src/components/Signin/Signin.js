@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {useNavigate} from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button'
 import './Signin.css'
@@ -7,7 +8,7 @@ const Signin = () => {
 
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { id, value } = e.target;
 
@@ -19,9 +20,32 @@ const Signin = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    try {
+      const response = await fetch('http://localhost:4000/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        // redirecting to home page
+        navigate('/home') // you can use ('/') route too, it will work too
+        alert("Signed in successfully!")
+
+      } else {
+        // Handle sign-in error
+        const data = await response.json();
+        console.error(data.message);
+        alert("Invalid credentials!")
+
+      }
+    } catch (error) {
+      console.error('Error signing in:', error);
+    }
   }
 
   return (
