@@ -1,7 +1,9 @@
-import ComponentCard from '../ComponentCard/ComponentCard'
-import './QuoteDetails.css'
+import { motion } from 'framer-motion';
+import ComponentCard from '../ComponentCard/ComponentCard';
+import './QuoteDetails.css';
 
 const QuoteDetails = () => {
+ 
   return (
     <div className='quote-details-container'>
       <div className='quote-details-title'>
@@ -31,25 +33,46 @@ const QuoteDetails = () => {
         </div>
       </div>
       <div className='quote-details-components'>
-      <div className='add-component'>
-        <button>Add record</button>
-      </div>
+        <motion.button
+          whileTap={{ scale: 0.99 }}
+          whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }} // Hover effect
+          transition={{ duration: 0.2 }} // Animation duration 
+          className='add-component-btn'>
+          Add Record
+        </motion.button>
         <h4>Components</h4>
-        <div className='component-list'>
+        <motion.div
+          className='component-list'
+          whileHover={{ scale: 1.05, backgroundColor: '#4477CE' }} // Hover effect for component cards
+          transition={{ duration: 0.2 }}
+        >
           <ComponentCard></ComponentCard>
-        </div>
-        <div className='component-list'>
+        </motion.div>
+        <motion.div
+          className='component-list'
+          whileHover={{ scale: 1.05, backgroundColor: '#4477CE' }} // Hover effect for component cards
+          transition={{ duration: 0.2 }}
+        >
           <ComponentCard></ComponentCard>
-        </div>
-        <div className='component-list'>
+        </motion.div>
+        <motion.div
+          className='component-list'
+          whileHover={{ scale: 1.05, backgroundColor: '#4477CE' }} // Hover effect for component cards
+          transition={{ duration: 0.2 }}
+        >
           <ComponentCard></ComponentCard>
-        </div>
-        <div className='component-list'>
+        </motion.div>
+        <motion.div
+          className='component-list'
+          whileHover={{ scale: 1.05, backgroundColor: '#4477CE' }} // Hover effect for component cards
+          transition={{ duration: 0.2 }}
+        >
           <ComponentCard></ComponentCard>
-        </div>
+        </motion.div>
+
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default QuoteDetails
+export default QuoteDetails;

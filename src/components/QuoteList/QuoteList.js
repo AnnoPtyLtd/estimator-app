@@ -1,13 +1,23 @@
-import './QuoteList.css'
+import './QuoteList.css';
+import React, { useEffect, useState } from 'react';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-
-
+import { motion } from 'framer-motion';
 
 const QuoteList = () => {
+  const [components, setComponents] = useState([]);
+
+  useEffect(() => {
+    // Fetch components from the server when the component mounts
+    fetch('http://localhost:4000/components')
+      .then((response) => response.json())
+      .then((data) => setComponents(data))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <div className='quote-list-container'>
       <div className='quote-list-title'>
-        <p>Quote list</p>
+        <p>Component list</p>
       </div>
       <div className='search-field'>
         <input type='search' placeholder='Search...' />
@@ -15,21 +25,20 @@ const QuoteList = () => {
       </div>
       <div className='quote-list'>
         <ul className='quote-list-items'>
-          <li>quote item 1</li>
-          <li>quote item 2</li>
-          <li>quote item 3</li>
+          {components.map((component, index) => (
+            <motion.li
+              key={index}
+              whileHover={{ scale: 1.1, backgroundColor: '#4477CE', color:'white' }}
+              whileTap={{ scale: 1}}
+              transition={{ duration: 0.2 }}
+            >
+              {component.name}
+            </motion.li>
+          ))}
         </ul>
       </div>
-      <div className='quote-list'>
-        <ul className='quote-list-items'>
-          <li>quote item 4</li>
-          <li>quote item 5</li>
-          <li>quote item 6</li>
-        </ul>
-      </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default QuoteList
+export default QuoteList;

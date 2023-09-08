@@ -42,7 +42,6 @@ label{
 .quote-details-components{
     width: 100%;
     padding: 20px;
-
     height: 100%;
     margin: 0px 20px;
 }
@@ -56,30 +55,21 @@ label{
     margin-bottom: 10px;
 }
 
-
-.add-component{
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.add-component button{
+.add-component-btn{
     border: none;
+    background-color: skyblue;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     padding: 8px;
     width: 100px;
+    margin-bottom: 10px;
     justify-content: end;
     border-radius: 5px;
     color: white;
     font-size: 14px;
     font-weight: bold;
-    background-color: #45f248;
 }
-button:hover{
-    background-color: #4cd038;
+.add-component-btn:hover{
+    background-color: skyblue;
     border: none;
-    outline: none;
-}
 
-button:active{
-    background-color: #2db83d;
 }

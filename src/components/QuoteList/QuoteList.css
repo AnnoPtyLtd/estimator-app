@@ -1,5 +1,4 @@
 
-
 .quote-list-container{
     width: 40vh;
     display: flex;
@@ -47,4 +46,17 @@
 
 .quote-list-items{
     list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.quote-list-items li{
+    margin: 2px;
+    border-radius: 4px;
+    border: 2px solid rgb(107, 114, 142);
+
+    padding: 2px 10px;
+}
+.quote-list-items li:hover{
+    cursor: pointer;
 }

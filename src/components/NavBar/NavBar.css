@@ -73,14 +73,13 @@
     color: #AEE2FF;
   }
   
-
-  /* Add this CSS to your existing styles */
-
 .menu.expanded {
   width: 160px; /* Original width when expanded */
   justify-content: space-between;
   height: 100%;
-
+}
+.menu.expanded .menu-item:hover {
+  background-color: #4477CE;
 
 }
 
@@ -90,7 +89,6 @@
   width: 60px; /* Collapsed width when not hovered */
   justify-content: space-between;
 
-  
 }
 .menu.collapsed .menu-item {
   justify-content: center;

@@ -10,16 +10,6 @@ import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 
 function App() {
   return (
-    // <div className='App'>
-    //   <NavBar />
-    //   <div className='right-panel'>
-    //     <Topbar />
-    //     <div className='quote-section'>
-    //       <QuoteList />
-    //       <QuoteDetails />
-    //     </div>
-    //   </div>
-    // </div>
     <Router>
       <Routes>
       <Route path="/" element={<Home/>} />
