@@ -1,3 +1,4 @@
+import { Navbar } from 'react-bootstrap';
 import './App.css';
 import Home from './components/Home/Home';
 import NavBar from './components/NavBar/NavBar';
@@ -6,16 +7,18 @@ import QuoteList from './components/QuoteList/QuoteList'
 import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
 import Topbar from './components/Topbar/Topbar';
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserProfile from './components/UserProfile/UserProfile';
 
 function App() {
   return (
+
     <Router>
       <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/home" element={<Home/>} />
-      <Route path="/signin" element={<Signin />} />
-      <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </Router>
   );

@@ -133,7 +133,7 @@ const NavBar = () => {
           onClick={() => handleShowQuote(1, 'Add Components')}
         >
           <MemoryIcon className='menu-icon' />
-          <p>Components</p>
+          <p>Add component</p>
         </li>
         <li
           className={`menu-item ${activeMenuItem === 2 ? 'active' : ''}`}

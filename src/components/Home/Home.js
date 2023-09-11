@@ -3,6 +3,9 @@ import NavBar from '../NavBar/NavBar'
 import QuoteList from '../QuoteList/QuoteList'
 import Topbar from '../Topbar/Topbar'
 import QuoteDetails from '../QuoteDetails/QuoteDetails'
+import UserProfile from '../UserProfile/UserProfile'
+
+
 import './Home.css'
 
 const Home = () => {
@@ -19,6 +22,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+
   )
 }
 

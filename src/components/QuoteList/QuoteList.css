@@ -1,14 +1,28 @@
-
 .quote-list-container{
     width: 40vh;
     display: flex;
-    background-color: #404258;
+    margin: 10px 5px 10px 10px;
     color: #8CABFF;
-    border-right: 2px solid rgb(107, 114, 142);
-    border-left: 1px solid rgb(107, 114, 142);
     padding: 20px;
     flex-direction: column;
+    background-image: url('../../assets/quote-blurred-bg2.png');
+    background-size: cover; 
+    background-position: center center; 
+
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.rgba(255, 255, 255, 0), 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border:1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
 }
+
+.modal-body{
+    max-height: 200px; /* Adjust the maximum height as needed */
+    overflow-y: auto;
+}
+
 .quote-list-title{
     border-bottom: 1px solid #50577A;
     padding-bottom: 0;

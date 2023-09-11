@@ -4,8 +4,7 @@ const Topbar = () => {
   return (
     <div className='topbar'>
       <div className='topbar-title'>
-
-        <p>Quote estimator app</p>
+        <p>Quote Estimator app</p>
       </div>
       <div className='signout-div'>
         <button>Sign Out</button>
