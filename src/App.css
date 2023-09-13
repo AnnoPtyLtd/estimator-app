@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+.app{
+    display: flex;
+    flex-direction: row;
+}
+.left-navbar{
+    align-items: center;
+    display: flex;
+    background-image: url('./assets/dark-gradient.jpg');
+    background-position: inherit center ;
+    background-size: cover;
+}

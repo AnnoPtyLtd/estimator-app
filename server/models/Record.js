@@ -5,6 +5,7 @@ const recordSchema = new mongoose.Schema({
   name:String,
   quoteType:String,
   quoteDate:Date,
+  quoteCost:Number,
 });
 
 

@@ -14,6 +14,7 @@
     border:1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
+
 .quote-details-title{
     font-weight: bold;
     padding-top: 15px;
@@ -40,11 +41,13 @@
     margin: 10px;
 }
 .detail-items input{
-    padding: 2px;
+    padding: 10px;
+    text-align: center;
 }
 .detail-items select{
     padding: 4px;
     width: 50vh;
+    padding: 10px;
 }
 .search-name-date{
     display: flex;
@@ -56,6 +59,8 @@ label{
 }
 
 .quote-details-components{
+    display: flex;
+    flex-direction: column;
     width: 80%;
     padding: 20px;
     height: 100%;
@@ -73,7 +78,7 @@ label{
 
 .add-component-btn{
     border: none;
-    background-color: skyblue;
+    background-color: rgb(0, 112, 168);
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     padding: 8px;
     width: 100px;
@@ -85,7 +90,35 @@ label{
     font-weight: bold;
 }
 .add-component-btn:hover{
-    background-color: skyblue;
+    background-color: rgb(24, 93, 121);
     border: none;
 
 }
+
+.builds-filter{
+    margin: 10px 5px;
+    padding: 10px;
+    text-align: center;
+
+}
+
+input[type=text] {
+    text-align:left;
+  }
+
+  .quote-details-list-container {
+    max-height: 300px; 
+    overflow-y: scroll; 
+    overflow-x: hidden; 
+    position: relative; 
+  }
+  
+  .quote-details-list-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .quote-details-list-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }

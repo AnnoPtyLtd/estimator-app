@@ -30,7 +30,6 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.methods.comparePassword = async function (password) {
-    // Use a password hashing library like bcrypt to compare passwords
     const isMatch = await bcrypt.compare(password, this.password);
     return isMatch;
 };
@@ -41,16 +40,16 @@ User.createIndexes();
 // Import route files
 const signupRoute = require('./routes/signup');
 const signinRoute = require('./routes/signin');
-const saveComponentRoute = require('./routes/save-component');
-const getComponentsRoute = require('./routes/get-components'); 
-const saveRecordRoute = require('./routes/save-record');
+const saveRecordRoute = require('./routes/records');
+const saveNewComponentRoute = require('./routes/save-newcomponent'); 
+const getComponentsRoute = require('./routes/get-components');
 
 // Use route files
 app.use(signupRoute);
 app.use(signinRoute);
-app.use(saveComponentRoute);
-app.use(getComponentsRoute); 
 app.use(saveRecordRoute);
+app.use(saveNewComponentRoute);
+app.use(getComponentsRoute);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");

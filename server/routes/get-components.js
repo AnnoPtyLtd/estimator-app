@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Component = require('../models/Component'); 
+const ComponentModel = require('../models/NewComponent');
 
-router.get('/components', async (req, res) => {
+router.get('/get-components', async (req, res) => {
+  const category = req.query.category;
   try {
-    const components = await Component.find(); // Fetch all components from MongoDB
+    const components = await ComponentModel.find({ componentCategory: category });
     res.json(components);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     color: white;
-
+    margin: 10px 20px;
 
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
     backdrop-filter: blur(10px);
@@ -28,10 +28,9 @@
 }
 .component-detail{
     display: flex;
-    flex-direction: row;
     text-align: center;
-
-    padding: 10px;
+    justify-content: space-between;
+    padding: 10px 50px;
 }
 
 .component-detail-item{
@@ -41,14 +40,40 @@
 }
 .detail-type{
     margin: 0;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
+   
 }
 .detail-name{
     margin: 0;
     font-size: 12px;
     font-weight: 400;
+    background-color: rgb(66, 142, 242);
+    border-radius: 5px;
+    padding: 2px 4px;
+    margin: 5px;
 }
 .component-detail-item p{
     margin: 0;
+}
+
+.edit-button{
+    background-color: #4D2DB7;
+}
+.edit-button:hover{
+    background-color: #64CCC5;
+}
+
+.edit-record-modalbody{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.edit-record-modalbody input{
+    margin: 5px;
+    align-items: center;
+    padding: 5px;
+}
+.modalbody-item{
+    margin: 10px;
 }

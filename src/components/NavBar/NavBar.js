@@ -7,7 +7,6 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Image from 'react-bootstrap/Image';
 import profileImg from '../../assets/profileimg.jpg';
 import Modal from "react-bootstrap/Modal";
-import './NavBar.css';
 import { TextField } from '@mui/material';
 import Button from "react-bootstrap/Button";
 import Select from "react-select";
@@ -16,6 +15,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import './NavBar.css';
 
 
 const NavBar = () => {
@@ -168,7 +168,7 @@ const NavBar = () => {
         <Modal.Header closeButton>
           <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='add-modal'>
           <form>
             <div>
               {modalTitle === "Add Components" && (
@@ -179,14 +179,13 @@ const NavBar = () => {
                   className="basic-multi-select"
                   classNamePrefix="select"
                   onChange={(selectedOptions) => {
-                    // Update the selected component in formData
                     setFormData({
                       ...formData,
                       components1: selectedOptions.map(option => option.value),
 
                     });
                   }}
-                  value={formData.components1} // Display the selected value
+                  value={formData.components1}
                 />
 
               )}
@@ -248,7 +247,6 @@ const NavBar = () => {
                   onChange={(selectedOptions) => {
                     setFormData({
                       ...formData,
-                      // quoteOptions2: selectedOptions.value,
                       quoteOptions2: selectedOptions.map(option => option.value),
                     });
                   }}

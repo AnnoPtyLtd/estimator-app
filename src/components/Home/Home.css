@@ -2,12 +2,10 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  /* Add this line to include padding and borders in width calculations */
 }
 
 body {
   margin: 0;
-  background-color: #404258;
 }
 
 .home {
@@ -19,7 +17,6 @@ body {
   background-image: url('../../assets/main-bg2.png');
   background-position: center center;
   background-repeat: no-repeat;
-
 }
 
 .left-panel {
@@ -28,7 +25,6 @@ body {
   flex-direction: column;
   justify-content: center;
   padding-left: 10px;
-  height: 100%;
 }
 
 .right-panel {
@@ -36,9 +32,11 @@ body {
   flex-direction: column;
   flex: 1;
   z-index: 1;
+
 }
 
 .quote-section {
   display: flex;
   flex-direction: row;
 }
+
