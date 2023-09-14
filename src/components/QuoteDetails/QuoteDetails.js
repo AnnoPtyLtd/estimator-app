@@ -102,7 +102,7 @@ const QuoteDetails = () => {
           onClick={handleAddRecord}
           className='add-component-btn'
         >
-          Add Record
+          Add Build
         </motion.button>
       </div>
       <div className='quote-details-components'>

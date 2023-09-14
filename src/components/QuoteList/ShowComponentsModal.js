@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import './QuoteList.css';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
+import './QuoteList.css';
 
 const ShowComponentsModal = ({ show, onHide, category }) => {
   const [components, setComponents] = useState([]);
@@ -15,7 +15,7 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
         if (response.ok) {
           const data = await response.json();
           setComponents(data);
-          setIsLoading(false); 
+          setIsLoading(false);
         } else {
           console.log('Error fetching components');
         }
@@ -25,7 +25,7 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
     };
 
     if (show) {
-      setIsLoading(true); 
+      setIsLoading(true);
       fetchComponents();
     }
   }, [show, category]);
@@ -36,7 +36,7 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
         <Modal.Title>{category} Components</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {isLoading ? ( 
+        {isLoading ? (
           <Box sx={{ width: 300 }}>
             <Skeleton />
             <Skeleton animation="wave" />
@@ -45,7 +45,10 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
         ) : (
           <ul className='comp-names'>
             {components.map((component) => (
-              <li key={component._id}>{component.componentName}</li>
+              <li className='comp-names-item' key={component._id}>
+                <p>{component.componentName}</p>
+                <p className='item-cost'>Price: {component.componentCost}$</p>
+              </li>
             ))}
           </ul>
         )}

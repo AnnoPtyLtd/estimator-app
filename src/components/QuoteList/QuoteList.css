@@ -120,3 +120,12 @@
     padding: 10px;
     border: 1px solid gray;
 }
+.item-cost{
+    font-weight: bold;
+}
+
+.comp-names-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

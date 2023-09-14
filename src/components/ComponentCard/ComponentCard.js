@@ -4,6 +4,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Skeleton from '@mui/material/Skeleton';
+import { motion } from 'framer-motion';
+
 
 const ComponentCard = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -12,10 +14,9 @@ const ComponentCard = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate fetching data
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Simulate a 2-second delay
+    }, 1500);
   }, []);
 
   const handleEditClick = () => {
@@ -49,7 +50,6 @@ const ComponentCard = (props) => {
   return (
     <div className='component-card-container'>
       {isLoading ? (
-        // Render Skeleton components while loading
         <>
           <Skeleton variant="text" width={200} height={40} />
           <div className='component-detail'>
@@ -69,7 +69,6 @@ const ComponentCard = (props) => {
           </div>
         </>
       ) : (
-        // Render actual content when data is loaded
         <>
           <h3 className='component-card-title'>{props.title}</h3>
           <div className='component-detail'>
@@ -112,6 +111,16 @@ const ComponentCard = (props) => {
               value={newCost}
               onChange={(e) => setNewCost(e.target.value)}
             />
+          </div>
+          <div className='modalbody-item'>
+            <motion.button
+              whileTap={{ scale: 0.99 }}
+              whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
+              transition={{ duration: 0.2 }}
+              className='add-component-btn'
+            >
+              Add Components
+            </motion.button>
           </div>
         </Modal.Body>
         <Modal.Footer>

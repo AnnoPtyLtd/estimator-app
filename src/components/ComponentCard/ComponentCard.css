@@ -67,13 +67,15 @@
 .edit-record-modalbody{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    min-height: 300px;
 }
 .edit-record-modalbody input{
     margin: 5px;
     align-items: center;
     padding: 5px;
 }
-.modalbody-item{
-    margin: 10px;
+.modalbody-item button{
+    margin: 0px;
+    padding: 0px;
+    background-color: red;
 }
