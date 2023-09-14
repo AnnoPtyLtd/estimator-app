@@ -19,6 +19,14 @@ body {
   background-repeat: no-repeat;
 }
 
+.home::-webkit-scrollbar {
+  display: none;
+}
+.home {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .left-panel {
   z-index: 1;
   display: flex;

@@ -75,7 +75,79 @@
     padding: 5px;
 }
 .modalbody-item button{
-    margin: 0px;
-    padding: 0px;
-    background-color: red;
+    padding: 5px;
+    margin-left: 0px;
+    width: max-content;
 }
+.modalbody-item p{
+    margin: 0px;
+    font-weight: bold;
+}
+.modalbody-item ul{
+    list-style-type: none;
+    font-size: 14px;
+}
+
+.modalbody-item:nth-child(3){
+    margin-top: 15px;
+}
+
+.custom-modal-dialog {
+    max-width: 30%; /* Adjust the width as needed, e.g., 80% of the viewport width */
+  }
+/* Header */
+.custom-modal-header {
+    background-color: #007bff; /* Set your desired background color for the header */
+    color: #fff; /* Set your desired text color for the header */
+  }
+  
+  /* Body */
+  .custom-modal-body {
+    max-height: 300px;
+    background-color: #f8f9fa; /* Set your desired background color for the body */
+    color: #333; /* Set your desired text color for the body */
+    overflow-y: hidden ;
+  }
+  
+  /* Footer */
+  .custom-modal-footer {
+    background-color: #f8f9fa; /* Set your desired background color for the footer */
+    border-top: 1px solid #dee2e6; /* Add a border at the top of the footer */
+  }
+  
+  /* Additional styles for other elements can be added here */
+  
+
+
+  .modalbody-item-text{
+    display: flex;
+    justify-content: space-between;
+}
+.add-comp-names {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  max-height: 160px;
+  min-height: 160px;
+  overflow-y: scroll;
+  
+}
+
+
+.add-comp-item {
+  display: flex;
+  border-radius: 10px;
+  background-color: skyblue;
+  margin: 2px;
+  padding: 10px;
+  justify-content: space-between;
+}
+.add-comp-item:hover {
+  background-color: #007bff;
+  cursor: pointer;
+}
+.add-comp-item p{
+ margin: 0;
+ padding: 0;
+}
+

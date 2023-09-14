@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './ComponentCard.css';
 import EditIcon from '@mui/icons-material/Edit';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import Skeleton from '@mui/material/Skeleton';
-import { motion } from 'framer-motion';
-
+import AddCompBuildModal from './AddCompBuildModal';
+import EditBuildModal from './EditBuildModal'; // Update the path as needed
 
 const ComponentCard = (props) => {
-  const [showModal, setShowModal] = useState(false);
+
   const [newTitle, setNewTitle] = useState('');
-  const [newCost, setNewCost] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [addComponentModalShow, setAddComponentModalShow] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,7 +34,7 @@ const ComponentCard = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newTitle: newTitle, newCost: newCost }),
+      body: JSON.stringify({ newTitle: newTitle }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -45,6 +44,14 @@ const ComponentCard = (props) => {
       .catch((error) => {
         console.error('Error updating title:', error);
       });
+  };
+
+
+  const handleAddComponentModalShow = () => {
+    setAddComponentModalShow(true);
+  };
+  const handleAddComponentModalClose = () => {
+    setAddComponentModalShow(false);
   };
 
   return (
@@ -91,47 +98,22 @@ const ComponentCard = (props) => {
         </>
       )}
 
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Record</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className='edit-record-modalbody'>
-          <div className='modalbody-item'>
-            <label>Edit Title:</label>
-            <input
-              type='text'
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-            />
-          </div>
-          <div className='modalbody-item'>
-            <label>Edit Cost:</label>
-            <input
-              type='number'
-              value={newCost}
-              onChange={(e) => setNewCost(e.target.value)}
-            />
-          </div>
-          <div className='modalbody-item'>
-            <motion.button
-              whileTap={{ scale: 0.99 }}
-              whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
-              transition={{ duration: 0.2 }}
-              className='add-component-btn'
-            >
-              Add Components
-            </motion.button>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button variant='primary' onClick={handleSaveChanges}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <EditBuildModal
+        show={showModal}
+        onHide={handleCloseModal}
+        newTitle={newTitle}
+        setNewTitle={setNewTitle}
+        handleSaveChanges={handleSaveChanges}
+        handleAddComponentModalShow={handleAddComponentModalShow}
+        comps={props.comps}
+        overallcost={props.cost}
+      />
+
+      <AddCompBuildModal
+        show={addComponentModalShow}
+        onHide={handleAddComponentModalClose}
+        recordID={props.id}
+      />
     </div>
   );
 };

@@ -6,10 +6,11 @@ import './QuoteDetails.css';
 const QuoteDetails = () => {
   const [records, setRecords] = useState([]);
   const [name, setName] = useState('');
-  const [quoteType, setQuoteType] = useState('choosequote');
+  const [quoteType, setQuoteType] = useState('Gaming PC');
   const [quoteType2, setQuoteType2] = useState('Gaming PC');
   const [quoteDate, setQuoteDate] = useState('');
   const [quoteCost, setQuoteCost] = useState(0);
+  const [quoteComps, setQuoteComps] = useState([]);
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -36,15 +37,16 @@ const QuoteDetails = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, quoteType, quoteDate, quoteCost }),
+        body: JSON.stringify({ name, quoteType, quoteDate, quoteCost,quoteComps }),
       });
 
       if (response.status === 201) {
         alert('Record saved successfully');
         setName('');
-        setQuoteType('choosequote');
+        setQuoteType('Gaming PC');
         setQuoteDate('');
         setQuoteCost(0);
+        setQuoteComps([]);
       } else {
         const data = await response.json();
         alert(data.error || 'Failed to save record');
@@ -122,7 +124,7 @@ const QuoteDetails = () => {
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.2 }}
             >
-              <ComponentCard title={record.name} cost={record.quoteCost} id={record._id}></ComponentCard>
+              <ComponentCard title={record.name} cost={record.quoteCost} id={record._id} comps={record.quoteComps} ></ComponentCard>
             </motion.div>
           ))}
         </div>

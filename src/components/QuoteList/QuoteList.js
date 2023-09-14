@@ -1,9 +1,11 @@
-import './QuoteList.css';
 import React, { useState } from 'react';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { motion } from 'framer-motion';
 import AddComponentModal from './AddComponentModal';
 import ShowComponentsModal from './ShowComponentsModal';
+import SearchResultModal from './SearchResultModal'; // Create this modal component
+import './QuoteList.css';
+
 
 const QuoteList = () => {
 
@@ -11,12 +13,19 @@ const QuoteList = () => {
   const [compName, setCompName] = useState('');
   const [compPrice, setCompPrice] = useState(0);
   const [compDate, setCompDate] = useState('');
-
-
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
+  const [showComponentsModal, setShowComponentsModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  // State for search functionality
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState({ records: [], components: [] });
+  const [showSearchResultsModal, setShowSearchResultsModal] = useState(false);
+
   const handleAddComponentModalShow = () => {
     setAddComponentModalShow(true);
   };
+
   const handleAddComponentModalClose = () => {
     setAddComponentModalShow(false);
   };
@@ -37,7 +46,7 @@ const QuoteList = () => {
         body: JSON.stringify(componentData),
       });
       if (response.ok) {
-        setAddComponentModalShow(false); // Close the modal
+        setAddComponentModalShow(false);
       } else {
         console.log('Error in saving component!')
       }
@@ -45,10 +54,6 @@ const QuoteList = () => {
       console.error(error);
     }
   };
-
-  // code for showing components
-  const [showComponentsModal, setShowComponentsModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleShowComponentsModal = (category) => {
     setSelectedCategory(category);
@@ -58,16 +63,38 @@ const QuoteList = () => {
   const handleCloseComponentsModal = () => {
     setShowComponentsModal(false);
   };
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
+      console.log(searchResults)
+      console.log(searchResults.records)
+      if (response.ok) {
+        const data = await response.json();
+        setSearchResults(data);
+        console.log(searchResults)
+      console.log(searchResults.records)
+        setShowSearchResultsModal(true);
+      } else {
+        console.log('Error in searching');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
   return (
     <div className='quote-list-container'>
       <div className='quote-list-title'>
-        <p>Components list</p>
+        <p>Available Components</p>
       </div>
       <div className='search-field'>
-        <input type='search' placeholder='Search...' />
-        <SearchOutlinedIcon className='search-icon' />
+        <input
+          type='search'
+          placeholder='Search...'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} />
+        <SearchOutlinedIcon className='search-icon' onClick={handleSearch} />
       </div>
       <div className='quote-list'>
 
@@ -122,6 +149,12 @@ const QuoteList = () => {
         show={showComponentsModal}
         onHide={handleCloseComponentsModal}
         category={selectedCategory}
+      />
+
+      <SearchResultModal
+        show={showSearchResultsModal}
+        onHide={() => setShowSearchResultsModal(false)}
+        searchResults={searchResults}
       />
     </div>
   );

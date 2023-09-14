@@ -43,6 +43,7 @@ const signinRoute = require('./routes/signin');
 const saveRecordRoute = require('./routes/records');
 const saveNewComponentRoute = require('./routes/save-newcomponent'); 
 const getComponentsRoute = require('./routes/get-components');
+const getSearchItems = require('./routes/search');
 
 // Use route files
 app.use(signupRoute);
@@ -50,6 +51,7 @@ app.use(signinRoute);
 app.use(saveRecordRoute);
 app.use(saveNewComponentRoute);
 app.use(getComponentsRoute);
+app.use(getSearchItems);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");

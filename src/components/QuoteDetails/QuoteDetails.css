@@ -122,3 +122,8 @@ input[type=text] {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+
+
+  #dropdown2:hover,#dropdown:hover{
+    cursor: pointer;
+}

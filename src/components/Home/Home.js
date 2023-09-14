@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { useAuth } from '../../AuthContext'; // Import the useAuth hook
 import QuoteList from '../QuoteList/QuoteList';
 import Topbar from '../Topbar/Topbar';
@@ -11,12 +9,12 @@ import './Home.css';
 import NavBar from '../NavBar/NavBar';
 
 const Home = () => {
-  const { isAuthenticated } = useAuth(); // Get the isAuthenticated value from context
+  // const { isAuthenticated } = useAuth(); // Get the isAuthenticated value from context
 
-  const navigate = useNavigate();
-  if (!isAuthenticated) {
-    navigate('/home')
-  }
+  // const navigate = useNavigate();
+  // if (!isAuthenticated) {
+  //   navigate('/home')
+  // }
 
   return (
     <div className='home'>
@@ -28,6 +26,7 @@ const Home = () => {
       <div className='quote-section'>
         <QuoteList />
         <QuoteDetails />
+        <QuoteList/>
       </div>
       </div>
     </div>

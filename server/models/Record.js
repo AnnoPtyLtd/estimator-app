@@ -6,6 +6,8 @@ const recordSchema = new mongoose.Schema({
   quoteType:String,
   quoteDate:Date,
   quoteCost:Number,
+  quoteComps:String,
+
 });
 
 
@@ -13,3 +15,4 @@ const Record = mongoose.model('records',recordSchema);
 
 
 module.exports = Record;
+
