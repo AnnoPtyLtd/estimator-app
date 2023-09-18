@@ -3,7 +3,10 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { motion } from 'framer-motion';
 import AddComponentModal from './AddComponentModal';
 import ShowComponentsModal from './ShowComponentsModal';
-import SearchResultModal from './SearchResultModal'; // Create this modal component
+import SearchResultModal from './SearchResultModal';
+import RemoveComponentModal from './RemoveComponentModal';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import './QuoteList.css';
 
 
@@ -17,10 +20,11 @@ const QuoteList = () => {
   const [showComponentsModal, setShowComponentsModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // State for search functionality
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState({ records: [], components: [] });
   const [showSearchResultsModal, setShowSearchResultsModal] = useState(false);
+  const [removeComponentModalShow, setRemoveComponentModalShow] = useState(false);
+
 
   const handleAddComponentModalShow = () => {
     setAddComponentModalShow(true);
@@ -29,7 +33,19 @@ const QuoteList = () => {
   const handleAddComponentModalClose = () => {
     setAddComponentModalShow(false);
   };
+  const handleRemoveComponentModalShow = () => {
+    setRemoveComponentModalShow(true);
+  };
 
+  const handleRemoveComponentModalClose = () => {
+    setRemoveComponentModalShow(false);
+  };
+  const removeComponent = async () => {
+    // Perform the removal logic here
+    // You can send a request to your server to remove the component
+    // After successful removal, you can close the modal
+    setRemoveComponentModalShow(false);
+  };
   const saveComponent = async () => {
     const componentData = {
       componentCategory: category,
@@ -72,7 +88,7 @@ const QuoteList = () => {
         const data = await response.json();
         setSearchResults(data);
         console.log(searchResults)
-      console.log(searchResults.records)
+        console.log(searchResults.records)
         setShowSearchResultsModal(true);
       } else {
         console.log('Error in searching');
@@ -81,7 +97,6 @@ const QuoteList = () => {
       console.error(error);
     }
   };
-
 
   return (
     <div className='quote-list-container'>
@@ -114,7 +129,7 @@ const QuoteList = () => {
               whileHover={{ scale: 1.1, color: 'white' }}
               whileTap={{ scale: 1.05 }}
               transition={{ duration: 0.1 }}
-              onClick={() => handleShowComponentsModal(category)} // Add an onClick handler
+              onClick={() => handleShowComponentsModal(category)} 
             >
               {category}
             </motion.li>
@@ -125,11 +140,20 @@ const QuoteList = () => {
       <motion.button
         whileTap={{ scale: 0.99 }}
         whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
-        transition={{ duration: 0.2 }}
-        className='add-component-btnq'
+        transition={{ duration: 0.5 }}
+        className='component-btnq'
         onClick={handleAddComponentModalShow}
       >
-        Add Components
+        <AddIcon /> components
+      </motion.button>
+      <motion.button
+        whileTap={{ scale: 0.99 }}
+        whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
+        transition={{ duration: 0.5 }}
+        className='component-btnq'
+        onClick={handleRemoveComponentModalShow}
+      >
+        <RemoveIcon /> components
       </motion.button>
 
       <AddComponentModal
@@ -155,6 +179,12 @@ const QuoteList = () => {
         show={showSearchResultsModal}
         onHide={() => setShowSearchResultsModal(false)}
         searchResults={searchResults}
+      />
+      <RemoveComponentModal
+        show={removeComponentModalShow}
+        onHide={handleRemoveComponentModalClose}
+        category={selectedCategory}
+        removeComponent={removeComponent}
       />
     </div>
   );

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import './ComponentCard.css';
+import DeleteForever from '@mui/icons-material/Delete';
+import './QuoteList.css';
 
-const AddComponentModal = ({ show, onHide, recordID }) => {
+const RemoveComponentModal = ({ show, onHide, category, removeComponent }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
-    const [selectedComponents, setSelectedComponents] = useState([]);
 
     useEffect(() => {
         const fetchComponents = async () => {
@@ -28,40 +28,29 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
         }
     }, [show, categoryComp]);
 
-    const handleComponentSelection = (componentName) => {
-        if (selectedComponents.includes(componentName)) {
-            setSelectedComponents((prevSelectedComponents) =>
-                prevSelectedComponents.filter((component) => component !== componentName)
-            );
-        } else {
-            setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
+    const removeComponentFromDB = async (componentId) => {
+        try {
+            const response = await fetch(`http://localhost:4000/remove-component?id=${componentId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                console.log('Component removed successfully');
+                setComponents((prevComponents) =>
+                    prevComponents.filter((component) => component._id !== componentId)
+                );
+            } else {
+                console.log('Error removing component');
+            }
+        } catch (error) {
+            console.error(error);
         }
     };
 
-    const handleSaveChanges = () => {
-        const recordId = recordID;
-
-        fetch(`http://localhost:4000/add-components-to-build/${recordId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ selectedComponents }), // Send selectedComponents as an array
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                onHide();
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    };
-
     return (
-        <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
-            <Modal.Header closeButton className="custom-modal-header">
-                <Modal.Title>Add Components</Modal.Title>
+        <Modal show={show} onHide={onHide} centered>
+            <Modal.Header closeButton>
+                <Modal.Title>Remove Component</Modal.Title>
             </Modal.Header>
             <Modal.Body className='custom-modal-body'>
                 <div className='modalbodycomp-item'>
@@ -81,15 +70,9 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
                     <ul className="add-comp-names">
                         {components.map((component) => (
                             <li className="add-comp-item" key={component._id}>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedComponents.includes(component.componentName)}
-                                        onChange={() => handleComponentSelection(component.componentName)}
-                                    />
-                                    {component.componentName}
-                                </label>
+                                <p>{component.componentName}</p>
                                 <p className="add-comp-cost">Price: {component.componentCost}$</p>
+                                <DeleteForever className='remove-btn' fontSize='large' onClick={() => removeComponentFromDB(component._id)}/>
                             </li>
                         ))}
                     </ul>
@@ -99,12 +82,10 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
                 <Button variant="secondary" onClick={onHide}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleSaveChanges}>
-                    Save Changes
-                </Button>
             </Modal.Footer>
         </Modal>
     );
 };
 
-export default AddComponentModal;
+export default RemoveComponentModal;
+

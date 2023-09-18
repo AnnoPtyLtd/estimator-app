@@ -1,0 +1,58 @@
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import './ComponentCard.css'
+
+const DuplicateQuoteModal = ({ show, onHide,title,cost,comps,type }) => {
+
+    const newRecord = {
+        name: title,
+        quoteType:type,
+        quoteDate: new Date().toISOString().split('T')[0],
+        quoteCost: cost,
+        quoteComps:comps,
+    }
+    const handleConfirm = async ()=>{
+        try {
+            const response = await fetch('http://localhost:4000/saverecord', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newRecord),
+            });
+      
+            if (response.status === 201) {
+              alert('Record saved successfully');
+              onHide();
+            } else {
+              const data = await response.json();
+              alert(data.error || 'Failed to save record');
+            }
+          } catch (error) {
+            console.error(error);
+            alert('An error occurred');
+          }
+    }
+    return (
+        <Modal show={show} onHide={onHide}>
+            <Modal.Header closeButton className="custom-modal-header">
+                <Modal.Title>Duplicate Quote</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div >
+                    <p>Are you sure you want to duplicate "{title}" quote!</p>
+                </div>
+            </Modal.Body>
+            <Modal.Footer className="custom-modal-footer">
+                <Button variant="secondary" onClick={onHide}>
+                    No
+                </Button>
+                <Button variant="primary" onClick={handleConfirm}>
+                    Yes
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    );
+};
+
+export default DuplicateQuoteModal;

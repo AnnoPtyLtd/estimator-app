@@ -37,21 +37,24 @@ UserSchema.methods.comparePassword = async function (password) {
 const User = mongoose.model('users', UserSchema);
 User.createIndexes();
 
-// Import route files
 const signupRoute = require('./routes/signup');
 const signinRoute = require('./routes/signin');
 const saveRecordRoute = require('./routes/records');
-const saveNewComponentRoute = require('./routes/save-newcomponent'); 
-const getComponentsRoute = require('./routes/get-components');
+const saveNewComponentRoute = require('./routes/save-component'); 
+const getComponentsRoute = require('./routes/get-component');
 const getSearchItems = require('./routes/search');
+const removeComponentRoute = require('./routes/remove-component');
+const archiveQuote = require('./routes/archive-record');
 
-// Use route files
+
 app.use(signupRoute);
 app.use(signinRoute);
 app.use(saveRecordRoute);
 app.use(saveNewComponentRoute);
 app.use(getComponentsRoute);
 app.use(getSearchItems);
+app.use(removeComponentRoute);
+app.use(archiveQuote);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");

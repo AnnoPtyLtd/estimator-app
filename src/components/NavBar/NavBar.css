@@ -158,7 +158,45 @@
   font-size: 14px;
 }
 
+.uploadfile-box {
+  min-height: 50vh;
+  text-align: center;
+  overflow: hidden;
+}
 
-.add-modal{
-  min-height: 400px;  
+.uploadfile-modalbody {
+  min-height: 300px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 3px solid black;
+  border-style: dashed;
+  margin: 50px 50px;
+  padding: 50px 0px;
+  text-align: center;
+
+}
+
+.uploadfile-modalbody img {
+  height: 80px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.uploadfile-text {
+  width: 50%;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+
+}
+
+.file-input-field {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+ padding: 10px 10px 10px 10%;
 }

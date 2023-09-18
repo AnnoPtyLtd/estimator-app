@@ -26,7 +26,6 @@ const Home = () => {
       <div className='quote-section'>
         <QuoteList />
         <QuoteDetails />
-        <QuoteList/>
       </div>
       </div>
     </div>

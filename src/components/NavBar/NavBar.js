@@ -15,14 +15,25 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import UploadFileModal from './UploadFileModal';
 import './NavBar.css';
 
 
 const NavBar = () => {
 
+  const [showUploadModal,setShowUploadModal] = useState(false);
+
+  const handleShowUploadModal=()=>{
+    setShowUploadModal(true);
+  }
+  const handleCloseUploadModal = () =>{
+    setShowUploadModal(false);
+  }
+
+
   const [activeMenuItem, setActiveMenuItem] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [modalTitle, setModalTitle] = useState(""); // Add state for modal title
+  const [modalTitle, setModalTitle] = useState("");
   const [formData, setFormData] = useState({
     components1: null,
     components2: null,
@@ -86,7 +97,6 @@ const NavBar = () => {
   const handleSaveChanges = () => {
     console.log("Form Data:", formData);
 
-    // Make an API request to save the formData
     fetch("http://localhost:4000/save-component", {
       method: "POST",
       headers: {
@@ -98,7 +108,6 @@ const NavBar = () => {
       .then((data) => {
         console.log(data);
         alert("Component saved successfully")
-        // Reset the form data or close the modal here if needed.
         setFormData({
           components1: [],
           components2: [],
@@ -123,36 +132,32 @@ const NavBar = () => {
       <ul className='menu-items'>
         <li
           className={`menu-item ${activeMenuItem === 0 ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick(0)}
-        >
+          onClick={() => handleMenuItemClick(0)}>
           <HomeIcon className='menu-icon' />
           <p>Home</p>
         </li>
         <li
           className={`menu-item ${activeMenuItem === 1 ? 'active' : ''}`}
-          onClick={() => handleShowQuote(1, 'Add Components')}
-        >
+          onClick={() => handleShowQuote(1, 'Add Components')}>
           <MemoryIcon className='menu-icon' />
           <p>Add component</p>
         </li>
         <li
           className={`menu-item ${activeMenuItem === 2 ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick(2)}
-        >
+          onClick={() => handleMenuItemClick(2)}>
           <SearchOutlinedIcon className='menu-icon' />
           <p>Search</p>
         </li>
         <li
           className={`menu-item ${activeMenuItem === 3 ? 'active' : ''}`}
-          onClick={() => handleShowQuote(3, 'ADD YOUR QUOTE')}
-        >
+          onClick={() => handleShowQuote(3, 'ADD YOUR QUOTE')}>
           <AddCircleIcon className='menu-icon' />
           <p>Add Quote</p>
         </li>
         <li
           className={`menu-item ${activeMenuItem === 4 ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick(4)}
-        >
+          // onClick={() => handleMenuItemClick(4)}>
+          onClick={() => { handleMenuItemClick(4); handleShowUploadModal();}}>
           <FileUploadOutlinedIcon className='menu-icon' />
           <p>Upload file</p>
         </li>
@@ -199,11 +204,10 @@ const NavBar = () => {
                   onChange={(selectedOptions) => {
                     setFormData({
                       ...formData,
-                      // quoteOptions1: selectedOptions.value,
                       quoteOptions1: selectedOptions.map(option => option.value),
                     });
                   }}
-                  value={formData.quoteOptions1} // Display the selected value
+                  value={formData.quoteOptions1}
                 />
               )}
               &nbsp;&nbsp;
@@ -234,7 +238,7 @@ const NavBar = () => {
                       components2: selectedOption.value,
                     });
                   }}
-                  value={formData.components2} // Display the selected value
+                  value={formData.components2}
                 />
               )}
               {modalTitle === "ADD YOUR QUOTE" && (
@@ -268,6 +272,8 @@ const NavBar = () => {
           <Button variant="danger" onClick={handleSaveChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
+
+      <UploadFileModal show={showUploadModal} onHide={handleCloseUploadModal} />
 
     </div>
 

@@ -7,40 +7,44 @@ import { AuthProvider, useAuth } from '../src/AuthContext'; // Import AuthProvid
 
 function App() {
   return (
-      <div className='app'>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-          </Routes>
-        </Router>
-      </div>
-
+  //   <AuthProvider>
+  //   <div className='app'>
+  //     <Router>
+  //       <Routes>
+  //         <Route path="/" element={<HomeProtected />} />
+  //         <Route path="/home" element={<HomeProtected />} />
+  //         <Route path="/signin" element={<Signin />} />
+  //         <Route path="/signup" element={<Signup />} />
+  //       </Routes>
+  //     </Router>
+  //   </div>
+  // </AuthProvider> 
+<Home/>
 
   );
 }
 
 export default App;
 
-// function HomeProtected() {
-//   const { isAuthenticated } = useAuth(); 
-//   if (!isAuthenticated) {
-//     return <Navigate to="/signin" />;
-//   }
+function HomeProtected() {
+  const { isAuthenticated } = useAuth(); 
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
 
-//   return <Home />;
-// }
+  return <Home />;
+}
 
 
-// <AuthProvider>
-//       <div className='app'>
-//         <Router>
-//           <Routes>
-//             <Route path="/" element={<HomeProtected />} />
-//             <Route path="/home" element={<HomeProtected />} />
-//             <Route path="/signin" element={<Signin />} />
-//             <Route path="/signup" element={<Signup />} />
-//           </Routes>
-//         </Router>
-//       </div>
-//     </AuthProvider> 
+{/* <AuthProvider>
+      <div className='app'>
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomeProtected />} />
+            <Route path="/home" element={<HomeProtected />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </Router>
+      </div>
+    </AuthProvider>  */}

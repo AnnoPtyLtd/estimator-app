@@ -124,7 +124,7 @@ const QuoteDetails = () => {
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.2 }}
             >
-              <ComponentCard title={record.name} cost={record.quoteCost} id={record._id} comps={record.quoteComps} ></ComponentCard>
+              <ComponentCard title={record.name} cost={record.quoteCost} id={record._id} comps={record.quoteComps} type={record.quoteType} ></ComponentCard>
             </motion.div>
           ))}
         </div>
