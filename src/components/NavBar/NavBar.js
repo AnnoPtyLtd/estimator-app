@@ -156,7 +156,6 @@ const NavBar = () => {
         </li>
         <li
           className={`menu-item ${activeMenuItem === 4 ? 'active' : ''}`}
-          // onClick={() => handleMenuItemClick(4)}>
           onClick={() => { handleMenuItemClick(4); handleShowUploadModal();}}>
           <FileUploadOutlinedIcon className='menu-icon' />
           <p>Upload file</p>

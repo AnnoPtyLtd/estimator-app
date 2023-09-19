@@ -1,26 +1,61 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import uploadImg from '../../assets/upload.png'
-import './NavBar.css'
-
+import uploadImg from '../../assets/upload.png';
+import ShowCSVdata from './ShowCSVdata';
+import './NavBar.css';
 
 const UploadFileModal = ({ show, onHide }) => {
-
     const [selectedFile, setSelectedFile] = useState(null);
+    const [showCSVdataModal, setShowCSVdataModal] = useState(false);
+    const [jsonData, setJsonData] = useState(null);
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
     };
 
     const handleUpload = () => {
-        console.log(selectedFile);
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const csvData = event.target.result;
+                const jsonData = convertCSVToJson(csvData);
+                setJsonData(jsonData);
+            };
+            reader.readAsText(selectedFile);
+        }
+        onHide();
+        setShowCSVdataModal(true);
+    };
+
+    const convertCSVToJson = (csvData) => {
+        const lines = csvData.split('\n');
+        const headers = lines[0].split(',');
+        const jsonObjects = [];
+
+        for (let i = 1; i < lines.length; i++) {
+            const currentLine = lines[i].split(',');
+            const jsonObject = {};
+
+            for (let j = 0; j < headers.length; j++) {
+                jsonObject[headers[j]] = currentLine[j];
+            }
+
+            jsonObjects.push(jsonObject);
+        }
+
+        return jsonObjects;
     };
 
     const handleOnClose = () => {
         setSelectedFile(null);
         onHide();
     };
+
+    const handleCloseCSVModal = () => {
+        setShowCSVdataModal(false);
+    };
+
     return (
         <div>
             <Modal
@@ -40,7 +75,7 @@ const UploadFileModal = ({ show, onHide }) => {
                             <img src={uploadImg} alt="upload here" />
                             <h5>Upload your file</h5>
                         </div>
-                        <div className='file-input-field'>
+                        <div className="file-input-field">
                             <input type="file" accept=".csv" onChange={handleFileChange} />
                         </div>
                         <Button onClick={handleUpload} disabled={!selectedFile}>
@@ -52,8 +87,16 @@ const UploadFileModal = ({ show, onHide }) => {
                     <Button onClick={handleOnClose}>Close</Button>
                 </Modal.Footer>
             </Modal>
-        </div>
-    )
-}
 
-export default UploadFileModal
+            {jsonData && (
+                <ShowCSVdata
+                    show={showCSVdataModal}
+                    onHide={handleCloseCSVModal}
+                    data={jsonData}
+                />
+            )}
+        </div>
+    );
+};
+
+export default UploadFileModal;

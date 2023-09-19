@@ -118,9 +118,11 @@
     flex-direction: row;
     justify-content: space-between;
 }
-#comp-date{
+
+#comp-date {
     padding-left: 10px;
 }
+
 .modalbody-textfield {
     padding: 10px;
 }
@@ -189,4 +191,44 @@
     color: white;
     min-height: 500px !important;
     overflow-y: scroll;
+}
+
+.comp-price-archive {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comp-price-archive Button {
+    padding: 0;
+    background-color: transparent;
+    margin: 0;
+}
+
+.comp-price-archive p {
+    margin-right: 5px;
+}
+
+.archive-icon {
+    padding: 5px;
+    border: none;
+    color: gray;
+    border-radius: 5px;
+    transition: 0.5s ease;
+}
+
+.archive-icon:hover {
+    cursor: pointer;
+    transition: 0.5s ease;
+    background-color: rgb(255, 194, 194);
+}
+
+.delete-icon{
+    margin-left: 5px;
+    color: rgb(255, 51, 51);
+}
+.delete-icon:hover{
+    cursor: pointer;
+    transition: 0.5s ease;
+    background-color: rgb(255, 194, 194);
 }

@@ -1,23 +1,24 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import './ComponentCard.css'
+import './QuoteList.css'
 
-const ArchiveModal = ({ show, onHide, recordID,title }) => {
+const ArchiveComponentModal = ({ show, onHide,componentID,componentName }) => {
 
     const handleClose = () => {
         onHide();
     }
+
     const handleArchiveConfirm = async () => {
-        fetch(`http://localhost:4000/archive-record/${recordID}`, {
+        fetch(`http://localhost:4000/archive-component/${componentID}`, {
             method: 'PUT',
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Record archived:', data.message);
-                alert('Record archived successfully');
+                console.log('Component archived:', data.message);
+                alert('Component archived successfully');
             })
             .catch((error) => {
-                console.error('Error archiving record:', error);
+                console.error('Error archiving component:', error);
             });
         onHide(); 
     }
@@ -25,11 +26,11 @@ const ArchiveModal = ({ show, onHide, recordID,title }) => {
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton className="custom-modal-header">
-                <Modal.Title>Archive Quote</Modal.Title>
+                <Modal.Title>Archive Component</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div >
-                    <p>Are you sure you want to archive {title} quote!</p>
+                    <p>Are you sure you want to archive {componentName} component!</p>
                 </div>
             </Modal.Body>
             <Modal.Footer className="custom-modal-footer">
@@ -44,4 +45,4 @@ const ArchiveModal = ({ show, onHide, recordID,title }) => {
     );
 };
 
-export default ArchiveModal;
+export default ArchiveComponentModal;

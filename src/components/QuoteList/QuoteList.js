@@ -41,9 +41,6 @@ const QuoteList = () => {
     setRemoveComponentModalShow(false);
   };
   const removeComponent = async () => {
-    // Perform the removal logic here
-    // You can send a request to your server to remove the component
-    // After successful removal, you can close the modal
     setRemoveComponentModalShow(false);
   };
   const saveComponent = async () => {

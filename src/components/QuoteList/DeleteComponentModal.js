@@ -1,42 +1,44 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import './ComponentCard.css'
+import './QuoteList.css'
 
-const ArchiveModal = ({ show, onHide, recordID,title }) => {
+const DeleteComponentModal = ({ show, onHide,componentID,componentName,closeBox }) => {
 
     const handleClose = () => {
         onHide();
     }
-    const handleArchiveConfirm = async () => {
-        fetch(`http://localhost:4000/archive-record/${recordID}`, {
-            method: 'PUT',
+
+    const handleDeleteConfirm = async () => {
+        fetch(`http://localhost:4000/delete-component/${componentID}`, {
+            method: 'DELETE',
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Record archived:', data.message);
-                alert('Record archived successfully');
+                console.log('Component delete:', data.message);
+                alert('Component delete successfully');
             })
             .catch((error) => {
-                console.error('Error archiving record:', error);
+                console.error('Error archiving component:', error);
             });
         onHide(); 
+        closeBox();
     }
 
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton className="custom-modal-header">
-                <Modal.Title>Archive Quote</Modal.Title>
+                <Modal.Title>Delete Component</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div >
-                    <p>Are you sure you want to archive {title} quote!</p>
+                    <p>Are you sure you want to delete component {componentName}?</p>
                 </div>
             </Modal.Body>
             <Modal.Footer className="custom-modal-footer">
                 <Button variant="secondary" onClick={handleClose}>
                     No
                 </Button>
-                <Button variant="primary" onClick={handleArchiveConfirm} >
+                <Button variant="primary" onClick={handleDeleteConfirm} >
                     Yes
                 </Button>
             </Modal.Footer>
@@ -44,4 +46,4 @@ const ArchiveModal = ({ show, onHide, recordID,title }) => {
     );
 };
 
-export default ArchiveModal;
+export default DeleteComponentModal;
