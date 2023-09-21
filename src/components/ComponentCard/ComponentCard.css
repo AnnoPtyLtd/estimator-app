@@ -1,156 +1,129 @@
-.component-card-container{
-    display: flex;
-    flex-direction: column;
-    color: white;
-    margin: 10px 20px;
-
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    border:1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
+.component-card-container {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  margin: 10px 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
 }
 
-.component-card-container:hover{
-    transition: 0.4s;
-    cursor: pointer;
-    border: none;
-    border:1px solid rgba(255, 255, 255, 0.18);
-
-    box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+.component-card-container:hover {
+  transition: 0.4s;
+  cursor: pointer;
+  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
 }
+
 .component-card-title {
-    font-weight: 400;
-    margin: 10px;
-    font-size: 18px;
-    color: #8CABFF;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-grow: 1;
-  }
-.component-detail{
-    display: flex;
-    text-align: center;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 50px;
+  font-weight: 400;
+  margin: 10px;
+  font-size: 18px;
+  color: #8CABFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
 }
 
-.component-detail-item{
-    display: flex;
-    flex-direction: column;
-    margin-right: 10%;
-}
-.detail-type{
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-   
-}
-.detail-name{
-    margin: 0;
-    font-size: 12px;
-    font-weight: 400;
-    background-color: rgb(66, 142, 242);
-    border-radius: 5px;
-    padding: 2px 4px;
-    margin: 5px;
-}
-.component-detail-item p{
-    margin: 0;
+.component-detail {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px;
 }
 
-.edit-button {
-    position: absolute;
-    right: 0;
-    height: 40px;
-    top: 0;
-    border-top-right-radius: 18px;
-    margin: 5px 5px;
-    background-color: #4D2DB7;
-  }
-.archive-button {
-    position: absolute;
-    right: 0;
-    top: 50px;
-    margin: 5px 5px;
-    border-bottom-right-radius: 18px;
-
-    background-color: #4D2DB7;
-  }
-.duplicate-button{
-    position: absolute;
-    right: 50px;
-    bottom: 0;
-    margin-bottom: 10px;
-    background-color: #4D2DB7;
-}
-.edit-button:hover{
-    background-color: #64CCC5;
-}
-.archive-button:hover{
-    background-color: #64CCC5;
-}
-.duplicate-button:hover{
-    background-color: #64CCC5;
+.component-detail-item {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10%;
 }
 
-.edit-record-modalbody{
-    display: flex;
-    flex-direction: column;
-    min-height: 300px;
-}
-.edit-record-modalbody input{
-    margin: 5px;
-    align-items: center;
-    padding: 5px;
-}
-.modalbody-item button{
-    padding: 5px;
-    margin-left: 0px;
-    width: max-content;
-}
-.modalbody-item p{
-    margin: 0px;
-    font-weight: bold;
-}
-.modalbody-item ul{
-    list-style-type: none;
-    font-size: 14px;
+.detail-type {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+
 }
 
-.modalbody-item:nth-child(3){
-    margin-top: 15px;
+.detail-name {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgb(66, 142, 242);
+  border-radius: 5px;
+  padding: 2px 4px;
+  margin: 5px;
+}
+
+.component-detail-item p {
+  margin: 0;
+}
+
+.edit-record-modalbody {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.edit-record-modalbody input {
+  margin: 5px;
+  align-items: center;
+  padding: 5px;
+}
+
+.modalbody-item button {
+  padding: 5px;
+  margin-left: 0px;
+  width: max-content;
+}
+
+.modalbody-item p {
+  margin: 0px;
+  font-weight: bold;
+}
+
+.modalbody-item ul {
+  list-style-type: none;
+  font-size: 14px;
+}
+
+.modalbody-item:nth-child(3) {
+  margin-top: 15px;
 }
 
 .custom-modal-dialog {
-    max-width: 30%;
-  }
+  max-width: 30%;
+}
 
 .custom-modal-header {
-    background-color: #007bff; 
-    color: #fff; 
-  }
-  
- 
-  .custom-modal-body {
-    max-height: 300px;
-    background-color: #f8f9fa; 
-    color: #333; 
-    overflow-y: hidden ;
-  }
-  
-  .custom-modal-footer {
-    background-color: #f8f9fa; 
-    border-top: 1px solid #dee2e6; 
-  }
-  
-.modalbody-item-text{
-    display: flex;
-    justify-content: space-between;
+  background: radial-gradient(circle at 10% 20%, rgb(34, 102, 138) 0%, rgb(154, 118, 255) 80.6%);
+  color: #fff;
 }
+
+
+.custom-modal-body {
+  max-height: 300px;
+  background-color: #f8f9fa;
+  color: #333;
+  overflow-y: hidden;
+}
+
+.custom-modal-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+
+.modalbody-item-text {
+  display: flex;
+  justify-content: space-between;
+}
+
 .add-comp-names {
   display: flex;
   flex-direction: column;
@@ -158,9 +131,8 @@
   max-height: 160px;
   min-height: 160px;
   overflow-y: scroll;
-  
-}
 
+}
 
 .add-comp-item {
   display: flex;
@@ -170,30 +142,135 @@
   padding: 10px;
   justify-content: space-between;
 }
+
 .add-comp-item:hover {
   background-color: #007bff;
   cursor: pointer;
 }
-.add-comp-item p{
- margin: 0;
- padding: 0;
+
+.add-comp-item p {
+  margin: 0;
+  padding: 0;
+}
+
+.modalbox {
+  position: 'absolute';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+
+  border: 2px solid #000;
+  box-shadow: 2px black;
 }
 
 
-.modalbox {
-    position: 'absolute';
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400;
-    
-    border: 2px solid #000;
-    box-shadow: 2px black;
-  };
 
-  .card-top-div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  
-  }
+.card-top-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+
+/* NEW CSS*/
+.component-card-containerm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  margin: 10px 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
+}
+
+
+.component-card-containerm:hover {
+  transition: 0.4s;
+  cursor: pointer;
+  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+}
+
+.card-left-div {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-quote-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.quote-details-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card-right-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-btns {
+  margin: 0px 5px;
+}
+
+.buttons {
+  margin: 5px;
+  background-color: #4D2DB7;
+}
+
+.buttons:hover {
+  background-color: #64CCC5;
+
+}
+
+.bottom-btns {
+  margin: 0px 5px;
+}
+
+.quote-details-text p:nth-child(2) {
+  background-color: rgb(79, 190, 255);
+  color: black;
+  text-align: center;
+  align-items: center;
+  padding: 2px 4px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 0px;
+}
+
+.quote-details-text p:nth-child(1) {
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  align-items: center;
+  padding: 2px 4px;
+  border-radius: 5px;
+  margin-bottom: 0px;
+}
+.delete-btn{
+  margin: 5px;
+  background-color: #4D2DB7;
+
+}
+.delete-btn:hover{
+  background-color: orangered;
+}
+
+.skeleton{
+  display: flex;
+  flex-direction: row;
+}

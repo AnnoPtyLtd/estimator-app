@@ -1,5 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import CloseIcon from '@mui/icons-material/Close';
 import './ComponentCard.css'
 
 const DuplicateQuoteModal = ({ show, onHide,title,cost,comps,type }) => {
@@ -35,8 +36,10 @@ const DuplicateQuoteModal = ({ show, onHide,title,cost,comps,type }) => {
     }
     return (
         <Modal show={show} onHide={onHide}>
-            <Modal.Header closeButton className="custom-modal-header">
+            <Modal.Header className="custom-modal-header">
                 <Modal.Title>Duplicate Quote</Modal.Title>
+                <button className="close-button" onClick={onHide}><CloseIcon/></button>
+
             </Modal.Header>
             <Modal.Body>
                 <div >

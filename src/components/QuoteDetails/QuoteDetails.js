@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import ComponentCard from '../ComponentCard/ComponentCard';
+import ExportQuotesModal from './ExportQuotesModal';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import './QuoteDetails.css';
 
 const QuoteDetails = () => {
@@ -11,6 +13,8 @@ const QuoteDetails = () => {
   const [quoteDate, setQuoteDate] = useState('');
   const [quoteCost, setQuoteCost] = useState(0);
   const [quoteComps, setQuoteComps] = useState([]);
+  const [showExportModal,setShowExportModal] = useState(false);
+
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -37,7 +41,7 @@ const QuoteDetails = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, quoteType, quoteDate, quoteCost,quoteComps }),
+        body: JSON.stringify({ name, quoteType, quoteDate, quoteCost, quoteComps }),
       });
 
       if (response.status === 201) {
@@ -56,6 +60,13 @@ const QuoteDetails = () => {
       alert('An error occurred');
     }
   };
+
+  const handleExportClick = () =>{
+    setShowExportModal(true)
+  }
+  const handleCloseExportModal = () =>{
+    setShowExportModal(false);
+  }
 
   return (
     <div className='quote-details-container'>
@@ -108,7 +119,11 @@ const QuoteDetails = () => {
         </motion.button>
       </div>
       <div className='quote-details-components'>
-        <h4>YOUR BUILDS</h4>
+        <div className='quote-details-header'>
+          <h4>YOUR BUILDS</h4>
+          <button className='export-button' onClick={handleExportClick}>Export<ArrowUpwardIcon fontSize='small'/></button>
+        </div>
+
         <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
           <option value='choosequote2'>Choose quote type</option>
           <option value='Gaming PC'>Gaming PC</option>
@@ -129,6 +144,8 @@ const QuoteDetails = () => {
           ))}
         </div>
       </div>
+
+      <ExportQuotesModal show={showExportModal} onHide={handleCloseExportModal}/>
     </div>
   );
 };

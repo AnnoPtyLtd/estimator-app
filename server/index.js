@@ -46,8 +46,7 @@ const getSearchItems = require('./routes/search');
 const removeComponentRoute = require('./routes/remove-component');
 const archiveQuote = require('./routes/archive-record');
 const archiveComponent = require('./routes/archive-component');
-const deleteComponent = require('./routes/delete-component');
-
+const deleteRecord = require('./routes/delete-record')
 
 app.use(signupRoute);
 app.use(signinRoute);
@@ -58,7 +57,7 @@ app.use(getSearchItems);
 app.use(removeComponentRoute);
 app.use(archiveQuote);
 app.use(archiveComponent);
-app.use(deleteComponent);
+app.use(deleteRecord);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");

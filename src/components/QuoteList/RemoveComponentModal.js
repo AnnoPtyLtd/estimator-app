@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import DeleteForever from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 import './QuoteList.css';
 
 const RemoveComponentModal = ({ show, onHide, category, removeComponent }) => {
@@ -49,10 +50,11 @@ const RemoveComponentModal = ({ show, onHide, category, removeComponent }) => {
 
     return (
         <Modal show={show} onHide={onHide} centered>
-            <Modal.Header closeButton>
+            <Modal.Header className="custom-modal-header">
                 <Modal.Title>Remove Component</Modal.Title>
+                <button className="close-button" onClick={onHide}><CloseIcon /></button>
             </Modal.Header>
-            <Modal.Body className='custom-modal-body'>
+            <Modal.Body className='modal-body-show'>
                 <div className='modalbodycomp-item'>
                     <label htmlFor='dropdown'> Category: </label>
                     <select id='dropdown' value={categoryComp} onChange={(e) => { setCategoryComp(e.target.value) }}>
@@ -67,12 +69,12 @@ const RemoveComponentModal = ({ show, onHide, category, removeComponent }) => {
                     </select>
                 </div>
                 <div>
-                    <ul className="add-comp-names">
+                    <ul className="comp-names">
                         {components.map((component) => (
-                            <li className="add-comp-item" key={component._id}>
+                            <li className="comp-names-item" key={component._id}>
                                 <p>{component.componentName}</p>
                                 <p className="add-comp-cost">Price: {component.componentCost}$</p>
-                                <DeleteForever className='remove-btn' fontSize='large' onClick={() => removeComponentFromDB(component._id)}/>
+                                <DeleteForever className='remove-btn' fontSize='large' onClick={() => removeComponentFromDB(component._id)} />
                             </li>
                         ))}
                     </ul>

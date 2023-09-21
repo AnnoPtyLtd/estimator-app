@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import uploadImg from '../../assets/upload.png';
 import ShowCSVdata from './ShowCSVdata';
+import CloseIcon from '@mui/icons-material/Close';
 import './NavBar.css';
 
 const UploadFileModal = ({ show, onHide }) => {
@@ -64,10 +65,9 @@ const UploadFileModal = ({ show, onHide }) => {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered>
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Upload your CSV file!
-                    </Modal.Title>
+                <Modal.Header closeButton className="custom-modal-header">
+                    <Modal.Title id="contained-modal-title-vcenter">Upload your CSV file!</Modal.Title>
+                <button className="close-button" onClick={onHide}><CloseIcon/></button>
                 </Modal.Header>
                 <Modal.Body className="uploadfile-box">
                     <div className="uploadfile-modalbody">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './ComponentCard.css';
+import CloseIcon from '@mui/icons-material/Close';
 
 const AddComponentModal = ({ show, onHide, recordID }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
@@ -60,8 +61,9 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
 
     return (
         <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
-            <Modal.Header closeButton className="custom-modal-header">
+            <Modal.Header className="custom-modal-header">
                 <Modal.Title>Add Components</Modal.Title>
+                <button className="close-button" onClick={onHide}><CloseIcon/></button>
             </Modal.Header>
             <Modal.Body className='custom-modal-body'>
                 <div className='modalbodycomp-item'>

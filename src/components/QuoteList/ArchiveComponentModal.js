@@ -1,5 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import CloseIcon from '@mui/icons-material/Close';
 import './QuoteList.css'
 
 const ArchiveComponentModal = ({ show, onHide,componentID,componentName }) => {
@@ -25,8 +26,10 @@ const ArchiveComponentModal = ({ show, onHide,componentID,componentName }) => {
 
     return (
         <Modal show={show} onHide={onHide}>
-            <Modal.Header closeButton className="custom-modal-header">
+            <Modal.Header className="custom-modal-header">
                 <Modal.Title>Archive Component</Modal.Title>
+                <button className="close-button" onClick={onHide}><CloseIcon/></button>
+
             </Modal.Header>
             <Modal.Body>
                 <div >

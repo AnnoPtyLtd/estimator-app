@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import CloseIcon from '@mui/icons-material/Close';
 
 const ShowCSVdata = ({ show, onHide, data }) => {
     const handleClose = () => {
@@ -16,10 +17,10 @@ const ShowCSVdata = ({ show, onHide, data }) => {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered>
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        CSV Data
-                    </Modal.Title>
+                <Modal.Header  className="custom-modal-header">
+                    <Modal.Title id="contained-modal-title-vcenter">CSV Data</Modal.Title>
+                <button className="close-button" onClick={onHide}><CloseIcon/></button>
+
                 </Modal.Header>
                 <Modal.Body>
                     <div>

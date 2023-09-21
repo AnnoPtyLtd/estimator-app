@@ -4,9 +4,8 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import ArchiveComponentModal from './ArchiveComponentModal';
-import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import './QuoteList.css';
-import DeleteComponentModal from './DeleteComponentModal';
 
 const ShowComponentsModal = ({ show, onHide, category }) => {
   const [components, setComponents] = useState([]);
@@ -14,8 +13,6 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
   const [compName, setCompName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [showComponentArchiveModal, setShowComponentArchiveModal] = useState(false);
-  const [showComponentDeleteModal, setShowComponentDeleteModal] = useState(false);
-
 
   useEffect(() => {
     const fetchComponents = async () => {
@@ -45,25 +42,19 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
     setCompName(componentNAME);
     setShowComponentArchiveModal(true);
   }
-  const handleDeleteClick = (componentID, componentNAME) => {
-    setCompId(componentID);
-    setCompName(componentNAME);
-    setShowComponentDeleteModal(true);
-  }
+  
   const handleCloseArchiveModal = () => {
     setShowComponentArchiveModal(false);
-  }
-  const handleCloseDeleteModal = () => {
-    setShowComponentDeleteModal(false);
   }
 
   return (
     <>
       <Modal show={show} onHide={onHide} centered>
-        <Modal.Header closeButton>
+        <Modal.Header className="custom-modal-header">
           <Modal.Title>{category} Components</Modal.Title>
+          <button className="close-button" onClick={onHide}><CloseIcon/></button>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='modal-body-show'>
           {isLoading ? (
             <Box sx={{ width: 300 }}>
               <Skeleton />
@@ -80,9 +71,6 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
                     <button className='archive-icon' onClick={() => handleArchiveClick(component._id, component.componentName)}>
                       <ArchiveOutlinedIcon fontSize='large' />
                     </button>
-                    <button className='delete-icon' onClick={() => handleDeleteClick(component._id, component.componentName)}>
-                      <DeleteIcon fontSize='large' />
-                    </button>
                   </div>
                 </li>
               ))}
@@ -91,7 +79,6 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
         </Modal.Body>
       </Modal>
       <ArchiveComponentModal show={showComponentArchiveModal} onHide={handleCloseArchiveModal} componentID={compId} componentName={compName} />
-      <DeleteComponentModal show={showComponentDeleteModal} onHide={handleCloseDeleteModal} componentID={compId} componentName={compName} closeBox={onHide}/>
     </>
   );
 };

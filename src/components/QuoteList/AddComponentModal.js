@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { TextField } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import './QuoteList.css'
 
 const AddComponentModal = ({
@@ -19,8 +20,10 @@ const AddComponentModal = ({
 }) => {
   return (
     <Modal show={show} onHide={onHide} centered>
-      <Modal.Header closeButton>
+      <Modal.Header className="custom-modal-header">
         <Modal.Title>Add Components</Modal.Title>
+        <button className="close-button" onClick={onHide}><CloseIcon/></button>
+
       </Modal.Header>
       <Modal.Body className='add-component-modalbody'>
         <div className='modalbodycomp-item'>

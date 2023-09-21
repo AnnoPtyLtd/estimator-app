@@ -1,11 +1,14 @@
 import React from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 import { Modal, Button } from 'react-bootstrap';
 
 const SearchResultModal = ({ show, onHide, searchResults }) => {
   return (
     <Modal show={show} onHide={onHide} size="lg">
-      <Modal.Header closeButton>
+      <Modal.Header className="custom-modal-header">
         <Modal.Title>Search Results</Modal.Title>
+        <button className="close-button" onClick={onHide}><CloseIcon/></button>
+
       </Modal.Header>
       <Modal.Body>
         <div>
@@ -13,7 +16,6 @@ const SearchResultModal = ({ show, onHide, searchResults }) => {
           <ul>
             {searchResults.components.map((component) => (
               <li key={component._id}>
-                {/*displaying component details here */}
                 {component.componentName}
               </li>
             ))}

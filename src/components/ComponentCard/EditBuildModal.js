@@ -1,6 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { motion } from 'framer-motion';
+import CloseIcon from '@mui/icons-material/Close';
 import './ComponentCard.css'
 
 const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges, handleAddComponentModalShow, comps, overallcost }) => {
@@ -8,8 +9,10 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
 
   return (
     <Modal show={show} onHide={onHide}>
-      <Modal.Header closeButton>
+      <Modal.Header className="custom-modal-header">
         <Modal.Title>Edit Record</Modal.Title>
+        <button className="close-button" onClick={onHide}><CloseIcon/></button>
+
       </Modal.Header>
       <Modal.Body className='edit-record-modalbody'>
         <div className='modalbody-item'>

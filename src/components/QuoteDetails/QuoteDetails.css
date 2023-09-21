@@ -24,7 +24,27 @@
     font-size: 18px;
     text-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
 }
+.quote-details-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
+}
+.export-button{
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 16px;
+    background-color: rebeccapurple;
+    box-shadow: 1px 1px 2px  black;
+    letter-spacing: 1px;
+}
+.export-button:hover{
+    background-color: cornflowerblue;
+}
 .quote-details-column{
     width: fit-content;
     padding: 10px 10px;
@@ -94,7 +114,6 @@ label{
 .add-component-btn:hover{
     background-color: rgb(24, 93, 121);
     border: none;
-
 }
 
 .builds-filter{
@@ -131,4 +150,54 @@ input[type=text] {
 
   #dropdown2:hover,#dropdown:hover{
     cursor: pointer;
+}
+
+.modalbodyexport-item{
+    display: flex;
+    flex-direction: row;
+    background-color: #8CABFF;
+    border-radius: 6px;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+.modalbodyexport-item select{
+    padding: 5px;
+    width: 60%;
+}
+.modalbodyexport-item label{
+   padding: 0;
+   margin: 0;
+}
+.export-list li{
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+.export-list li:hover,label:hover{
+    background-color: #d2deff;
+    cursor: pointer;
+}
+li label{
+    margin: 0;
+    color: black;
+}
+.clear-button{
+    background-color: #191D88;
+    display: subgrid;
+}
+.clear-button:hover{
+    background-color: #4877f7;
+    transition: 0.3s ease;
+}
+
+.input-check{
+    margin-right: 10px;
+}
+
+.close-button{
+    padding: 5px;
 }
