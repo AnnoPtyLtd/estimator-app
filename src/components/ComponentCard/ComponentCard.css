@@ -137,7 +137,6 @@
 .add-comp-item {
   display: flex;
   border-radius: 10px;
-  background-color: skyblue;
   margin: 2px;
   padding: 10px;
   justify-content: space-between;

@@ -12,6 +12,8 @@ import DeleteQuoteModal from './DeleteQuoteModal';
 import './ComponentCard.css';
 
 const ComponentCard = (props) => {
+
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
   const [newTitle, setNewTitle] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -19,6 +21,7 @@ const ComponentCard = (props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,6 +31,7 @@ const ComponentCard = (props) => {
 
   const handleEditClick = () => {
     setShowModal(true);
+    console.log(isAdmin)
   };
 
   const handleCloseModal = () => {
@@ -97,8 +101,8 @@ const ComponentCard = (props) => {
         )}
         {isLoading ? (
           <div className='skeleton'>
-          <Skeleton variant="rectangular" width={200} height={80} />
-          <Skeleton variant="rectangular" width={200} height={80} />
+            <Skeleton variant="rectangular" width={200} height={80} />
+            <Skeleton variant="rectangular" width={200} height={80} />
           </div>
         ) : (
           <div className="card-quote-details">
@@ -146,13 +150,14 @@ const ComponentCard = (props) => {
               <button className="buttons" onClick={handleShowDuplicate}>
                 <DuplicateIcon />
               </button>
-              <button className="delete-btn" onClick={handleDeleteClick}>
+              <button className="delete-btn" disabled={!isAdmin} onClick={handleDeleteClick}>
                 <DeleteIcon />
               </button>
             </>
           )}
         </div>
       </div>
+      
       <EditBuildModal
         show={showModal}
         onHide={handleCloseModal}

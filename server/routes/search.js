@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const NewComponent = require('../models/NewComponent'); 
-
+const Record = require('../models/Record');
 
 router.get('/search', async (req, res) => {
     try {
@@ -10,12 +10,16 @@ router.get('/search', async (req, res) => {
       if (!searchTerm) {
         return res.status(400).json({ error: 'Search term is required' });
       }
-  
       const components = await NewComponent.find({
         componentName: { $regex: new RegExp(searchTerm, 'i') },
       });
+      const records = await Record.find({
+        name: { $regex: new RegExp(searchTerm,'i') },
+      });
   
-      res.status(200).json({ components });
+      res.status(200).json({ components,records });      
+     
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal server error' });

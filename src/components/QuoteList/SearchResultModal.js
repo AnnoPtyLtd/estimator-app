@@ -7,25 +7,29 @@ const SearchResultModal = ({ show, onHide, searchResults }) => {
     <Modal show={show} onHide={onHide} size="lg">
       <Modal.Header className="custom-modal-header">
         <Modal.Title>Search Results</Modal.Title>
-        <button className="close-button" onClick={onHide}><CloseIcon/></button>
+        <button className="close-button" onClick={onHide}><CloseIcon /></button>
 
       </Modal.Header>
       <Modal.Body>
         <div>
-          <h3>Components resuls</h3>
           <ul>
+          <h3>Component result:</h3>
             {searchResults.components.map((component) => (
               <li key={component._id}>
                 {component.componentName}
               </li>
             ))}
           </ul>
+          <h3>Quote result:</h3>
+          <ul>
+            {searchResults.records.map((record) => (
+              <li key={record._id}>{record.name}</li>
+            ))}
+          </ul>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          Close
-        </Button>
+        <Button variant="secondary" onClick={onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
   );

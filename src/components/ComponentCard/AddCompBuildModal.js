@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import './ComponentCard.css';
 import CloseIcon from '@mui/icons-material/Close';
+import './ComponentCard.css';
 
 const AddComponentModal = ({ show, onHide, recordID }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
@@ -80,12 +80,13 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
                     </select>
                 </div>
                 <div>
-                    <ul className="add-comp-names">
+                    <ul className="export-list">
                         {components.map((component) => (
                             <li className="add-comp-item" key={component._id}>
-                                <label>
+                                <label className='labelxd'>
                                     <input
                                         type="checkbox"
+                                        className='input-check'
                                         checked={selectedComponents.includes(component.componentName)}
                                         onChange={() => handleComponentSelection(component.componentName)}
                                     />

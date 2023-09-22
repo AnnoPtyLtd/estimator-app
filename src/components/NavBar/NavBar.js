@@ -17,17 +17,25 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import UploadFileModal from './UploadFileModal';
 import './NavBar.css';
+import SearchModal from './SearchModal';
 
 
 const NavBar = () => {
 
   const [showUploadModal,setShowUploadModal] = useState(false);
+  const [showSearchModal,setShowSearchModal] = useState(false);
 
   const handleShowUploadModal=()=>{
     setShowUploadModal(true);
   }
   const handleCloseUploadModal = () =>{
     setShowUploadModal(false);
+  }
+  const handleShowSearchModal=()=>{
+    setShowSearchModal(true);
+  }
+  const handleCloseSearchModal = () =>{
+    setShowSearchModal(false);
   }
 
 
@@ -144,7 +152,7 @@ const NavBar = () => {
         </li>
         <li
           className={`menu-item ${activeMenuItem === 2 ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick(2)}>
+          onClick={() => { handleMenuItemClick(2); handleShowSearchModal();}}>
           <SearchOutlinedIcon className='menu-icon' />
           <p>Search</p>
         </li>
@@ -191,7 +199,6 @@ const NavBar = () => {
                   }}
                   value={formData.components1}
                 />
-
               )}
               {modalTitle === "ADD YOUR QUOTE" && (
                 <Select
@@ -273,6 +280,7 @@ const NavBar = () => {
       </Modal>
 
       <UploadFileModal show={showUploadModal} onHide={handleCloseUploadModal} />
+      <SearchModal show={showSearchModal} onHide={handleCloseSearchModal} />
 
     </div>
 

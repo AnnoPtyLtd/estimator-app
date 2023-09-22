@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
+import jwt_decode from 'jwt-decode';
 import Button from 'react-bootstrap/Button';
-import { useAuth } from '../../AuthContext'; 
+import { useAuth } from '../../AuthContext';
 
 import './Signin.css';
 
@@ -11,6 +12,7 @@ const Signin = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { signIn } = useAuth();
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
 
@@ -25,7 +27,6 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      
       const response = await fetch('http://localhost:4000/signin', {
         method: 'POST',
         headers: {
@@ -35,10 +36,22 @@ const Signin = () => {
       });
 
       if (response.ok) {
-        signIn(); // Update authentication state
+        const data = await response.json();
+        const { token } = data;
+
+        // Store the token in local storage
+        localStorage.setItem('token', token);
+
+        const decodedToken = jwt_decode(token);
+
+        const userId = decodedToken.userId;
+        console.log('User ID:', userId);
+
+        signIn();
+        
         navigate('/home');
+
       } else {
-        // Handle sign-in error
         const data = await response.json();
         console.error(data.message);
         alert('Invalid credentials!');
@@ -47,7 +60,6 @@ const Signin = () => {
       console.error('Error signing in:', error);
     }
   };
-
   return (
     <div className='signin-main-page'>
       <div className='signin-container'>

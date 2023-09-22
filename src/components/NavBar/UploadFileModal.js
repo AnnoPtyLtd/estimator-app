@@ -65,7 +65,7 @@ const UploadFileModal = ({ show, onHide }) => {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered>
-                <Modal.Header closeButton className="custom-modal-header">
+                <Modal.Header className="custom-modal-header">
                     <Modal.Title id="contained-modal-title-vcenter">Upload your CSV file!</Modal.Title>
                 <button className="close-button" onClick={onHide}><CloseIcon/></button>
                 </Modal.Header>

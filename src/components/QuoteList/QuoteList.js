@@ -79,13 +79,9 @@ const QuoteList = () => {
   const handleSearch = async () => {
     try {
       const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
-      console.log(searchResults)
-      console.log(searchResults.records)
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data);
-        console.log(searchResults)
-        console.log(searchResults.records)
         setShowSearchResultsModal(true);
       } else {
         console.log('Error in searching');
@@ -126,13 +122,11 @@ const QuoteList = () => {
               whileHover={{ scale: 1.1, color: 'white' }}
               whileTap={{ scale: 1.05 }}
               transition={{ duration: 0.1 }}
-              onClick={() => handleShowComponentsModal(category)} 
-            >
+              onClick={() => handleShowComponentsModal(category)}>
               {category}
             </motion.li>
           ))}
         </ul>
-
       </div>
       <motion.button
         whileTap={{ scale: 0.99 }}
