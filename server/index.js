@@ -47,6 +47,7 @@ const removeComponentRoute = require('./routes/remove-component');
 const archiveQuote = require('./routes/archive-record');
 const archiveComponent = require('./routes/archive-component');
 const deleteRecord = require('./routes/delete-record')
+const updateComponentCost = require('./routes/updateComponentPrice')
 
 app.use(signupRoute);
 app.use(signinRoute);
@@ -58,6 +59,7 @@ app.use(removeComponentRoute);
 app.use(archiveQuote);
 app.use(archiveComponent);
 app.use(deleteRecord);
+app.use(updateComponentCost);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");

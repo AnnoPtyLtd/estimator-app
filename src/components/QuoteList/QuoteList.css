@@ -241,3 +241,22 @@ ul{
   .modal-body-show::-webkit-scrollbar {
     display: none;
   }
+
+  .edit-btn{
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .edit-btn:hover{
+    transition: 0.4s ease-out;
+    background-color: lightgray;
+  }
+  .edit-price-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .edit-price-section input{
+    flex-grow: 1;
+    padding: 5px;
+    text-align: center;
+  }

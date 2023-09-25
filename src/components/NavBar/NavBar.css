@@ -200,3 +200,22 @@
   border-radius: 5px;
  padding: 10px 10px 10px 10%;
 }
+
+.search-field {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  border: 1px solid rgb(107, 114, 142);
+  border-radius: 5px;
+  padding-right: 5px;
+}
+
+.search-field input {
+  padding: 15px;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+}
+.search-result{
+  margin-top: 20px;
+}

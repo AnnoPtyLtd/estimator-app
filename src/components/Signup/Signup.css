@@ -3,25 +3,25 @@
     margin: 0;
 }
 
-
 .signup-main-page {
     display: flex;
     justify-content: center;
-  
-
+    /* background-image: url('../../assets/quote-blurred-bg1.png');
+    background-position: center center;
+    background-size: cover; */
+    padding: 0;
+    margin: 0;
 }
 
 .signup-container {
     background-color: white;
     border-radius: 5px;
     width: 700px;
-    /* border: 1px solid black; */
     border: 1px solid rgb(226, 226, 226);    
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-
     margin-top: 10%;
     display: flex;
+
 }
 
 .signup-leftside {
@@ -30,7 +30,6 @@
     flex-direction: column;
     padding: 60% 10px 0px 15px;
     color: white;
-
     background-image: url('../../assets/signupbackground.jpg');
     background-size: cover; 
     background-repeat: no-repeat;
@@ -49,32 +48,49 @@
     background-color: white;
     flex-direction: column;
 }
+
 .signup-rightside p{
     font-weight: 500;
     font-size: 18px;
 }
+
 .form-field{
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
 }
-.form-field input{
-    width: 200px;
-    height: 30px;
-    padding: 5px;
-    margin: 15px 5px;
-}
+
 .form-field label{
     margin: 5px 0px;
     font-size: 14px;
 }
+
 .form-checkbox{
     margin-top: 10px;
 }
+
 .signup-button{
     display: flex;
     border-radius: 10px;
     padding: 20px;
     justify-content: center;
+}
+
+.signin-button-div{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+}
+
+.signin-button-div p{
+    font-weight: lighter;
+    font-size: 14px;
+    align-items: center;
+    padding: 0;
+    margin: 0;
 }

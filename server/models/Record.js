@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 
 const recordSchema = new mongoose.Schema({
+  quoteUserId:String,
   name:String,
   quoteType:String,
   quoteDate:Date,
@@ -13,3 +14,4 @@ const recordSchema = new mongoose.Schema({
 const Record = mongoose.model('records',recordSchema);
 module.exports = Record;
 
+  // quoteUserId:String,

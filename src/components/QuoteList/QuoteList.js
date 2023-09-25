@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { motion } from 'framer-motion';
 import AddComponentModal from './AddComponentModal';
 import ShowComponentsModal from './ShowComponentsModal';
 import SearchResultModal from './SearchResultModal';
 import RemoveComponentModal from './RemoveComponentModal';
+import EditCompModal from './EditCompModal';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import EditIcon from '@mui/icons-material/Edit';
 import './QuoteList.css';
-
 
 const QuoteList = () => {
 
@@ -24,6 +25,7 @@ const QuoteList = () => {
   const [searchResults, setSearchResults] = useState({ records: [], components: [] });
   const [showSearchResultsModal, setShowSearchResultsModal] = useState(false);
   const [removeComponentModalShow, setRemoveComponentModalShow] = useState(false);
+  const [editCompModalShow, setEditCompModalShow] = useState(false);
 
 
   const handleAddComponentModalShow = () => {
@@ -76,6 +78,7 @@ const QuoteList = () => {
   const handleCloseComponentsModal = () => {
     setShowComponentsModal(false);
   };
+
   const handleSearch = async () => {
     try {
       const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
@@ -83,6 +86,7 @@ const QuoteList = () => {
         const data = await response.json();
         setSearchResults(data);
         setShowSearchResultsModal(true);
+        setSearchTerm('');
       } else {
         console.log('Error in searching');
       }
@@ -146,6 +150,15 @@ const QuoteList = () => {
       >
         <RemoveIcon /> components
       </motion.button>
+      <motion.button
+        whileTap={{ scale: 0.99 }}
+        whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
+        transition={{ duration: 0.5 }}
+        className='component-btnq'
+        onClick={()=>setEditCompModalShow(true)}
+      >
+      <EditIcon/>
+      </motion.button>
 
       <AddComponentModal
         show={addComponentModalShow}
@@ -174,8 +187,10 @@ const QuoteList = () => {
       <RemoveComponentModal
         show={removeComponentModalShow}
         onHide={handleRemoveComponentModalClose}
-        category={selectedCategory}
-        removeComponent={removeComponent}
+      />
+      <EditCompModal
+        show={editCompModalShow} 
+        onHide={()=>setEditCompModalShow(false)}
       />
     </div>
   );

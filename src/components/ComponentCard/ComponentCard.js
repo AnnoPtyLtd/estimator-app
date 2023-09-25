@@ -13,7 +13,6 @@ import './ComponentCard.css';
 
 const ComponentCard = (props) => {
 
-  const isAdmin = localStorage.getItem('isAdmin') === 'true';
   const [newTitle, setNewTitle] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -21,6 +20,7 @@ const ComponentCard = (props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+  const isAdmin = localStorage.getItem('Admin') === 'admin';
 
 
   useEffect(() => {

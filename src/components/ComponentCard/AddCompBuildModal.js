@@ -8,6 +8,7 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
     const [selectedComponents, setSelectedComponents] = useState([]);
+    const [selectedComponentPrices, setSelectedComponentPrices] = useState([]);
 
     useEffect(() => {
         const fetchComponents = async () => {
@@ -34,6 +35,11 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
             setSelectedComponents((prevSelectedComponents) =>
                 prevSelectedComponents.filter((component) => component !== componentName)
             );
+            setSelectedComponentPrices((prevSelectedComponentPrices) =>
+            prevSelectedComponentPrices.filter((_, index) => {
+              return components[index].componentName !== componentName;
+            })
+          );
         } else {
             setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
         }
@@ -47,7 +53,7 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ selectedComponents }), // Send selectedComponents as an array
+            body: JSON.stringify({ selectedComponents }),
         })
             .then((response) => response.json())
             .then((data) => {
@@ -111,3 +117,4 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
 };
 
 export default AddComponentModal;
+

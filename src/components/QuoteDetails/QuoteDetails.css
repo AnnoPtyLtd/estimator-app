@@ -162,6 +162,7 @@ input[type=text] {
     margin-bottom: 10px;
     margin-right: 10px;
 }
+
 .modalbodyexport-item select{
     padding: 5px;
     width: 60%;
@@ -178,12 +179,16 @@ input[type=text] {
     align-items: center;
 }
 .export-list li:hover,label:hover{
-    background-color: #d2deff;
     cursor: pointer;
 }
 li label{
     margin: 0;
     color: black;
+}
+.export-list-item:hover{
+    background-color: lightskyblue;
+    transition: 0.5s ease-out;
+    cursor: pointer;
 }
 .clear-button{
     background-color: #191D88;

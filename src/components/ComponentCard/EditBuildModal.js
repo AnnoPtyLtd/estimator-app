@@ -6,13 +6,12 @@ import './ComponentCard.css'
 
 const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges, handleAddComponentModalShow, comps, overallcost }) => {
   const componentsArray = comps ? comps.split(',') : [];
-
+  
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header className="custom-modal-header">
         <Modal.Title>Edit Record</Modal.Title>
-        <button className="close-button" onClick={onHide}><CloseIcon/></button>
-
+        <button className="close-button" onClick={onHide}><CloseIcon /></button>
       </Modal.Header>
       <Modal.Body className='edit-record-modalbody'>
         <div className='modalbody-item'>
@@ -35,7 +34,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
           </div>
         </div>
         <div className='modalbody-item'>
-          <div className='modalbody-item-text'> 
+          <div className='modalbody-item-text'>
             <p>Your components in this build</p>
             <p>Total Cost: {overallcost}$</p>
           </div>
@@ -44,7 +43,6 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
               <li key={index}>{component.trim()}</li>
             ))}
           </ul>
-
         </div>
       </Modal.Body>
       <Modal.Footer>
@@ -60,3 +58,4 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
 };
 
 export default EditBuildModal;
+

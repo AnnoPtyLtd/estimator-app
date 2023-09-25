@@ -5,7 +5,7 @@ import DeleteForever from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import './QuoteList.css';
 
-const RemoveComponentModal = ({ show, onHide, category, removeComponent }) => {
+const RemoveComponentModal = ({ show, onHide }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
 

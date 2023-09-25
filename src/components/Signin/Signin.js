@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import jwt_decode from 'jwt-decode';
 import Button from 'react-bootstrap/Button';
 import { useAuth } from '../../AuthContext';
-
 import './Signin.css';
 
 const Signin = () => {
@@ -34,23 +32,19 @@ const Signin = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
       if (response.ok) {
         const data = await response.json();
         const { token } = data;
 
-        // Store the token in local storage
         localStorage.setItem('token', token);
 
-        const decodedToken = jwt_decode(token);
-
-        const userId = decodedToken.userId;
-        console.log('User ID:', userId);
-
+        if (email === 'admin@anno.com.au') {
+          localStorage.setItem('Admin', 'admin');
+        } else {
+          localStorage.removeItem('Admin');
+        }
         signIn();
-        
         navigate('/home');
-
       } else {
         const data = await response.json();
         console.error(data.message);
@@ -60,6 +54,11 @@ const Signin = () => {
       console.error('Error signing in:', error);
     }
   };
+
+  const handleSignUp =() => {
+    navigate('/signup')
+  }
+
   return (
     <div className='signin-main-page'>
       <div className='signin-container'>
@@ -89,6 +88,12 @@ const Signin = () => {
                 Sign in
               </Button>
             </div>
+            <div className='signin-button'>
+              <Button variant='primary' onClick={handleSignUp}>
+                Sign Up
+              </Button>
+            </div>
+            
           </Form>
         </div>
         <div className='signin-rightside'>

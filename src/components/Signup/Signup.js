@@ -30,17 +30,16 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         if (!fullName || !email || !password || !confirmPassword) {
             alert("Please fill in all fields");
             return;
         }
-    
+
         if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
-    
         try {
             const response = await fetch("http://localhost:4000/signup", {
                 method: "POST",
@@ -53,7 +52,7 @@ const Signup = () => {
                     password
                 }),
             });
-    
+
             if (response.status === 200) {
                 // Successful registration
                 alert("User registered successfully");
@@ -66,8 +65,10 @@ const Signup = () => {
             console.error("Error registering user:", error);
         }
     };
-    
 
+    const handleSignIn = () => {
+        navigate('/signin')
+    }
 
     return (
         <div className='signup-main-page'>
@@ -112,11 +113,14 @@ const Signup = () => {
                             <Form.Check
                                 type="checkbox"
                                 label="I agree to the terms and conditions"
-                                id="checkbox-id"
-                            />
+                                id="checkbox-id"/>
                         </div>
                         <div className='signup-button'>
                             <Button variant="primary" onClick={handleSubmit} type='submit'>Sign Up</Button>
+                        </div>
+                        <div className='signin-button-div'>
+                            <p>Already registered?</p>
+                            <Button variant="primary" onClick={handleSignIn}>Sign In</Button>
                         </div>
                     </Form>
                 </div>

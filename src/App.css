@@ -12,6 +12,6 @@
     align-items: center;
     display: flex;
     background-image: url('./assets/dark-gradient.jpg');
-    background-position: inherit center ;
+    background-position: center center ;
     background-size: cover;
 }

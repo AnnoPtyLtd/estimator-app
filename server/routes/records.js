@@ -3,14 +3,14 @@ const Record = require('../models/Record')
 const router = express.Router()
 const NewComponent = require('../models/NewComponent');
 
-
 router.post('/saverecord', async (req, res) => {
   try {
-    const { name, quoteType, quoteDate, quoteCost } = req.body;
+    const { quoteUserId, name, quoteType, quoteDate, quoteCost } = req.body;
     if (!name || !quoteType || !quoteDate || !quoteCost) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
     const record = new Record({
+      quoteUserId,
       name,
       quoteType,
       quoteDate,
@@ -20,22 +20,33 @@ router.post('/saverecord', async (req, res) => {
     const savedRecord = await record.save();
     res.status(201).json(savedRecord);
   }
-
   catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 })
 
-// Retrieve records based on quoteType
 router.get('/records', async (req, res) => {
   try {
-    const { quoteType } = req.query;
+    const userId = req.query.userId;
+    const quoteType = req.query.quoteType;
+    if (!userId || !quoteType) {
+      return res.status(400).json({ error: 'quoteType and userId are required' });
+    }
+    const records = await Record.find({ quoteUserId: userId, quoteType: quoteType });
+    res.status(200).json(records);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+router.get('/adminrecords', async (req, res) => {
+  try {
+    const quoteType = req.query.quoteType;
     if (!quoteType) {
       return res.status(400).json({ error: 'quoteType is required' });
     }
-
-    const records = await Record.find({ quoteType });
+    const records = await Record.find({ quoteType: quoteType });
     res.status(200).json(records);
   } catch (error) {
     console.error(error);
@@ -43,7 +54,7 @@ router.get('/records', async (req, res) => {
   }
 });
 
-// Update the record's title and cost by ID
+
 router.put('/updateTitle/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -52,17 +63,14 @@ router.put('/updateTitle/:id', async (req, res) => {
     if (!newTitle) {
       return res.status(400).json({ error: 'New title or cost is required' });
     }
-
-    // Define the fields you want to update
     const updateFields = {};
-
     if (newTitle) {
       updateFields.name = newTitle;
     }
 
     const updatedRecord = await Record.findByIdAndUpdate(
       id,
-      updateFields, // Update multiple fields
+      updateFields, 
       { new: true }
     );
 
