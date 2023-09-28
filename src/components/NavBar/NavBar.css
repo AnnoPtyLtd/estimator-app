@@ -1,7 +1,8 @@
 .menu {
   display: flex;
   flex-direction: column;
-  color: #AEE2FF;
+  /* color: #AEE2FF; */
+  color: navy;
   width: 160px;
   padding-bottom: 10px;
   transition: 0.3s ease;

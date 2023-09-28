@@ -5,7 +5,8 @@
     color: #8CABFF;
     padding: 20px;
     flex-direction: column;
-    background-image: url('../../assets/quote-blurred-bg2.png');
+    /* background-image: url('../../assets/quote-blurred-bg2.png'); */
+
     background-size: cover;
     background-position: center center;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.rgba(255, 255, 255, 0), 0));
@@ -27,6 +28,7 @@
     border-bottom: 1px solid #50577A;
     padding-bottom: 0;
     margin-bottom: 0;
+     color: rgb(95, 95, 95);
 }
 
 .quote-list-container p {
@@ -43,7 +45,7 @@
 }
 
 .search-icon:hover {
-    color: rgb(0, 208, 255);
+    color: darkslategrey;
     cursor: pointer;
 }
 
@@ -64,6 +66,8 @@
 .quote-list {
     padding: 10px;
     margin: 10px 0px 0px 0px;
+    color: rgb(95, 95, 95);
+
 }
 
 .quote-list-items {
@@ -92,7 +96,8 @@
 }
 
 .component-btnq:hover {
-    background-color: rgb(24, 93, 121);
+    color: darkslategrey;
+    
     border: none;
 }
 

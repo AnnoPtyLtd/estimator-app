@@ -1,37 +1,38 @@
-
-.quote-details-container{
-    background-image: url('../../assets/quote-blurred-bg1.png');
-    background-size: cover; 
-    background-position: center center; 
+.quote-details-container {
+    /* background-image: url('../../assets/quote-blurred-bg1.png'); */
+    background-size: cover;
+    background-position: center center;
     display: flex;
-    color: #8CABFF;
+    /* color: #8CABFF; */
+    color: navy;
     margin: 10px 5px;
     border-radius: 10px;
-    color: #8CABFF;
     flex-direction: column;
     width: fit-content;
     padding: 10px 10px;
-    border:1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     scroll-behavior: smooth;
 
 }
 
-.quote-details-title{
+.quote-details-title {
     font-weight: bold;
     padding-top: 15px;
     padding-left: 15px;
     font-size: 18px;
     text-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
 }
-.quote-details-header{
+
+.quote-details-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
 }
-.export-button{
+
+.export-button {
     padding: 5px 10px;
     border-radius: 5px;
     display: flex;
@@ -39,66 +40,74 @@
     justify-content: space-evenly;
     font-size: 16px;
     background-color: rebeccapurple;
-    box-shadow: 1px 1px 2px  black;
+    box-shadow: 1px 1px 2px black;
     letter-spacing: 1px;
 }
-.export-button:hover{
+
+.export-button:hover {
     background-color: cornflowerblue;
 }
-.quote-details-column{
+
+.quote-details-column {
     width: fit-content;
     padding: 10px 10px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)); */
+    background-color: #F9F5F6;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
-    border:1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
-    margin: 0px  10px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    box-shadow: 2px 0px 2px 2px rgba(0, 0, 0, 0.37);
+    margin: 0px 10px;
 
 }
-.detail-items{
+
+.detail-items {
     display: flex;
     flex-direction: column;
     margin: 10px;
 }
-.detail-items input{
+
+.detail-items input {
     padding: 10px;
     text-align: center;
 }
-.detail-items select{
+
+.detail-items select {
     padding: 4px;
     width: 50vh;
     padding: 10px;
 }
-.search-name-date{
+
+.search-name-date {
     display: flex;
     justify-content: space-between;
 }
 
-label{
+label {
     font-weight: 400;
 }
 
-.quote-details-components{
+.quote-details-components {
     display: flex;
     flex-direction: column;
     width: 80%;
     padding: 20px;
     height: 100%;
 }
-.quote-details-components h4{
+
+.quote-details-components h4 {
     font-weight: 500;
     font-size: 20px;
     margin-top: 15px;
 }
 
-.component-list{
+.component-list {
     width: 100%;
     margin-bottom: 10px;
 }
 
-.add-component-btn{
+.add-component-btn {
     border: none;
     background-color: rgb(0, 112, 168);
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
@@ -111,12 +120,13 @@ label{
     font-size: 14px;
     font-weight: bold;
 }
-.add-component-btn:hover{
+
+.add-component-btn:hover {
     background-color: rgb(24, 93, 121);
     border: none;
 }
 
-.builds-filter{
+.builds-filter {
     margin: 10px 5px;
     padding: 10px;
     text-align: center;
@@ -124,35 +134,38 @@ label{
 }
 
 input[type=text] {
-    text-align:left;
-  }
+    text-align: left;
+}
 
-  .quote-details-list-container {
-    max-height: 300px; 
-    overflow-y: scroll; 
-    overflow-x: hidden; 
-    position: relative; 
+.quote-details-list-container {
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
     scroll-behavior: smooth;
 
-  }
-  
-  .quote-details-list-container::-webkit-scrollbar {
+}
+
+.quote-details-list-container::-webkit-scrollbar {
     display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .quote-details-list-container {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.quote-details-list-container {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
     scroll-behavior: smooth;
-  }
+}
 
 
-  #dropdown2:hover,#dropdown:hover{
+#dropdown2:hover,
+#dropdown:hover {
     cursor: pointer;
 }
 
-.modalbodyexport-item{
+.modalbodyexport-item {
     display: flex;
     flex-direction: row;
     background-color: #8CABFF;
@@ -163,65 +176,78 @@ input[type=text] {
     margin-right: 10px;
 }
 
-.modalbodyexport-item select{
+.modalbodyexport-item select {
     padding: 5px;
     width: 60%;
 }
-.modalbodyexport-item label{
-   padding: 0;
-   margin: 0;
+
+.modalbodyexport-item label {
+    padding: 0;
+    margin: 0;
 }
-.export-list li{
+
+.export-list li {
     margin: 5px;
     border-radius: 5px;
     padding: 5px;
     display: flex;
     align-items: center;
 }
-.export-list li:hover,label:hover{
+
+.export-list li:hover,
+label:hover {
     cursor: pointer;
 }
-li label{
+
+li label {
     margin: 0;
     color: black;
 }
-.export-list-item:hover{
+
+.export-list-item:hover {
     background-color: lightskyblue;
     transition: 0.5s ease-out;
     cursor: pointer;
 }
-.clear-button{
+
+.clear-button {
     background-color: #191D88;
     display: subgrid;
 }
-.clear-button:hover{
+
+.clear-button:hover {
     background-color: #4877f7;
     transition: 0.3s ease;
 }
 
-.input-check{
+.input-check {
     margin-right: 10px;
 }
 
-.close-button{
+.close-button {
     padding: 5px;
 }
 
 
 .scrollable-list {
-    max-height: 400px; /* Adjust the height as needed */
+    max-height: 400px;
+    /* Adjust the height as needed */
     overflow-y: auto;
-    scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: transparent transparent; /* For Firefox */
-  }
-  
-  .scrollable-list::-webkit-scrollbar {
-    width: 6px; /* Adjust the width as needed */
-  }
-  .scrollable-list::-webkit-scrollbar-thumb {
+    scrollbar-width: thin;
+    /* For Firefox */
+    scrollbar-color: transparent transparent;
+    /* For Firefox */
+}
+
+.scrollable-list::-webkit-scrollbar {
+    width: 6px;
+    /* Adjust the width as needed */
+}
+
+.scrollable-list::-webkit-scrollbar-thumb {
     background-color: transparent;
-  }
-  
-  .scrollable-list::-webkit-scrollbar-track {
+}
+
+.scrollable-list::-webkit-scrollbar-track {
     background-color: transparent;
-  }
+}

@@ -1,21 +1,26 @@
-.component-card-container {
+
+.component-card-containerm {
   display: flex;
-  flex-direction: column;
-  color: white;
+  justify-content: space-between;
+  align-items: center;
+  /* color: white; */
+  color: navy;
+
   margin: 10px 20px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  background-color: #f4f4f4;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(93, 93, 93, 0.18);
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
 }
 
-.component-card-container:hover {
-  transition: 0.4s;
+
+.component-card-containerm:hover {
+  transition: 0.2s;
   cursor: pointer;
   border: none;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(58, 58, 58, 0.18);
   box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
 }
 
@@ -23,7 +28,9 @@
   font-weight: 400;
   margin: 10px;
   font-size: 18px;
-  color: #8CABFF;
+  /* color: #8CABFF; */
+  color: navy;
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -103,7 +110,7 @@
 
 .custom-modal-header {
   background: radial-gradient(circle at 10% 20%, rgb(34, 102, 138) 0%, rgb(154, 118, 255) 80.6%);
-  color: #fff;
+  /* color: #fff; */
 }
 
 
@@ -127,7 +134,9 @@
 .add-comp-names {
   display: flex;
   flex-direction: column;
-  color: white;
+  /* color: white; */
+  color: navy;
+
   max-height: 160px;
   min-height: 160px;
   overflow-y: scroll;
@@ -169,29 +178,6 @@
 
 }
 
-/* NEW CSS*/
-.component-card-containerm {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  margin: 10px 20px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
-}
-
-
-.component-card-containerm:hover {
-  transition: 0.4s;
-  cursor: pointer;
-  border: none;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
-}
 
 .card-left-div {
   display: flex;
@@ -247,7 +233,9 @@
 }
 
 .quote-details-text p:nth-child(1) {
-  color: white;
+  /* color: white; */
+  color: navy;
+
   font-weight: 500;
   font-size: 18px;
   text-align: center;

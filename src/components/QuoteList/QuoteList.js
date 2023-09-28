@@ -126,7 +126,7 @@ const QuoteList = () => {
           ].map((category) => (
             <motion.li
               key={category}
-              whileHover={{ scale: 1.1, color: 'white' }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 1.05 }}
               transition={{ duration: 0.1 }}
               onClick={() => handleShowComponentsModal(category)}>

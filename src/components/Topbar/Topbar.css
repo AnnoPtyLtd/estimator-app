@@ -20,7 +20,7 @@
  }
 
  .topbar-title {
-     color: white;
+     color: rgb(95, 95, 95);
      align-items: center;
      padding-top: 15px;
      flex-grow: 1;
