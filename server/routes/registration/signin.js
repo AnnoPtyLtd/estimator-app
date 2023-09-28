@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // Import your User model
+const User = require('../../models/User'); 
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.post("/signin", async (req, res) => {
       return;
     }
 
-    const token = jwt.sign({ userId: user._id }, 'your-secret-key'); // Replace with your own secret key
+    const token = jwt.sign({ userId: user._id }, 'your-secret-key'); 
 
     res.status(200).json({ token });
 

@@ -287,3 +287,22 @@
 .scrollable-list::-webkit-scrollbar-track {
   background-color: transparent;
 }
+.comp-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+.comp-item p{
+  font-weight: lighter;
+}
+.comp-edit-icon{
+  background-color: lightblue;
+  padding: 2px;
+  border-radius: 20%;
+}
+.comp-edit-icon:hover{
+  color: lightseagreen;
+}

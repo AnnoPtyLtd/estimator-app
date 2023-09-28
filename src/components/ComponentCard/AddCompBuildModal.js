@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import CloseIcon from '@mui/icons-material/Close';
+
 import './ComponentCard.css';
 
-const AddComponentModal = ({ show, onHide, recordID }) => {
+const AddComponentModal = ({ show, onHide, recordID,compCat }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
     const [selectedComponents, setSelectedComponents] = useState([]);
@@ -35,6 +36,7 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
         }
     }, [show, categoryComp]);
 
+
     const handleComponentSelection = (componentName) => {
         if (selectedComponents.includes(componentName)) {
             setSelectedComponents((prevSelectedComponents) =>
@@ -44,6 +46,8 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
             setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
         }
     };
+
+   
 
     const handleSaveChanges = () => {
         const recordId = recordID;
@@ -64,9 +68,8 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
                 console.error(error);
             });
     };
- 
-    return (
 
+    return (
         <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
             <Modal.Header className="custom-modal-header">
                 <Modal.Title>Add Components</Modal.Title>
@@ -106,6 +109,7 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
                                 <p className="add-comp-cost">Price: {component.componentCost}$</p>
                             </li>
                         ))}
+                        
                     </ul>
                 </div>
             </Modal.Body>

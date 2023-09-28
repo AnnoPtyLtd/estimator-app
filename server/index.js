@@ -37,17 +37,17 @@ UserSchema.methods.comparePassword = async function (password) {
 const User = mongoose.model('users', UserSchema);
 User.createIndexes();
 
-const signupRoute = require('./routes/signup');
-const signinRoute = require('./routes/signin');
-const saveRecordRoute = require('./routes/records');
-const saveNewComponentRoute = require('./routes/save-component'); 
-const getComponentsRoute = require('./routes/get-component');
+const signupRoute = require('./routes/registration/signup');
+const signinRoute = require('./routes/registration/signin');
+const saveRecordRoute = require('./routes/records/records');
+const saveNewComponentRoute = require('./routes/components/save-component'); 
+const getComponentsRoute = require('./routes/components/get-component');
 const getSearchItems = require('./routes/search');
-const removeComponentRoute = require('./routes/remove-component');
-const archiveQuote = require('./routes/archive-record');
-const archiveComponent = require('./routes/archive-component');
-const deleteRecord = require('./routes/delete-record')
-const updateComponentCost = require('./routes/updateComponentPrice')
+const removeComponentRoute = require('./routes/components/remove-component');
+const archiveQuote = require('./routes/records/archive-record');
+const archiveComponent = require('./routes/components/archive-component');
+const deleteRecord = require('./routes/records/delete-record')
+const updateComponentCost = require('./routes/components/updateComponentPrice')
 
 app.use(signupRoute);
 app.use(signinRoute);

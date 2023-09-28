@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ComponentModel = require('../models/NewComponent');
+const ComponentModel = require('../../models/NewComponent');
 
 router.get('/get-components', async (req, res) => {
   const category = req.query.category;

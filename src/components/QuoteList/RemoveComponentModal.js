@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import DeleteForever from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './QuoteList.css';
 
 const RemoveComponentModal = ({ show, onHide }) => {
@@ -74,7 +75,7 @@ const RemoveComponentModal = ({ show, onHide }) => {
                             <li className="comp-names-item" key={component._id}>
                                 <p>{component.componentName}</p>
                                 <p className="add-comp-cost">Price: {component.componentCost}$</p>
-                                <DeleteForever className='remove-btn' fontSize='large' onClick={() => removeComponentFromDB(component._id)} />
+                                <CloseOutlinedIcon className='remove-btn' fontSize='large' onClick={() => removeComponentFromDB(component._id)} />
                             </li>
                         ))}
                     </ul>

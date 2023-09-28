@@ -14,6 +14,10 @@ const EditCompModal = ({ show, onHide }) => {
   const [components, setComponents] = useState([]);
   const [showEditPriceModal, setShowEditPriceModal] = useState(false);
 
+  //new
+  const [componentPrices, setComponentPrices] = useState({});
+
+
   useEffect(() => {
     const fetchComponents = async () => {
       try {

@@ -1,6 +1,6 @@
 const express = require('express');
-const ArchivedRecord = require('../models/ArchivedQuotes');
-const Record = require('../models/Record');
+const ArchivedRecord = require('../../models/ArchivedQuotes');
+const Record = require('../../models/Record');
 const router = express.Router();
 
 router.put('/archive-record/:id', async (req, res) => {

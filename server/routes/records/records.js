@@ -1,7 +1,7 @@
 const express = require('express')
-const Record = require('../models/Record')
+const Record = require('../../models/Record')
 const router = express.Router()
-const NewComponent = require('../models/NewComponent');
+const NewComponent = require('../../models/NewComponent');
 
 router.post('/saverecord', async (req, res) => {
   try {
@@ -99,19 +99,32 @@ router.post('/add-components-to-build/:id', async (req, res) => {
       return res.status(404).json({ error: 'Record not found' });
     }
 
-    const componentCosts = await Promise.all(
+    const componentDetails = await Promise.all(
       selectedComponents.map(async (componentName) => {
         const component = await NewComponent.findOne({ componentName });
         if (component) {
-          return component.componentCost;
+          return {
+            componentName: component.componentName,
+            componentCost: component.componentCost,
+          };
         }
-        return 0;
+        return null;
       })
     );
 
-    const totalCost = componentCosts.reduce((acc, cost) => acc + cost, 0);
+    const totalCost = componentDetails.reduce((acc, component) => {
+      if (component) {
+        return acc + component.componentCost;
+      }
+      return acc;
+    }, 0);
 
-    existingRecord.quoteComps = selectedComponents.join(', ');
+    // Create an array of component names with their costs as strings
+    const componentsWithCosts = componentDetails.map((component) =>
+      component ? `${component.componentName} ($${component.componentCost})` : null
+    );
+
+    existingRecord.quoteComps = componentsWithCosts.filter(Boolean).join(', ');
     existingRecord.quoteCost = totalCost;
 
     const updatedRecord = await existingRecord.save();
@@ -122,8 +135,6 @@ router.post('/add-components-to-build/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
 
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const NewComponent = require('../models/NewComponent');
+const NewComponent = require('../../models/NewComponent');
 
 router.put('/updateCompononentPrice/:id', async (req, res) => {
   try {

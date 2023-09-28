@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Record = require('../models/Record');
+const Record = require('../../models/Record');
 
 router.delete('/delete-record/:recordID', async (req, res) => {
     const recordID = req.params.recordID;

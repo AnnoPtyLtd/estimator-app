@@ -4,11 +4,14 @@ import Button from 'react-bootstrap/Button';
 import { motion } from 'framer-motion';
 import CloseIcon from '@mui/icons-material/Close';
 import AddCompBuildModal from './AddCompBuildModal';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import './ComponentCard.css'
 
 const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges, comps, overallcost, recordID }) => {
   const componentsArray = comps ? comps.split(',') : [];
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
+  const [compCat, setCompCat] = useState('CPU');
+
 
   return (
     <div>
@@ -43,7 +46,10 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
             </div>
             <ul>
               {componentsArray.map((component, index) => (
-                <li key={index}>{component.trim()}</li>
+                <li key={index} className='comp-item'>
+                  <p>{component.trim()}</p>
+                  <ModeEditOutlineIcon className='comp-edit-icon' color='primary'/>
+                </li>
               ))}
             </ul>
           </div>
@@ -61,7 +67,9 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
       <AddCompBuildModal
         show={addComponentModalShow}
         onHide={() => setAddComponentModalShow(false)}
-        recordID={recordID} />
+        recordID={recordID} 
+        compCat={compCat}
+        />
     </div>
   );
 };

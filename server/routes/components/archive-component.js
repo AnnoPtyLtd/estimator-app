@@ -1,7 +1,7 @@
 const express = require('express');
-const Component = require('../models/NewComponent');
+const Component = require('../../models/NewComponent');
 const router = express.Router();
-const ArchivedComponent = require('../models/ArchivedComponents');
+const ArchivedComponent = require('../../models/ArchivedComponents');
 
 router.put('/archive-component/:id', async (req, res) => {
     try {
