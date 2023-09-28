@@ -3,7 +3,6 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import EditIcon from '@mui/icons-material/Edit';
 import Skeleton from '@mui/material/Skeleton';
 import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import AddCompBuildModal from './AddCompBuildModal';
 import EditBuildModal from './EditBuildModal';
 import DuplicateQuoteModal from './DuplicateQuoteModal';
 import DuplicateIcon from '@mui/icons-material/ControlPointDuplicate';
@@ -18,7 +17,6 @@ const ComponentCard = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [addComponentModalShow, setAddComponentModalShow] = useState(false);
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
 
@@ -29,35 +27,9 @@ const ComponentCard = (props) => {
     }, 1500);
   }, []);
 
-  const handleEditClick = () => {
-    setShowModal(true);
-    console.log(isAdmin)
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    console.log(props.records);
-  };
-
-  const handleArchiveClick = () => {
-    setShowArchiveModal(true);
-  };
-
-  const handleCloseArchive = () => {
-    setShowArchiveModal(false);
-  };
-
-  const handleDeleteClick = () => {
-    setShowDeleteModal(true);
-  };
-
-  const handleCloseDelete = () => {
-    setShowDeleteModal(false);
-  };
-
   const handleSaveChanges = () => {
+    
     setShowModal(false);
-
     fetch(`http://localhost:4000/updateTitle/${props.id}`, {
       method: 'PUT',
       headers: {
@@ -73,22 +45,6 @@ const ComponentCard = (props) => {
       .catch((error) => {
         console.error('Error updating title:', error);
       });
-  };
-
-  const handleAddComponentModalShow = () => {
-    setAddComponentModalShow(true);
-  };
-
-  const handleAddComponentModalClose = () => {
-    setAddComponentModalShow(false);
-  };
-
-  const handleCloseDuplicate = () => {
-    setShowDuplicateModal(false);
-  };
-
-  const handleShowDuplicate = () => {
-    setShowDuplicateModal(true);
   };
 
   return (
@@ -130,10 +86,10 @@ const ComponentCard = (props) => {
             </>
           ) : (
             <>
-              <button className="buttons" onClick={handleArchiveClick}>
+              <button className="buttons" onClick={() => setShowArchiveModal(true)}>
                 <ArchiveIcon />
               </button>
-              <button className="buttons" onClick={handleEditClick}>
+              <button className="buttons" onClick={()=>setShowModal(true)}>
                 <EditIcon />
               </button>
             </>
@@ -147,10 +103,10 @@ const ComponentCard = (props) => {
             </>
           ) : (
             <>
-              <button className="buttons" onClick={handleShowDuplicate}>
+              <button className="buttons" onClick={() => setShowDuplicateModal(true)}>
                 <DuplicateIcon />
               </button>
-              <button className="delete-btn" disabled={!isAdmin} onClick={handleDeleteClick}>
+              <button className="delete-btn" disabled={!isAdmin} onClick={() => setShowDeleteModal(true)}>
                 <DeleteIcon />
               </button>
             </>
@@ -160,24 +116,18 @@ const ComponentCard = (props) => {
       
       <EditBuildModal
         show={showModal}
-        onHide={handleCloseModal}
+        onHide={() => setShowModal(false)}
         newTitle={newTitle}
         setNewTitle={setNewTitle}
         handleSaveChanges={handleSaveChanges}
-        handleAddComponentModalShow={handleAddComponentModalShow}
         comps={props.comps}
         overallcost={props.cost}
-      />
-
-      <AddCompBuildModal
-        show={addComponentModalShow}
-        onHide={handleAddComponentModalClose}
         recordID={props.id}
       />
 
       <DuplicateQuoteModal
         show={showDuplicateModal}
-        onHide={handleCloseDuplicate}
+        onHide={() =>  setShowDuplicateModal(false)}
         title={props.title}
         cost={props.cost}
         comps={props.comps}
@@ -186,14 +136,14 @@ const ComponentCard = (props) => {
 
       <ArchiveModal
         show={showArchiveModal}
-        onHide={handleCloseArchive}
+        onHide={()=>setShowArchiveModal(false)}
         recordID={props.id}
         title={props.title}
       />
 
       <DeleteQuoteModal
         show={showDeleteModal}
-        onHide={handleCloseDelete}
+        onHide={() => setShowDeleteModal(false)}
         title={props.title}
         recordID={props.id}
       />

@@ -4,13 +4,14 @@ const NewComponent = require('../models/NewComponent');
 
 router.post('/save-newcomponent', async (req, res) => {
   try {
-    const { componentCategory, componentName, componentDate, componentCost } = req.body;
+    const { componentCategory, componentName, componentDate, componentCost,componentUrl } = req.body;
 
     const newComponent = new NewComponent({
       componentCategory,
       componentName,
       componentDate,
       componentCost,
+      componentUrl,
     });
 
     await newComponent.save();

@@ -4,8 +4,16 @@ const ComponentModel = require('../models/NewComponent');
 
 router.get('/get-components', async (req, res) => {
   const category = req.query.category;
+
   try {
-    const components = await ComponentModel.find({ componentCategory: category });
+    let components;
+
+    if (category && category !== 'View All') {
+      components = await ComponentModel.find({ componentCategory: category });
+    } else {
+      components = await ComponentModel.find();
+    }
+
     res.json(components);
   } catch (error) {
     console.error(error);

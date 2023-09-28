@@ -8,17 +8,22 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
     const [selectedComponents, setSelectedComponents] = useState([]);
-    const [selectedComponentPrices, setSelectedComponentPrices] = useState([]);
 
     useEffect(() => {
         const fetchComponents = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/get-components?category=${categoryComp}`);
+                let url = `http://localhost:4000/get-components`;
+                if (categoryComp !== "View All") {
+                    url += `?category=${categoryComp}`;
+                }
+
+                const response = await fetch(url);
+
                 if (response.ok) {
                     const data = await response.json();
                     setComponents(data);
                 } else {
-                    console.log('Error fetching components');
+                    console.log("Error fetching components");
                 }
             } catch (error) {
                 console.error(error);
@@ -35,11 +40,6 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
             setSelectedComponents((prevSelectedComponents) =>
                 prevSelectedComponents.filter((component) => component !== componentName)
             );
-            setSelectedComponentPrices((prevSelectedComponentPrices) =>
-            prevSelectedComponentPrices.filter((_, index) => {
-              return components[index].componentName !== componentName;
-            })
-          );
         } else {
             setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
         }
@@ -64,28 +64,33 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
                 console.error(error);
             });
     };
-
+ 
     return (
+
         <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
             <Modal.Header className="custom-modal-header">
                 <Modal.Title>Add Components</Modal.Title>
-                <button className="close-button" onClick={onHide}><CloseIcon/></button>
+                <button className="close-button" onClick={onHide}><CloseIcon /></button>
             </Modal.Header>
             <Modal.Body className='custom-modal-body'>
                 <div className='modalbodycomp-item'>
                     <label htmlFor='dropdown'> Category: </label>
-                    <select id='dropdown' value={categoryComp} onChange={(e) => { setCategoryComp(e.target.value) }}>
-                        <option value='CPU'>CPU</option>
-                        <option value='Graphic Card'>Graphic Card</option>
-                        <option value='Power Supply'>Power Supply</option>
-                        <option value='PC Casing'>PC Casing</option>
-                        <option value='RAM'>RAM</option>
-                        <option value='Storage'>Storage</option>
-                        <option value='Cooling Solution'>Cooling Solution</option>
-                        <option value='Others'>Others</option>
+                    <select
+                        id="dropdown"
+                        value={categoryComp}
+                        onChange={(e) => { setCategoryComp(e.target.value); }}>
+                        <option value="View All">View All</option>
+                        <option value="CPU">CPU</option>
+                        <option value="Graphic Card">Graphic Card</option>
+                        <option value="Power Supply">Power Supply</option>
+                        <option value="PC Casing">PC Casing</option>
+                        <option value="RAM">RAM</option>
+                        <option value="Storage">Storage</option>
+                        <option value="Cooling Solution">Cooling Solution</option>
+                        <option value="Others">Others</option>
                     </select>
                 </div>
-                <div>
+                <div className='scrollable-list'>
                     <ul className="export-list">
                         {components.map((component) => (
                             <li className="add-comp-item" key={component._id}>
@@ -113,6 +118,7 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
                 </Button>
             </Modal.Footer>
         </Modal>
+
     );
 };
 

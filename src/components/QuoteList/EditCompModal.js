@@ -10,6 +10,7 @@ const EditCompModal = ({ show, onHide }) => {
   const [categoryComp, setCategoryComp] = useState('CPU');
   const [compID, setCompID] = useState('');
   const [compCost, setCompCost] = useState();
+  const [compUrl, setCompUrl] = useState('');
   const [components, setComponents] = useState([]);
   const [showEditPriceModal, setShowEditPriceModal] = useState(false);
 
@@ -30,28 +31,29 @@ const EditCompModal = ({ show, onHide }) => {
     if (show) {
       fetchComponents();
     }
-  }, [categoryComp,show]);
+  }, [categoryComp, show]);
 
   const handleUpdatePrice = () => {
     setShowEditPriceModal(false);
-
+  
+    const currentDate = new Date(); // Get the current date and time
+  
     fetch(`http://localhost:4000/updateCompononentPrice/${compID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ compCost: compCost }),
+      body: JSON.stringify({ compCost: compCost, compUrl: compUrl, compDate: currentDate }),
     })
       .then((response) => response.json())
       .then((data) => {
         onHide();
-        alert('Updated successfully!')
+        alert('Updated successfully!');
       })
       .catch((error) => {
         console.error('Error updating price', error);
       });
   };
-
 
   return (
     <div>
@@ -109,6 +111,15 @@ const EditCompModal = ({ show, onHide }) => {
               id='quote-cost'
               value={compCost}
               onChange={(e) => setCompCost(e.target.value)}
+            />
+          </div>
+          <div className='edit-price-section'>
+            Enter the updated url if any:
+            <input
+              type='text'
+              id='quote-url'
+              value={compUrl}
+              onChange={(e) => setCompUrl(e.target.value)}
             />
           </div>
         </Modal.Body>

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import './ComponentCard.css'
 
-const ArchiveModal = ({ show, onHide, recordID,title }) => {
+const ArchiveModal = ({ show, onHide, recordID, title }) => {
 
     const handleClose = () => {
         onHide();
@@ -20,28 +20,22 @@ const ArchiveModal = ({ show, onHide, recordID,title }) => {
             .catch((error) => {
                 console.error('Error archiving record:', error);
             });
-        onHide(); 
+        onHide();
     }
 
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header className="custom-modal-header">
                 <Modal.Title>Archive Quote</Modal.Title>
-                <button className="close-button" onClick={onHide}><CloseIcon/></button>
-            
+                <button className="close-button" onClick={onHide}><CloseIcon /></button>
+
             </Modal.Header>
             <Modal.Body>
-                <div >
-                    <p>Are you sure you want to archive {title} quote!</p>
-                </div>
+                <div><p>Are you sure you want to archive {title} quote!</p></div>
             </Modal.Body>
             <Modal.Footer className="custom-modal-footer">
-                <Button variant="secondary" onClick={handleClose}>
-                    No
-                </Button>
-                <Button variant="primary" onClick={handleArchiveConfirm} >
-                    Yes
-                </Button>
+                <Button variant="secondary" onClick={handleClose}>No</Button>
+                <Button variant="primary" onClick={handleArchiveConfirm}>Yes</Button>
             </Modal.Footer>
         </Modal>
     );

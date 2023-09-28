@@ -12,10 +12,12 @@ const AddComponentModal = ({
   compName,
   compPrice,
   compDate,
+  compUrl,
   setCategory,
   setCompName,
   setCompPrice,
   setCompDate,
+  setCompUrl,
   saveComponent,
 }) => {
   return (
@@ -50,6 +52,16 @@ const AddComponentModal = ({
             className='modalbody-textfield'
             value={compName}
             onChange={(e) => setCompName(e.target.value)}
+          />
+        </div>
+        <div className='modalbodycomp-item'>
+          <TextField
+            fullWidth
+            placeholder="Component Url"
+            id="fullWidth"
+            className='modalbody-textfield'
+            value={compUrl}
+            onChange={(e) => setCompUrl(e.target.value)}
           />
         </div>
 

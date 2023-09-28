@@ -3,11 +3,15 @@ import Modal from 'react-bootstrap/Modal';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import ArchiveComponentModal from './ArchiveComponentModal';
 import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import './QuoteList.css';
 
 const ShowComponentsModal = ({ show, onHide, category }) => {
+
   const [components, setComponents] = useState([]);
   const [compId, setCompId] = useState();
   const [compName, setCompName] = useState('');
@@ -34,7 +38,7 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
       setIsLoading(true);
       fetchComponents();
     }
-  }, [show,category]);
+  }, [show, category]);
 
 
   const handleArchiveClick = (componentID, componentNAME) => {
@@ -42,9 +46,12 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
     setCompName(componentNAME);
     setShowComponentArchiveModal(true);
   }
-  
+
   const handleCloseArchiveModal = () => {
     setShowComponentArchiveModal(false);
+  }
+  const handleUrlClick = (url) => {
+    window.open(url, '_blank');
   }
 
   return (
@@ -52,7 +59,7 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
       <Modal show={show} onHide={onHide} centered>
         <Modal.Header className="custom-modal-header">
           <Modal.Title>{category} Components</Modal.Title>
-          <button className="close-button" onClick={onHide}><CloseIcon/></button>
+          <button className="close-button" onClick={onHide}><CloseIcon /></button>
         </Modal.Header>
         <Modal.Body className='modal-body-show'>
           {isLoading ? (
@@ -63,16 +70,27 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
             </Box>
           ) : (
             <ul className='comp-names'>
-              {components.map((component) => (
+              {components.map((component, dataobj) => (
+
+
                 <li className='comp-names-item' key={component._id}>
-                  <p>{component.componentName}</p>
-                  <div className='comp-price-archive'>
-                    <p className='item-cost'>Price: {component.componentCost}$</p>
-                    <button className='archive-icon' onClick={() => handleArchiveClick(component._id, component.componentName)}>
-                      <ArchiveOutlinedIcon fontSize='large' />
-                    </button>
+                  <div>
+
+                    <p>{component.componentName}</p>
+                    <div className='comp-price-archive'>
+                      <p className='item-cost'>{component.componentCost}$</p>
+                      <ArchiveOutlinedIcon className='archive-icon' fontSize='large' onClick={() => handleArchiveClick(component._id, component.componentName)} />
+                      <Tooltip title={component.componentUrl} placement="right-start">
+                        <ArrowOutwardIcon className='archive-icon' fontSize='large' onClick={() => handleUrlClick(component.componentUrl)} />
+                      </Tooltip>
+                    </div>
+
                   </div>
+                  <Tooltip title={new Date(component.componentDate).toLocaleDateString()} placement='top'>
+                    <Button variant='outlined'>Last update</Button>
+                  </Tooltip>
                 </li>
+
               ))}
             </ul>
           )}

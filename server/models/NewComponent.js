@@ -5,6 +5,7 @@ const NewComponentSchema = new mongoose.Schema({
     componentName: String,
     componentDate: Date,
     componentCost: Number,
+    componentUrl: String,
 });
 
 const NewComponent = mongoose.model('usercomponents', NewComponentSchema);

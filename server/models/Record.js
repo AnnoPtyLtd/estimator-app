@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-
 const recordSchema = new mongoose.Schema({
   quoteUserId:String,
   name:String,
@@ -13,5 +12,3 @@ const recordSchema = new mongoose.Schema({
 
 const Record = mongoose.model('records',recordSchema);
 module.exports = Record;
-
-  // quoteUserId:String,

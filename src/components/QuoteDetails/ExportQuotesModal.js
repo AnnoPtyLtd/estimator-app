@@ -43,48 +43,18 @@ const ExportQuotesModal = ({ show, onHide }) => {
             }
         };
         fetchRecords();
-    }, [quoteUserId, quoteType, userId, isAdmin]);
+    }, [quoteType]);
 
     const handleQuoteSelection = (name) => {
-        if (selectedQuotes.includes(name)) {
-            setSelectedQuotes((prevSelectedQuotes) =>
-                prevSelectedQuotes.filter((record) => record !== name)
-            );
-        } else {
-            setSelectedQuotes((prevSelectedQuotes) => [...prevSelectedQuotes, name]);
-        }
+       
     };
-    const handleClearSelection = () => {
-        setSelectedQuotes([]);
-    }
+   
     const handleExport = () => {
-        if (selectedQuotes.length === 0) {
-            console.log('No quotes selected for export.');
-            return;
-        }
-        const csvContent = generateCSVContent();
-        const blob = new Blob([csvContent], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Selected Quotes.csv';
-        a.click();
-        window.URL.revokeObjectURL(url);
-        console.log(csvContent);
+        
     };
 
     const generateCSVContent = () => {
-        const header = 'Name,Category,Quote Date,Quote Cost,Quote Components\n';
-        const csvRows = selectedQuotes.map((name) => {
-            const record = records.find((r) => r.name === name);
-            if (!record) {
-                console.error(`Record not found for name: ${name}`);
-                return '';
-            }
-            const quoteComponents = Array.isArray(record.quoteComps) ? record.quoteComps.join(', ') : record.quoteComps;
-            return `${record.name},${record.quoteType},${record.quoteDate},${record.quoteCost},"${quoteComponents}"\n`;
-        });
-        return header + csvRows.join('');
+        
     };
 
     return (
@@ -103,8 +73,10 @@ const ExportQuotesModal = ({ show, onHide }) => {
                         <option value='Office/Home PC'>Office/Home</option>
                         <option value='Custom/Other'>Custom/Other</option>
                     </select>
-                    <button className='clear-button' onClick={handleClearSelection}>Clear all</button>
+                    <button className='clear-button'>Clear all</button>
                 </div>
+                <div className='scrollable-list'>
+
                 <ul className='export-list'>
                     {records.map((record) => (
                         <li
@@ -124,6 +96,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
                         </li>
                     ))}
                 </ul>
+                </div>
             </Modal.Body>
             <Modal.Footer className="custom-modal-footer">
                 <Button variant="secondary" onClick={onHide}>Cancel</Button>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Button from '@mui/material/Button';
 import AddComponentModal from './AddComponentModal';
 import ShowComponentsModal from './ShowComponentsModal';
 import SearchResultModal from './SearchResultModal';
@@ -17,6 +18,7 @@ const QuoteList = () => {
   const [compName, setCompName] = useState('');
   const [compPrice, setCompPrice] = useState(0);
   const [compDate, setCompDate] = useState('');
+  const [compUrl, setCompUrl] = useState('');
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
   const [showComponentsModal, setShowComponentsModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -51,6 +53,7 @@ const QuoteList = () => {
       componentName: compName,
       componentDate: compDate,
       componentCost: compPrice,
+      componentUrl: compUrl,
     };
     try {
       const response = await fetch('http://localhost:4000/save-newcomponent', {
@@ -167,10 +170,12 @@ const QuoteList = () => {
         compName={compName}
         compPrice={compPrice}
         compDate={compDate}
+        compUrl={compUrl}
         setCategory={setCategory}
         setCompName={setCompName}
         setCompPrice={setCompPrice}
         setCompDate={setCompDate}
+        setCompUrl={setCompUrl}
         saveComponent={saveComponent}
       />
       <ShowComponentsModal

@@ -1,25 +1,28 @@
 const express = require('express')
-const Record = require('../models/Record')
 const router = express.Router()
 const NewComponent = require('../models/NewComponent');
-
 
 router.put('/updateCompononentPrice/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { compCost } = req.body;
+    const { compCost, compUrl, compDate } = req.body;
 
     if (!compCost) {
       return res.status(400).json({ error: 'New cost is required' });
     }
-    const updateFields = {};
-    if (compCost) {
-      updateFields.componentCost = compCost;
+
+    const updateFields = {
+      componentCost: compCost,
+      componentDate: compDate,
+    };
+
+    if (compUrl) {
+      updateFields.componentUrl = compUrl;
     }
 
     const updatedRecord = await NewComponent.findByIdAndUpdate(
       id,
-      updateFields, 
+      updateFields,
       { new: true }
     );
 

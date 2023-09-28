@@ -54,7 +54,6 @@ router.get('/adminrecords', async (req, res) => {
   }
 });
 
-
 router.put('/updateTitle/:id', async (req, res) => {
   try {
     const { id } = req.params;
