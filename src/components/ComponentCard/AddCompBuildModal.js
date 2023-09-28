@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import './ComponentCard.css';
 
-const AddComponentModal = ({ show, onHide, recordID,compCat }) => {
+const AddComponentModal = ({ show, onHide, recordID }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
     const [selectedComponents, setSelectedComponents] = useState([]);
@@ -13,6 +13,7 @@ const AddComponentModal = ({ show, onHide, recordID,compCat }) => {
     useEffect(() => {
         const fetchComponents = async () => {
             try {
+                console.log('addcompbuildmodal category comp: ',categoryComp);
                 let url = `http://localhost:4000/get-components`;
                 if (categoryComp !== "View All") {
                     url += `?category=${categoryComp}`;
@@ -36,7 +37,6 @@ const AddComponentModal = ({ show, onHide, recordID,compCat }) => {
         }
     }, [show, categoryComp]);
 
-
     const handleComponentSelection = (componentName) => {
         if (selectedComponents.includes(componentName)) {
             setSelectedComponents((prevSelectedComponents) =>
@@ -46,8 +46,6 @@ const AddComponentModal = ({ show, onHide, recordID,compCat }) => {
             setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
         }
     };
-
-   
 
     const handleSaveChanges = () => {
         const recordId = recordID;
@@ -122,7 +120,6 @@ const AddComponentModal = ({ show, onHide, recordID,compCat }) => {
                 </Button>
             </Modal.Footer>
         </Modal>
-
     );
 };
 

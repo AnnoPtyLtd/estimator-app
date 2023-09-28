@@ -10,9 +10,7 @@ import './ComponentCard.css'
 const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges, comps, overallcost, recordID }) => {
   const componentsArray = comps ? comps.split(',') : [];
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
-  const [compCat, setCompCat] = useState('CPU');
-
-
+ 
   return (
     <div>
       <Modal show={show} onHide={onHide}>
@@ -48,7 +46,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
               {componentsArray.map((component, index) => (
                 <li key={index} className='comp-item'>
                   <p>{component.trim()}</p>
-                  <ModeEditOutlineIcon className='comp-edit-icon' color='primary'/>
+                  {/* <ModeEditOutlineIcon className='comp-edit-icon' color='primary' /> */}
                 </li>
               ))}
             </ul>
@@ -67,9 +65,8 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
       <AddCompBuildModal
         show={addComponentModalShow}
         onHide={() => setAddComponentModalShow(false)}
-        recordID={recordID} 
-        compCat={compCat}
-        />
+        recordID={recordID}
+      />
     </div>
   );
 };
