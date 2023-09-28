@@ -120,8 +120,6 @@ const ComponentCard = (props) => {
         newTitle={newTitle}
         setNewTitle={setNewTitle}
         handleSaveChanges={handleSaveChanges}
-        comps={props.comps}
-        overallcost={props.cost}
         recordID={props.id}
       />
 

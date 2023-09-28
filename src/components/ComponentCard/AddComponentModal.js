@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import CloseIcon from '@mui/icons-material/Close';
-
 import './ComponentCard.css';
 
 const AddComponentModal = ({ show, onHide, recordID }) => {
@@ -10,15 +9,18 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
     const [components, setComponents] = useState([]);
     const [selectedComponents, setSelectedComponents] = useState([]);
 
+    const [componentNames, setComponentNames] = useState([]);
+    const [componentPrices, setComponentPrices] = useState([]);
+    const [componentCategories, setComponentCategories] = useState([]);
+
     useEffect(() => {
+        
         const fetchComponents = async () => {
             try {
-                console.log('addcompbuildmodal category comp: ',categoryComp);
                 let url = `http://localhost:4000/get-components`;
                 if (categoryComp !== "View All") {
                     url += `?category=${categoryComp}`;
                 }
-
                 const response = await fetch(url);
 
                 if (response.ok) {
@@ -35,15 +37,32 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
         if (show) {
             fetchComponents();
         }
-    }, [show, categoryComp]);
+    }, [show,categoryComp]);
 
-    const handleComponentSelection = (componentName) => {
+    const handleComponentSelection = (componentName, componentPrice, componentCategory) => {
         if (selectedComponents.includes(componentName)) {
             setSelectedComponents((prevSelectedComponents) =>
                 prevSelectedComponents.filter((component) => component !== componentName)
             );
         } else {
             setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
+        }
+
+        const selectedIndex = componentNames.indexOf(componentName);
+        if (selectedIndex === -1) {
+            setComponentNames((prevComponentNames) => [...prevComponentNames, componentName]);
+            setComponentPrices((prevComponentPrices) => [...prevComponentPrices, componentPrice]);
+            setComponentCategories((prevComponentCategories) => [...prevComponentCategories, componentCategory]);
+        } else {
+            setComponentNames((prevComponentNames) =>
+                prevComponentNames.filter((name) => name !== componentName)
+            );
+            setComponentPrices((prevComponentPrices) =>
+                prevComponentPrices.filter((price, index) => index !== selectedIndex)
+            );
+            setComponentCategories((prevComponentCategories) =>
+                prevComponentCategories.filter((category, index) => index !== selectedIndex)
+            );
         }
     };
 
@@ -55,7 +74,11 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ selectedComponents }),
+            body: JSON.stringify({
+                componentNames,
+                componentPrices,
+                componentCategories,
+            }),
         })
             .then((response) => response.json())
             .then((data) => {
@@ -100,19 +123,22 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
                                         type="checkbox"
                                         className='input-check'
                                         checked={selectedComponents.includes(component.componentName)}
-                                        onChange={() => handleComponentSelection(component.componentName)}
+                                        onChange={() => handleComponentSelection(component.componentName, component.componentCost, component.componentCategory)}
                                     />
                                     {component.componentName}
                                 </label>
                                 <p className="add-comp-cost">Price: {component.componentCost}$</p>
                             </li>
                         ))}
-                        
+
                     </ul>
                 </div>
             </Modal.Body>
             <Modal.Footer className="custom-modal-footer">
-                <Button variant="secondary" onClick={onHide}>
+                <Button variant="secondary" onClick={() => {
+                    setCategoryComp('View All');
+                    onHide();
+                }}>
                     Close
                 </Button>
                 <Button variant="primary" onClick={handleSaveChanges}>
@@ -124,4 +150,3 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
 };
 
 export default AddComponentModal;
-

@@ -69,7 +69,7 @@ router.put('/updateTitle/:id', async (req, res) => {
 
     const updatedRecord = await Record.findByIdAndUpdate(
       id,
-      updateFields, 
+      updateFields,
       { new: true }
     );
 
@@ -84,13 +84,14 @@ router.put('/updateTitle/:id', async (req, res) => {
   }
 });
 
+// Modify the /add-components-to-build/:id route
 router.post('/add-components-to-build/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { selectedComponents } = req.body;
+    const { componentNames, componentPrices, componentCategories } = req.body;
 
-    if (!selectedComponents || !Array.isArray(selectedComponents)) {
-      return res.status(400).json({ error: 'Invalid selected components' });
+    if (!componentNames || !Array.isArray(componentNames) || !componentPrices || !Array.isArray(componentPrices) || !componentCategories || !Array.isArray(componentCategories) || componentNames.length !== componentPrices.length || componentPrices.length !== componentCategories.length) {
+      return res.status(400).json({ error: 'Invalid component data' });
     }
 
     const existingRecord = await Record.findById(id);
@@ -99,32 +100,14 @@ router.post('/add-components-to-build/:id', async (req, res) => {
       return res.status(404).json({ error: 'Record not found' });
     }
 
-    const componentDetails = await Promise.all(
-      selectedComponents.map(async (componentName) => {
-        const component = await NewComponent.findOne({ componentName });
-        if (component) {
-          return {
-            componentName: component.componentName,
-            componentCost: component.componentCost,
-          };
-        }
-        return null;
-      })
-    );
+    // Update component names and prices separately in the record
+    existingRecord.componentNames = componentNames;
+    existingRecord.componentPrices = componentPrices;
+    existingRecord.componentCategories = componentCategories;
 
-    const totalCost = componentDetails.reduce((acc, component) => {
-      if (component) {
-        return acc + component.componentCost;
-      }
-      return acc;
-    }, 0);
+    // Calculate total cost based on component prices
+    const totalCost = componentPrices.reduce((acc, price) => acc + price, 0);
 
-    // Create an array of component names with their costs as strings
-    const componentsWithCosts = componentDetails.map((component) =>
-      component ? `${component.componentName} ($${component.componentCost})` : null
-    );
-
-    existingRecord.quoteComps = componentsWithCosts.filter(Boolean).join(', ');
     existingRecord.quoteCost = totalCost;
 
     const updatedRecord = await existingRecord.save();
@@ -135,6 +118,29 @@ router.post('/add-components-to-build/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+router.get('/get-components-by-record/:recordID', async (req, res) => {
+  try {
+    const { recordID } = req.params;
+
+    const record = await Record.findById(recordID);
+
+    if (!record) {
+      return res.status(404).json({ error: 'Record not found' });
+    }
+
+    const { componentNames, componentPrices,componentCategories } = record;
+
+    res.json({ componentNames, componentPrices,componentCategories });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
 
 
 module.exports = router;

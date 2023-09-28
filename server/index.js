@@ -49,6 +49,7 @@ const archiveComponent = require('./routes/components/archive-component');
 const deleteRecord = require('./routes/records/delete-record')
 const updateComponentCost = require('./routes/components/updateComponentPrice')
 const getComponentCategory = require('./routes/components/get-component-category')
+const deleteComponentFromRecord = require('./routes/records/delete-component')
 
 app.use(signupRoute);
 app.use(signinRoute);
@@ -62,6 +63,7 @@ app.use(archiveComponent);
 app.use(deleteRecord);
 app.use(updateComponentCost);
 app.use(getComponentCategory);
+app.use(deleteComponentFromRecord);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import DeleteForever from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './QuoteList.css';
