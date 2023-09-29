@@ -200,3 +200,25 @@
   border-radius: 5px;
  padding: 10px 10px 10px 10%;
 }
+
+.uploadfile-text {
+  width: 50%;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+
+}
+
+.file-input-field {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+ padding: 10px 10px 10px 10%;
+}
+
+.addCompModal-Body{
+  background-image: url("./../../assets/signupbackground.jpg");
+  background-color: rgba(0, 0, 0, 0, 0.1);
+}
