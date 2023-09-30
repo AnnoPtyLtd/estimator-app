@@ -1,3 +1,4 @@
+import './QuoteDetails.css';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import ComponentCard from '../ComponentCard/ComponentCard';
@@ -6,9 +7,13 @@ import jwt_decode from 'jwt-decode';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Button from '@mui/material/Button';
 import StringTextField from '../TextFields/StringTextField';
-import './QuoteDetails.css';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const QuoteDetails = () => {
+
+  const anchor = { vertical: 'top', horizontal: 'right' };
+  const [open, setOpen] = useState(false);
   const [records, setRecords] = useState([]);
   const [quoteUserId, setQuoteUserId] = useState('');
   const [name, setName] = useState('');
@@ -53,8 +58,6 @@ const QuoteDetails = () => {
   }, [isAdmin, quoteType2, quoteUserId, records, userId]);//new edit
 
   const handleAddRecord = async () => {
-    console.log('User ID:', quoteUserId);
-
     try {
       const response = await fetch('http://localhost:4000/saverecord', {
         method: 'POST',
@@ -65,7 +68,6 @@ const QuoteDetails = () => {
       });
 
       if (response.status === 201) {
-        alert('Record saved successfully');
         setName('');
         setQuoteType('Gaming PC');
         setQuoteDate('');
@@ -73,6 +75,7 @@ const QuoteDetails = () => {
         setQuoteComps([]);
       } else {
         const data = await response.json();
+        setOpen(true);
         alert(data.error || 'Failed to save record');
       }
     } catch (error) {
@@ -128,13 +131,13 @@ const QuoteDetails = () => {
           </div>
         </div>
         <div className='add-build-btn'>
-        <Button variant='outlined' onClick={handleAddRecord}>Add Build</Button>
+          <Button variant='outlined' onClick={handleAddRecord}>Add Build</Button>
         </div>
       </div>
       <div className='quote-details-components'>
         <div className='quote-details-header'>
           <h4>YOUR BUILDS</h4>
-          <Button  variant='outlined' onClick={handleExportClick} endIcon={<ArrowUpwardIcon fontSize=''/>}>Export</Button>
+          <Button variant='outlined' onClick={handleExportClick} endIcon={<ArrowUpwardIcon fontSize='' />}>Export</Button>
         </div>
 
         <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
@@ -157,7 +160,19 @@ const QuoteDetails = () => {
           ))}
         </div>
       </div>
-      <ExportQuotesModal show={showExportModal} onHide={handleCloseExportModal} />
+      <ExportQuotesModal show={showExportModal}  onHide={handleCloseExportModal} />
+      
+      <Snackbar open={open}  autoHideDuration={5000} anchorOrigin={anchor}>
+        <MuiAlert onClose={()=>setOpen(false)} severity="success" sx={{ width: '100%' }}>
+          This is a success message!
+        </MuiAlert>
+      </Snackbar>
+      <Snackbar  autoHideDuration={5000} anchorOrigin={anchor}>
+        <MuiAlert open={open} onClose={()=>setOpen(false)} severity="info" sx={{ width: '100%' }}>
+          This is an information message!
+        </MuiAlert>
+      </Snackbar>
+      
     </div>
   );
 };
