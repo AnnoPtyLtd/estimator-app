@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import CloseIcon from '@mui/icons-material/Close';
-import jwt_decode from 'jwt-decode';
 import './QuoteDetails.css'
 
 const ExportQuotesModal = ({ show, onHide }) => {
@@ -10,33 +9,16 @@ const ExportQuotesModal = ({ show, onHide }) => {
     const [quoteType, setQuoteType] = useState('Gaming PC');
     const [records, setRecords] = useState([]);
     const [selectedQuotes, setSelectedQuotes] = useState([]);
-    const [quoteUserId, setQuoteUserId] = useState('');
-    const token = localStorage.getItem('token');
-    const decodedToken = jwt_decode(token);
-    const userId = decodedToken.userId;
-    const isAdmin = localStorage.getItem('Admin') === 'admin';
 
     useEffect(() => {
         const fetchRecords = async () => {
-            setQuoteUserId(userId);
             try {
-                if(isAdmin){
-                    const response = await fetch(`http://localhost:4000/adminrecords?quoteType=${quoteType}`);
-                    if (response.status === 200) {
-                        const data = await response.json();
-                        setRecords(data);
-                    } else {
-                        console.error('Failed to fetch records');
-                    }
-                }
-                else{
-                    const response = await fetch(`http://localhost:4000/records?userId=${quoteUserId}&quoteType=${quoteType}`);
-                    if (response.status === 200) {
-                        const data = await response.json();
-                        setRecords(data);
-                    } else {
-                        console.error('Failed to fetch records');
-                    }
+                const response = await fetch(`http://localhost:4000/export-records?quoteType=${quoteType}`);
+                if (response.status === 200) {
+                    const data = await response.json();
+                    setRecords(data);
+                } else {
+                    console.error('Failed to fetch records');
                 }
             } catch (error) {
                 console.error(error);
@@ -46,22 +28,62 @@ const ExportQuotesModal = ({ show, onHide }) => {
     }, [quoteType]);
 
     const handleQuoteSelection = (name) => {
-       
+        if (selectedQuotes.includes(name)) {
+            setSelectedQuotes((prevSelectedQuotes) =>
+                prevSelectedQuotes.filter((record) => record !== name)
+            );
+        } else {
+            setSelectedQuotes((prevSelectedQuotes) => [...prevSelectedQuotes, name]);
+        }
     };
-   
+    const handleClearSelection = () =>{
+        setSelectedQuotes([]);
+    }
     const handleExport = () => {
-        
-    };
+        if (selectedQuotes.length === 0) {
+          console.log('No quotes selected for export.');
+          return;
+        }
+    
+        const csvContent = generateCSVContent();
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Selected Quotes.csv';
+        a.click();
+    
+        window.URL.revokeObjectURL(url);
 
-    const generateCSVContent = () => {
-        
-    };
+        console.log(csvContent);
+      };
+
+      const generateCSVContent = () => {
+        const header = 'Name,Category,Quote Date,Quote Cost,Quote Components\n';
+      
+        const csvRows = selectedQuotes.map((name) => {
+          const record = records.find((r) => r.name === name);
+      
+          if (!record) {
+            console.error(`Record not found for name: ${name}`);
+            return ''; 
+          }
+      
+          const quoteComponents = Array.isArray(record.quoteComps)
+            ? record.quoteComps.join(', ') 
+            : record.quoteComps;
+      
+          return `${record.name},${record.quoteType},${record.quoteDate},${record.quoteCost},"${quoteComponents}"\n`;
+        });
+      
+        return header + csvRows.join('');
+      };
 
     return (
         <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
             <Modal.Header className="custom-modal-header">
                 <Modal.Title>Export Quotes</Modal.Title>
-                <button className="close-button" onClick={onHide}><CloseIcon /></button>
+                <button className="close-button" onClick={onHide}><CloseIcon/></button>
             </Modal.Header>
             <Modal.Body className='custom-modal-body'>
                 <div className='modalbodyexport-item'>
@@ -73,17 +95,14 @@ const ExportQuotesModal = ({ show, onHide }) => {
                         <option value='Office/Home PC'>Office/Home</option>
                         <option value='Custom/Other'>Custom/Other</option>
                     </select>
-                    <button className='clear-button'>Clear all</button>
+                    <button className='clear-button' onClick={handleClearSelection}>Clear all</button>
                 </div>
-                <div className='scrollable-list'>
-
                 <ul className='export-list'>
                     {records.map((record) => (
                         <li
                             key={record._id}
                             whileHover={{ scale: 1.04 }}
-                            transition={{ duration: 0.2 }}
-                            className='export-list-item'>
+                            transition={{ duration: 0.2 }}>
                             <label className='labelxd'>
                                 <input
                                     type="checkbox"
@@ -96,7 +115,6 @@ const ExportQuotesModal = ({ show, onHide }) => {
                         </li>
                     ))}
                 </ul>
-                </div>
             </Modal.Body>
             <Modal.Footer className="custom-modal-footer">
                 <Button variant="secondary" onClick={onHide}>Cancel</Button>

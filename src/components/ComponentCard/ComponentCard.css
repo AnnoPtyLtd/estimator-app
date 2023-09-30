@@ -3,16 +3,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* color: white; */
-  color: navy;
-
+  color: var(--light-p);
   margin: 10px 20px;
-  background-color: #f4f4f4;
+  background-color: var(--bg-light-primary);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
   border: 1px solid rgba(93, 93, 93, 0.18);
-  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
 
@@ -29,7 +27,6 @@
   margin: 10px;
   font-size: 18px;
   /* color: #8CABFF; */
-  color: navy;
 
   white-space: nowrap;
   overflow: hidden;
@@ -134,8 +131,6 @@
 .add-comp-names {
   display: flex;
   flex-direction: column;
-  /* color: white; */
-  color: navy;
 
   max-height: 160px;
   min-height: 160px;
@@ -204,7 +199,11 @@
 }
 
 .top-btns {
-  margin: 0px 5px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0px;
 }
 
 .buttons {
@@ -214,10 +213,13 @@
 
 .buttons:hover {
   background-color: #64CCC5;
-
 }
 
 .bottom-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
   margin: 0px 5px;
 }
 
@@ -233,9 +235,6 @@
 }
 
 .quote-details-text p:nth-child(1) {
-  /* color: white; */
-  color: navy;
-
   font-weight: 500;
   font-size: 18px;
   text-align: center;
@@ -253,20 +252,16 @@
   background-color: orangered;
 }
 
-.skeleton{
-  display: flex;
-  flex-direction: row;
-}
 
 .scrollable-list {
-  max-height: 400px; /* Adjust the height as needed */
+  max-height: 400px; 
   overflow-y: auto;
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: transparent transparent; /* For Firefox */
+  scrollbar-width: thin; 
+  scrollbar-color: transparent transparent; 
 }
 
 .scrollable-list::-webkit-scrollbar {
-  width: 6px; /* Adjust the width as needed */
+  width: 6px; 
 }
 .scrollable-list::-webkit-scrollbar-thumb {
   background-color: transparent;
@@ -299,4 +294,11 @@
 .comp-remove-icon:hover{
   color: red;
   transition: 0.3s ease-in-out;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 5px;
+  margin-right: 10px;
 }

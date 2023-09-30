@@ -4,10 +4,10 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import Tooltip from '@mui/material/Tooltip';
 import ArchiveComponentModal from './ArchiveComponentModal';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import './QuoteList.css';
 
 const ShowComponentsModal = ({ show, onHide, category }) => {
@@ -70,12 +70,9 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
             </Box>
           ) : (
             <ul className='comp-names'>
-              {components.map((component, dataobj) => (
-
-
+              {components.map((component) => (
                 <li className='comp-names-item' key={component._id}>
                   <div>
-
                     <p>{component.componentName}</p>
                     <div className='comp-price-archive'>
                       <p className='item-cost'>{component.componentCost}$</p>
@@ -84,13 +81,11 @@ const ShowComponentsModal = ({ show, onHide, category }) => {
                         <ArrowOutwardIcon className='archive-icon' fontSize='large' onClick={() => handleUrlClick(component.componentUrl)} />
                       </Tooltip>
                     </div>
-
                   </div>
                   <Tooltip title={new Date(component.componentDate).toLocaleDateString()} placement='top'>
-                    <Button variant='outlined'>Last update</Button>
+                    <Button variant=''>Last update</Button>
                   </Tooltip>
                 </li>
-
               ))}
             </ul>
           )}

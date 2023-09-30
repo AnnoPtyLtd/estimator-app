@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import './ComponentCard.css';
 

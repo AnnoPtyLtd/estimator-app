@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import ButtonMUI from '@mui/material/Button';
+
 import CloseIcon from '@mui/icons-material/Close';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './QuoteList.css';
@@ -74,7 +76,7 @@ const RemoveComponentModal = ({ show, onHide }) => {
                             <li className="comp-names-item" key={component._id}>
                                 <p>{component.componentName}</p>
                                 <p className="add-comp-cost">Price: {component.componentCost}$</p>
-                                <CloseOutlinedIcon className='remove-btn' fontSize='large' onClick={() => removeComponentFromDB(component._id)} />
+                                <ButtonMUI onClick={() => removeComponentFromDB(component._id)}><CloseOutlinedIcon /></ButtonMUI>
                             </li>
                         ))}
                     </ul>

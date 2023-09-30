@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+
 import './Topbar.css'
 
 
@@ -14,7 +16,7 @@ const Topbar = () => {
         <p>Quote Estimator app</p>
       </div>
       <div className='signout-div'>
-        <button onClick={handleSignOut}>Sign Out</button>
+        <Button variant='outlined' color='error' onClick={handleSignOut}>Sign Out</Button>
       </div>
     </div>
   )

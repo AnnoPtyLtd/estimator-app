@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   /* color: #AEE2FF; */
-  color: navy;
+  color: #005A8D;
   width: 160px;
   padding-bottom: 10px;
   transition: 0.3s ease;
@@ -11,30 +11,24 @@
 .menu-item {
   display: flex;
   align-items: center;
-  /* Center items vertically */
   padding: 10px 0px;
   margin: 5px 0px;
   border-radius: 10px;
-
   padding-left: 10px;
   transition: background-color 0.5s, color 0.3s ease;
-  /* Add transitions */
 }
 
 .menu-item:hover {
   cursor: pointer;
   border-radius: 10px;
-
 }
 
 .menu-icon {
   margin-right: 4px;
-  /* Add margin to separate icon and text */
 }
 
 .menu-item p {
   margin: 0;
-  /* Remove default margin */
   font-size: 14px;
 }
 
@@ -43,8 +37,6 @@
   align-items: center;
   padding: 10px 0px 10px 10px;
   transition: background-color 0.5s, color 0.3s ease;
-  /* Add transitions */
-
 }
 
 .profile-icon:hover {
@@ -75,33 +67,27 @@
 
 .menu-item.active {
   transition: 0.4 ease;
-  background-color: #a86add;
-  color: #AEE2FF;
+  background-color: var(--light-hover);
+  color: var(--bg-light-primary);
   border-radius: 10px;
 
 }
 
 .menu.expanded {
   width: 160px;
-  /* Original width when expanded */
   justify-content: space-between;
-  /* height: 100%; */
 }
 
 .menu.expanded .menu-item:hover {
-  background-color: #a86add;
-  /* background-color: #4477CE; */
+  background-color: var(--light-hover);
   border-radius: 10px;
 }
 
 .menu.collapsed {
   display: flex;
   transition: 0.5s ease;
-
   width: 60px;
-  /* Collapsed width when not hovered */
   justify-content: space-between;
-
 }
 
 .menu.collapsed .menu-item {
@@ -113,7 +99,6 @@
 
 .menu.collapsed .menu-item p {
   display: none;
-  /* Hide text when collapsed */
 }
 
 .menu.collapsed .profile-name {
@@ -127,13 +112,10 @@
 
 .menu.collapsed:hover {
   width: 160px;
-  /* Expand on hover */
-
 }
 
 .menu-items {
   transition: width 0.5s ease;
-  /* Smooth transition for width changes */
 }
 
 .menu-item {
@@ -176,7 +158,6 @@
   margin: 50px 50px;
   padding: 50px 0px;
   text-align: center;
-
 }
 
 .uploadfile-modalbody img {
@@ -190,7 +171,6 @@
   align-items: center;
   justify-content: space-evenly;
   display: flex;
-
 }
 
 .file-input-field {

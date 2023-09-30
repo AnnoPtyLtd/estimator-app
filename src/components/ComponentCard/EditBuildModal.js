@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { motion } from 'framer-motion';
+import ButtonMUI from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import AddComponentModal from './AddComponentModal';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import StringTextField from '../TextFields/StringTextField';
 import './ComponentCard.css'
 
 const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges, recordID }) => {
@@ -13,7 +14,6 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
   const [componentNames, setComponentNames] = useState([]);
   const [componentPrices, setComponentPrices] = useState([]);
-  const [componentCategories, setComponentCategories] = useState([]);
   const [totalQuoteCost, setTotalQuoteCost] = useState(0);
 
 
@@ -25,7 +25,6 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
           const data = await response.json();
           setComponentNames(data.componentNames);
           setComponentPrices(data.componentPrices);
-          setComponentCategories(data.componentCategories);
           const totalCost = data.componentPrices.reduce((acc, price) => acc + price, 0);
           setTotalQuoteCost(totalCost);
         } else {
@@ -42,7 +41,6 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
   }, [componentNames, show, recordID]);
 
   const handleDeleteComponent = (index) => {
-
     fetch(`http://localhost:4000/delete-component/${recordID}/${index}`, {
       method: 'DELETE',
     })
@@ -64,22 +62,8 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
         </Modal.Header>
         <Modal.Body className='edit-record-modalbody'>
           <div className='modalbody-item'>
-            <label>Edit Title:</label>
-            <input
-              type='text'
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-            />
-            <div className='modalbody-item-button'>
-              <motion.button
-                whileTap={{ scale: 0.99 }}
-                whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
-                transition={{ duration: 0.2 }}
-                className='add-component-btn'
-                onClick={()=>setAddComponentModalShow(true)}>
-                Choose components
-              </motion.button>
-            </div>
+            <label>Edit title:</label>
+              <StringTextField label='' value={newTitle} onChange={(e) => setNewTitle(e.target.value)}></StringTextField>
           </div>
           <div className='modalbody-item'>
             <div className='modalbody-item-text'>
@@ -93,6 +77,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
                     <p>{componentName}</p>
                     <p>({componentPrices[index]}$)</p>
                   </div>
+                  
                   <div style={{ display: 'flex', gap: '5px' }}>
                     <ModeEditOutlineIcon className='comp-edit-icon' color='primary' onClick={() =>  setAddComponentModalShow(true)} />
                     <CloseOutlinedIcon className='comp-remove-icon' color='red' onClick={() => handleDeleteComponent(index)} />
@@ -100,6 +85,8 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
                 </li>
               ))}
             </ul>
+            <ButtonMUI variant='outlined' onClick={()=>setAddComponentModalShow(true)}>Choose components</ButtonMUI>
+
           </div>
         </Modal.Body>
         <Modal.Footer>

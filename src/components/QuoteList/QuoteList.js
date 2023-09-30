@@ -6,11 +6,19 @@ import ShowComponentsModal from './ShowComponentsModal';
 import SearchResultModal from './SearchResultModal';
 import RemoveComponentModal from './RemoveComponentModal';
 import EditCompModal from './EditCompModal';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import EditIcon from '@mui/icons-material/Edit';
 import './QuoteList.css';
+
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
+
 
 const QuoteList = () => {
 
@@ -29,24 +37,6 @@ const QuoteList = () => {
   const [removeComponentModalShow, setRemoveComponentModalShow] = useState(false);
   const [editCompModalShow, setEditCompModalShow] = useState(false);
 
-
-  const handleAddComponentModalShow = () => {
-    setAddComponentModalShow(true);
-  };
-
-  const handleAddComponentModalClose = () => {
-    setAddComponentModalShow(false);
-  };
-  const handleRemoveComponentModalShow = () => {
-    setRemoveComponentModalShow(true);
-  };
-
-  const handleRemoveComponentModalClose = () => {
-    setRemoveComponentModalShow(false);
-  };
-  const removeComponent = async () => {
-    setRemoveComponentModalShow(false);
-  };
   const saveComponent = async () => {
     const componentData = {
       componentCategory: category,
@@ -78,10 +68,6 @@ const QuoteList = () => {
     setShowComponentsModal(true);
   };
 
-  const handleCloseComponentsModal = () => {
-    setShowComponentsModal(false);
-  };
-
   const handleSearch = async () => {
     try {
       const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
@@ -96,6 +82,12 @@ const QuoteList = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+
+  const [open, setOpen] = useState(true);
+  const handleClick = () => {
+    setOpen(!open);
   };
 
   return (
@@ -134,38 +126,17 @@ const QuoteList = () => {
             </motion.li>
           ))}
         </ul>
+
       </div>
-      <motion.button
-        whileTap={{ scale: 0.99 }}
-        whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
-        transition={{ duration: 0.5 }}
-        className='component-btnq'
-        onClick={handleAddComponentModalShow}
-      >
-        <AddIcon /> components
-      </motion.button>
-      <motion.button
-        whileTap={{ scale: 0.99 }}
-        whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
-        transition={{ duration: 0.5 }}
-        className='component-btnq'
-        onClick={handleRemoveComponentModalShow}
-      >
-        <RemoveIcon /> components
-      </motion.button>
-      <motion.button
-        whileTap={{ scale: 0.99 }}
-        whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
-        transition={{ duration: 0.5 }}
-        className='component-btnq'
-        onClick={()=>setEditCompModalShow(true)}
-      >
-      <EditIcon/>
-      </motion.button>
+      <div className='quotelist-compo-buttons'>
+        <Button variant='outlined' onClick={()=>setAddComponentModalShow(true)}>ADD</Button>
+        <Button variant='outlined' onClick={() => setRemoveComponentModalShow(true)}>REMOVE</Button>
+        <Button variant='outlined' onClick={() => setEditCompModalShow(true)}>EDIT</Button>
+      </div>
 
       <AddComponentModal
         show={addComponentModalShow}
-        onHide={handleAddComponentModalClose}
+        onHide={() => setAddComponentModalShow(false)}
         category={category}
         compName={compName}
         compPrice={compPrice}
@@ -180,10 +151,9 @@ const QuoteList = () => {
       />
       <ShowComponentsModal
         show={showComponentsModal}
-        onHide={handleCloseComponentsModal}
+        onHide={() => setShowComponentsModal(false)}
         category={selectedCategory}
       />
-
       <SearchResultModal
         show={showSearchResultsModal}
         onHide={() => setShowSearchResultsModal(false)}
@@ -191,11 +161,11 @@ const QuoteList = () => {
       />
       <RemoveComponentModal
         show={removeComponentModalShow}
-        onHide={handleRemoveComponentModalClose}
+        onHide={() => setRemoveComponentModalShow(false)}
       />
       <EditCompModal
-        show={editCompModalShow} 
-        onHide={()=>setEditCompModalShow(false)}
+        show={editCompModalShow}
+        onHide={() => setEditCompModalShow(false)}
       />
     </div>
   );

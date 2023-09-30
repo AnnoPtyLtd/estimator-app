@@ -4,6 +4,8 @@ import ComponentCard from '../ComponentCard/ComponentCard';
 import ExportQuotesModal from './ExportQuotesModal';
 import jwt_decode from 'jwt-decode';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import Button from '@mui/material/Button';
+import StringTextField from '../TextFields/StringTextField';
 import './QuoteDetails.css';
 
 const QuoteDetails = () => {
@@ -17,13 +19,9 @@ const QuoteDetails = () => {
   const [quoteComps, setQuoteComps] = useState([]);
   const [showExportModal, setShowExportModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
-
-
   const token = localStorage.getItem('token');
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
-
-
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -98,7 +96,7 @@ const QuoteDetails = () => {
       <div className='quote-details-column'>
         <div className='detail-items'>
           <label htmlFor='name'> Name </label>
-          <input type='text' id='name' value={name} onChange={(e) => setName(e.target.value)} />
+          <StringTextField label='' value={name} onChange={(e) => setName(e.target.value)}></StringTextField>
         </div>
         <div className='search-name-date'>
           <div className='detail-items'>
@@ -129,20 +127,14 @@ const QuoteDetails = () => {
             />
           </div>
         </div>
-        <motion.button
-          whileTap={{ scale: 0.99 }}
-          whileHover={{ scale: 1.1, backgroundColor: 'lightblue' }}
-          transition={{ duration: 0.2 }}
-          onClick={handleAddRecord}
-          className='add-component-btn'
-        >
-          Add Build
-        </motion.button>
+        <div className='add-build-btn'>
+        <Button variant='outlined' onClick={handleAddRecord}>Add Build</Button>
+        </div>
       </div>
       <div className='quote-details-components'>
         <div className='quote-details-header'>
           <h4>YOUR BUILDS</h4>
-          <button className='export-button' onClick={handleExportClick}>Export<ArrowUpwardIcon fontSize='small' /></button>
+          <Button  variant='outlined' onClick={handleExportClick} endIcon={<ArrowUpwardIcon fontSize=''/>}>Export</Button>
         </div>
 
         <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>

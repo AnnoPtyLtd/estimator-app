@@ -14,10 +14,6 @@ const EditCompModal = ({ show, onHide }) => {
   const [components, setComponents] = useState([]);
   const [showEditPriceModal, setShowEditPriceModal] = useState(false);
 
-  //new
-  const [componentPrices, setComponentPrices] = useState({});
-
-
   useEffect(() => {
     const fetchComponents = async () => {
       try {
@@ -86,7 +82,7 @@ const EditCompModal = ({ show, onHide }) => {
                 <li className="comp-names-item" key={component._id}>
                   <p>{component.componentName}</p>
                   <p className="add-comp-cost">Price: {component.componentCost}$</p>
-                  <EditIcon className='edit-btn' fontSize='large' onClick={() => { setShowEditPriceModal(true); setCompID(component._id); }} />
+                  <EditIcon className='edit-btn' fontSize='small' color='primary' onClick={() => { setShowEditPriceModal(true); setCompID(component._id); }} />
                 </li>
               ))}
             </ul>

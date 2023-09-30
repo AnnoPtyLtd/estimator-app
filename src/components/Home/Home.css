@@ -2,6 +2,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: Poppins;
+
 }
 
 body {
@@ -14,8 +16,7 @@ body {
   width: 100%;
   height: 100vh;
   overflow-x: hidden;
-  /* background-image: url('../../assets/main-bg2.png'); */
-  background-color: #F8F6F4;
+  background-color: #eeeeee;
   background-position: center center;
   background-repeat: no-repeat;
 }
@@ -24,8 +25,8 @@ body {
   display: none;
 }
 .home {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
 .left-panel {
