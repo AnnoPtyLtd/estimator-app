@@ -25,8 +25,12 @@ const GamingTextField = styled(TextField)({
     },
   },
 });
+<<<<<<< HEAD
 
 const StringTextField = ({ label, value, onChange }) => {
+=======
+const StringTextField = ({ label, value, onChange, ...props }) => {
+>>>>>>> 951801770b31fc179d3ea8609b17e2ab27b474a8
   return (
     <div className="App">
       <GamingTextField
@@ -35,9 +39,17 @@ const StringTextField = ({ label, value, onChange }) => {
         fullWidth
         value={value}
         onChange={onChange}
+<<<<<<< HEAD
+=======
+        {...props}
+>>>>>>> 951801770b31fc179d3ea8609b17e2ab27b474a8
       />
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default StringTextField;
+=======
+export default StringTextField;
+>>>>>>> 951801770b31fc179d3ea8609b17e2ab27b474a8
