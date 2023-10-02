@@ -7,6 +7,8 @@ const ArchiveComponentModal = ({ show, onHide,componentID,componentName }) => {
 
     const handleClose = () => {
         onHide();
+        console.log(componentID);
+        console.log(componentName);
     }
 
     const handleArchiveConfirm = async () => {

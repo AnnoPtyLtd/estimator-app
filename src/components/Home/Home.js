@@ -8,7 +8,7 @@ import NavBar from '../NavBar/NavBar';
 import './Home.css';
 
 const Home = () => {
-  const { isAuthenticated } = useAuth(); 
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   if (!isAuthenticated) {
     navigate('/home')
@@ -21,10 +21,10 @@ const Home = () => {
       </div>
       <div className='right-panel'>
         <Topbar />
-      <div className='quote-section'>
-        <QuoteList />
-        <QuoteDetails />
-      </div>
+        <div className='quote-section'>
+          <QuoteList />
+          <QuoteDetails />
+        </div>
       </div>
     </div>
   );

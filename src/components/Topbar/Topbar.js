@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-
+import Logo from '../../assets/logo.png'
 import './Topbar.css'
 
 
@@ -13,7 +13,9 @@ const Topbar = () => {
   return (
     <div className='topbar'>
       <div className='topbar-title'>
-        <p>Quote Estimator app</p>
+        <div>
+          <p>Quote Estimator app</p>
+        </div>
       </div>
       <div className='signout-div'>
         <Button variant='outlined' color='error' onClick={handleSignOut}>Sign Out</Button>

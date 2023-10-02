@@ -8,10 +8,12 @@ import DuplicateIcon from '@mui/icons-material/ControlPointDuplicate';
 import ArchiveModal from './ArchiveModal';
 import DeleteQuoteModal from './DeleteQuoteModal';
 import Button from '@mui/material/Button';
-
 import './ComponentCard.css';
 
+
+
 const ComponentCard = (props) => {
+
   const [newTitle, setNewTitle] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -62,7 +64,7 @@ const ComponentCard = (props) => {
           <Button variant='outlined' onClick={() => setShowArchiveModal(true)}>
             <ArchiveIcon />
           </Button>
-          <Button variant='outlined' onClick={() => setShowModal(true)}>
+          <Button variant='outlined'  onClick={() => setShowModal(true)}>
             <EditIcon />
           </Button>
           <Button variant='outlined' onClick={() => setShowDuplicateModal(true)}>

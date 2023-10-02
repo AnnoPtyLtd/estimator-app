@@ -9,7 +9,6 @@
     padding: 10px 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
-
     scroll-behavior: smooth;
 }
 
@@ -147,7 +146,6 @@ input[type=text] {
 .modalbodyexport-item {
     display: flex;
     flex-direction: row;
-    background-color: #8CABFF;
     border-radius: 6px;
     justify-content: space-evenly;
     align-items: center;
@@ -213,14 +211,11 @@ li label {
     /* Adjust the height as needed */
     overflow-y: auto;
     scrollbar-width: thin;
-    /* For Firefox */
     scrollbar-color: transparent transparent;
-    /* For Firefox */
 }
 
 .scrollable-list::-webkit-scrollbar {
     width: 6px;
-    /* Adjust the width as needed */
 }
 
 .scrollable-list::-webkit-scrollbar-thumb {

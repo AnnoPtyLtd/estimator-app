@@ -6,10 +6,6 @@
 
 }
 
-body {
-  margin: 0;
-}
-
 .home {
   display: flex;
   flex-direction: row;
@@ -42,6 +38,9 @@ body {
   flex-direction: column;
   flex: 1;
   z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
 
 }
 
