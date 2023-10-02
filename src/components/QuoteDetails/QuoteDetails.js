@@ -9,12 +9,13 @@ import Button from '@mui/material/Button';
 import StringTextField from '../TextFields/StringTextField';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import SnackbarMsg from '../Snackbar-Popup/SnackbarMsg';
 
 const QuoteDetails = () => {
 
   const anchor = { vertical: 'top', horizontal: 'right' };
+  const [openAlert, setOpenAlert] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
-  const [openInfo, setOpenInfo] = useState(false);
   const [records, setRecords] = useState([]);
   const [quoteUserId, setQuoteUserId] = useState('');
   const [name, setName] = useState('');
@@ -56,7 +57,7 @@ const QuoteDetails = () => {
       }
     };
     fetchRecords();
-  }, [isAdmin, quoteType2, quoteUserId, records, userId]);//new edit
+  }, [isAdmin, quoteType2, quoteUserId, userId]);//new edit
 
   const handleAddRecord = async () => {
     try {
@@ -74,9 +75,9 @@ const QuoteDetails = () => {
         setQuoteDate('');
         setQuoteCost(0);
         setQuoteComps([]);
+        setOpenSuccess(true);
       } else {
-        const data = await response.json();
-        alert(data.error || 'Failed to save record');
+        setOpenAlert(true);
       }
     } catch (error) {
       console.error(error);
@@ -90,6 +91,18 @@ const QuoteDetails = () => {
   const handleCloseExportModal = () => {
     setShowExportModal(false);
   }
+  const handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
+  };
+  const handleCloseSuccess = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSuccess(false);
+  };
 
   return (
     <div className='quote-details-container'>
@@ -160,19 +173,22 @@ const QuoteDetails = () => {
           ))}
         </div>
       </div>
-      <ExportQuotesModal show={showExportModal}  onHide={handleCloseExportModal} />
-      
-      <Snackbar open={openSuccess}  autoHideDuration={5000} anchorOrigin={anchor}>
-        <MuiAlert onClose={()=>setOpenSuccess(false)} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
-        </MuiAlert>
-      </Snackbar>
-      <Snackbar  autoHideDuration={5000} anchorOrigin={anchor}>
-        <MuiAlert open={openInfo} onClose={()=>setOpenInfo(false)} severity="info" sx={{ width: '100%' }}>
-          This is an information message!
-        </MuiAlert>
-      </Snackbar>
-      
+      <ExportQuotesModal show={showExportModal} onHide={handleCloseExportModal} />
+
+      <SnackbarMsg
+        show={openSuccess}
+        handleClose={handleCloseSuccess}
+        severity="success"
+        message="Quote saved successfully!"
+      />
+       <SnackbarMsg
+        show={openAlert}
+        handleClose={handleCloseAlert}
+        severity="info"
+        message="Please fill all fields!"
+      />
+    
+
     </div>
   );
 };

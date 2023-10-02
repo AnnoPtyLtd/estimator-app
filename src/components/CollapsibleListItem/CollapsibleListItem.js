@@ -1,38 +1,39 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState } from 'react';
 import './CollapsibleListItem.css';
 import { ListItemButton, ListItemText, Collapse, List, Tooltip } from '@mui/material';
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import SnackbarMsg from '../Snackbar-Popup/SnackbarMsg';
 
 const CollapsibleListItem = ({ primaryText, components, setArchiveModalShow, onArchiveClick }) => {
-
     const [open, setOpen] = useState(false);
-    const [openAlert, setOpenAlert] = React.useState(false);
+    const [openAlert, setOpenAlert] = useState(null); // Store the ID of the opened Snackbar
 
     const handleClick = () => {
         setOpen(!open);
+        setOpenAlert(null); // Close the currently opened Snackbar
     };
-    const handleClick2 = (id, name) => {
+
+    const handleClickArchive = (id, name) => {
         setArchiveModalShow(true);
         onArchiveClick(id, name);
     };
+
     const handleUrlClick = (url) => {
         window.open(url, '_blank');
-    }
+    };
 
-    const handleAlertClick = () => {
-        setOpenAlert(true);
+    const handleAlertClick = (id) => {
+        setOpenAlert(id); // Set the ID of the clicked component
     };
 
     const handleCloseAlert = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-        setOpenAlert(false);
+        setOpenAlert(null); // Clear the ID of the closed Snackbar
     };
-  
+
     return (
         <div className='collapse-list-item'>
             <ListItemButton onClick={handleClick}>
@@ -51,15 +52,18 @@ const CollapsibleListItem = ({ primaryText, components, setArchiveModalShow, onA
                             </div>
                             <div className='collapse-list-btns'>
                                 <Tooltip arrow title={`Last update: ${new Date(component.componentDate).toLocaleDateString()}`} placement='top'>
-                                    <i className="bi bi-arrow-repeat" onClick={handleAlertClick}></i>
+                                    <i className="bi bi-arrow-repeat" onClick={() => handleAlertClick(component._id)}></i>
                                 </Tooltip>
-                                <Snackbar open={openAlert} autoHideDuration={2000} onClose={handleCloseAlert}>
-                                    <MuiAlert elevation={2} variant='filled' onClose={handleCloseAlert} severity="info">
-                                        Last updated: {new Date(component.componentDate).toLocaleDateString()}
-                                    </MuiAlert>
-                                </Snackbar>
+
+                                <SnackbarMsg
+                                    show={openAlert === component._id}
+                                    handleClose={handleCloseAlert}
+                                    severity="info"
+                                    message={`Last updated: ${new Date(component.componentDate).toLocaleDateString()}`}
+                                />
+                                
                                 <Tooltip placement='top' title='archive'>
-                                    <i className="bi bi-archive" onClick={() => handleClick2(component._id, component.componentName)}></i>
+                                    <i className="bi bi-archive" onClick={() => handleClickArchive(component._id, component.componentName)}></i>
                                 </Tooltip>
                                 <Tooltip placement='right-start' title={component.componentUrl}>
                                     <i className="bi bi-box-arrow-up-right" onClick={() => handleUrlClick(component.componentUrl)}></i>
@@ -69,7 +73,6 @@ const CollapsibleListItem = ({ primaryText, components, setArchiveModalShow, onA
                     ))}
                 </List>
             </Collapse>
-
         </div>
     );
 };
