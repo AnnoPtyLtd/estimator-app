@@ -109,35 +109,51 @@ const QuoteList = () => {
           <CollapsibleListItem
             primaryText="CPU"
             components={components.filter(component => component.componentCategory === 'CPU')}
-            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} />
+            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} 
+              flag="components"
+            />
           <CollapsibleListItem
             primaryText="Graphic Card"
             components={components.filter(component => component.componentCategory === 'Graphic Card')}
-            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} />
+            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} 
+              flag="components"
+            />
           <CollapsibleListItem
             primaryText="Power Supply"
             components={components.filter(component => component.componentCategory === 'Power Supply')}
-            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} />
+            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} 
+              flag="components"
+            />
           <CollapsibleListItem
             primaryText="RAM"
             components={components.filter(component => component.componentCategory === 'RAM')} 
-            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} />
+            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} 
+              flag="components"
+            />
           <CollapsibleListItem
             primaryText="Storage"
             components={components.filter(component => component.componentCategory === 'Storage')} 
-            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} />
+            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} 
+              flag="components"
+            />
           <CollapsibleListItem
             primaryText="PC Casing"
             components={components.filter(component => component.componentCategory === 'PC Casing')}
-            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} />
+            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} 
+              flag="components"
+            />
           <CollapsibleListItem
             primaryText="Cooling Solution"
             components={components.filter(component => component.componentCategory === 'Cooling Solution')}
-            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} />
+            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} 
+              flag="components"
+            />
           <CollapsibleListItem
             primaryText="Others"
             components={components.filter(component => component.componentCategory === 'Others')} 
-            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} />
+            setArchiveModalShow={setArchiveModalShow} onArchiveClick={handleArchiveClick} 
+              flag="components"
+            />
         </List>
       </div>
       <div className='quotelist-compo-buttons'>

@@ -27,6 +27,7 @@ const Home = () => {
           {/* <QuoteList /> */}
           <QuoteItemsList/>
           <QuoteDetails />
+          <QuoteList/>
         </div>
       </div>
     </div>

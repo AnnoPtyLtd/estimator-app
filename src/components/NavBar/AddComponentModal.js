@@ -28,12 +28,12 @@ import SelectTextField from "../TextFields/SelectTextField";
 const AddComponentModal = ({ show, onHide }) => {
   // Input Fields States
   const [compName, setCompName] = useState("");
+  const [compUrl, setCompUrl] = useState("");
   const [compCategory, setCompCategory] = useState("");
   const [compPrice, setCompPrice] = useState("");
   const [compDate, setCompDate] = useState(dayjs("DD/MM/YYYY"));
 
   //theme provider
-  const theme = useTheme();
 
   //Option for Select
   const option = [
@@ -57,6 +57,7 @@ const AddComponentModal = ({ show, onHide }) => {
       componentName: compName,
       componentDate: compDate,
       componentCost: compPrice,
+      componentUrl: compUrl,
     };
     try {
       const response = await fetch("http://localhost:4000/save-newcomponent", {
@@ -79,11 +80,9 @@ const AddComponentModal = ({ show, onHide }) => {
   return (
     <Modal
       show={show}
-      //   onHide={handleCloseModal}
       animation={TouchRipple}
-      size="lg"
-    >
-      <ModalHeader closeButton>
+      size="lg">
+      <ModalHeader>
         <Modal.Title>Add Components</Modal.Title>
       </ModalHeader>
       <Modal.Body
@@ -92,8 +91,7 @@ const AddComponentModal = ({ show, onHide }) => {
           maxHeight: "600px",
           opacity: "0.9",
           display: "flex",
-        }}
-      >
+        }}>
         <div>
           <img src={desktop} alt="img" width="500px" className="img-fluid" />
         </div>
@@ -104,6 +102,13 @@ const AddComponentModal = ({ show, onHide }) => {
                 label="Component Name"
                 value={compName}
                 onChange={(e) => setCompName(e.target.value)}
+              />
+            </div>
+            <div className="modalbodycomp-item">
+              <StringTextField
+                label="Component Name"
+                value={compUrl}
+                onChange={(e) => setCompUrl(e.target.value)}
               />
             </div>
             <div className="modalbodycomp-item">
@@ -118,7 +123,6 @@ const AddComponentModal = ({ show, onHide }) => {
             </div>
             <div className="modalbodycomp-item">
               <StringTextField
-              
                 label="Component Price"
                 value={compPrice}
                 onChange={(e) => setCompPrice(e.target.value)}
