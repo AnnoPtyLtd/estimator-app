@@ -90,13 +90,14 @@ const NavBar = () => {
           <FileUploadOutlinedIcon className='menu-icon' />
           <p>Upload file</p>
         </li>
-      </ul>
-      <div className='profile-icon'>
+        <div className='profile-icon'>
         <div className='centered-content'>
           <Image className='profile-img' src={profileImg} roundedCircle fluid />
           <p className='profile-name'>User</p>
         </div>
       </div>
+      </ul>
+      
       <AddComponentModal show={showAddComponentModal} onHide={handleCloseComponent}/>
       <UploadFileModal show={showUploadModal} onHide={handleCloseUploadModal} />
       <SearchModal show={showSearchModal} onHide={handleCloseSearchModal} />

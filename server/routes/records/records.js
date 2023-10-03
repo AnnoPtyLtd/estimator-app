@@ -55,6 +55,29 @@ router.get('/adminrecords', async (req, res) => {
   }
 });
 
+router.get('/getuserquotes', async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    if (!userId) {
+      return res.status(400).json({ error: 'UserID is required' });
+    }
+    const records = await Record.find({ quoteUserId: userId});
+    res.status(200).json(records);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+router.get('/getadminquotes', async (req, res) => {
+  try {
+    const records = await Record.find();
+    res.status(200).json(records);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 router.put('/updateTitle/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -130,9 +153,9 @@ router.get('/get-components-by-record/:recordID', async (req, res) => {
       return res.status(404).json({ error: 'Record not found' });
     }
 
-    const { componentNames, componentPrices,componentCategories } = record;
+    const { componentNames, componentPrices, componentCategories } = record;
 
-    res.json({ componentNames, componentPrices,componentCategories });
+    res.json({ componentNames, componentPrices, componentCategories });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

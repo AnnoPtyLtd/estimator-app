@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
-import QuoteList from '../QuoteList/QuoteList';
+import QuoteList from '../ComponentsPage/QuoteList';
 import Topbar from '../Topbar/Topbar';
 import QuoteDetails from '../QuoteDetails/QuoteDetails';
 import NavBar from '../NavBar/NavBar';
+import QuoteItemsList from '../QuoteItemsList/QuoteItemsList';
 import './Home.css';
+
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
@@ -22,7 +24,8 @@ const Home = () => {
       <div className='right-panel'>
         <Topbar />
         <div className='quote-section'>
-          <QuoteList />
+          {/* <QuoteList /> */}
+          <QuoteItemsList/>
           <QuoteDetails />
         </div>
       </div>

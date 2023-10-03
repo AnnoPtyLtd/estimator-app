@@ -23,7 +23,8 @@
 }
 
 .dropdown-list{
-    height: 200px;
+    height: fit-content;
+    max-height: 200px;
     overflow: auto;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
@@ -38,3 +39,11 @@
 .collapse-list-btns i {
     cursor: pointer;
 }
+
+.quotecomps-names-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
