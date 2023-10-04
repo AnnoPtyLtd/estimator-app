@@ -7,9 +7,9 @@ import jwt_decode from 'jwt-decode';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Button from '@mui/material/Button';
 import StringTextField from '../TextFields/StringTextField';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import SnackbarMsg from '../Snackbar-Popup/SnackbarMsg';
+import AddNewBuildModal from './AddNewBuildModal';
+
 
 const QuoteDetails = () => {
 
@@ -109,6 +109,7 @@ const QuoteDetails = () => {
       <div className='quote-details-title'>
         <p>Quote Details</p>
       </div>
+
       <div className='quote-details-column'>
         <div className='detail-items'>
           <label htmlFor='name'> Name </label>
@@ -147,12 +148,12 @@ const QuoteDetails = () => {
           <Button variant='outlined' onClick={handleAddRecord}>Add Build</Button>
         </div>
       </div>
+
       <div className='quote-details-components'>
         <div className='quote-details-header'>
           <h4>YOUR BUILDS</h4>
           <Button variant='outlined' onClick={handleExportClick} endIcon={<ArrowUpwardIcon fontSize='' />}>Export</Button>
         </div>
-
         <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
           <option value='choosequote2'>Choose quote type</option>
           <option value='Gaming PC'>Gaming PC</option>
@@ -188,7 +189,6 @@ const QuoteDetails = () => {
         message="Please fill all fields!"
       />
     
-
     </div>
   );
 };

@@ -5,7 +5,6 @@
     margin: 10px 5px;
     border-radius: 10px;
     flex-direction: column;
-    width: fit-content;
     padding: 10px 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
@@ -39,19 +38,14 @@
     letter-spacing: 1px;
 }
 
-.export-button:hover {
-    background-color: cornflowerblue;
-}
 
 .quote-details-column {
-    width: fit-content;
     padding: 10px 10px;
     background-color: var(--bg-light-primary);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     border: 1px solid rgba(0, 0, 0, 0.18);
-    /* box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px; */
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
     margin: 0px 10px;
 }
@@ -62,6 +56,10 @@
     margin: 10px;
 }
 
+.search-name-date {
+    display: flex;
+    justify-content: space-between;
+}
 .detail-items input {
     padding: 10px;
     text-align: center;
@@ -69,14 +67,10 @@
 
 .detail-items select {
     padding: 4px;
-    width: 50vh;
     padding: 10px;
+    width: 150px;
 }
 
-.search-name-date {
-    display: flex;
-    justify-content: space-between;
-}
 
 label {
     font-weight: 400;
@@ -85,7 +79,6 @@ label {
 .quote-details-components {
     display: flex;
     flex-direction: column;
-    width: 80%;
     padding: 20px;
     height: 100%;
 }
@@ -97,7 +90,6 @@ label {
 }
 
 .component-list {
-    width: 100%;
     margin-bottom: 10px;
 }
 .add-build-btn{

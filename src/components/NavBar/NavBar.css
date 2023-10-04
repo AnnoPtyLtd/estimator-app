@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   color: #4477CE;
-  /* color: #005A8D; */
   width: 160px;
   padding: 10px 0px;
   transition: 0.3s ease;
@@ -96,6 +95,7 @@
   display: flex;
   transition: 0.5s ease;
   width: 60px;
+  padding: 5px 5px;
   justify-content: space-between;
 }
 
@@ -103,7 +103,7 @@
   justify-content: center;
   padding-right: 3px;
   border-radius: 10px;
-
+  
 }
 
 .menu.collapsed .menu-item p {

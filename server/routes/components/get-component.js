@@ -22,7 +22,6 @@ router.get('/get-components', async (req, res) => {
 });
 
 router.get('/get-components-all', async (req, res) => {
-
   try {
     let components;
     components = await ComponentModel.find();

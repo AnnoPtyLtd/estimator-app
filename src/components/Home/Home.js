@@ -7,6 +7,7 @@ import QuoteDetails from '../QuoteDetails/QuoteDetails';
 import NavBar from '../NavBar/NavBar';
 import QuoteItemsList from '../QuoteItemsList/QuoteItemsList';
 import './Home.css';
+import ComponentDetailsPage from '../ComponentDetailsPage/ComponentDetailsPage';
 
 
 const Home = () => {
@@ -24,10 +25,10 @@ const Home = () => {
       <div className='right-panel'>
         <Topbar />
         <div className='quote-section'>
-          {/* <QuoteList /> */}
           <QuoteItemsList/>
           <QuoteDetails />
           <QuoteList/>
+          {/* <ComponentDetailsPage/> */}
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ const DeleteQuoteModal = ({ show, onHide, title, recordID }) => {
         <Modal show={show} onHide={onHide}>
             <Modal.Header className="custom-modal-header">
                 <Modal.Title>Delete Quote</Modal.Title>
-                <button className="close-button" onClick={onHide}><CloseIcon/></button>
+                <button className="close-button" onClick={onHide}><CloseIcon /></button>
             </Modal.Header>
             <Modal.Body>
                 <div >
