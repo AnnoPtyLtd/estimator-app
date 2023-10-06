@@ -74,7 +74,6 @@ const QuoteItemsList = () => {
                 </Scrollbars>
             </div>
         </div>
-
     )
 }
 
