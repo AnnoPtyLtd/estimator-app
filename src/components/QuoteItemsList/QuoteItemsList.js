@@ -19,13 +19,13 @@ const QuoteItemsList = () => {
     const token = localStorage.getItem('token');
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.userId;
-    const [quoteFilter, setQuoteFilter] = useState('Gaming PC');
+    const [quoteFilter, setQuoteFilter] = useState('View All');
 
     useEffect(() => {
         const fetchQuotes = async () => {
             try {
                 if (isAdmin) {
-                  const response = await fetch(`http://localhost:4000/adminrecords?quoteType=${quoteFilter}`);
+                  const response = await fetch(`http://localhost:4000/getadminrecords?quoteType=${quoteFilter}`);
                   if (response.status === 200) {
                     const data = await response.json();
                     setQuotes(data);
@@ -34,7 +34,7 @@ const QuoteItemsList = () => {
                   }
                 }
                 else {
-                  const response = await fetch(`http://localhost:4000/records?userId=${userId}&quoteType=${quoteFilter}`);
+                  const response = await fetch(`http://localhost:4000/getuserrecords?userId=${userId}&quoteType=${quoteFilter}`);
                   if (response.status === 200) {
                     const data = await response.json();
                     setQuotes(data);
@@ -47,7 +47,7 @@ const QuoteItemsList = () => {
               }
         };
         fetchQuotes();
-    }, [isAdmin, userId, quotes]);
+    }, [quoteFilter]);
 
 
     const handleSearch = async () => {

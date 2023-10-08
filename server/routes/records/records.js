@@ -58,13 +58,19 @@ router.get('/adminrecords', async (req, res) => {
   }
 });
 
-router.get('/adminrecords', async (req, res) => {
+router.get('/getadminrecords', async (req, res) => {
   try {
     const quoteType = req.query.quoteType;
     if (!quoteType) {
       return res.status(400).json({ error: 'quoteType is required' });
     }
-    const records = await Record.find({ quoteType: quoteType });
+    let records=[];
+    if(quoteType==='View All'){
+      records = await Record.find();
+    }
+    else{
+      records = await Record.find({ quoteType: quoteType });
+    }
     res.status(200).json(records);
   } catch (error) {
     console.error(error);
@@ -72,19 +78,27 @@ router.get('/adminrecords', async (req, res) => {
   }
 });
 
-router.get('/getuserquotes', async (req, res) => {
+router.get('/getuserrecords', async (req, res) => {
   try {
     const userId = req.query.userId;
+    const quoteType = req.query.quoteType;
     if (!userId) {
       return res.status(400).json({ error: 'UserID is required' });
     }
-    const records = await Record.find({ quoteUserId: userId});
+    let records=[];
+    if(quoteType==='View All'){
+      records = await Record.find({ quoteUserId: userId });
+    }
+    else{
+      records = await Record.find({ quoteUserId: userId, quoteType: quoteType });
+    }
     res.status(200).json(records);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 router.get('/getadminquotes', async (req, res) => {
   try {
     const records = await Record.find();
