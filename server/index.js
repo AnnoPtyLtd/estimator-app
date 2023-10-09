@@ -3,15 +3,19 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const app = express();
+require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
 
-const MongooseConnect = "mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority";
+// const MongooseConnect = "mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority";
 
-mongoose.connect(MongooseConnect).then(() => {
+mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log("MongoDB is connected!");
 });
+// mongoose.connect(MongooseConnect).then(() => {
+//     console.log("MongoDB is connected!");
+// });
 
 const UserSchema = new mongoose.Schema({
     fullname: {

@@ -9,11 +9,11 @@ import QuoteItemsList from '../QuoteItemsList/QuoteItemsList';
 import './Home.css';
 import ComponentDetailsPage from '../ComponentDetailsPage/ComponentDetailsPage';
 
-const Home = () => {
+const HomeV2 = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   if (!isAuthenticated) {
-    navigate('/home')
+    navigate('/manage-components')
   }
 
   return (
@@ -24,13 +24,11 @@ const Home = () => {
       <div className='right-panel'>
         <Topbar />
         <div className='quote-section'>
-          <QuoteItemsList />
-          <QuoteDetails />
-          <QuoteList />
+          <ComponentDetailsPage />
         </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default HomeV2;

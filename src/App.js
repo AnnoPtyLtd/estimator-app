@@ -5,6 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Home from "./components/Home/Home";
+import HomeV2 from "./components/Home/HomeV2";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import { AuthProvider, useAuth } from "../src/AuthContext"; // Import AuthProvider and useAuth
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomeProtected />} />
               <Route path="/home" element={<HomeProtected />} />
+              <Route path="/manage-components" element={<HomeProtectedV2 />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>
@@ -39,4 +41,12 @@ function HomeProtected() {
   }
 
   return <Home />;
+}
+function HomeProtectedV2() {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+
+  return <HomeV2 />;
 }

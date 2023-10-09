@@ -10,7 +10,7 @@ import UploadFileModal from './UploadFileModal';
 import './NavBar.css';
 import SearchModal from './SearchModal';
 import AddComponentModal from './AddComponentModal';
-
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
 
@@ -18,8 +18,11 @@ const NavBar = () => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showAddComponentModal, setShowAddComponentModal] = useState(false);
   const [ShowAddQuoteModal, setShowAddQuoteModal] = useState(false);
-
-
+  const navigate = useNavigate();
+  const handleHomeClick = () => {
+    // Navigate to the 'home' route
+    navigate('/home');
+  };
   const handleCloseComponent = () => {
     setShowAddComponentModal(false);
   }
@@ -39,6 +42,12 @@ const NavBar = () => {
 
   const handleMenuItemClick = (index) => {
     setActiveMenuItem(index);
+    if(index===0){
+      navigate('/home');
+    }
+    if(index===4){
+      navigate('/manage-components');
+    }
   };
 
   const handleMouseEnter = () => {
