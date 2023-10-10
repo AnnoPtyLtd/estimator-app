@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require("cors");
+const path = require('path')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const app = express();
@@ -8,14 +9,9 @@ require('dotenv').config();
 app.use(express.json());
 app.use(cors());
 
-// const MongooseConnect = "mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority";
-
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log("MongoDB is connected!");
 });
-// mongoose.connect(MongooseConnect).then(() => {
-//     console.log("MongoDB is connected!");
-// });
 
 const UserSchema = new mongoose.Schema({
     fullname: {
@@ -70,6 +66,21 @@ app.use(updateComponentCost);
 app.use(getComponentCategory);
 app.use(deleteComponentFromRecord);
 app.use(exportRecords);
+
+if (process.env.NODE_ENV ==='production') {
+    app.use(express.static(path.join(__dirname,'build')));
+
+    app.get('*', (req, res) =>
+        res.sendFile(
+            path.resolve(__dirname, 'build', 'index.html'
+   
+            )
+        )
+    );
+} else {
+    app.get('/',(req,res)=>res.send('Please set to production'));
+}
+
 
 app.get("/", (req, res) => {
     res.send("Server is Working");
