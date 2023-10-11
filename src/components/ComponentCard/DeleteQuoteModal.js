@@ -6,7 +6,7 @@ import './ComponentCard.css'
 const DeleteQuoteModal = ({ show, onHide, title, recordID }) => {
 
     const handleConfirmDelete = async () => {
-        fetch(`http://localhost:4000/delete-record/${recordID}`, {
+        fetch(`/delete-record/${recordID}`, {
             method: 'DELETE',
         })
             .then((response) => response.json())

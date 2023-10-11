@@ -23,7 +23,7 @@ const ComponentCard = (props) => {
 
   const handleSaveChanges = () => {
     setShowModal(false);
-    fetch(`http://localhost:4000/updateTitle/${props.id}`, {
+    fetch(`/updateTitle/${props.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

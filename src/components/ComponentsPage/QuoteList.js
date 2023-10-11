@@ -36,7 +36,7 @@ const QuoteList = () => {
       componentUrl: compUrl,
     };
     try {
-      const response = await fetch('http://localhost:4000/save-newcomponent', {
+      const response = await fetch('/save-newcomponent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const QuoteList = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
+      const response = await fetch(`/search?searchTerm=${searchTerm}`);
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data);
@@ -72,7 +72,7 @@ const QuoteList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/get-components-all`);
+        const response = await fetch(`/get-components-all`);
         if (response.ok) {
           const data = await response.json();
           setComponents(data);

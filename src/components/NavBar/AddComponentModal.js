@@ -60,7 +60,7 @@ const AddComponentModal = ({ show, onHide }) => {
       componentUrl: compUrl,
     };
     try {
-      const response = await fetch("http://localhost:4000/save-newcomponent", {
+      const response = await fetch("/save-newcomponent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

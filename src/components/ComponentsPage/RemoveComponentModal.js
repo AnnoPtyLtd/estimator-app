@@ -14,7 +14,7 @@ const RemoveComponentModal = ({ show, onHide }) => {
     useEffect(() => {
         const fetchComponents = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/get-components?category=${categoryComp}`);
+                const response = await fetch(`/get-components?category=${categoryComp}`);
                 if (response.ok) {
                     const data = await response.json();
                     setComponents(data);
@@ -33,7 +33,7 @@ const RemoveComponentModal = ({ show, onHide }) => {
 
     const removeComponentFromDB = async (componentId) => {
         try {
-            const response = await fetch(`http://localhost:4000/remove-component?id=${componentId}`, {
+            const response = await fetch(`/remove-component?id=${componentId}`, {
                 method: 'DELETE',
             });
 

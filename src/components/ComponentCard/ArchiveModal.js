@@ -9,7 +9,7 @@ const ArchiveModal = ({ show, onHide, recordID, title }) => {
         onHide();
     }
     const handleArchiveConfirm = async () => {
-        fetch(`http://localhost:4000/archive-record/${recordID}`, {
+        fetch(`/archive-record/${recordID}`, {
             method: 'PUT',
         })
             .then((response) => response.json())

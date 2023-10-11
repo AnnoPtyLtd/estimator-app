@@ -17,7 +17,7 @@ const EditCompModal = ({ show, onHide }) => {
   useEffect(() => {
     const fetchComponents = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/get-components?category=${categoryComp}`);
+        const response = await fetch(`/get-components?category=${categoryComp}`);
         if (response.ok) {
           const data = await response.json();
           setComponents(data);
@@ -38,7 +38,7 @@ const EditCompModal = ({ show, onHide }) => {
   
     const currentDate = new Date(); // Get the current date and time
   
-    fetch(`http://localhost:4000/updateCompononentPrice/${compID}`, {
+    fetch(`/updateCompononentPrice/${compID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

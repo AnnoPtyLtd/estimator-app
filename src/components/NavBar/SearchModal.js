@@ -16,7 +16,7 @@ const SearchModal = ({ show, onHide }) => {
 
     const handleSearch = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
+            const response = await fetch(`/search?searchTerm=${searchTerm}`);
             if (response.ok) {
                 const data = await response.json();
                 setSearchResults(data);

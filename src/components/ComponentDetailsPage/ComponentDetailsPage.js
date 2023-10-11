@@ -3,9 +3,12 @@ import './ComponentDetailsPage.css'
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
+import { Toaster, toast } from 'sonner';
+import axios from 'axios';
 
 const ComponentDetailsPage = () => {
 
+ 
 
     const columns = [
         {
@@ -56,16 +59,16 @@ const ComponentDetailsPage = () => {
             width: 150,
             sortable: false,
             renderCell: (params) => (
-                <Button variant='outlined' onClick={() => handleUpdateButtonClick(params.row)} color="error"><i className="bi bi-trash-fill"/></Button>
+                <Button variant='outlined' onClick={() => handleUpdateButtonClick(params.row)} color="error"><i className="bi bi-trash-fill" /></Button>
             ),
         },
     ];
 
     const [components, setComponents] = useState([]);
-
+    
     useEffect(() => {
         const fetchComponents = async () => {
-            const response = await fetch('http://localhost:4000/get-components-all');
+            const response = await fetch('/get-components-all');
             if (response.status === 200) {
                 const data = await response.json();
                 setComponents(data);
@@ -75,7 +78,11 @@ const ComponentDetailsPage = () => {
             }
         };
         fetchComponents();
+       
     }, []);
+
+
+ 
 
     const rows = components.map((component) => ({
         id: component._id,
@@ -91,7 +98,7 @@ const ComponentDetailsPage = () => {
 
         try {
             // Send a PUT request to update the entire component in the database
-            const response = await fetch(`http://localhost:4000/updateComponent/${row.id}`, {
+            const response = await fetch(`/updateComponent/${row.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -128,6 +135,11 @@ const ComponentDetailsPage = () => {
                     disableRowSelectionOnClick
                 />
             </Box>
+
+            <Toaster position="top-right" richColors />
+            <Button onClick={() => toast.loading('Event has been created')}>
+                Give me a toast
+            </Button>
         </div>
     )
 }

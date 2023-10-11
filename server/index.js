@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const app = express();
 require('dotenv').config();
+const ComponentModel = require('./models/NewComponent');
+
 
 app.use(express.json());
 app.use(cors());
@@ -85,6 +87,18 @@ if (process.env.NODE_ENV ==='production') {
 app.get("/", (req, res) => {
     res.send("Server is Working");
 });
+
+app.get('/api/getcs', async (req, res) => {
+    try {
+      let components;
+      components = await ComponentModel.find();
+      res.json(components);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
 
 app.listen(4000);
 

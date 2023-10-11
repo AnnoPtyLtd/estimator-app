@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const app = express();
+
+
 const ComponentModel = require('../../models/NewComponent');
 
 router.get('/get-components', async (req, res) => {
@@ -31,5 +34,7 @@ router.get('/get-components-all', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
 
 module.exports = router;
