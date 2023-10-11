@@ -7,6 +7,7 @@ import { Toaster, toast } from 'sonner';
 
 const ComponentDetailsPage = () => {
 
+
     const columns = [
         {
             field: 'id',
@@ -56,12 +57,13 @@ const ComponentDetailsPage = () => {
             width: 150,
             sortable: false,
             renderCell: (params) => (
-                <Button variant='outlined' onClick={() => handleUpdateButtonClick(params.row)} color="error"><i className="bi bi-trash-fill" /></Button>
+                <Button variant='outlined' onClick={() => handleDeleteButtonClick(params.row)} color="error"><i className="bi bi-trash-fill" /></Button>
             ),
         },
     ];
 
     const [components, setComponents] = useState([]);
+    const [rowSelectable, setRowSelectable] = useState(false);
 
     useEffect(() => {
         const fetchComponents = async () => {
@@ -76,7 +78,7 @@ const ComponentDetailsPage = () => {
         };
         fetchComponents();
 
-    }, []);
+    }, [components]);
 
 
     const rows = components.map((component) => ({
@@ -100,19 +102,30 @@ const ComponentDetailsPage = () => {
                 body: JSON.stringify({ compName: row.name, compCost: row.price, compUrl: row.url, compDate: currentDate, compCategory: row.category }),
             });
 
-            toast.loading('Updating component!');
-
             if (response.status === 200) {
                 console.log('Component updated successfully');
 
-
-                var delayInMilliseconds = 1000;
-                setTimeout(function () {
-                    toast.success('Component updated successfully!');
-                }, delayInMilliseconds);
+                toast.success('Component updated successfully!');
 
             } else {
                 console.error('Failed to update component in the database');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleDeleteButtonClick = async (row) => {
+        console.log('item id for delete: ', row.id)
+        try {
+            const response = await fetch(`http://localhost:4000/remove-component?id=${row.id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                toast.success('Component deleted successfully!');
+            } else {
+                toast.error('Some error occurred ');
             }
         } catch (error) {
             console.error(error);
@@ -125,6 +138,7 @@ const ComponentDetailsPage = () => {
                 <DataGrid
                     rows={rows}
                     columns={columns}
+                    rowSelection='false'
                     initialState={{
                         pagination: {
                             paginationModel: {
@@ -133,7 +147,6 @@ const ComponentDetailsPage = () => {
                         },
                     }}
                     pageSizeOptions={[7]}
-                    checkboxSelection
                     disableRowSelectionOnClick
                 />
             </Box>
