@@ -69,36 +69,9 @@ app.use(getComponentCategory);
 app.use(deleteComponentFromRecord);
 app.use(exportRecords);
 
-if (process.env.NODE_ENV ==='production') {
-    app.use(express.static(path.join(__dirname,'build')));
-
-    app.get('*', (req, res) =>
-        res.sendFile(
-            path.resolve(__dirname, 'build', 'index.html'
-   
-            )
-        )
-    );
-} else {
-    app.get('/',(req,res)=>res.send('Please set to production'));
-}
-
-
 app.get("/", (req, res) => {
     res.send("Server is Working");
 });
-
-app.get('/api/getcs', async (req, res) => {
-    try {
-      let components;
-      components = await ComponentModel.find();
-      res.json(components);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
-
 
 app.listen(4000);
 

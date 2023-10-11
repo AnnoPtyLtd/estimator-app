@@ -17,7 +17,7 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
         
         const fetchComponents = async () => {
             try {
-                let url = `/get-components`;
+                let url = `http://localhost:4000/get-components`;
                 if (categoryComp !== "View All") {
                     url += `?category=${categoryComp}`;
                 }
@@ -69,7 +69,7 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
     const handleSaveChanges = () => {
         const recordId = recordID;
 
-        fetch(`/add-components-to-build/${recordId}`, {
+        fetch(`http://localhost:4000/add-components-to-build/${recordId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

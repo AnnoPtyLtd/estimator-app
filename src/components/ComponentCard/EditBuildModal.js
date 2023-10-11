@@ -20,7 +20,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
   useEffect(() => {
     const fetchComponentData = async () => {
       try {
-        const response = await fetch(`/get-components-by-record/${recordID}`);
+        const response = await fetch(`http://localhost:4000/get-components-by-record/${recordID}`);
         if (response.ok) {
           const data = await response.json();
           setComponentNames(data.componentNames);

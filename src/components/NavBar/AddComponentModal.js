@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import Button from "react-bootstrap/Button";
 import TouchRipple from "@mui/material/ButtonBase/TouchRipple";
 import InputLabel from "@mui/material/InputLabel";
@@ -10,7 +9,6 @@ import { purple } from "@mui/material/colors";
 
 //Modal
 import Modal from "react-bootstrap/Modal";
-import { TextField } from "@mui/material";
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 //Material-UI Date Picker
@@ -21,21 +19,17 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "./NavBar.css";
 
-import { useTheme } from "@mui/material/styles";
 import StringTextField from "../TextFields/StringTextField";
 import SelectTextField from "../TextFields/SelectTextField";
 
 const AddComponentModal = ({ show, onHide }) => {
-  // Input Fields States
+
   const [compName, setCompName] = useState("");
   const [compUrl, setCompUrl] = useState("");
   const [compCategory, setCompCategory] = useState("");
   const [compPrice, setCompPrice] = useState("");
   const [compDate, setCompDate] = useState(dayjs("DD/MM/YYYY"));
 
-  //theme provider
-
-  //Option for Select
   const option = [
     {value: "CPU", label:"CPU"},
     {value: "Graphic Card", label:"Graphic Card"},
@@ -60,7 +54,7 @@ const AddComponentModal = ({ show, onHide }) => {
       componentUrl: compUrl,
     };
     try {
-      const response = await fetch("/save-newcomponent", {
+      const response = await fetch("http://localhost:4000/save-newcomponent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,82 +72,89 @@ const AddComponentModal = ({ show, onHide }) => {
   };
 
   return (
-    <Modal
-      show={show}
-      animation={TouchRipple}
-      size="lg">
-      <ModalHeader>
-        <Modal.Title>Add Components</Modal.Title>
-      </ModalHeader>
-      <Modal.Body
-        className="addCompModal-Body"
-        style={{
-          maxHeight: "600px",
-          opacity: "0.9",
-          display: "flex",
-        }}>
-        <div>
-          <img src={desktop} alt="img" width="500px" className="img-fluid" />
-        </div>
-        <div>
-          <form>
-            <div className="modalbodycomp-item">
-              <StringTextField
-                label="Component Name"
-                value={compName}
-                onChange={(e) => setCompName(e.target.value)}
-              />
-            </div>
-            <div className="modalbodycomp-item">
-              <StringTextField
-                label="Component Name"
-                value={compUrl}
-                onChange={(e) => setCompUrl(e.target.value)}
-              />
-            </div>
-            <div className="modalbodycomp-item">
-              <SelectTextField
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={compCategory}
-                onChange={(e) => setCompCategory(e.target.value)}
-                fullWidth
-                options={option}
-              />
-            </div>
-            <div className="modalbodycomp-item">
-              <StringTextField
-                label="Component Price"
-                value={compPrice}
-                onChange={(e) => setCompPrice(e.target.value)}
-              />
-            </div>
-            <div>
-              <InputLabel id="demo-simple-select-autowidth-label">
-                Date
-              </InputLabel>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DatePicker"]}>
-                  <DatePicker
-                    value={compDate}
-                    onChange={(date) => setCompDate(date)}
-                    sx={{ width: "100%" }}
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-            </div>
-          </form>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="danger" onClick={handleCloseComp}>
-          Close
-        </Button>
-        <Button variant="danger" onClick={handleSaveChanges}>
-          Save Changes
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    // <Modal
+    //   show={show}
+    //   size="lg">
+    //   <ModalHeader>
+    //     <Modal.Title>Add Components</Modal.Title>
+    //   </ModalHeader>
+    //   <Modal.Body>
+    //     <div>
+    //       <img src={desktop} alt="img" width="500px" className="img-fluid" />
+    //     </div>
+    //     <div>
+    //       <form>
+    //         <div className="modalbodycomp-item">
+    //           <StringTextField
+    //             label="Component Name"
+    //             value={compName}
+    //             onChange={(e) => setCompName(e.target.value)}
+    //           />
+    //         </div>
+    //         <div className="modalbodycomp-item">
+    //           <StringTextField
+    //             label="Component Name"
+    //             value={compUrl}
+    //             onChange={(e) => setCompUrl(e.target.value)}
+    //           />
+    //         </div>
+    //         <div className="modalbodycomp-item">
+    //           <SelectTextField
+    //             labelId="demo-simple-select-label"
+    //             id="demo-simple-select"
+    //             value={compCategory}
+    //             onChange={(e) => setCompCategory(e.target.value)}
+    //             fullWidth
+    //             options={option}
+    //           />
+    //         </div>
+    //         <div className="modalbodycomp-item">
+    //           <StringTextField
+    //             label="Component Price"
+    //             value={compPrice}
+    //             onChange={(e) => setCompPrice(e.target.value)}
+    //           />
+    //         </div>
+    //         <div>
+    //           <InputLabel id="demo-simple-select-autowidth-label">
+    //             Date
+    //           </InputLabel>
+    //           <LocalizationProvider dateAdapter={AdapterDayjs}>
+    //             <DemoContainer components={["DatePicker"]}>
+    //               <DatePicker
+    //                 value={compDate}
+    //                 onChange={(date) => setCompDate(date)}
+    //                 sx={{ width: "100%" }}
+    //               />
+    //             </DemoContainer>
+    //           </LocalizationProvider>
+    //         </div>
+    //       </form>
+    //     </div>
+    //   </Modal.Body>
+    //   <Modal.Footer>
+    //     <Button variant="danger" onClick={handleCloseComp}>
+    //       Close
+    //     </Button>
+    //     <Button variant="danger" onClick={handleSaveChanges}>
+    //       Save Changes
+    //     </Button>
+    //   </Modal.Footer>
+    // </Modal>
+    <Modal show={show} onHide={onHide}>
+    <Modal.Header closeButton>
+      <Modal.Title>Modal heading</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={onHide}>
+        Close
+      </Button>
+      <Button variant="primary" onClick={onHide}>
+        Save Changes
+      </Button>
+    </Modal.Footer>
+  </Modal>
   );
 };
 

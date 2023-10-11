@@ -5,7 +5,6 @@ import { List } from '@mui/material';
 import jwt_decode from 'jwt-decode';
 import CollapsibleListItem from '../CollapsibleListItem/CollapsibleListItem';
 import { Scrollbars } from 'react-custom-scrollbars';
-import axios from 'axios';
 
 
 const QuoteItemsList = () => {
@@ -17,19 +16,10 @@ const QuoteItemsList = () => {
     const userId = decodedToken.userId;
 
     useEffect(() => {
-        const fetchData = async() => {
-            const data = await axios.get('/api/getcs');
-            console.log(data);
-        }
-        fetchData();
-       
-    }, [isAdmin,userId]);
-
-    useEffect(() => {
         const fetchQuotes = async () => {
             try {
                 if (isAdmin) {
-                    const response = await fetch(`/getadminquotes`);
+                    const response = await fetch(`http://localhost:4000/getadminquotes`);
                     if (response.status === 200) {
                         const data = await response.json();
                         setQuotes(data);
@@ -38,7 +28,7 @@ const QuoteItemsList = () => {
                     }
                 }
                 else {
-                    const response = await fetch(`/getuserquotes?userId=${userId}`);
+                    const response = await fetch(`http://localhost:4000/getuserquotes?userId=${userId}`);
                     if (response.status === 200) {
                         const data = await response.json();
                         setQuotes(data);

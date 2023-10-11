@@ -8,7 +8,6 @@ const SearchResultModal = ({ show, onHide, searchResults }) => {
       <Modal.Header className="custom-modal-header">
         <Modal.Title>Search Results</Modal.Title>
         <button className="close-button" onClick={onHide}><CloseIcon /></button>
-
       </Modal.Header>
       <Modal.Body>
         {

@@ -77,7 +77,7 @@ const NavBar = () => {
           className={`menu-item ${activeMenuItem === 1 ? 'active' : ''}`}
           onClick={() => setShowAddComponentModal(true)}>
           <MemoryIcon className='menu-icon' />
-          <p>Add component</p>
+          <p>Add Components</p>
         </li>
         <li
           className={`menu-item ${activeMenuItem === 2 ? 'active' : ''}`}
@@ -100,7 +100,7 @@ const NavBar = () => {
         <li
           className={`menu-item ${activeMenuItem === 4 ? 'active' : ''}`}
           onClick={() => { handleMenuItemClick(4);  }}>
-          <i className="bi bi-cpu menu-icon" style={{ fontSize: '1.3em' }}></i>
+          <i className="bi bi-cpu menu-icon" style={{ fontSize: '1em' }}></i>
           <p style={{fontSize:'14px !important'}}>Manage Comps</p>
         </li>
 
@@ -117,7 +117,6 @@ const NavBar = () => {
       <SearchModal show={showSearchModal} onHide={handleCloseSearchModal} />
 
     </div>
-
 
   );
 };

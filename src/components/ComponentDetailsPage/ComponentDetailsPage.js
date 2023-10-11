@@ -4,11 +4,8 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { Toaster, toast } from 'sonner';
-import axios from 'axios';
 
 const ComponentDetailsPage = () => {
-
- 
 
     const columns = [
         {
@@ -65,10 +62,10 @@ const ComponentDetailsPage = () => {
     ];
 
     const [components, setComponents] = useState([]);
-    
+
     useEffect(() => {
         const fetchComponents = async () => {
-            const response = await fetch('/get-components-all');
+            const response = await fetch('http://localhost:4000/get-components-all');
             if (response.status === 200) {
                 const data = await response.json();
                 setComponents(data);
@@ -78,11 +75,9 @@ const ComponentDetailsPage = () => {
             }
         };
         fetchComponents();
-       
+
     }, []);
 
-
- 
 
     const rows = components.map((component) => ({
         id: component._id,
@@ -97,8 +92,7 @@ const ComponentDetailsPage = () => {
         const currentDate = new Date();
 
         try {
-            // Send a PUT request to update the entire component in the database
-            const response = await fetch(`/updateComponent/${row.id}`, {
+            const response = await fetch(`http://localhost:4000/updateComponent/${row.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,9 +100,17 @@ const ComponentDetailsPage = () => {
                 body: JSON.stringify({ compName: row.name, compCost: row.price, compUrl: row.url, compDate: currentDate, compCategory: row.category }),
             });
 
+            toast.loading('Updating component!');
+
             if (response.status === 200) {
-                // Handle success (optional)
                 console.log('Component updated successfully');
+
+
+                var delayInMilliseconds = 1000;
+                setTimeout(function () {
+                    toast.success('Component updated successfully!');
+                }, delayInMilliseconds);
+
             } else {
                 console.error('Failed to update component in the database');
             }
@@ -135,11 +137,7 @@ const ComponentDetailsPage = () => {
                     disableRowSelectionOnClick
                 />
             </Box>
-
             <Toaster position="top-right" richColors />
-            <Button onClick={() => toast.loading('Event has been created')}>
-                Give me a toast
-            </Button>
         </div>
     )
 }

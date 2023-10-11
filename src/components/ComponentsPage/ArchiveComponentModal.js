@@ -12,7 +12,7 @@ const ArchiveComponentModal = ({ show, onHide,componentID,componentName }) => {
     }
 
     const handleArchiveConfirm = async () => {
-        fetch(`/archive-component/${componentID}`, {
+        fetch(`http://localhost:4000/archive-component/${componentID}`, {
             method: 'PUT',
         })
             .then((response) => response.json())

@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import QuoteList from '../ComponentsPage/QuoteList';
@@ -8,7 +8,6 @@ import NavBar from '../NavBar/NavBar';
 import QuoteItemsList from '../QuoteItemsList/QuoteItemsList';
 import './Home.css';
 import ComponentDetailsPage from '../ComponentDetailsPage/ComponentDetailsPage';
-import axios from 'axios';
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
@@ -16,8 +15,6 @@ const Home = () => {
   if (!isAuthenticated) {
     navigate('/home')
   }
-
-
 
   return (
     <div className='home'>
