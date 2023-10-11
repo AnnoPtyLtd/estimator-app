@@ -12,6 +12,7 @@ import SearchModal from './SearchModal';
 import AddComponentModal from './AddComponentModal';
 import { useNavigate } from 'react-router-dom';
 
+
 const NavBar = () => {
 
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -19,10 +20,7 @@ const NavBar = () => {
   const [showAddComponentModal, setShowAddComponentModal] = useState(false);
   const [ShowAddQuoteModal, setShowAddQuoteModal] = useState(false);
   const navigate = useNavigate();
-  const handleHomeClick = () => {
-    // Navigate to the 'home' route
-    navigate('/home');
-  };
+
   const handleCloseComponent = () => {
     setShowAddComponentModal(false);
   }
@@ -42,10 +40,10 @@ const NavBar = () => {
 
   const handleMenuItemClick = (index) => {
     setActiveMenuItem(index);
-    if(index===0){
+    if (index === 0) {
       navigate('/home');
     }
-    if(index===4){
+    if (index === 5) {
       navigate('/manage-components');
     }
   };
@@ -91,32 +89,33 @@ const NavBar = () => {
           <AddCircleIcon className='menu-icon' />
           <p>Add Quote</p>
         </li>
-        {/* <li
-          className={`menu-item ${activeMenuItem === 5 ? 'active' : ''}`}
+        <li
+          className={`menu-item ${activeMenuItem === 4 ? 'active' : ''}`}
           onClick={() => { handleMenuItemClick(4); handleShowUploadModal(); }}>
           <FileUploadOutlinedIcon className='menu-icon' />
           <p>Upload file</p>
-        </li> */}
+        </li>
         <li
-          className={`menu-item ${activeMenuItem === 4 ? 'active' : ''}`}
-          onClick={() => { handleMenuItemClick(4);  }}>
+          className={`menu-item ${activeMenuItem === 5 ? 'active' : ''}`}
+          onClick={() => { handleMenuItemClick(5); }}>
           <i className="bi bi-cpu menu-icon" style={{ fontSize: '1em' }}></i>
-          <p style={{fontSize:'14px !important'}}>Manage Comps</p>
+          <p style={{ fontSize: '14px !important' }}>Manage Comps</p>
         </li>
 
-        <div className='profile-icon'>
+        <li className={`menu-item ${activeMenuItem === 6 ? 'active' : ''}`}
+          onClick={() => { handleMenuItemClick(6); }}>
           <div className='centered-content'>
             <Image className='profile-img' src={profileImg} roundedCircle fluid />
             <p className='profile-name'>User</p>
           </div>
-        </div>
+        </li>
       </ul>
 
       <AddComponentModal show={showAddComponentModal} onHide={handleCloseComponent} />
       <UploadFileModal show={showUploadModal} onHide={handleCloseUploadModal} />
       <SearchModal show={showSearchModal} onHide={handleCloseSearchModal} />
 
-    </div>
+    </div >
 
   );
 };

@@ -17,7 +17,7 @@ const ComponentDetailsPage = () => {
         {
             field: 'name',
             headerName: 'Name',
-            width: 150,
+            width: 180,
             editable: true,
         },
         {
@@ -78,7 +78,7 @@ const ComponentDetailsPage = () => {
         };
         fetchComponents();
 
-    }, [components]);
+    }, []);
 
 
     const rows = components.map((component) => ({
