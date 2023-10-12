@@ -1,11 +1,12 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
+
 
 const Charts = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+    return (
+        <div>
+           
+        </div>
+    )
 }
 
 export default Charts

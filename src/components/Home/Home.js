@@ -8,6 +8,7 @@ import NavBar from '../NavBar/NavBar';
 import QuoteItemsList from '../QuoteItemsList/QuoteItemsList';
 import './Home.css';
 import ComponentDetailsPage from '../ComponentDetailsPage/ComponentDetailsPage';
+import Charts from '../Charts/Charts';
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
@@ -26,7 +27,7 @@ const Home = () => {
         <div className='quote-section'>
           <QuoteItemsList />
           <QuoteDetails />
-          <QuoteList />
+          <Charts/>
         </div>
       </div>
     </div>
