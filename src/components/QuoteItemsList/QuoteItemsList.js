@@ -47,7 +47,7 @@ const QuoteItemsList = () => {
         <div className='quotelist-item-container'>
 
             <div className='quotelist-item-title'>
-                <p>Quotes List</p>
+                <p>All Quotes</p>
             </div>
             <div className='search-field'>
                 <input
@@ -64,6 +64,7 @@ const QuoteItemsList = () => {
                         {quotes.map((quote) => (
                             <CollapsibleListItem
                                 primaryText={quote.name}
+                                priceText={quote.quoteCost}
                                 flag='quotes'
                                 quotesComponents={quote.componentNames}
                             />

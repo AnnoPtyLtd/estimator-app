@@ -5,7 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import SnackbarMsg from '../Snackbar-Popup/SnackbarMsg';
 
-const CollapsibleListItem = ({ primaryText, components, quotes, quotesComponents, flag, setArchiveModalShow, onArchiveClick }) => {
+const CollapsibleListItem = ({ primaryText,priceText, components, quotes, quotesComponents, flag, setArchiveModalShow, onArchiveClick }) => {
     const [open, setOpen] = useState(false);
     const [openAlert, setOpenAlert] = useState(null); // Store the ID of the opened Snackbar
 
@@ -37,7 +37,7 @@ const CollapsibleListItem = ({ primaryText, components, quotes, quotesComponents
     return (
         <div className='collapse-list-item'>
             <ListItemButton onClick={handleClick}>
-                <ListItemText primary={primaryText} />
+                <ListItemText primary={primaryText} secondary={priceText+' $'}/>
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit className='collapsing-down'>

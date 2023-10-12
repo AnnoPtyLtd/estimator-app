@@ -60,6 +60,7 @@
     display: flex;
     justify-content: space-between;
 }
+
 .detail-items input {
     padding: 10px;
     text-align: center;
@@ -92,10 +93,12 @@ label {
 .component-list {
     margin-bottom: 10px;
 }
-.add-build-btn{
+
+.add-build-btn {
     margin: 10px;
     padding: 0;
 }
+
 .builds-filter {
     margin: 10px 5px;
     padding: 10px;
@@ -217,3 +220,26 @@ li label {
 .scrollable-list::-webkit-scrollbar-track {
     background-color: transparent;
 }
+
+.single-quote-details {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-between;
+    width: 350px;
+}
+.single-quote-details ol{
+    margin-left: 15px;
+}
+
+.single-quote-left p,
+.single-quote-right p  {
+    font-weight: bold;
+    margin: 5px 0px;
+}
+
+.single-quote-left h4 {
+    margin: 0;
+    font-size: 20px;
+}
+

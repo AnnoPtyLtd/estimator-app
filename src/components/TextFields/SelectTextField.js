@@ -9,7 +9,7 @@ const StyledSelect = styled(Select)({
       color: theme.palette.quantiary.main,
     },
     '& label': {
-      color: theme.palette.quantiary.main,
+      color: theme.palette.tertiary.main,
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {

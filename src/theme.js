@@ -10,7 +10,7 @@ const theme = createTheme({
       main: grey[50], 
     },
     tertiary:{
-      main: purple[50],
+      main: purple[0],
     },
     quantiary:{
       main:  blue[500],

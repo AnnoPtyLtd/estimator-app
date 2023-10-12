@@ -13,7 +13,6 @@ import AddNewBuildModal from './AddNewBuildModal';
 
 const QuoteDetails = () => {
 
-  const anchor = { vertical: 'top', horizontal: 'right' };
   const [openAlert, setOpenAlert] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [records, setRecords] = useState([]);
@@ -57,7 +56,7 @@ const QuoteDetails = () => {
       }
     };
     fetchRecords();
-  }, [isAdmin, quoteType2, quoteUserId, userId]);//new edit
+  }, [isAdmin, quoteType2, quoteUserId, userId]);
 
   const handleAddRecord = async () => {
     try {
@@ -85,12 +84,7 @@ const QuoteDetails = () => {
     }
   };
 
-  const handleExportClick = () => {
-    setShowExportModal(true)
-  }
-  const handleCloseExportModal = () => {
-    setShowExportModal(false);
-  }
+
   const handleCloseAlert = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -111,6 +105,8 @@ const QuoteDetails = () => {
       </div>
 
       <div className='quote-details-column'>
+
+        {/* <div>
         <div className='detail-items'>
           <label htmlFor='name'> Name </label>
           <StringTextField label='' value={name} onChange={(e) => setName(e.target.value)}></StringTextField>
@@ -147,12 +143,38 @@ const QuoteDetails = () => {
         <div className='add-build-btn'>
           <Button variant='outlined' onClick={handleAddRecord}>Add Build</Button>
         </div>
+      </div> */}
+
+        {/* Top part to show Single Quote opened */}
+        <>
+          {records[0] ? (
+            <div className='single-quote-details'>
+              <div className='single-quote-left'>
+                <h4>{records[0].name}</h4>
+                <p>Components inside</p>
+                <ol>
+                  {(records[0].componentNames).map((name) => (
+                    <li>{name}</li>
+                  ))}
+                </ol>
+              </div>
+              <div className='single-quote-right'>
+                <p>({records[0].quoteCost} $)</p>
+              </div>
+            </div>
+          ) : (
+            <p>No records available</p>
+          )}
+        </>
+
       </div>
+
+      {/*quote cards container */}
 
       <div className='quote-details-components'>
         <div className='quote-details-header'>
           <h4>YOUR BUILDS</h4>
-          <Button variant='outlined' onClick={handleExportClick} endIcon={<ArrowUpwardIcon fontSize='' />}>Export</Button>
+          <Button variant='outlined' onClick={() => setShowExportModal(true)} endIcon={<ArrowUpwardIcon fontSize='' />}>Export</Button>
         </div>
         <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
           <option value='choosequote2'>Choose quote type</option>
@@ -161,7 +183,7 @@ const QuoteDetails = () => {
           <option value='Office/Home PC'>Office/Home</option>
           <option value='Custom/Other'>Custom/Other</option>
         </select>
-        <div className='quote-details-list-container'>
+        {/* <div className='quote-details-list-container'>
           {records.map((record) => (
             <motion.div
               key={record._id}
@@ -172,9 +194,12 @@ const QuoteDetails = () => {
               <ComponentCard title={record.name} cost={record.quoteCost} id={record._id} comps={record.quoteComps} type={record.quoteType} ></ComponentCard>
             </motion.div>
           ))}
-        </div>
+        </div> */}
       </div>
-      <ExportQuotesModal show={showExportModal} onHide={handleCloseExportModal} />
+
+
+
+      <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
 
       <SnackbarMsg
         show={openSuccess}
@@ -182,13 +207,13 @@ const QuoteDetails = () => {
         severity="success"
         message="Quote saved successfully!"
       />
-       <SnackbarMsg
+      <SnackbarMsg
         show={openAlert}
         handleClose={handleCloseAlert}
         severity="info"
         message="Please fill all fields!"
       />
-    
+
     </div>
   );
 };

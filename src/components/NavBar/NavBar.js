@@ -115,7 +115,7 @@ const NavBar = () => {
       <UploadFileModal show={showUploadModal} onHide={handleCloseUploadModal} />
       <SearchModal show={showSearchModal} onHide={handleCloseSearchModal} />
 
-    </div >
+    </div>
 
   );
 };
