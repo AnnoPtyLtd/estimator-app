@@ -52,7 +52,8 @@ const QuoteItemsList = () => {
             <div className='search-field'>
                 <input
                     type='search'
-                    placeholder='Search...' />
+                    placeholder='Search...'
+                />
                 <SearchOutlinedIcon className='search-icon' />
             </div>
 
