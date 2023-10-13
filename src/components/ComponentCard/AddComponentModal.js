@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import './ComponentCard.css';
 
-const AddComponentModal = ({ show, onHide, recordID }) => {
+const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCategories }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
     const [selectedComponents, setSelectedComponents] = useState([]);
@@ -68,6 +68,9 @@ const AddComponentModal = ({ show, onHide, recordID }) => {
 
     const handleSaveChanges = () => {
         const recordId = recordID;
+        compNames(componentNames);
+        compPrices(componentPrices);
+        compCategories(componentCategories);
 
         fetch(`http://localhost:4000/add-components-to-build/${recordId}`, {
             method: 'POST',

@@ -81,7 +81,6 @@ label {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    height: 100%;
 }
 
 .quote-details-components h4 {
@@ -103,7 +102,6 @@ label {
     margin: 10px 5px;
     padding: 10px;
     text-align: center;
-
 }
 
 input[type=text] {
@@ -224,9 +222,7 @@ li label {
 .single-quote-details {
     display: flex;
     flex-direction: row;
-    gap: 30px;
     justify-content: space-between;
-    width: 350px;
 }
 .single-quote-details ol{
     margin-left: 15px;
@@ -243,3 +239,16 @@ li label {
     font-size: 20px;
 }
 
+.add-quote-btn{
+    width: 100px;
+    align-self: self-start;
+}
+
+.add-quote-modal{
+    display: flex;
+    flex-direction: column;
+}
+.add-components-btn{
+    margin-top: 10px !important;
+    align-self: flex-end;
+}

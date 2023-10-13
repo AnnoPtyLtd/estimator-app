@@ -5,7 +5,7 @@ const NewComponent = require('../../models/NewComponent');
 
 router.post('/saverecord', async (req, res) => {
   try {
-    const { quoteUserId, name, quoteType, quoteDate, quoteCost } = req.body;
+    const { quoteUserId, name, quoteType, quoteDate, quoteCost,componentNames,componentPrices,componentCategories } = req.body;
     if (!name || !quoteType || !quoteDate || !quoteCost) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -15,6 +15,9 @@ router.post('/saverecord', async (req, res) => {
       quoteType,
       quoteDate,
       quoteCost,
+      componentNames,
+      componentPrices,
+      componentCategories,
     });
 
     const savedRecord = await record.save();

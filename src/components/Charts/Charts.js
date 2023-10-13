@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 const Charts = () => {
     return (
-        <div>
+        <div className='charts-container'>
            
         </div>
     )

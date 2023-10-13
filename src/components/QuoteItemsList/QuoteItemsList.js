@@ -5,11 +5,16 @@ import { List } from '@mui/material';
 import jwt_decode from 'jwt-decode';
 import CollapsibleListItem from '../CollapsibleListItem/CollapsibleListItem';
 import { Scrollbars } from 'react-custom-scrollbars';
+import SearchResultModal from '../ComponentsPage/SearchResultModal';
+import { Toaster, toast } from 'sonner';
 
 
 const QuoteItemsList = () => {
 
+    const [showSearchResultsModal, setShowSearchResultsModal] = useState(false)
+    const [searchResults, setSearchResults] = useState({ components: [], records: [] });
     const [quotes, setQuotes] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const isAdmin = localStorage.getItem('Admin') === 'admin';
     const token = localStorage.getItem('token');
     const decodedToken = jwt_decode(token);
@@ -43,6 +48,27 @@ const QuoteItemsList = () => {
         fetchQuotes();
     }, [isAdmin, userId, quotes]);
 
+
+    const handleSearch = async () => {
+        if(searchTerm.trim()==='' || !searchTerm){
+            toast.error('Search field is empty!')
+        }
+        try {
+            const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
+            if (response.ok) {
+                const data = await response.json();
+                setSearchResults(data);
+                setShowSearchResultsModal(true);
+                setSearchTerm('');
+            } else {
+                console.log('Error in searching');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     return (
         <div className='quotelist-item-container'>
 
@@ -53,8 +79,10 @@ const QuoteItemsList = () => {
                 <input
                     type='search'
                     placeholder='Search...'
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <SearchOutlinedIcon className='search-icon' />
+                <SearchOutlinedIcon className='search-icon' onClick={handleSearch} />
             </div>
 
             <div className='quoteitems-list'>
@@ -73,6 +101,13 @@ const QuoteItemsList = () => {
                     </List>
                 </Scrollbars>
             </div>
+
+            <SearchResultModal
+                show={showSearchResultsModal}
+                onHide={() => setShowSearchResultsModal(false)}
+                searchResults={searchResults}
+            />
+            <Toaster position="top-right" richColors />
         </div>
     )
 }

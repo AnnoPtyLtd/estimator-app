@@ -1,20 +1,16 @@
 import './QuoteDetails.css';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import ComponentCard from '../ComponentCard/ComponentCard';
 import ExportQuotesModal from './ExportQuotesModal';
 import jwt_decode from 'jwt-decode';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Button from '@mui/material/Button';
 import StringTextField from '../TextFields/StringTextField';
-import SnackbarMsg from '../Snackbar-Popup/SnackbarMsg';
 import AddNewBuildModal from './AddNewBuildModal';
 
 
 const QuoteDetails = () => {
 
-  const [openAlert, setOpenAlert] = useState(false);
-  const [openSuccess, setOpenSuccess] = useState(false);
   const [records, setRecords] = useState([]);
   const [quoteUserId, setQuoteUserId] = useState('');
   const [name, setName] = useState('');
@@ -23,6 +19,7 @@ const QuoteDetails = () => {
   const [quoteDate, setQuoteDate] = useState('');
   const [quoteCost, setQuoteCost] = useState(0);
   const [quoteComps, setQuoteComps] = useState([]);
+  const [showAddCompModal, setShowAddCompModal] = useState(false)
   const [showExportModal, setShowExportModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
   const token = localStorage.getItem('token');
@@ -74,9 +71,8 @@ const QuoteDetails = () => {
         setQuoteDate('');
         setQuoteCost(0);
         setQuoteComps([]);
-        setOpenSuccess(true);
       } else {
-        setOpenAlert(true);
+        //display error or info toast
       }
     } catch (error) {
       console.error(error);
@@ -85,19 +81,6 @@ const QuoteDetails = () => {
   };
 
 
-  const handleCloseAlert = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpenAlert(false);
-  };
-  const handleCloseSuccess = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpenSuccess(false);
-  };
-
   return (
     <div className='quote-details-container'>
       <div className='quote-details-title'>
@@ -105,45 +88,6 @@ const QuoteDetails = () => {
       </div>
 
       <div className='quote-details-column'>
-
-        {/* <div>
-        <div className='detail-items'>
-          <label htmlFor='name'> Name </label>
-          <StringTextField label='' value={name} onChange={(e) => setName(e.target.value)}></StringTextField>
-        </div>
-        <div className='search-name-date'>
-          <div className='detail-items'>
-            <label htmlFor='name'> Quote list </label>
-            <select id='dropdown' value={quoteType} onChange={(e) => setQuoteType(e.target.value)}>
-              <option value='Gaming PC'>Gaming PC</option>
-              <option value='Content Creation'>Content creation and productivity</option>
-              <option value='Office/Home PC'>Office/Home</option>
-              <option value='Custom/Other'>Custom/Other</option>
-            </select>
-          </div>
-          <div className='detail-items'>
-            <label htmlFor='name'> Cost </label>
-            <input
-              type='number'
-              id='quote-cost'
-              value={quoteCost}
-              onChange={(e) => setQuoteCost(e.target.value)}
-            />
-          </div>
-          <div className='detail-items'>
-            <label htmlFor='name'> Quote Date </label>
-            <input
-              type='date'
-              id='quote-date'
-              value={quoteDate}
-              onChange={(e) => setQuoteDate(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className='add-build-btn'>
-          <Button variant='outlined' onClick={handleAddRecord}>Add Build</Button>
-        </div>
-      </div> */}
 
         {/* Top part to show Single Quote opened */}
         <>
@@ -172,17 +116,18 @@ const QuoteDetails = () => {
       {/*quote cards container */}
 
       <div className='quote-details-components'>
+        <Button variant='contained' className='add-quote-btn' onClick={() => setShowAddCompModal(true)}>Add</Button>
         <div className='quote-details-header'>
-          <h4>YOUR BUILDS</h4>
+          <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
+            <option value='choosequote2'>Choose quote type</option>
+            <option value='Gaming PC'>Gaming PC</option>
+            <option value='Content Creation'>Content creation and productivity</option>
+            <option value='Office/Home PC'>Office/Home</option>
+            <option value='Custom/Other'>Custom/Other</option>
+          </select>
           <Button variant='outlined' onClick={() => setShowExportModal(true)} endIcon={<ArrowUpwardIcon fontSize='' />}>Export</Button>
         </div>
-        <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
-          <option value='choosequote2'>Choose quote type</option>
-          <option value='Gaming PC'>Gaming PC</option>
-          <option value='Content Creation'>Content creation and productivity</option>
-          <option value='Office/Home PC'>Office/Home</option>
-          <option value='Custom/Other'>Custom/Other</option>
-        </select>
+
         {/* <div className='quote-details-list-container'>
           {records.map((record) => (
             <motion.div
@@ -195,25 +140,11 @@ const QuoteDetails = () => {
             </motion.div>
           ))}
         </div> */}
+
       </div>
 
-
-
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
-
-      <SnackbarMsg
-        show={openSuccess}
-        handleClose={handleCloseSuccess}
-        severity="success"
-        message="Quote saved successfully!"
-      />
-      <SnackbarMsg
-        show={openAlert}
-        handleClose={handleCloseAlert}
-        severity="info"
-        message="Please fill all fields!"
-      />
-
+      <AddNewBuildModal show={showAddCompModal} onHide={() => setShowAddCompModal(false)} />
     </div>
   );
 };
