@@ -11,6 +11,7 @@ import './NavBar.css';
 import SearchModal from './SearchModal';
 import AddComponentModal from './AddComponentModal';
 import { useNavigate } from 'react-router-dom';
+import AddNewBuildModal from '../QuoteDetails/AddNewBuildModal';
 
 
 const NavBar = () => {
@@ -39,7 +40,6 @@ const NavBar = () => {
   }
 
   const handleMenuItemClick = (index) => {
-    setActiveMenuItem(index);
     if (index === 0) {
       navigate('/home');
     }
@@ -56,7 +56,6 @@ const NavBar = () => {
     setIsExpanded(false);
   };
 
-  const [activeMenuItem, setActiveMenuItem] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -66,43 +65,43 @@ const NavBar = () => {
       onMouseLeave={handleMouseLeave}>
       <ul className='menu-items'>
         <li
-          className={`menu-item ${activeMenuItem === 0 ? 'active' : ''}`}
+          className='menu-item' 
           onClick={() => handleMenuItemClick(0)}>
           <HomeIcon className='menu-icon' />
           <p>Home</p>
         </li>
         <li
-          className={`menu-item ${activeMenuItem === 1 ? 'active' : ''}`}
+          className='menu-item' 
           onClick={() => setShowAddComponentModal(true)}>
           <MemoryIcon className='menu-icon' />
           <p>Add Components</p>
         </li>
         <li
-          className={`menu-item ${activeMenuItem === 2 ? 'active' : ''}`}
+          className='menu-item' 
           onClick={() => { handleMenuItemClick(2); handleShowSearchModal(); }}>
           <SearchOutlinedIcon className='menu-icon' />
           <p>Search</p>
         </li>
         <li
-          className={`menu-item ${activeMenuItem === 3 ? 'active' : ''}`}
-          onClick={() => setShowAddQuoteModal()}>
+          className='menu-item' 
+          onClick={() => setShowAddQuoteModal(true)}>
           <AddCircleIcon className='menu-icon' />
           <p>Add Quote</p>
         </li>
         <li
-          className={`menu-item ${activeMenuItem === 4 ? 'active' : ''}`}
+          className='menu-item' 
           onClick={() => { handleMenuItemClick(4); handleShowUploadModal(); }}>
           <FileUploadOutlinedIcon className='menu-icon' />
           <p>Upload file</p>
         </li>
         <li
-          className={`menu-item ${activeMenuItem === 5 ? 'active' : ''}`}
+          className='menu-item' 
           onClick={() => { handleMenuItemClick(5); }}>
           <i className="bi bi-cpu menu-icon" style={{ fontSize: '1em' }}></i>
           <p style={{ fontSize: '14px !important' }}>Manage Comps</p>
         </li>
 
-        <li className={`menu-item ${activeMenuItem === 6 ? 'active' : ''}`}
+        <li className='menu-item' 
           onClick={() => { handleMenuItemClick(6); }}>
           <div className='centered-content'>
             <Image className='profile-img' src={profileImg} roundedCircle fluid />
@@ -114,9 +113,8 @@ const NavBar = () => {
       <AddComponentModal show={showAddComponentModal} onHide={handleCloseComponent} />
       <UploadFileModal show={showUploadModal} onHide={handleCloseUploadModal} />
       <SearchModal show={showSearchModal} onHide={handleCloseSearchModal} />
-
+      <AddNewBuildModal show={ShowAddQuoteModal} onHide={() => setShowAddQuoteModal(false)}/>
     </div>
-
   );
 };
 

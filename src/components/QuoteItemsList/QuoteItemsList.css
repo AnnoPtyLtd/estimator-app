@@ -1,5 +1,4 @@
 .quotelist-item-container {
-    width: 40vh;
     display: flex;
     margin: 10px 5px 10px 10px;
     padding: 20px;
@@ -41,4 +40,17 @@
 }
 .quoteitems-list::-webkit-scrollbar{
     width:15px;
+}
+
+.filter-field{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.filter-field select{
+    padding: 5px;
+    flex-grow: 1;
+    margin: 10px 0px;
+
 }

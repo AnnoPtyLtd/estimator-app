@@ -58,6 +58,20 @@ router.get('/adminrecords', async (req, res) => {
   }
 });
 
+router.get('/adminrecords', async (req, res) => {
+  try {
+    const quoteType = req.query.quoteType;
+    if (!quoteType) {
+      return res.status(400).json({ error: 'quoteType is required' });
+    }
+    const records = await Record.find({ quoteType: quoteType });
+    res.status(200).json(records);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 router.get('/getuserquotes', async (req, res) => {
   try {
     const userId = req.query.userId;
@@ -164,10 +178,6 @@ router.get('/get-components-by-record/:recordID', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
-
-
 
 
 module.exports = router;

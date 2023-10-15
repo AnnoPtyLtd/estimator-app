@@ -19,38 +19,39 @@ const QuoteItemsList = () => {
     const token = localStorage.getItem('token');
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.userId;
+    const [quoteFilter, setQuoteFilter] = useState('Gaming PC');
 
     useEffect(() => {
         const fetchQuotes = async () => {
             try {
                 if (isAdmin) {
-                    const response = await fetch(`http://localhost:4000/getadminquotes`);
-                    if (response.status === 200) {
-                        const data = await response.json();
-                        setQuotes(data);
-                    } else {
-                        console.error('Failed to fetch records');
-                    }
+                  const response = await fetch(`http://localhost:4000/adminrecords?quoteType=${quoteFilter}`);
+                  if (response.status === 200) {
+                    const data = await response.json();
+                    setQuotes(data);
+                  } else {
+                    console.error('Failed to fetch records');
+                  }
                 }
                 else {
-                    const response = await fetch(`http://localhost:4000/getuserquotes?userId=${userId}`);
-                    if (response.status === 200) {
-                        const data = await response.json();
-                        setQuotes(data);
-                    } else {
-                        console.error('Failed to fetch records');
-                    }
+                  const response = await fetch(`http://localhost:4000/records?userId=${userId}&quoteType=${quoteFilter}`);
+                  if (response.status === 200) {
+                    const data = await response.json();
+                    setQuotes(data);
+                  } else {
+                    console.error('Failed to fetch records');
+                  }
                 }
-            } catch (error) {
+              } catch (error) {
                 console.error(error);
-            }
+              }
         };
         fetchQuotes();
     }, [isAdmin, userId, quotes]);
 
 
     const handleSearch = async () => {
-        if(searchTerm.trim()==='' || !searchTerm){
+        if (searchTerm.trim() === '' || !searchTerm) {
             toast.error('Search field is empty!')
         }
         try {
@@ -83,6 +84,15 @@ const QuoteItemsList = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <SearchOutlinedIcon className='search-icon' onClick={handleSearch} />
+            </div>
+            <div className='filter-field'>
+                <select value={quoteFilter} onChange={(e) => setQuoteFilter(e.target.value)}>
+                    <option value='View All'>View All</option>
+                    <option value='Gaming PC'>Gaming PC</option>
+                    <option value='Content Creation'>Content creation and productivity</option>
+                    <option value='Office/Home PC'>Office/Home</option>
+                    <option value='Custom/Other'>Custom/Other</option>
+                </select>
             </div>
 
             <div className='quoteitems-list'>
