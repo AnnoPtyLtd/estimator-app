@@ -5,12 +5,12 @@ const router = express.Router();
 const Record = require('../../models/Record');
 
 // Define a route to delete a component by index
-router.delete('/delete-component/:recordId/:index', async (req, res) => {
+router.delete('/delete-component/:recordID/:index', async (req, res) => {
     try {
-        const { recordId, index } = req.params;
+        const { recordID, index } = req.params;
 
         // Find the record by its ID
-        const record = await Record.findById(recordId);
+        const record = await Record.findById(recordID);
 
         if (!record) {
             return res.status(404).json({ error: 'Record not found' });

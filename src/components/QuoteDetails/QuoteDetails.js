@@ -7,7 +7,8 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Button from '@mui/material/Button';
 import StringTextField from '../TextFields/StringTextField';
 import AddNewBuildModal from './AddNewBuildModal';
-
+import EditBuildModal from '../ComponentCard/EditBuildModal';
+import ShowQuotes from '../QuoteDetails/ShowQuotes';
 
 const QuoteDetails = () => {
 
@@ -25,7 +26,9 @@ const QuoteDetails = () => {
   const token = localStorage.getItem('token');
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
-
+  const [showEditBuildModal, setShowEditBuildModal] = useState(false);
+  const [showQuotesModal, setShowQuotesModal] = useState(false)
+  const [buttoneFlag, setButtoneFlag] = useState('')
   useEffect(() => {
     const fetchRecords = async () => {
       setQuoteUserId(userId);
@@ -80,7 +83,6 @@ const QuoteDetails = () => {
     }
   };
 
-
   return (
     <div className='quote-details-container'>
       <div className='quote-details-title'>
@@ -116,7 +118,6 @@ const QuoteDetails = () => {
       {/*quote cards container */}
 
       <div className='quote-details-components'>
-        <Button variant='contained' className='add-quote-btn' onClick={() => setShowAddCompModal(true)}>Add</Button>
         <div className='quote-details-header'>
           <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
             <option value='choosequote2'>Choose quote type</option>
@@ -125,7 +126,12 @@ const QuoteDetails = () => {
             <option value='Office/Home PC'>Office/Home</option>
             <option value='Custom/Other'>Custom/Other</option>
           </select>
-          <Button variant='outlined' onClick={() => setShowExportModal(true)} endIcon={<ArrowUpwardIcon fontSize='' />}>Export</Button>
+          <div className='quote-btns'>
+            <Button variant='outlined' onClick={() => setShowAddCompModal(true)}>Add</Button>
+            <Button variant='outlined' onClick={() => {setShowQuotesModal(true); setButtoneFlag('Edit')}}>Edit</Button>
+            <Button variant='outlined' onClick={() => {setShowQuotesModal(true); setButtoneFlag('Delete')}}>Delete</Button>
+            <Button variant='outlined' onClick={() => setShowExportModal(true)}>Export</Button>
+          </div>
         </div>
 
         {/* <div className='quote-details-list-container'>
@@ -142,9 +148,10 @@ const QuoteDetails = () => {
         </div> */}
 
       </div>
-
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
       <AddNewBuildModal show={showAddCompModal} onHide={() => setShowAddCompModal(false)} />
+      <EditBuildModal show={showEditBuildModal} onHide={() => setShowEditBuildModal(false)} />
+      <ShowQuotes show={showQuotesModal} onHide={() => setShowQuotesModal(false)} flag={buttoneFlag} />
     </div>
   );
 };

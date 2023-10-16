@@ -19,6 +19,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
 
   useEffect(() => {
     const fetchComponentData = async () => {
+
       try {
         const response = await fetch(`http://localhost:4000/get-components-by-record/${recordID}`);
         if (response.ok) {
@@ -41,7 +42,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
   }, [componentNames, show, recordID]);
 
   const handleDeleteComponent = (index) => {
-    fetch(`/delete-component/${recordID}/${index}`, {
+    fetch(`http://localhost:4000/delete-component/${recordID}/${index}`, {
       method: 'DELETE',
     })
       .then((response) => response.json())
@@ -80,7 +81,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
                   
                   <div style={{ display: 'flex', gap: '5px' }}>
                     <ModeEditOutlineIcon className='comp-edit-icon' color='primary' onClick={() =>  setAddComponentModalShow(true)} />
-                    <CloseOutlinedIcon className='comp-remove-icon' color='red' onClick={() => handleDeleteComponent(index)} />
+                    <CloseOutlinedIcon className='comp-remove-icon' color='red' onClick={() => handleDeleteComponent(index)}/>
                   </div>
                 </li>
               ))}

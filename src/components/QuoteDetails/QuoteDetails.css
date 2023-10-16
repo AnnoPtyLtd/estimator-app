@@ -21,8 +21,8 @@
 
 .quote-details-header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
     align-items: center;
 }
 
@@ -72,7 +72,6 @@
     width: 150px;
 }
 
-
 label {
     font-weight: 400;
 }
@@ -91,11 +90,6 @@ label {
 
 .component-list {
     margin-bottom: 10px;
-}
-
-.add-build-btn {
-    margin: 10px;
-    padding: 0;
 }
 
 .builds-filter {
@@ -253,3 +247,38 @@ li label {
     align-self: flex-end;
 }
 
+.quote-btns{
+    display: flex;
+    gap: 5px;
+}
+.quote-list-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.quotelist-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 5px;
+    border-radius: 10px;
+    cursor: context-menu;
+}
+.quotelist-item:hover{
+    background-color: rgb(235, 235, 235);
+}
+.quote-item-btns{
+    gap: 5px;
+}
+.quote-item-btns i{
+    padding: 5px;
+}
+.quote-item-btns i:hover{
+    background-color: rgb(228, 228, 228);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.quote-item-btn{
+    padding: 0 !important;
+}

@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './QuoteItemsList.css'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { List } from '@mui/material';
 import jwt_decode from 'jwt-decode';
 import CollapsibleListItem from '../CollapsibleListItem/CollapsibleListItem';
+import { List } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars';
 import SearchResultModal from '../ComponentsPage/SearchResultModal';
 import { Toaster, toast } from 'sonner';
 
-
 const QuoteItemsList = () => {
 
-    const [showSearchResultsModal, setShowSearchResultsModal] = useState(false)
     const [searchResults, setSearchResults] = useState({ components: [], records: [] });
     const [quotes, setQuotes] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -20,6 +18,7 @@ const QuoteItemsList = () => {
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.userId;
     const [quoteFilter, setQuoteFilter] = useState('View All');
+    const [showSearchResultsModal, setShowSearchResultsModal] = useState(false)
 
     useEffect(() => {
         const fetchQuotes = async () => {
@@ -72,7 +71,6 @@ const QuoteItemsList = () => {
 
     return (
         <div className='quotelist-item-container'>
-
             <div className='quotelist-item-title'>
                 <p>All Quotes</p>
             </div>
@@ -118,6 +116,7 @@ const QuoteItemsList = () => {
                 searchResults={searchResults}
             />
             <Toaster position="top-right" richColors />
+           
         </div>
     )
 }

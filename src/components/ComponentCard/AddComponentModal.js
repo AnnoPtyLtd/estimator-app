@@ -68,9 +68,9 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
 
     const handleSaveChanges = () => {
         const recordId = recordID;
-        compNames(componentNames);
-        compPrices(componentPrices);
-        compCategories(componentCategories);
+        // compNames(componentNames);
+        // compPrices(componentPrices);
+        // compCategories(componentCategories);
 
         fetch(`http://localhost:4000/add-components-to-build/${recordId}`, {
             method: 'POST',

@@ -29,7 +29,6 @@ const AddNewBuildModal = ({ show, onHide }) => {
     const [name, setName] = useState('');
     const [quoteType, setQuoteType] = useState('Gaming PC');
     const [quoteDate, setQuoteDate] = useState('');
-    const [quoteCost, setQuoteCost] = useState(0);
     const [quoteComps, setQuoteComps] = useState([]);
     const [quoteUserId, setQuoteUserId] = useState('');
     const token = localStorage.getItem('token');
@@ -42,7 +41,9 @@ const AddNewBuildModal = ({ show, onHide }) => {
 
     const handleAddRecord = async () => {
         setQuoteUserId(userId);
-
+        const quoteCost = componentPrices.reduce((acc, price) => acc + parseFloat(price), 0);
+        // setQuoteCost(totalComponentCost);
+        console.log(quoteCost);
         try {
             const response = await fetch('http://localhost:4000/saverecord', {
                 method: 'POST',
@@ -56,7 +57,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
                 setName('');
                 setQuoteType('Gaming PC');
                 setQuoteDate('');
-                setQuoteCost(0);
+                // setQuoteCost(0);
                 setQuoteComps([]);
                 onHide();
                 toast.success("Quote added successfully!")
@@ -108,15 +109,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
                                     options={option}
                                 />
                             </div>
-                            <div className="modalbodycomp-item">
-                                <StringTextField
-                                    label="Cost"
-                                    value={quoteCost}
-                                    onChange={(e) => setQuoteCost(e.target.value)}
-                                />
-                            </div>
                             <div>
-                                <InputLabel id="demo-simple-select-autowidth-label">Date</InputLabel>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DemoContainer components={["DatePicker"]}>
                                         <DatePicker
@@ -128,7 +121,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
                                 </LocalizationProvider>
                             </div>
                         </form>
-                        <ButtonMUI variant='outlined' className='add-components-btn' onClick={() => setshowAddCompModal(true)}>Add Components</ButtonMUI>
+                        <ButtonMUI variant='outlined' className='add-components-btn' onClick={() => setshowAddCompModal(true)}>Choose Components</ButtonMUI>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
