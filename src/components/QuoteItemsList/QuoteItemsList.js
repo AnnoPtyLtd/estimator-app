@@ -46,7 +46,7 @@ const QuoteItemsList = () => {
               }
         };
         fetchQuotes();
-    }, [quoteFilter]);
+    }, [quoteFilter,quotes]);
 
 
     const handleSearch = async () => {

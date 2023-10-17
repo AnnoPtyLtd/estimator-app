@@ -8,13 +8,11 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
     const [selectedComponents, setSelectedComponents] = useState([]);
-
     const [componentNames, setComponentNames] = useState([]);
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
 
     useEffect(() => {
-        
         const fetchComponents = async () => {
             try {
                 let url = `http://localhost:4000/get-components`;
@@ -68,9 +66,9 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
 
     const handleSaveChanges = () => {
         const recordId = recordID;
-        // compNames(componentNames);
-        // compPrices(componentPrices);
-        // compCategories(componentCategories);
+         compNames(componentNames);
+         compPrices(componentPrices);
+         compCategories(componentCategories);
 
         fetch(`http://localhost:4000/add-components-to-build/${recordId}`, {
             method: 'POST',

@@ -14,7 +14,42 @@ import theme from "./theme";
 
 function App() {
   return (
-    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <div className="app">
+          <Router>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/manage-components" element={<HomeV2/>} />
+              <Route path="/signin" element={<Signin />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </Router>
+        </div>
+      </ThemeProvider>
+   
+  );
+}
+export default App;
+
+// function HomeProtected() {
+//   const { isAuthenticated } = useAuth();
+//   if (!isAuthenticated) {
+//     return <Navigate to="/signin" />;
+//   }
+
+//   return <Home />;
+// }
+// function HomeProtectedV2() {
+//   const { isAuthenticated } = useAuth();
+//   if (!isAuthenticated) {
+//     return <Navigate to="/signin" />;
+//   }
+
+//   return <HomeV2 />;
+// }
+
+ {/* <AuthProvider>
       <ThemeProvider theme={theme}>
         <div className="app">
           <Router>
@@ -28,24 +63,4 @@ function App() {
           </Router>
         </div>
       </ThemeProvider>
-    </AuthProvider>
-  );
-}
-export default App;
-
-function HomeProtected() {
-  const { isAuthenticated } = useAuth();
-  if (!isAuthenticated) {
-    return <Navigate to="/signin" />;
-  }
-
-  return <Home />;
-}
-function HomeProtectedV2() {
-  const { isAuthenticated } = useAuth();
-  if (!isAuthenticated) {
-    return <Navigate to="/signin" />;
-  }
-
-  return <HomeV2 />;
-}
+    </AuthProvider> */}

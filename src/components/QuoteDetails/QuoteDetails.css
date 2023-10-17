@@ -223,6 +223,17 @@ li label {
 }
 
 .single-quote-left p,
+.single-quote-left p{
+    color: var(--light-heading);
+    margin-bottom: 0;
+}
+.single-quote-left ol{
+    color: var(--light-list);
+}
+.single-quote-left h4{
+    color: var(--light-headingtop);
+    font-weight: bold;
+}
 .single-quote-right p  {
     font-weight: bold;
     margin: 5px 0px;

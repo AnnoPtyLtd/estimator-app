@@ -10,11 +10,11 @@ import './Home.css';
 import ComponentDetailsPage from '../ComponentDetailsPage/ComponentDetailsPage';
 
 const HomeV2 = () => {
-  const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-  if (!isAuthenticated) {
-    navigate('/manage-components')
-  }
+  // const { isAuthenticated } = useAuth();
+  // const navigate = useNavigate();
+  // if (!isAuthenticated) {
+  //   navigate('/manage-components')
+  // }
 
   return (
     <div className='home'>

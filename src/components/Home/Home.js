@@ -11,11 +11,11 @@ import ComponentDetailsPage from '../ComponentDetailsPage/ComponentDetailsPage';
 import Charts from '../Charts/Charts';
 
 const Home = () => {
-  const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-  if (!isAuthenticated) {
-    navigate('/home')
-  }
+  // const { isAuthenticated } = useAuth();
+  // const navigate = useNavigate();
+  // if (!isAuthenticated) {
+  //   navigate('/home')
+  // }
 
   return (
     <div className='home'>
