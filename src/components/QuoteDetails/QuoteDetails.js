@@ -26,7 +26,6 @@ const QuoteDetails = () => {
   const token = localStorage.getItem('token');
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
-  const [showEditBuildModal, setShowEditBuildModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false)
   const [buttoneFlag, setButtoneFlag] = useState('')
   useEffect(() => {
@@ -58,30 +57,30 @@ const QuoteDetails = () => {
     fetchRecords();
   }, [isAdmin, quoteType2, quoteUserId, userId]);
 
-  const handleAddRecord = async () => {
-    try {
-      const response = await fetch('http://localhost:4000/saverecord', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ quoteUserId, name, quoteType, quoteDate, quoteCost, quoteComps }),
-      });
+  // const handleAddRecord = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:4000/saverecord', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ quoteUserId, name, quoteType, quoteDate, quoteCost, quoteComps }),
+  //     });
 
-      if (response.status === 201) {
-        setName('');
-        setQuoteType('Gaming PC');
-        setQuoteDate('');
-        setQuoteCost(0);
-        setQuoteComps([]);
-      } else {
-        //display error or info toast
-      }
-    } catch (error) {
-      console.error(error);
-      alert('An error occurred');
-    }
-  };
+  //     if (response.status === 201) {
+  //       setName('');
+  //       setQuoteType('Gaming PC');
+  //       setQuoteDate('');
+  //       setQuoteCost(0);
+  //       setQuoteComps([]);
+  //     } else {
+  //       //display error or info toast
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('An error occurred');
+  //   }
+  // };
 
   return (
     <div className='quote-details-container'>
@@ -150,7 +149,6 @@ const QuoteDetails = () => {
       </div>
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
       <AddNewBuildModal show={showAddCompModal} onHide={() => setShowAddCompModal(false)} />
-      <EditBuildModal show={showEditBuildModal} onHide={() => setShowEditBuildModal(false)} />
       <ShowQuotes show={showQuotesModal} onHide={() => setShowQuotesModal(false)} flag={buttoneFlag} />
     </div>
   );

@@ -19,6 +19,7 @@ const ShowQuotes = ({ show, onHide, flag }) => {
     const [quoteFilter, setQuoteFilter] = useState('View All');
     const [showEditBuildModal, setShowEditBuildModal] = useState(false);
     const [recordId, setRecordId] = useState('');
+    const [newTitle, setNewTitle] = useState('');
 
     useEffect(() => {
         const fetchQuotes = async () => {
@@ -67,6 +68,23 @@ const ShowQuotes = ({ show, onHide, flag }) => {
         setShowEditBuildModal(true);
     }
 
+    const handleEditConfirm = () => {
+        fetch(`http://localhost:4000/updateTitle/${recordId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ newTitle: newTitle }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+                toast.success("Quote details updated!")
+            })
+            .catch((error) => {
+              toast.error("Quote was not updated!")
+            });
+    };
+
     return (
         <>
             <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
@@ -103,10 +121,19 @@ const ShowQuotes = ({ show, onHide, flag }) => {
                         </div>
                     </div>
                 </Modal.Body>
-                <Modal.Footer className="custom-modal-footer"><Button variant="secondary" onClick={onHide}>Cancel</Button></Modal.Footer>
+                <Modal.Footer className="custom-modal-footer"><Button variant="secondary" onClick={onHide}>Close</Button></Modal.Footer>
                 <Toaster position='top-right' richColors />
             </Modal>
-            <EditBuildModal show={showEditBuildModal} onHide={() => setShowEditBuildModal(false)} recordID={recordId}/>
+
+            <EditBuildModal
+                show={showEditBuildModal}
+                onHide={() => setShowEditBuildModal(false)}
+                recordID={recordId} 
+                handleEditSave={handleEditConfirm}
+                newTitle={newTitle}
+                setNewTitle={setNewTitle}
+            />
+            <Toaster richColors position='top-right'/>
         </>
     )
 }

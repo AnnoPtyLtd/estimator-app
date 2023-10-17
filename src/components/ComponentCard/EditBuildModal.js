@@ -9,13 +9,13 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import StringTextField from '../TextFields/StringTextField';
 import './ComponentCard.css'
 
-const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges, recordID }) => {
+const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleEditSave }) => {
 
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
   const [componentNames, setComponentNames] = useState([]);
   const [componentPrices, setComponentPrices] = useState([]);
+  const [componentCategories, setComponentCategories] = useState([]);
   const [totalQuoteCost, setTotalQuoteCost] = useState(0);
-
 
   useEffect(() => {
     const fetchComponentData = async () => {
@@ -64,7 +64,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
         <Modal.Body className='edit-record-modalbody'>
           <div className='modalbody-item'>
             <label>Edit title:</label>
-              <StringTextField label='' value={newTitle} onChange={(e) => setNewTitle(e.target.value)}></StringTextField>
+            <StringTextField label='' value={newTitle} onChange={(e) => setNewTitle(e.target.value)}></StringTextField>
           </div>
           <div className='modalbody-item'>
             <div className='modalbody-item-text'>
@@ -78,28 +78,31 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, handleSaveChanges
                     <p>{componentName}</p>
                     <p>({componentPrices[index]}$)</p>
                   </div>
-                  
+
                   <div style={{ display: 'flex', gap: '5px' }}>
-                    <ModeEditOutlineIcon className='comp-edit-icon' color='primary' onClick={() =>  setAddComponentModalShow(true)} />
-                    <CloseOutlinedIcon className='comp-remove-icon' color='red' onClick={() => handleDeleteComponent(index)}/>
+                    <ModeEditOutlineIcon className='comp-edit-icon' color='primary' onClick={() => setAddComponentModalShow(true)} />
+                    <CloseOutlinedIcon className='comp-remove-icon' color='red' onClick={() => handleDeleteComponent(index)} />
                   </div>
                 </li>
               ))}
             </ul>
-            <ButtonMUI variant='outlined' onClick={()=>setAddComponentModalShow(true)}>Choose components</ButtonMUI>
-
+            <ButtonMUI variant='outlined' onClick={() => setAddComponentModalShow(true)}>Choose components</ButtonMUI>
           </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={onHide}>Close</Button>
-          <Button variant='primary' onClick={handleSaveChanges}>Save Changes</Button>
+          <Button variant='primary' onClick={() => {handleEditSave(); onHide();}} >Save</Button>
         </Modal.Footer>
       </Modal>
+
 
       <AddComponentModal
         show={addComponentModalShow}
         onHide={() => setAddComponentModalShow(false)}
         recordID={recordID}
+        compNames={setComponentNames}
+        compPrices={setComponentPrices}
+        compCategories={setComponentCategories}
       />
     </div>
   );

@@ -21,7 +21,7 @@ const ComponentCard = (props) => {
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
 
-  const handleSaveChanges = () => {
+  const handleUpdateTitle = () => {
     setShowModal(false);
     fetch(`http://localhost:4000/updateTitle/${props.id}`, {
       method: 'PUT',
@@ -81,7 +81,6 @@ const ComponentCard = (props) => {
         onHide={() => setShowModal(false)}
         newTitle={newTitle}
         setNewTitle={setNewTitle}
-        handleSaveChanges={handleSaveChanges}
         recordID={props.id}
       />
 

@@ -83,11 +83,11 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 onHide();
             })
             .catch((error) => {
                 console.error(error);
+                onHide();
             });
     };
 
