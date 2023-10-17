@@ -3,35 +3,55 @@ import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts'
 
 const Charts = () => {
-    const [options, setOptions] = useState({});
-    const [series, setSeries] = useState([44, 55, 41, 17, 35]);
-    const [labels, setLabels] = useState(['A', 'B', 'C', 'D', 'E']);
+  const [options, setOptions] = useState({});
+  const [series, setSeries] = useState([44, 55, 41, 17, 35]);
+  const [labels, setLabels] = useState(['A', 'B', 'C', 'D', 'E']);
   
-    const options2 = {
-        chart: {
-          id: 'basic-line'
-        },
-        series: [
-          {
-            name: 'Series 1',
-            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-          }
-        ],
-        xaxis: {
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
-        }
-      };
+  const options2 = {
+    chart: {
+      id: 'basic-line'
+    },
+    series: [
+      {
+        name: 'Series 1',
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }
+    ],
+    xaxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+    }
+  };
 
-    return (
-        <div className='charts-container'>
-            <div className='chart'>
-                <Chart options={options} series={series} type='polarArea' width={400} />
-            </div>
-            <div className='chart'>
-            <Chart options={options2} series={options2.series} type="line" width={400} />
-            </div>
-        </div>
-    );
+  useEffect(() => {
+    const func = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/get-components-length`);
+        if (response.ok) {
+          const data = await response.json();
+          const countValues = data.map(item => item.count);
+          const labelValues = data.map(item => item.category);
+          setSeries(countValues);
+          setLabels(labelValues);
+        } else {
+          console.log("Error fetching components");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    func();
+  }, []);
+
+  return (
+    <div className='charts-container'>
+      <div className='chart'>
+        <Chart options={{ ...options, labels: labels }} series={series} type='polarArea' width={400} />
+      </div>
+      <div className='chart'>
+        <Chart options={options2} series={options2.series} type="line" width={400} />
+      </div>
+    </div>
+  );
 }
 
 

@@ -53,6 +53,7 @@ const updateComponentCost = require('./routes/components/updateComponentPrice')
 const getComponentCategory = require('./routes/components/get-component-category')
 const deleteComponentFromRecord = require('./routes/records/delete-component')
 const exportRecords = require('./routes/records/export-records')
+const getComponentsLength  = require('./routes/components/get-components-length');
 
 app.use(signupRoute);
 app.use(signinRoute);
@@ -68,6 +69,7 @@ app.use(updateComponentCost);
 app.use(getComponentCategory);
 app.use(deleteComponentFromRecord);
 app.use(exportRecords);
+app.use(getComponentsLength);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");

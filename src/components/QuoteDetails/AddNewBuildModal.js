@@ -115,7 +115,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
                                         <DatePicker
                                             value={quoteDate}
                                             onChange={(date) => setQuoteDate(date)}
-                                            sx={{ width: "100%" }}
+                                            sx={{width:"100%", borderColor:"cornflowerblue"}}
                                         />
                                     </DemoContainer>
                                 </LocalizationProvider>
@@ -141,9 +141,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
                 compPrices={setComponentPrices}
                 compCategories={setComponentCategories}
             />
-
             <Toaster position="top-right" richColors />
-
         </div>
     )
 }

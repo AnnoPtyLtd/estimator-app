@@ -29,7 +29,7 @@ const ShowQuotes = ({ show, onHide, flag }) => {
                         const data = await response.json();
                         setQuotes(data);
                     } else {
-                        console.error('Failed to fetch records');
+                        console.log('Failed to fetch records');
                     }
                 }
                 else {
@@ -38,7 +38,7 @@ const ShowQuotes = ({ show, onHide, flag }) => {
                         const data = await response.json();
                         setQuotes(data);
                     } else {
-                        console.error('Failed to fetch records');
+                        console.log('Failed to fetch records');
                     }
                 }
             } catch (error) {
