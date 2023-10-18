@@ -8,14 +8,6 @@ import CallMissedOutgoingIcon from '@mui/icons-material/CallMissedOutgoing';
 
 const ComponentDetailsPage = () => {
 
-    const handleVisitSite = (row) => {
-        if(row.url){
-            window.open(row.url, '_blank');
-        }   
-        else{
-            toast.message("No URL found!")
-        }   
-    }
 
     const columns = [
         {
@@ -69,11 +61,20 @@ const ComponentDetailsPage = () => {
         },
         {
             field: 'actions2',
-            headerName: 'Delete',
-            width: 100,
+            headerName: 'Archive',
+            width: 80,
             sortable: false,
             renderCell: (params) => (
-                <Button variant='outlined' onClick={() => handleDeleteButtonClick(params.row)} color="error"><i className="bi bi-trash-fill" /></Button>
+                <Button variant='outlined' onClick={() => handleArchiveButtonClick(params.row)} color="primary"><i className="bi bi-archive"></i></Button>
+            ),
+        },
+        {
+            field: 'actions3',
+            headerName: 'Delete',
+            width: 80,
+            sortable: false,
+            renderCell: (params) => (
+                <Button variant='outlined' onClick={() => handleDeleteButtonClick(params.row)} color="error"><i className="bi bi-trash3-fill"></i></Button>
             ),
         },
     ];
@@ -147,6 +148,29 @@ const ComponentDetailsPage = () => {
             console.error(error);
         }
     };
+
+    const handleVisitSite = (row) => {
+        if (row.url) {
+            window.open(row.url, '_blank');
+        }
+        else {
+            toast.message("No URL found!")
+        }
+    }
+
+    const handleArchiveButtonClick = async (row) => {
+        fetch(`http://localhost:4000/archive-component/${row.id}`, {
+            method: 'PUT',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                toast.success("Component archived!")
+            })
+            .catch((error) => {
+                toast.error('Error archiving component');
+            });
+    }
+
 
     return (
         <div className='components-container'>
