@@ -48,3 +48,13 @@
   display: flex;
   flex-direction: row;
 }
+
+@media screen and (max-width: 1270px) {
+  .quote-section{
+    flex-direction: column;
+  }
+  .left-panel{
+    display: none;
+  }
+}
+

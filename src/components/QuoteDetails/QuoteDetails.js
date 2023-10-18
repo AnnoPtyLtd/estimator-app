@@ -1,13 +1,9 @@
 import './QuoteDetails.css';
 import { useEffect, useState } from 'react';
-import ComponentCard from '../ComponentCard/ComponentCard';
 import ExportQuotesModal from './ExportQuotesModal';
 import jwt_decode from 'jwt-decode';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Button from '@mui/material/Button';
-import StringTextField from '../TextFields/StringTextField';
 import AddNewBuildModal from './AddNewBuildModal';
-import EditBuildModal from '../ComponentCard/EditBuildModal';
 import ShowQuotes from '../QuoteDetails/ShowQuotes';
 
 const QuoteDetails = () => {
@@ -127,8 +123,8 @@ const QuoteDetails = () => {
           </select>
           <div className='quote-btns'>
             <Button variant='outlined' onClick={() => setShowAddCompModal(true)}>Add</Button>
-            <Button variant='outlined' onClick={() => {setShowQuotesModal(true); setButtoneFlag('Edit')}}>Edit</Button>
-            <Button variant='outlined' onClick={() => {setShowQuotesModal(true); setButtoneFlag('Delete')}}>Delete</Button>
+            <Button variant='outlined' onClick={() => { setShowQuotesModal(true); setButtoneFlag('Edit') }}>Edit</Button>
+            <Button variant='outlined' onClick={() => { setShowQuotesModal(true); setButtoneFlag('Delete') }}>Delete</Button>
             <Button variant='outlined' onClick={() => setShowExportModal(true)}>Export</Button>
           </div>
         </div>

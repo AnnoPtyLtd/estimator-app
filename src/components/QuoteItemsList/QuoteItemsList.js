@@ -7,6 +7,7 @@ import { List } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars';
 import SearchResultModal from '../ComponentsPage/SearchResultModal';
 import { Toaster, toast } from 'sonner';
+import { Toast } from 'react-bootstrap';
 
 const QuoteItemsList = () => {
 
@@ -36,7 +37,7 @@ const QuoteItemsList = () => {
                   const response = await fetch(`http://localhost:4000/getuserrecords?userId=${userId}&quoteType=${quoteFilter}`);
                   if (response.status === 200) {
                     const data = await response.json();
-                    setQuotes(data);
+                    await setQuotes(data);
                   } else {
                     console.error('Failed to fetch records');
                   }
@@ -46,8 +47,7 @@ const QuoteItemsList = () => {
               }
         };
         fetchQuotes();
-    }, [quoteFilter,quotes]);
-
+    }, [quoteFilter]);
 
     const handleSearch = async () => {
         if (searchTerm.trim() === '' || !searchTerm) {
@@ -68,12 +68,34 @@ const QuoteItemsList = () => {
         }
     };
 
+    const handleDuplicateQuote= async (quote)=>{
+        try {
+            const response = await fetch('http://localhost:4000/saverecord', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(quote),
+            });
+            if (response.status === 201) {
+              alert('Record saved successfully');
+            } else {
+              const data = await response.json();
+              alert(data.error || 'Failed to save record');
+            }
+          } catch (error) {
+            console.error(error);
+            alert('An error occurred');
+          }
+    }
+
+    const handleShowLastUpdate =(date) => {
+      const newdate = new Date(date).toDateString();
+      toast.message(`last updated: ${newdate}`);
+    }
 
     return (
         <div className='quotelist-item-container'>
-            <div className='quotelist-item-title'>
-                <p>All Quotes</p>
-            </div>
             <div className='search-field'>
                 <input
                     type='search'
@@ -104,6 +126,10 @@ const QuoteItemsList = () => {
                                 priceText={quote.quoteCost}
                                 flag='quotes'
                                 quotesComponents={quote.componentNames}
+                                quoteID={quote._id}
+                                handleDuplicate={() => {handleDuplicateQuote(quote)}}
+                                dupButton='yes'
+                                handleLastUpdate={()=>{handleShowLastUpdate(quote.quoteDate)}}
                             />
                         ))}
                     </List>

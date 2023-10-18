@@ -3,15 +3,18 @@ import './CollapsibleListItem.css';
 import { ListItemButton, ListItemText, Collapse, List, Tooltip } from '@mui/material';
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import SnackbarMsg from '../Snackbar-Popup/SnackbarMsg';
+import DuplicateIcon from '@mui/icons-material/FileCopy';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
-const CollapsibleListItem = ({ primaryText,priceText, components, quotes, quotesComponents, flag, setArchiveModalShow, onArchiveClick }) => {
+const CollapsibleListItem = ({ primaryText, priceText, handleDuplicate, quotesComponents, flag, setArchiveModalShow, onArchiveClick, dupButton,handleLastUpdate }) => {
     const [open, setOpen] = useState(false);
-    const [openAlert, setOpenAlert] = useState(null); // Store the ID of the opened Snackbar
+    const [openAlert, setOpenAlert] = useState(null);
 
     const handleClick = () => {
         setOpen(!open);
-        setOpenAlert(null); // Close the currently opened Snackbar
+        setOpenAlert(null);
     };
 
     const handleClickArchive = (id, name) => {
@@ -36,11 +39,29 @@ const CollapsibleListItem = ({ primaryText,priceText, components, quotes, quotes
 
     return (
         <div className='collapse-list-item'>
-            <ListItemButton onClick={handleClick}>
-                <ListItemText primary={primaryText} secondary={priceText+' $'}/>
-                {open ? <ExpandLess /> : <ExpandMore />}
+            <ListItemButton onClick={handleClick} className='collapselist-button'>
+                <div className='collapselist-item-title'>
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                    <ListItemText primary={primaryText} secondary={priceText + ' $'} />
+                </div>
             </ListItemButton>
-            <Collapse in={open} timeout="auto" unmountOnExit className='collapsing-down'>
+
+            <Collapse in={open} timeout={500} unmountOnExit className='collapsing-down'>
+                <div className='quote-list-btngroup'>
+                    {dupButton === 'yes' ?
+                        <ButtonGroup variant="outlined" aria-label="outlined button group" size='small'>
+                            <Tooltip title="Duplicate" placement="top-start">
+                                <Button><DuplicateIcon fontSize='small' className='quote-item-icon' onClick={() => { handleDuplicate() }} /></Button>
+                            </Tooltip>
+                            <Tooltip title="last update" placement="top-start">
+                                <Button><TipsAndUpdatesIcon fontSize='small' className='quote-item-icon' onClick={() => { handleLastUpdate() }} /></Button>
+                            </Tooltip>
+                            <Tooltip title="3" placement="top-start">
+                                <Button>3</Button>
+                            </Tooltip>
+                        </ButtonGroup>
+                        : <></>}
+                </div>
                 <List component="div" disablePadding className='dropdown-list'>
                     {flag === 'quotes' && (
                         quotesComponents.length === 0 ? (
@@ -48,73 +69,15 @@ const CollapsibleListItem = ({ primaryText,priceText, components, quotes, quotes
                         ) : (
                             quotesComponents.map((quote) => (
                                 <li className='quotecomps-names-item' key={quote._id}>
-                                    <div>                                        
+                                    <div>
                                         <p>{quote}</p>
                                     </div>
                                 </li>
                             ))
                         )
                     )}
-                    {flag === 'components' && components.map((component) => (
-                        <li className='comp-names-item' key={component._id}>
-                            <div>
-                                <p>{component.componentName}</p>
-                                <div className='comp-price-archive'>
-                                    <p className='item-cost'>{component.componentCost}$</p>
-                                </div>
-                            </div>
-                            <div className='collapse-list-btns'>
-                                <Tooltip arrow title={`Last update: ${new Date(component.componentDate).toLocaleDateString()}`} placement='top'>
-                                    <i className="bi bi-arrow-repeat" onClick={() => handleAlertClick(component._id)}></i>
-                                </Tooltip>
-
-                                <SnackbarMsg
-                                    show={openAlert === component._id}
-                                    handleClose={handleCloseAlert}
-                                    severity="info"
-                                    message={`Last updated: ${new Date(component.componentDate).toLocaleDateString()}`} />
-                                <Tooltip placement='top' title='archive'>
-                                    <i className="bi bi-archive" onClick={() => handleClickArchive(component._id, component.componentName)}></i>
-                                </Tooltip>
-                                <Tooltip placement='right-start' title={component.componentUrl}>
-                                    <i className="bi bi-box-arrow-up-right" onClick={() => handleUrlClick(component.componentUrl)}></i>
-                                </Tooltip>
-                            </div>
-                        </li>
-                    ))}
                 </List>
             </Collapse>
-            {/* <Collapse in={open} timeout="auto" unmountOnExit className='collapsing-down'>
-                <List component="div" disablePadding className='dropdown-list'>
-                    {components.map((component) => (
-                        <li className='comp-names-item' key={component._id}>
-                            <div>
-                                <p>{component.componentName}</p>
-                                <div className='comp-price-archive'>
-                                    <p className='item-cost'>{component.componentCost}$</p>
-                                </div>
-                            </div>
-                            <div className='collapse-list-btns'>
-                                <Tooltip arrow title={`Last update: ${new Date(component.componentDate).toLocaleDateString()}`} placement='top'>
-                                    <i className="bi bi-arrow-repeat" onClick={() => handleAlertClick(component._id)}></i>
-                                </Tooltip>
-
-                                <SnackbarMsg
-                                    show={openAlert === component._id}
-                                    handleClose={handleCloseAlert}
-                                    severity="info"
-                                    message={`Last updated: ${new Date(component.componentDate).toLocaleDateString()}`} />
-                                <Tooltip placement='top' title='archive'>
-                                    <i className="bi bi-archive" onClick={() => handleClickArchive(component._id, component.componentName)}></i>
-                                </Tooltip>
-                                <Tooltip placement='right-start' title={component.componentUrl}>
-                                    <i className="bi bi-box-arrow-up-right" onClick={() => handleUrlClick(component.componentUrl)}></i>
-                                </Tooltip>
-                            </div>
-                        </li>
-                    ))}
-                </List>
-            </Collapse> */}
         </div>
     );
 };

@@ -1,3 +1,4 @@
+import './Home.css';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
@@ -6,9 +7,9 @@ import Topbar from '../Topbar/Topbar';
 import QuoteDetails from '../QuoteDetails/QuoteDetails';
 import NavBar from '../NavBar/NavBar';
 import QuoteItemsList from '../QuoteItemsList/QuoteItemsList';
-import './Home.css';
 import ComponentDetailsPage from '../ComponentDetailsPage/ComponentDetailsPage';
 import Charts from '../Charts/Charts';
+import { motion } from "framer-motion";
 
 const Home = () => {
   // const { isAuthenticated } = useAuth();
@@ -17,18 +18,52 @@ const Home = () => {
   //   navigate('/home')
   // }
 
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.5,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
   return (
     <div className='home'>
       <div className='left-panel'>
-        <NavBar />
+        <motion.div
+          initial={{ x: -100 }}
+          animate={{ x: 0 }}
+          transition={{ type: "tween", stiffness: 160, damping: 20 }}>
+          <NavBar />
+        </motion.div>
       </div>
       <div className='right-panel'>
         <Topbar />
-        <div className='quote-section'>
+        <motion.ul
+          className="quote-section"
+          variants={container}
+          initial="hidden"
+          animate="visible">
+          <motion.li className="item" variants={item}><QuoteItemsList /></motion.li>
+          <motion.li className="item" variants={item}><QuoteDetails /></motion.li>
+          <motion.li className="item" variants={item}><Charts /></motion.li>
+        </motion.ul>
+        {/* <div className='quote-section'>
           <QuoteItemsList />
           <QuoteDetails />
-          <Charts/>
-        </div>
+          <Charts />
+        </div> */}
       </div>
     </div>
   );

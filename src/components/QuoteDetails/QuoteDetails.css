@@ -293,3 +293,7 @@ li label {
 .quote-item-btn{
     padding: 0 !important;
 }
+
+.accordian{
+    background-color: orange !important;
+}
