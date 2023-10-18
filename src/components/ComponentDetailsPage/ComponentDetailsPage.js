@@ -4,16 +4,20 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { Toaster, toast } from 'sonner';
+import CallMissedOutgoingIcon from '@mui/icons-material/CallMissedOutgoing';
 
 const ComponentDetailsPage = () => {
 
+    const handleVisitSite = (row) => {
+        if(row.url){
+            window.open(row.url, '_blank');
+        }   
+        else{
+            toast.message("No URL found!")
+        }   
+    }
 
     const columns = [
-        {
-            field: 'id',
-            headerName: 'ID',
-            width: 90,
-        },
         {
             field: 'name',
             headerName: 'Name',
@@ -43,9 +47,21 @@ const ComponentDetailsPage = () => {
 
         },
         {
+            field: 'redirect',
+            headerName: 'Visit',
+            type: 'icon',
+            sortable: false,
+            width: 50,
+            editable: false,
+            renderCell: (params) => (
+                <CallMissedOutgoingIcon className='visit-site-icon' onClick={() => handleVisitSite(params.row)} color="primary"></CallMissedOutgoingIcon>
+            ),
+
+        },
+        {
             field: 'actions',
-            headerName: 'Save changes',
-            width: 120,
+            headerName: 'Save',
+            width: 80,
             sortable: false,
             renderCell: (params) => (
                 <Button variant='outlined' onClick={() => handleUpdateButtonClick(params.row)}>Save</Button>
@@ -54,7 +70,7 @@ const ComponentDetailsPage = () => {
         {
             field: 'actions2',
             headerName: 'Delete',
-            width: 150,
+            width: 100,
             sortable: false,
             renderCell: (params) => (
                 <Button variant='outlined' onClick={() => handleDeleteButtonClick(params.row)} color="error"><i className="bi bi-trash-fill" /></Button>

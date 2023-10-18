@@ -7,35 +7,35 @@ import DuplicateIcon from '@mui/icons-material/FileCopy';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import ArchiveIcon from '@mui/icons-material/Archive';
 
-const CollapsibleListItem = ({ primaryText, priceText, handleDuplicate, quotesComponents, flag, setArchiveModalShow, onArchiveClick, dupButton,handleLastUpdate }) => {
+const CollapsibleListItem = ({ primaryText, priceText, handleDuplicate, quotesComponents, flag, setArchiveModalShow, onArchiveClick, dupButton,handleLastUpdate,handleArchive }) => {
     const [open, setOpen] = useState(false);
-    const [openAlert, setOpenAlert] = useState(null);
 
     const handleClick = () => {
         setOpen(!open);
-        setOpenAlert(null);
+        // setOpenAlert(null);
     };
 
-    const handleClickArchive = (id, name) => {
-        setArchiveModalShow(true);
-        onArchiveClick(id, name);
-    };
+    // const handleClickArchive = (id, name) => {
+    //     setArchiveModalShow(true);
+    //     onArchiveClick(id, name);
+    // };
 
-    const handleUrlClick = (url) => {
-        window.open(url, '_blank');
-    };
+    // const handleUrlClick = (url) => {
+    //     window.open(url, '_blank');
+    // };
 
-    const handleAlertClick = (id) => {
-        setOpenAlert(id); // Set the ID of the clicked component
-    };
+    // const handleAlertClick = (id) => {
+    //     setOpenAlert(id); // Set the ID of the clicked component
+    // };
 
-    const handleCloseAlert = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpenAlert(null);
-    };
+    // const handleCloseAlert = (event, reason) => {
+    //     if (reason === 'clickaway') {
+    //         return;
+    //     }
+    //     setOpenAlert(null);
+    // };
 
     return (
         <div className='collapse-list-item'>
@@ -53,11 +53,11 @@ const CollapsibleListItem = ({ primaryText, priceText, handleDuplicate, quotesCo
                             <Tooltip title="Duplicate" placement="top-start">
                                 <Button><DuplicateIcon fontSize='small' className='quote-item-icon' onClick={() => { handleDuplicate() }} /></Button>
                             </Tooltip>
+                            <Tooltip title="archive" placement="top-start">
+                                <Button><ArchiveIcon fontSize='small' className='quote-item-icon' onClick={() => { handleArchive() }} /></Button>
+                            </Tooltip>
                             <Tooltip title="last update" placement="top-start">
                                 <Button><TipsAndUpdatesIcon fontSize='small' className='quote-item-icon' onClick={() => { handleLastUpdate() }} /></Button>
-                            </Tooltip>
-                            <Tooltip title="3" placement="top-start">
-                                <Button>3</Button>
                             </Tooltip>
                         </ButtonGroup>
                         : <></>}
