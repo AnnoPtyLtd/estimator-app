@@ -54,7 +54,10 @@
     flex-direction: column;
   }
   .left-panel{
-    display: none;
+    position: fixed;
+    bottom: 0;
+    z-index: 999999;
   }
+
 }
 

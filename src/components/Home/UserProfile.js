@@ -25,8 +25,8 @@ const UserProfile = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
+    const newid = '64f98eb9c62b09a2906b54c4rs';
     const fetchUser = async () => {
-      const newid = '64f995889d947834a5364bcf';
       try {
         const response = await fetch(`http://localhost:4000/getuserinfo?userId=${newid}`);
         if (response.status === 200) {
@@ -40,6 +40,29 @@ const UserProfile = () => {
         console.error(error);
       }
     }
+    const fetchQuotes = async () => {
+      try {
+        if (isAdmin) {
+          const response = await fetch(`http://localhost:4000/getadminquotes`);
+          if (response.status === 200) {
+            const data = await response.json();
+          } else {
+            console.error('Failed to fetch records');
+          }
+        }
+        else {
+          const response = await fetch(`http://localhost:4000/getuserrecords1?userId=${newid}`);
+          if (response.status === 200) {
+            const data = await response.json();
+          } else {
+            console.error('Failed to fetch records');
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchQuotes();
     fetchUser();
   }, [])
 
@@ -52,12 +75,13 @@ const UserProfile = () => {
         <Topbar />
         <div className='user-profile-container'>
           <div className='user-profile-left'>
+          <div className='profile-edit-icon'><i className="bi bi-pencil-fill"></i></div>
             <h5>My Profile</h5>
             <div className='user-profile-details'>
               <Avatar
                 alt="Profile img"
                 src={userAvatar}
-                sx={{ width: 100, height: 100 }}/>
+                sx={{ width: 100, height: 100 }} />
               <p>{user?.fullname}</p>
               <section className='user-profile-personaldetails'>
                 <div className='user-profile-attribute'>
@@ -78,28 +102,28 @@ const UserProfile = () => {
           <div className='user-profile-right'>
             <h5>Statistics</h5>
             <section className='user-profile-stats'>
-                <div className='user-profile-statitem'>
-                  <p>Your total Quotes:</p>
-                  <p>{user?.email}</p>
-                </div>
-                <div className='user-profile-statitem'>
-                  <p>Gaming PCs:</p>
-                  <p>{user?.fullname}</p>
-                </div>
-                <div className='user-profile-statitem'>
-                  <p>Content Creation PCs:</p>
-                  <p>{user?.fullname}</p>
-                </div>
-                <div className='user-profile-statitem'>
-                  <p>Office/Home PCs:</p>
-                  <p>{user?.fullname}</p>
-                </div>
-                <div className='user-profile-statitem'>
-                  <p>Custom/Other PCs:</p>
-                  <p>{user?.fullname}</p>
-                </div>
-                
-              </section>
+              <div className='user-profile-statitem'>
+                <p>Your total Quotes:</p>
+                <p>{user?.email}</p>
+              </div>
+              <div className='user-profile-statitem'>
+                <p>Gaming PCs:</p>
+                <p>{user?.fullname}</p>
+              </div>
+              <div className='user-profile-statitem'>
+                <p>Content Creation PCs:</p>
+                <p>{user?.fullname}</p>
+              </div>
+              <div className='user-profile-statitem'>
+                <p>Office/Home PCs:</p>
+                <p>{user?.fullname}</p>
+              </div>
+              <div className='user-profile-statitem'>
+                <p>Custom/Other PCs:</p>
+                <p>{user?.fullname}</p>
+              </div>
+
+            </section>
           </div>
 
         </div>

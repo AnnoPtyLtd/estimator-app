@@ -5,7 +5,7 @@ const NewComponent = require('../../models/NewComponent');
 
 router.post('/saverecord', async (req, res) => {
   try {
-    const { quoteUserId, name, quoteType, quoteDate, quoteCost,componentNames,componentPrices,componentCategories } = req.body;
+    const { quoteUserId, name, quoteType, quoteDate, quoteCost, componentNames, componentPrices, componentCategories } = req.body;
     if (!name || !quoteType || !quoteDate) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -64,11 +64,11 @@ router.get('/getadminrecords', async (req, res) => {
     if (!quoteType) {
       return res.status(400).json({ error: 'quoteType is required' });
     }
-    let records=[];
-    if(quoteType==='View All'){
+    let records = [];
+    if (quoteType === 'View All') {
       records = await Record.find();
     }
-    else{
+    else {
       records = await Record.find({ quoteType: quoteType });
     }
     res.status(200).json(records);
@@ -85,13 +85,29 @@ router.get('/getuserrecords', async (req, res) => {
     if (!userId) {
       return res.status(400).json({ error: 'UserID is required' });
     }
-    let records=[];
-    if(quoteType==='View All'){
+    let records = [];
+    if (quoteType === 'View All') {
       records = await Record.find({ quoteUserId: userId });
     }
-    else{
+    else {
       records = await Record.find({ quoteUserId: userId, quoteType: quoteType });
     }
+    res.status(200).json(records);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.get('/getuserrecords1', async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    if (!userId) {
+      return res.status(400).json({ error: 'UserID is required' });
+    }
+    let records = [];
+
+    records = await Record.find({ quoteUserId: userId });
     res.status(200).json(records);
   } catch (error) {
     console.error(error);

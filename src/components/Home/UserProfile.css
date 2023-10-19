@@ -76,6 +76,20 @@
     color: gray;
 }
 
+.profile-edit-icon{
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--bg-light-primary);
+    background-color: orangered;
+    border-radius: 10px;
+    float: right;
+}
+
+.profile-edit-icon i{
+    margin: 10px;
+    color: white;
+}
+
 @media screen and (max-width: 720px) {
     .user-profile-container{
         flex-direction: column;
