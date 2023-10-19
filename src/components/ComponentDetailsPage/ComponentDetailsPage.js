@@ -5,9 +5,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { Toaster, toast } from 'sonner';
 import CallMissedOutgoingIcon from '@mui/icons-material/CallMissedOutgoing';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+
 
 const ComponentDetailsPage = () => {
-
 
     const columns = [
         {
@@ -77,6 +78,15 @@ const ComponentDetailsPage = () => {
                 <Button variant='outlined' onClick={() => handleDeleteButtonClick(params.row)} color="error"><i className="bi bi-trash3-fill"></i></Button>
             ),
         },
+        {
+            field: 'actions4',
+            headerName: 'Last Update',
+            width: 100,
+            sortable: false,
+            renderCell: (params) => (
+                <ChangeCircleIcon className='visit-site-icon' onClick={() => handleShowUpdateDate(params.row)} color="primary"></ChangeCircleIcon>
+            ),
+        },
     ];
 
     const [components, setComponents] = useState([]);
@@ -88,14 +98,13 @@ const ComponentDetailsPage = () => {
             if (response.status === 200) {
                 const data = await response.json();
                 setComponents(data);
-                console.log(components);
             } else {
                 console.error('Failed to fetch components');
             }
         };
         fetchComponents();
 
-    }, []);
+    }, [components]);
 
 
     const rows = components.map((component) => ({
@@ -104,6 +113,7 @@ const ComponentDetailsPage = () => {
         category: component.componentCategory,
         price: component.componentCost,
         url: component.componentUrl,
+        date: component.componentDate,
     }));
 
     const handleUpdateButtonClick = async (row) => {
@@ -171,7 +181,13 @@ const ComponentDetailsPage = () => {
             });
     }
 
-
+    const handleShowUpdateDate = (row) => {
+        const newdate = new Date(row.date).toDateString();
+        toast.message('Last updated', {
+            description: newdate,
+            duration: 1000,
+        });
+    }
     return (
         <div className='components-container'>
             <Box sx={{ height: 500, width: '100%' }}>
@@ -190,7 +206,7 @@ const ComponentDetailsPage = () => {
                     disableRowSelectionOnClick
                 />
             </Box>
-            <Toaster position="top-right" richColors />
+            <Toaster position="top-center" richColors visibleToasts={1}/>
         </div>
     )
 }
