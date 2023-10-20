@@ -8,7 +8,7 @@ import NavBar from '../NavBar/NavBar';
 import userAvatar from '../../assets/useravatar.jpg'
 import Avatar from '@mui/material/Avatar';
 import jwt_decode from 'jwt-decode';
-
+import EditProfile from '../EditProfile/EditProfile';
 
 const UserProfile = () => {
 
@@ -23,9 +23,10 @@ const UserProfile = () => {
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
   const [user, setUser] = useState();
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false)
 
   useEffect(() => {
-    const newid = '64f98eb9c62b09a2906b54c4rs';
+    const newid = '64f98eb9c62b09a2906b54c4';
     const fetchUser = async () => {
       try {
         const response = await fetch(`http://localhost:4000/getuserinfo?userId=${newid}`);
@@ -73,9 +74,10 @@ const UserProfile = () => {
       </div>
       <div className='right-panel'>
         <Topbar />
+
         <div className='user-profile-container'>
           <div className='user-profile-left'>
-          <div className='profile-edit-icon'><i className="bi bi-pencil-fill"></i></div>
+            <div className='profile-edit-icon' onClick={() => setShowEditProfileModal(true)}><i className="bi bi-pencil-fill"></i></div>
             <h5>My Profile</h5>
             <div className='user-profile-details'>
               <Avatar
@@ -122,12 +124,13 @@ const UserProfile = () => {
                 <p>Custom/Other PCs:</p>
                 <p>{user?.fullname}</p>
               </div>
-
             </section>
           </div>
 
         </div>
       </div>
+
+      <EditProfile show={showEditProfileModal} onClose={() => setShowEditProfileModal(false)} />
     </div>
   )
 }

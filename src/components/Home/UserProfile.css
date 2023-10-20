@@ -49,7 +49,6 @@
 }
 .profile-username{
     text-transform: capitalize;
-    background-color: red;
 }
 .user-profile-personaldetails{
     align-self: flex-start;
@@ -78,16 +77,19 @@
 
 .profile-edit-icon{
     width: fit-content;
-    height: fit-content;
     background-color: var(--bg-light-primary);
-    background-color: orangered;
+    background-color: rgb(57, 105, 227);
     border-radius: 10px;
     float: right;
+}
+.profile-edit-icon:hover{
+    background-color: rgb(67, 67, 254);
 }
 
 .profile-edit-icon i{
     margin: 10px;
     color: white;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 720px) {
@@ -100,3 +102,12 @@
     }
   }
   
+
+  .nav-tabs .nav-link:hover {
+   background-color: transparent !important;
+   color: grey !important;
+  }
+  
+  .nav-tabs .nav-link.active {
+    color: blue !important;
+  }
