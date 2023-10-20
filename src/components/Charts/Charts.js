@@ -146,10 +146,10 @@ const Charts = () => {
   const options = {
     chart: {
       id: 'basic-polar-area',
-      foreColor: '#333', // Set the color for chart elements (monochrome)
+      foreColor: '#333', 
     },
     labels: labels,
-    colors: ['#333', '#666', '#999', '#ccc', '#ddd'], // Colors for chart segments
+    colors: ['#333', '#666', '#999', '#ccc', '#ddd'], 
   };
 
   return (
