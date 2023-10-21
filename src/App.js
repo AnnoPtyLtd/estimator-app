@@ -11,6 +11,7 @@ import Signup from "./components/Signup/Signup";
 import { AuthProvider, useAuth } from "../src/AuthContext"; // Import AuthProvider and useAuth
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
+import UserProfile from "./components/Home/UserProfile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/manage-components" element={<HomeV2/>} />
+              <Route path="/user-profile" element={<UserProfile/>} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>

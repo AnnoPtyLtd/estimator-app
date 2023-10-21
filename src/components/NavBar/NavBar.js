@@ -12,7 +12,8 @@ import SearchModal from './SearchModal';
 import AddComponentModal from './AddComponentModal';
 import { useNavigate } from 'react-router-dom';
 import AddNewBuildModal from '../QuoteDetails/AddNewBuildModal';
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 const NavBar = () => {
 
@@ -97,14 +98,14 @@ const NavBar = () => {
         <li
           className='menu-item' 
           onClick={() => { handleMenuItemClick(5); }}>
-          <i className="bi bi-cpu menu-icon" style={{ fontSize: '1em' }}></i>
-          <p style={{ fontSize: '14px !important' }}>Manage Comps</p>
+          <ManageAccountsIcon/>
+          <p>Manage Comps</p>
         </li>
 
         <li className='menu-item' 
           onClick={() => { handleMenuItemClick(6); }}>
           <div className='centered-content'>
-            <Image className='profile-img' src={profileImg} roundedCircle fluid />
+            <AccountCircleIcon/>
             <p className='profile-name'>User</p>
           </div>
         </li>

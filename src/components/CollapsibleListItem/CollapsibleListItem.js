@@ -9,33 +9,12 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ArchiveIcon from '@mui/icons-material/Archive';
 
-const CollapsibleListItem = ({ primaryText, priceText, handleDuplicate, quotesComponents, flag, setArchiveModalShow, onArchiveClick, dupButton,handleLastUpdate,handleArchive }) => {
+const CollapsibleListItem = ({ primaryText, priceText, handleDuplicate, quotesComponents, flag,dupButton,handleLastUpdate,handleArchive }) => {
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
         setOpen(!open);
-        // setOpenAlert(null);
     };
-
-    // const handleClickArchive = (id, name) => {
-    //     setArchiveModalShow(true);
-    //     onArchiveClick(id, name);
-    // };
-
-    // const handleUrlClick = (url) => {
-    //     window.open(url, '_blank');
-    // };
-
-    // const handleAlertClick = (id) => {
-    //     setOpenAlert(id); // Set the ID of the clicked component
-    // };
-
-    // const handleCloseAlert = (event, reason) => {
-    //     if (reason === 'clickaway') {
-    //         return;
-    //     }
-    //     setOpenAlert(null);
-    // };
 
     return (
         <div className='collapse-list-item'>
