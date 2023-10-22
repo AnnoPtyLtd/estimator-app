@@ -47,6 +47,9 @@ const NavBar = () => {
     if (index === 5) {
       navigate('/manage-components');
     }
+    if (index === 6) {
+      navigate('/user-profile');
+    }
   };
 
   const handleMouseEnter = () => {

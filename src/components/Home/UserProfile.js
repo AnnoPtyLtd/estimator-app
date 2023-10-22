@@ -1,15 +1,15 @@
 import './UserProfile.css'
-import ProfileImage from '../../assets/profileimg.jpg'
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import QuoteList from '../ComponentsPage/QuoteList';
 import Topbar from '../Topbar/Topbar';
 import NavBar from '../NavBar/NavBar';
-import Charts from '../Charts/Charts';
-import { motion } from "framer-motion";
 import userAvatar from '../../assets/useravatar.jpg'
 import Avatar from '@mui/material/Avatar';
+import jwt_decode from 'jwt-decode';
+
+
 const UserProfile = () => {
 
   // const { isAuthenticated } = useAuth();
@@ -18,36 +18,35 @@ const UserProfile = () => {
   //   navigate('/home')
   // }
 
-  const container = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delayChildren: 0.5,
-        staggerChildren: 0.2
+  const isAdmin = localStorage.getItem('Admin') === 'admin';
+  const token = localStorage.getItem('token');
+  const decodedToken = jwt_decode(token);
+  const userId = decodedToken.userId;
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const newid = '64f995889d947834a5364bcf';
+      try {
+        const response = await fetch(`http://localhost:4000/getuserinfo?userId=${newid}`);
+        if (response.status === 200) {
+          const data = await response.json();
+          await setUser(data);
+          console.log(user.email);
+        } else {
+          console.error('Failed to fetch user info');
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
-  };
-
-  const item = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  };
-
+    fetchUser();
+  }, [])
 
   return (
     <div className='home'>
       <div className='left-panel'>
-        <motion.div
-          initial={{ x: -100 }}
-          animate={{ x: 0 }}
-          transition={{ type: "tween", stiffness: 160, damping: 20 }}>
-          <NavBar />
-        </motion.div>
+        <NavBar />
       </div>
       <div className='right-panel'>
         <Topbar />
@@ -58,15 +57,51 @@ const UserProfile = () => {
               <Avatar
                 alt="Profile img"
                 src={userAvatar}
-                sx={{ width: 100, height: 100 }}
-              />
-              <p>User name</p>
-
+                sx={{ width: 100, height: 100 }}/>
+              <p>{user?.fullname}</p>
+              <section className='user-profile-personaldetails'>
+                <div className='user-profile-attribute'>
+                  <p>Email:</p>
+                  <p>{user?.email}</p>
+                </div>
+                <div className='user-profile-attribute'>
+                  <p>Full Name:</p>
+                  <p>{user?.fullname}</p>
+                </div>
+                <div className='user-profile-attribute'>
+                  <p>Other info</p>
+                </div>
+              </section>
             </div>
           </div>
+
           <div className='user-profile-right'>
-            <p>Statistics</p>
+            <h5>Statistics</h5>
+            <section className='user-profile-stats'>
+                <div className='user-profile-statitem'>
+                  <p>Your total Quotes:</p>
+                  <p>{user?.email}</p>
+                </div>
+                <div className='user-profile-statitem'>
+                  <p>Gaming PCs:</p>
+                  <p>{user?.fullname}</p>
+                </div>
+                <div className='user-profile-statitem'>
+                  <p>Content Creation PCs:</p>
+                  <p>{user?.fullname}</p>
+                </div>
+                <div className='user-profile-statitem'>
+                  <p>Office/Home PCs:</p>
+                  <p>{user?.fullname}</p>
+                </div>
+                <div className='user-profile-statitem'>
+                  <p>Custom/Other PCs:</p>
+                  <p>{user?.fullname}</p>
+                </div>
+                
+              </section>
           </div>
+
         </div>
       </div>
     </div>

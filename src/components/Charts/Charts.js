@@ -33,7 +33,7 @@ const Charts = () => {
       foreColor: '#333', 
     },
     labels: labels,
-    colors: ['#333', '#666', '#999', '#ccc', '#ddd'], 
+    colors: ['#366BA1', '#4482C1', '#6699CC', '#88B0D7', '#ABC7E3'], 
   };
 
   //options for column chart
@@ -50,8 +50,7 @@ const Charts = () => {
     xaxis: {
       categories: ['Gaming PCs', 'Content PCs', 'Office/Home', 'Custom/Others'],
     },
-    // colors: ['#296E85', '#67B7D1', '#5733FF', '#FFFF33'],
-     colors: ['#67B7D1', '#67B7D1', '#67B7D1', '#67B7D1'],
+     colors: ['#8699A3', '#8699A3', '#8699A3', '#8699A3'],
   };
 
   const columnSeries = [

@@ -45,8 +45,36 @@
     color: var(--light-p2);
     font-weight: 500;
     font-size: 1rem;
+    
+}
+.profile-username{
+    text-transform: capitalize;
+    background-color: red;
+}
+.user-profile-personaldetails{
+    align-self: flex-start;
 }
 
+.user-profile-attribute,
+.user-profile-statitem{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.user-profile-attribute p:nth-child(2){
+    color: var(--light-heading);
+    font-size: 1rem;
+}
+
+.user-profile-right h5{
+    color: var(--light-headingtop);
+    font-weight: bold;
+}
+
+.user-profile-stats p:nth-child(2){
+    color: gray;
+}
 
 @media screen and (max-width: 720px) {
     .user-profile-container{
