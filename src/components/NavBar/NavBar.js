@@ -119,6 +119,7 @@ const NavBar = () => {
       <SearchModal show={showSearchModal} onHide={handleCloseSearchModal} />
       <AddNewBuildModal show={ShowAddQuoteModal} onHide={() => setShowAddQuoteModal(false)}/>
     </div>
+    
   );
 };
 

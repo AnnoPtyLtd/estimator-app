@@ -40,7 +40,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
     const [componentCategories, setComponentCategories] = useState([]);
 
     const handleAddRecord = async () => {
-        setQuoteUserId(userId);
+        await setQuoteUserId(userId);
         const quoteCost = componentPrices.reduce((acc, price) => acc + parseFloat(price), 0);
         // setQuoteCost(totalComponentCost);
         console.log(quoteCost);

@@ -12,11 +12,11 @@ import EditProfile from '../EditProfile/EditProfile';
 
 const UserProfile = () => {
 
-  // const { isAuthenticated } = useAuth();
-  // const navigate = useNavigate();
-  // if (!isAuthenticated) {
-  //   navigate('/home')
-  // }
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  if (!isAuthenticated) {
+    navigate('/home')
+  }
 
   const isAdmin = localStorage.getItem('Admin') === 'admin';
   const token = localStorage.getItem('token');
@@ -26,10 +26,9 @@ const UserProfile = () => {
   const [showEditProfileModal, setShowEditProfileModal] = useState(false)
 
   useEffect(() => {
-    const newid = '64f98eb9c62b09a2906b54c4';
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/getuserinfo?userId=${newid}`);
+        const response = await fetch(`http://localhost:4000/getuserinfo?userId=${userId}`);
         if (response.status === 200) {
           const data = await response.json();
           await setUser(data);
@@ -47,14 +46,18 @@ const UserProfile = () => {
           const response = await fetch(`http://localhost:4000/getadminquotes`);
           if (response.status === 200) {
             const data = await response.json();
+            console.log("total quotes:",data.length);
+
           } else {
             console.error('Failed to fetch records');
           }
         }
         else {
-          const response = await fetch(`http://localhost:4000/getuserrecords1?userId=${newid}`);
+          const response = await fetch(`http://localhost:4000/getuserrecords1?userId=${userId}`);
           if (response.status === 200) {
             const data = await response.json();
+            console.log("total quotes:",data.length);
+
           } else {
             console.error('Failed to fetch records');
           }

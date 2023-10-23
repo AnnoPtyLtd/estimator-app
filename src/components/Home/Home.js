@@ -12,11 +12,11 @@ import Charts from '../Charts/Charts';
 import { motion } from "framer-motion";
 
 const Home = () => {
-  // const { isAuthenticated } = useAuth();
-  // const navigate = useNavigate();
-  // if (!isAuthenticated) {
-  //   navigate('/home')
-  // }
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  if (!isAuthenticated) {
+    navigate('/home')
+  }
 
   const container = {
     hidden: { opacity: 1, scale: 0 },

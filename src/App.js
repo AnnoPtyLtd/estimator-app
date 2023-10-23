@@ -15,41 +15,52 @@ import UserProfile from "./components/Home/UserProfile";
 
 function App() {
   return (
+     <AuthProvider>
       <ThemeProvider theme={theme}>
         <div className="app">
           <Router>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/manage-components" element={<HomeV2/>} />
-              <Route path="/user-profile" element={<UserProfile/>} />
+              <Route path="/" element={<HomeProtected />} />
+              <Route path="/home" element={<HomeProtected />} />
+              <Route path="/manage-components" element={<HomeProtectedV2 />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/user-profile" element={<UserProfileProtected/>} />
             </Routes>
           </Router>
         </div>
       </ThemeProvider>
+    </AuthProvider>
+   
    
   );
 }
 export default App;
 
-// function HomeProtected() {
-//   const { isAuthenticated } = useAuth();
-//   if (!isAuthenticated) {
-//     return <Navigate to="/signin" />;
-//   }
+function HomeProtected() {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+  return <Home />;
+}
 
-//   return <Home />;
-// }
-// function HomeProtectedV2() {
-//   const { isAuthenticated } = useAuth();
-//   if (!isAuthenticated) {
-//     return <Navigate to="/signin" />;
-//   }
+function HomeProtectedV2() {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
 
-//   return <HomeV2 />;
-// }
+  return <HomeV2 />;
+}
+
+function UserProfileProtected() {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+  return <UserProfile />;
+}
 
  {/* <AuthProvider>
       <ThemeProvider theme={theme}>
@@ -65,4 +76,22 @@ export default App;
           </Router>
         </div>
       </ThemeProvider>
-    </AuthProvider> */}
+    </AuthProvider> */
+  
+  
+     // <ThemeProvider theme={theme}>
+      //   <div className="app">
+      //     <Router>
+      //       <Routes>
+      //         <Route path="/" element={<Home />} />
+      //         <Route path="/home" element={<Home />} />
+      //         <Route path="/manage-components" element={<HomeV2/>} />
+      //         <Route path="/user-profile" element={<UserProfile/>} />
+      //         <Route path="/signin" element={<Signin />} />
+      //         <Route path="/signup" element={<Signup />} />
+      //       </Routes>
+      //     </Router>
+      //   </div>
+      // </ThemeProvider>
+  
+  }

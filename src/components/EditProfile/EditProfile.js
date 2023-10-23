@@ -32,13 +32,14 @@ const style = {
     pb: 3,
 };
 
-const ChildModal = () => {
+const ChildModal = ({email,password}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
+        console.log("email:",email," password: ",password);
     };
 
     return (
@@ -96,6 +97,7 @@ export default function EditProfile({ show, onClose }) {
                                     label="Email"
                                     size='small'
                                     value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     fullWidth
                                     InputProps={{
                                         startAdornment: (
@@ -114,6 +116,8 @@ export default function EditProfile({ show, onClose }) {
                                     id="filled-adornment-password"
                                     type={showPassword ? 'text' : 'password'}
                                     size='small'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     fullWidth
                                     endAdornment={
                                         <InputAdornment position="end">
@@ -131,7 +135,7 @@ export default function EditProfile({ show, onClose }) {
                             </div>
                         </Tab>
                     </Tabs>
-                    <ChildModal />
+                    <ChildModal email={email} password={password} />
                 </Box>
             </Modal>
         </div>

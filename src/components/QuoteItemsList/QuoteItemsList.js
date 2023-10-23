@@ -27,7 +27,7 @@ const QuoteItemsList = () => {
           const response = await fetch(`http://localhost:4000/getadminrecords?quoteType=${quoteFilter}`);
           if (response.status === 200) {
             const data = await response.json();
-            setQuotes(data);
+            await setQuotes(data);
           } else {
             console.error('Failed to fetch records');
           }
