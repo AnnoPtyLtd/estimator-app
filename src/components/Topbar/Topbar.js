@@ -13,7 +13,7 @@ const Topbar = () => {
     <div className='topbar'>
       <div className='topbar-title'>
         <div>
-          <p>Quote Estimator app</p>
+          <p className='topbar-title-text'>QUOTE ESTIMATOR</p>
         </div>
       </div>
       <div className='signout-div'>

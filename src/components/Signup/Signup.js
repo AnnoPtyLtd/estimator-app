@@ -74,8 +74,7 @@ const Signup = () => {
         <div className='signup-main-page'>
             <div className='signup-container'>
                 <div className='signup-leftside'>
-                    <p className='signup-welcome'>Welcome to Signup Page</p>
-                    <p className='signup-desc'>Incididunt ut aliquip voluptate ea velit ullamco. Fugiat mollit eiusmod ut eiusmod.</p>
+                    <p className='signup-welcome'>"Your PC's Story - Register and Quote On!"</p>
                 </div>
                 <div className='signup-rightside'>
                     <p>Create an Account</p>

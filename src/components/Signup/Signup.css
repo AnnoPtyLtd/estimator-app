@@ -26,10 +26,12 @@
 
 .signup-leftside {
     display: flex;
+    position: relative;
     flex: 1;
     flex-direction: column;
     padding: 60% 10px 0px 15px;
     color: white;
+    width: 50%;
     background-image: url('../../assets/signupbackground.jpg');
     background-size: cover; 
     background-repeat: no-repeat;
@@ -37,8 +39,15 @@
 }
 
 .signup-welcome{
-    font-weight: 500;
-    font-size: large;
+    position: absolute;
+    top: 2%;
+    max-width: 100%;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 0.3vw;
+    line-height: 5rem;
+    text-transform: capitalize;
+
 }
 
 .signup-rightside {

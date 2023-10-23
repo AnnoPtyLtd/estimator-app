@@ -55,7 +55,7 @@ const Signin = () => {
     }
   };
 
-  const handleSignUp =() => {
+  const handleSignUp = () => {
     navigate('/signup')
   }
 
@@ -93,14 +93,13 @@ const Signin = () => {
                 Sign Up
               </Button>
             </div>
-            
+
           </Form>
         </div>
         <div className='signin-rightside'>
-          <p className='signin-welcome'>Let's Log in to get you started!</p>
+          <p className='signin-welcome'>"Log in for instant dream PC quotes."</p>
           <p className='signin-desc'>
-            Incididunt ut aliquip voluptate ea velit ullamco. Fugiat mollit
-            eiusmod ut eiusmod.
+            Welcome to our innovative 'Quote Estimator' application, your go-to tool for effortless computer build quotes. Get accurate pricing and components tailored to your needs in just a few clicks!
           </p>
         </div>
       </div>
