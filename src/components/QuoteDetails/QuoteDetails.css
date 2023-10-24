@@ -1,4 +1,5 @@
 .quote-details-container {
+    max-width: 60vh;
     display: flex;
     color: var(--light-p2);
     background-color: var(--bg-light-primary);
@@ -296,4 +297,8 @@ li label {
 
 .accordian{
     background-color: orange !important;
+}
+
+.listofcompnames{
+    word-break: keep-all;
 }

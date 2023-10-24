@@ -53,31 +53,6 @@ const QuoteDetails = () => {
     fetchRecords();
   }, [isAdmin, quoteType2, quoteUserId, userId]);
 
-  // const handleAddRecord = async () => {
-  //   try {
-  //     const response = await fetch('http://localhost:4000/saverecord', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ quoteUserId, name, quoteType, quoteDate, quoteCost, quoteComps }),
-  //     });
-
-  //     if (response.status === 201) {
-  //       setName('');
-  //       setQuoteType('Gaming PC');
-  //       setQuoteDate('');
-  //       setQuoteCost(0);
-  //       setQuoteComps([]);
-  //     } else {
-  //       //display error or info toast
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert('An error occurred');
-  //   }
-  // };
-
   return (
     <div className='quote-details-container'>
       <div className='quote-details-title'>
@@ -85,7 +60,6 @@ const QuoteDetails = () => {
       </div>
 
       <div className='quote-details-column'>
-
         {/* Top part to show Single Quote opened */}
         <>
           {records[0] ? (
@@ -95,7 +69,7 @@ const QuoteDetails = () => {
                 <p>Components inside</p>
                 <ol>
                   {(records[0].componentNames).map((name) => (
-                    <li>{name}</li>
+                    <li  className='listofcompnames'>{name}</li>
                   ))}
                 </ol>
               </div>
@@ -108,7 +82,7 @@ const QuoteDetails = () => {
           )}
         </>
 
-      </div>
+      </div> 
 
       {/*quote cards container */}
 

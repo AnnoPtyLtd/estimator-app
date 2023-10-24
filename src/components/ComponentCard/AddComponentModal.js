@@ -128,7 +128,7 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
                                     />
                                     {component.componentName}
                                 </label>
-                                <p className="add-comp-cost">Price: {component.componentCost}$</p>
+                                <p className="add-comp-cost">{component.componentCost}$</p>
                             </li>
                         ))}
 
