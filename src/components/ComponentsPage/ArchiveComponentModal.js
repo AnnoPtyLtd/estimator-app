@@ -5,7 +5,7 @@ import './QuoteList.css'
 
 const ArchiveComponentModal = ({ show, onHide,componentID,componentName }) => {
 
-  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
     const handleClose = () => {
         onHide();

@@ -5,7 +5,7 @@ import './ComponentCard.css'
 
 const ArchiveModal = ({ show, onHide, recordID, title }) => {
 
-  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
     const handleClose = () => {
         onHide();

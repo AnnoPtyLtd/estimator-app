@@ -91,7 +91,7 @@ const ComponentDetailsPage = () => {
 
     const [components, setComponents] = useState([]);
     const [rowSelectable, setRowSelectable] = useState(false);
-    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+    const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
     useEffect(() => {
         const fetchComponents = async () => {

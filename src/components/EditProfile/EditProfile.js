@@ -67,7 +67,7 @@ export default function EditProfile({ show, onClose }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = React.useState(false);
-    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+    const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 

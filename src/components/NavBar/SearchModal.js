@@ -9,7 +9,7 @@ const SearchModal = ({ show, onHide }) => {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState({ records: [], components: [] });
-    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+    const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
     const handleClose = () => {
         onHide();

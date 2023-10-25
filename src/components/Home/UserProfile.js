@@ -24,7 +24,7 @@ const UserProfile = () => {
   const userId = decodedToken.userId;
   const [user, setUser] = useState();
   const [showEditProfileModal, setShowEditProfileModal] = useState(false)
-  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
 
   useEffect(() => {

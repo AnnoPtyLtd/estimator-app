@@ -21,7 +21,7 @@ const AddComponentModal = ({ show, onHide }) => {
   const [compPrice, setCompPrice] = useState("");
   const [compURL, setCompURL] = useState("");
   const [compDate, setCompDate] = useState(dayjs("DD/MM/YYYY"));
-  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
 
   const option = [

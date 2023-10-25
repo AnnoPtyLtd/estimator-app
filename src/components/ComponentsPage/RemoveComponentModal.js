@@ -10,7 +10,7 @@ import './QuoteList.css';
 const RemoveComponentModal = ({ show, onHide }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
-    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+    const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
     useEffect(() => {
         const fetchComponents = async () => {
