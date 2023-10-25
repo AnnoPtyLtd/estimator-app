@@ -21,6 +21,8 @@ const AddComponentModal = ({ show, onHide }) => {
   const [compPrice, setCompPrice] = useState("");
   const [compURL, setCompURL] = useState("");
   const [compDate, setCompDate] = useState(dayjs("DD/MM/YYYY"));
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
 
   const option = [
     { value: "CPU", label: "CPU" },
@@ -46,7 +48,7 @@ const AddComponentModal = ({ show, onHide }) => {
       componentUrl: compURL,
     };
     try {
-      const response = await fetch("http://localhost:4000/save-newcomponent", {
+      const response = await fetch(`${backendURL}/save-newcomponent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

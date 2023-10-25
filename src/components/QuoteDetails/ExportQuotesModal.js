@@ -9,11 +9,12 @@ const ExportQuotesModal = ({ show, onHide }) => {
   const [quoteType, setQuoteType] = useState('Gaming PC');
   const [records, setRecords] = useState([]);
   const [selectedQuotes, setSelectedQuotes] = useState([]);
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/export-records?quoteType=${quoteType}`);
+        const response = await fetch(`${backendURL}/export-records?quoteType=${quoteType}`);
         if (response.status === 200) {
           const data = await response.json();
           setRecords(data);

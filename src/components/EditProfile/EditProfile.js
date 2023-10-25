@@ -13,7 +13,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FilledInput from '@mui/material/FilledInput';
 import IconButton from '@mui/material/IconButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
@@ -68,6 +67,7 @@ export default function EditProfile({ show, onClose }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = React.useState(false);
+    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 

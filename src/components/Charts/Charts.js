@@ -5,11 +5,12 @@ import Chart from 'react-apexcharts';
 const Charts = () => {
   const [series, setSeries] = useState([44, 55, 41, 17, 35]);
   const [labels, setLabels] = useState(['A', 'B', 'C', 'D', 'E']);
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/get-components-length`);
+        const response = await fetch(`${backendURL}/get-components-length`);
         if (response.ok) {
           const data = await response.json();
           const countValues = data.map(item => item.count);

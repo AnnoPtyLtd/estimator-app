@@ -9,6 +9,7 @@ const SearchModal = ({ show, onHide }) => {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState({ records: [], components: [] });
+    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
     const handleClose = () => {
         onHide();
@@ -16,7 +17,7 @@ const SearchModal = ({ show, onHide }) => {
 
     const handleSearch = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
+            const response = await fetch(`${backendURL}/search?searchTerm=${searchTerm}`);
             if (response.ok) {
                 const data = await response.json();
                 setSearchResults(data);

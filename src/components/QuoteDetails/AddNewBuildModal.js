@@ -38,6 +38,8 @@ const AddNewBuildModal = ({ show, onHide }) => {
     const [componentNames, setComponentNames] = useState([]);
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
+    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
 
     const handleAddRecord = async () => {
         await setQuoteUserId(userId);
@@ -45,7 +47,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
         // setQuoteCost(totalComponentCost);
         console.log(quoteCost);
         try {
-            const response = await fetch('http://localhost:4000/saverecord', {
+            const response = await fetch(`${backendURL}/saverecord`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

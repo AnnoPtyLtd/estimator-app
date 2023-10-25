@@ -11,6 +11,9 @@ const Signin = () => {
   const navigate = useNavigate();
   const { signIn } = useAuth();
 
+  //new url for deployment
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
 
@@ -25,7 +28,7 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/signin', {
+      const response = await fetch(`${backendURL}/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

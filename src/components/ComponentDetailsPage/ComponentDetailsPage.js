@@ -91,10 +91,11 @@ const ComponentDetailsPage = () => {
 
     const [components, setComponents] = useState([]);
     const [rowSelectable, setRowSelectable] = useState(false);
+    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
     useEffect(() => {
         const fetchComponents = async () => {
-            const response = await fetch('http://localhost:4000/get-components-all');
+            const response = await fetch(`${backendURL}/get-components-all`);
             if (response.status === 200) {
                 const data = await response.json();
                 setComponents(data);
@@ -121,7 +122,7 @@ const ComponentDetailsPage = () => {
         const currentDate = new Date();
 
         try {
-            const response = await fetch(`http://localhost:4000/updateComponent/${row.id}`, {
+            const response = await fetch(`${backendURL}/updateComponent/${row.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -145,7 +146,7 @@ const ComponentDetailsPage = () => {
     const handleDeleteButtonClick = async (row) => {
         console.log('item id for delete: ', row.id)
         try {
-            const response = await fetch(`http://localhost:4000/remove-component?id=${row.id}`, {
+            const response = await fetch(`${backendURL}/remove-component?id=${row.id}`, {
                 method: 'DELETE',
             });
 
@@ -169,7 +170,7 @@ const ComponentDetailsPage = () => {
     }
 
     const handleArchiveButtonClick = async (row) => {
-        fetch(`http://localhost:4000/archive-component/${row.id}`, {
+        fetch(`${backendURL}/archive-component/${row.id}`, {
             method: 'PUT',
         })
             .then((response) => response.json())

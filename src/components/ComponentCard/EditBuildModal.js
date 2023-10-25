@@ -16,12 +16,13 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
   const [componentPrices, setComponentPrices] = useState([]);
   const [componentCategories, setComponentCategories] = useState([]);
   const [totalQuoteCost, setTotalQuoteCost] = useState(0);
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
   useEffect(() => {
     const fetchComponentData = async () => {
 
       try {
-        const response = await fetch(`http://localhost:4000/get-components-by-record/${recordID}`);
+        const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
         if (response.ok) {
           const data = await response.json();
           setComponentNames(data.componentNames);
@@ -42,7 +43,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
   }, [componentNames, show, recordID]);
 
   const handleDeleteComponent = (index) => {
-    fetch(`http://localhost:4000/delete-component/${recordID}/${index}`, {
+    fetch(`${backendURL}/delete-component/${recordID}/${index}`, {
       method: 'DELETE',
     })
       .then((response) => response.json())

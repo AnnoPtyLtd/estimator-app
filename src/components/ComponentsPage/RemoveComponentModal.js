@@ -10,11 +10,12 @@ import './QuoteList.css';
 const RemoveComponentModal = ({ show, onHide }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
+    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
     useEffect(() => {
         const fetchComponents = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/get-components?category=${categoryComp}`);
+                const response = await fetch(`${backendURL}/get-components?category=${categoryComp}`);
                 if (response.ok) {
                     const data = await response.json();
                     setComponents(data);
@@ -33,7 +34,7 @@ const RemoveComponentModal = ({ show, onHide }) => {
 
     const removeComponentFromDB = async (componentId) => {
         try {
-            const response = await fetch(`http://localhost:4000/remove-component?id=${componentId}`, {
+            const response = await fetch(`${backendURL}/remove-component?id=${componentId}`, {
                 method: 'DELETE',
             });
 

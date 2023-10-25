@@ -20,6 +20,7 @@ const AddComponentModal = ({
   setCompUrl,
   saveComponent,
 }) => {
+
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header className="custom-modal-header">

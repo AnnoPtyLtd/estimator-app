@@ -5,8 +5,10 @@ import './ComponentCard.css'
 
 const DeleteQuoteModal = ({ show, onHide, title, recordID }) => {
 
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
     const handleConfirmDelete = async () => {
-        fetch(`http://localhost:4000/delete-record/${recordID}`, {
+        fetch(`${backendURL}/delete-record/${recordID}`, {
             method: 'DELETE',
         })
             .then((response) => response.json())

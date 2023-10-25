@@ -5,11 +5,13 @@ import './ComponentCard.css'
 
 const ArchiveModal = ({ show, onHide, recordID, title }) => {
 
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
     const handleClose = () => {
         onHide();
     }
     const handleArchiveConfirm = async () => {
-        fetch(`http://localhost:4000/archive-record/${recordID}`, {
+        fetch(`${backendURL}/${recordID}`, {
             method: 'PUT',
         })
             .then((response) => response.json())

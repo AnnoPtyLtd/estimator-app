@@ -5,6 +5,8 @@ import './ComponentCard.css'
 
 const DuplicateQuoteModal = ({ show, onHide,title,cost,comps,type }) => {
 
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
     const newRecord = {
         name: title,
         quoteType:type,
@@ -14,7 +16,7 @@ const DuplicateQuoteModal = ({ show, onHide,title,cost,comps,type }) => {
     }
     const handleConfirm = async ()=>{
         try {
-            const response = await fetch('http://localhost:4000/saverecord', {
+            const response = await fetch(`${backendURL}/saverecord`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

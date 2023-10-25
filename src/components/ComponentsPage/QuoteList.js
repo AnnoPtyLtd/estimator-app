@@ -26,6 +26,7 @@ const QuoteList = () => {
   const [id, setID] = useState('');
   const [name, setName] = useState('');
   const [archiveModalShow, setArchiveModalShow] = useState(false);
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
   const saveComponent = async () => {
     const componentData = {
@@ -36,7 +37,7 @@ const QuoteList = () => {
       componentUrl: compUrl,
     };
     try {
-      const response = await fetch('http://localhost:4000/save-newcomponent', {
+      const response = await fetch(`${backendURL}/save-newcomponent`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ const QuoteList = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
+      const response = await fetch(`${backendURL}/search?searchTerm=${searchTerm}`);
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data);
@@ -72,7 +73,7 @@ const QuoteList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/get-components-all`);
+        const response = await fetch(`${backendURL}/get-components-all`);
         if (response.ok) {
           const data = await response.json();
           setComponents(data);

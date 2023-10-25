@@ -20,12 +20,14 @@ const ShowQuotes = ({ show, onHide, flag }) => {
     const [showEditBuildModal, setShowEditBuildModal] = useState(false);
     const [recordId, setRecordId] = useState('');
     const [newTitle, setNewTitle] = useState('');
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
 
     useEffect(() => {
         const fetchQuotes = async () => {
             try {
                 if (isAdmin) {
-                    const response = await fetch(`http://localhost:4000/getadminrecords?quoteType=${quoteFilter}`);
+                    const response = await fetch(`${backendURL}/getadminrecords?quoteType=${quoteFilter}`);
                     if (response.status === 200) {
                         const data = await response.json();
                         setQuotes(data);
@@ -34,7 +36,7 @@ const ShowQuotes = ({ show, onHide, flag }) => {
                     }
                 }
                 else {
-                    const response = await fetch(`http://localhost:4000/getuserrecords?userId=${userId}&quoteType=${quoteFilter}`);
+                    const response = await fetch(`${backendURL}/getuserrecords?userId=${userId}&quoteType=${quoteFilter}`);
                     if (response.status === 200) {
                         const data = await response.json();
                         setQuotes(data);
@@ -50,7 +52,7 @@ const ShowQuotes = ({ show, onHide, flag }) => {
     }, [quotes || quoteFilter]);
 
     const handleConfirmDelete = async (id) => {
-        fetch(`http://localhost:4000/delete-record/${id}`, {
+        fetch(`${backendURL}/delete-record/${id}`, {
             method: 'DELETE',
         })
             .then((response) => response.json())
@@ -69,7 +71,7 @@ const ShowQuotes = ({ show, onHide, flag }) => {
     }
 
     const handleEditConfirm = () => {
-        fetch(`http://localhost:4000/updateTitle/${recordId}`, {
+        fetch(`${backendURL}/updateTitle/${recordId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',

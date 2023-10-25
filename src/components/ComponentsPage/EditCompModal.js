@@ -14,10 +14,13 @@ const EditCompModal = ({ show, onHide }) => {
   const [components, setComponents] = useState([]);
   const [showEditPriceModal, setShowEditPriceModal] = useState(false);
 
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
+
   useEffect(() => {
     const fetchComponents = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/get-components?category=${categoryComp}`);
+        const response = await fetch(`${backendURL}/get-components?category=${categoryComp}`);
         if (response.ok) {
           const data = await response.json();
           setComponents(data);
@@ -38,7 +41,7 @@ const EditCompModal = ({ show, onHide }) => {
   
     const currentDate = new Date(); // Get the current date and time
   
-    fetch(`http://localhost:4000/updateCompononentPrice/${compID}`, {
+    fetch(`${backendURL}/updateCompononentPrice/${compID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

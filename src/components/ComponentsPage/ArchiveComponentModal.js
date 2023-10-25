@@ -5,6 +5,8 @@ import './QuoteList.css'
 
 const ArchiveComponentModal = ({ show, onHide,componentID,componentName }) => {
 
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
     const handleClose = () => {
         onHide();
         console.log(componentID);
@@ -12,7 +14,7 @@ const ArchiveComponentModal = ({ show, onHide,componentID,componentName }) => {
     }
 
     const handleArchiveConfirm = async () => {
-        fetch(`http://localhost:4000/archive-component/${componentID}`, {
+        fetch(`${backendURL}/archive-component/${componentID}`, {
             method: 'PUT',
         })
             .then((response) => response.json())

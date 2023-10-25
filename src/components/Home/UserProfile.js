@@ -24,11 +24,13 @@ const UserProfile = () => {
   const userId = decodedToken.userId;
   const [user, setUser] = useState();
   const [showEditProfileModal, setShowEditProfileModal] = useState(false)
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/getuserinfo?userId=${userId}`);
+        const response = await fetch(`${backendURL}/getuserinfo?userId=${userId}`);
         if (response.status === 200) {
           const data = await response.json();
           await setUser(data);
@@ -43,7 +45,7 @@ const UserProfile = () => {
     const fetchQuotes = async () => {
       try {
         if (isAdmin) {
-          const response = await fetch(`http://localhost:4000/getadminquotes`);
+          const response = await fetch(`${backendURL}/getadminquotes`);
           if (response.status === 200) {
             const data = await response.json();
             console.log("total quotes:",data.length);
@@ -53,7 +55,7 @@ const UserProfile = () => {
           }
         }
         else {
-          const response = await fetch(`http://localhost:4000/getuserrecords1?userId=${userId}`);
+          const response = await fetch(`${backendURL}/getuserrecords1?userId=${userId}`);
           if (response.status === 200) {
             const data = await response.json();
             console.log("total quotes:",data.length);

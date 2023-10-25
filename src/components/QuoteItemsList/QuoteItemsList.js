@@ -19,12 +19,14 @@ const QuoteItemsList = () => {
   const userId = decodedToken.userId;
   const [quoteFilter, setQuoteFilter] = useState('View All');
   const [showSearchResultsModal, setShowSearchResultsModal] = useState(false)
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
 
   useEffect(() => {
     const fetchQuotes = async () => {
       try {
         if (isAdmin) {
-          const response = await fetch(`http://localhost:4000/getadminrecords?quoteType=${quoteFilter}`);
+          const response = await fetch(`${backendURL}/getadminrecords?quoteType=${quoteFilter}`);
           if (response.status === 200) {
             const data = await response.json();
             await setQuotes(data);
@@ -33,7 +35,7 @@ const QuoteItemsList = () => {
           }
         }
         else {
-          const response = await fetch(`http://localhost:4000/getuserrecords?userId=${userId}&quoteType=${quoteFilter}`);
+          const response = await fetch(`${backendURL}/getuserrecords?userId=${userId}&quoteType=${quoteFilter}`);
           if (response.status === 200) {
             const data = await response.json();
             await setQuotes(data);
@@ -54,7 +56,7 @@ const QuoteItemsList = () => {
       toast.error('Search field is empty!')
     }
     try {
-      const response = await fetch(`http://localhost:4000/search?searchTerm=${searchTerm}`);
+      const response = await fetch(`${backendURL}/search?searchTerm=${searchTerm}`);
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data);
@@ -70,7 +72,7 @@ const QuoteItemsList = () => {
 
   const handleDuplicateQuote = async (quote) => {
     try {
-      const response = await fetch('http://localhost:4000/saverecord', {
+      const response = await fetch(`${backendURL}/saverecord`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +97,7 @@ const QuoteItemsList = () => {
   }
 
   const handleArchiveQuote = async (id) => {
-    fetch(`http://localhost:4000/archive-record/${id}`, {
+    fetch(`${backendURL}/archive-record/${id}`, {
       method: 'PUT',
     })
       .then((response) => response.json())

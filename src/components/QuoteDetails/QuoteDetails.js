@@ -24,12 +24,14 @@ const QuoteDetails = () => {
   const userId = decodedToken.userId;
   const [showQuotesModal, setShowQuotesModal] = useState(false)
   const [buttoneFlag, setButtoneFlag] = useState('')
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
   useEffect(() => {
     const fetchRecords = async () => {
       setQuoteUserId(userId);
       try {
         if (isAdmin) {
-          const response = await fetch(`http://localhost:4000/adminrecords?quoteType=${quoteType2}`);
+          const response = await fetch(`${backendURL}/adminrecords?quoteType=${quoteType2}`);
           if (response.status === 200) {
             const data = await response.json();
             setRecords(data);
@@ -38,7 +40,7 @@ const QuoteDetails = () => {
           }
         }
         else {
-          const response = await fetch(`http://localhost:4000/records?userId=${quoteUserId}&quoteType=${quoteType2}`);
+          const response = await fetch(`${backendURL}/records?userId=${quoteUserId}&quoteType=${quoteType2}`);
           if (response.status === 200) {
             const data = await response.json();
             setRecords(data);

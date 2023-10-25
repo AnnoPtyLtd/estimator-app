@@ -20,10 +20,12 @@ const ComponentCard = (props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
+  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+
 
   const handleUpdateTitle = () => {
     setShowModal(false);
-    fetch(`http://localhost:4000/updateTitle/${props.id}`, {
+    fetch(`${backendURL}/updateTitle/${props.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -11,11 +11,12 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
     const [componentNames, setComponentNames] = useState([]);
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
+    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
     useEffect(() => {
         const fetchComponents = async () => {
             try {
-                let url = `http://localhost:4000/get-components`;
+                let url = `${backendURL}/get-components`;
                 if (categoryComp !== "View All") {
                     url += `?category=${categoryComp}`;
                 }
@@ -70,7 +71,7 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
          compPrices(componentPrices);
          compCategories(componentCategories);
 
-        fetch(`http://localhost:4000/add-components-to-build/${recordId}`, {
+        fetch(`${backendURL}/${recordId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

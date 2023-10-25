@@ -11,6 +11,7 @@ const Signup = () => {
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
     const navigate = useNavigate();
+    const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -41,7 +42,7 @@ const Signup = () => {
             return;
         }
         try {
-            const response = await fetch("http://localhost:4000/signup", {
+            const response = await fetch(`${backendURL}/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
