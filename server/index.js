@@ -85,11 +85,6 @@ app.get("/", (req, res) => {
     res.send("Server is Working");
 });
 
-app.use((req, res, next) => {
-    console.log('Received request from:', req.headers.origin);
-    next();
-});
-
 app.listen(4000, () => {
     console.log("Server has started on port 4000")
 });
