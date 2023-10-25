@@ -4,14 +4,14 @@ const path = require('path')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const app = express();
-require('dotenv').config();
+// require('dotenv').config();
 const ComponentModel = require('./models/NewComponent');
 
 
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGODB_URI).then(() => {
+mongoose.connect("mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority").then(() => {
     console.log("MongoDB is connected!");
 });
 
