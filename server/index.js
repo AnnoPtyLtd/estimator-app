@@ -10,8 +10,8 @@ const ComponentModel = require('./models/NewComponent');
 app.use(express.json());
 app.use(cors(
     {
-        origin: ["https://estimator-frontend.vercel.app/"],
-        methods: ["POST", "GET","PUT","DELETE"],
+        origin: ["https://estimator-frontend.vercel.app"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true
     }
 ));
