@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const User = require('../../models/User'); 
 
 const router = express.Router();
@@ -14,13 +14,15 @@ router.post("/signup", async (req, res) => {
             return;
         }
         // Hash the user's password
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+        // const saltRounds = 10;
+        // const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
         const user = new User({
             fullname: req.body.fullName,
             email: req.body.email,
-            password: hashedPassword,
+            // password: hashedPassword,
+            password: req.body.password,
+
         });
 
         const savedUser = await user.save();
