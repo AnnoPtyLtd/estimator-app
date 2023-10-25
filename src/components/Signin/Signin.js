@@ -12,7 +12,7 @@ const Signin = () => {
   const { signIn } = useAuth();
 
   //new url for deployment
-  const backendURL = 'https://estimator-vercel-server.vercel.app/'; 
+  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
