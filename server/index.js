@@ -7,7 +7,6 @@ const app = express();
 // require('dotenv').config();
 const ComponentModel = require('./models/NewComponent');
 
-
 app.use(express.json());
 app.use(cors());
 
@@ -77,5 +76,8 @@ app.get("/", (req, res) => {
     res.send("Server is Working");
 });
 
-app.listen(4000);
+
+app.listen(4000, () => {
+    console.log("Server has started on port 4000")
+});
 
