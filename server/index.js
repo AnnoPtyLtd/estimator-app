@@ -17,11 +17,7 @@ app.use(
     })
 );
 
-app.options("/*", (req, res) => {
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.status(200).end();
-});
+
 
 mongoose.connect("mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority").then(() => {
     console.log("MongoDB is connected!");
