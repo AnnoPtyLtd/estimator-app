@@ -9,7 +9,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
   const [quoteType, setQuoteType] = useState('Gaming PC');
   const [records, setRecords] = useState([]);
   const [selectedQuotes, setSelectedQuotes] = useState([]);
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
   useEffect(() => {
     const fetchRecords = async () => {

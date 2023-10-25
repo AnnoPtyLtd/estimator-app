@@ -20,7 +20,7 @@ const ShowQuotes = ({ show, onHide, flag }) => {
     const [showEditBuildModal, setShowEditBuildModal] = useState(false);
     const [recordId, setRecordId] = useState('');
     const [newTitle, setNewTitle] = useState('');
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
 
     useEffect(() => {

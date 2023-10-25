@@ -14,7 +14,7 @@ const EditCompModal = ({ show, onHide }) => {
   const [components, setComponents] = useState([]);
   const [showEditPriceModal, setShowEditPriceModal] = useState(false);
 
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
 
   useEffect(() => {

@@ -26,7 +26,7 @@ const QuoteList = () => {
   const [id, setID] = useState('');
   const [name, setName] = useState('');
   const [archiveModalShow, setArchiveModalShow] = useState(false);
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
   const saveComponent = async () => {
     const componentData = {

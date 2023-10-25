@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts';
 const Charts = () => {
   const [series, setSeries] = useState([44, 55, 41, 17, 35]);
   const [labels, setLabels] = useState(['A', 'B', 'C', 'D', 'E']);
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
   useEffect(() => {
     const fetchData = async () => {

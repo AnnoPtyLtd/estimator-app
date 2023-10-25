@@ -20,7 +20,7 @@ const ComponentCard = (props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
 
   const handleUpdateTitle = () => {

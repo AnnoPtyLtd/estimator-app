@@ -11,7 +11,7 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
     const [componentNames, setComponentNames] = useState([]);
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
-    const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+    const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
     useEffect(() => {
         const fetchComponents = async () => {

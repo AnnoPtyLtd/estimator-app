@@ -24,7 +24,7 @@ const QuoteDetails = () => {
   const userId = decodedToken.userId;
   const [showQuotesModal, setShowQuotesModal] = useState(false)
   const [buttoneFlag, setButtoneFlag] = useState('')
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
   useEffect(() => {
     const fetchRecords = async () => {

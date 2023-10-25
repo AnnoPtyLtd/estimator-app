@@ -11,7 +11,7 @@ const Signup = () => {
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
     const navigate = useNavigate();
-    const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+    const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;

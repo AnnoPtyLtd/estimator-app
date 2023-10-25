@@ -38,7 +38,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
     const [componentNames, setComponentNames] = useState([]);
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
-    const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+    const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
 
     const handleAddRecord = async () => {

@@ -5,7 +5,7 @@ import './ComponentCard.css'
 
 const DuplicateQuoteModal = ({ show, onHide,title,cost,comps,type }) => {
 
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
     const newRecord = {
         name: title,
