@@ -8,13 +8,20 @@ const app = express();
 const ComponentModel = require('./models/NewComponent');
 
 app.use(express.json());
-app.use(cors(
-    {
+app.use(
+    cors({
         origin: ["https://estimator-frontend.vercel.app"],
         methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true
-    }
-));
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you need.
+    })
+);
+
+app.options("/*", (req, res) => {
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.status(200).end();
+});
 
 mongoose.connect("mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority").then(() => {
     console.log("MongoDB is connected!");
@@ -47,7 +54,7 @@ User.createIndexes();
 const signupRoute = require('./routes/registration/signup');
 const signinRoute = require('./routes/registration/signin');
 const saveRecordRoute = require('./routes/records/records');
-const saveNewComponentRoute = require('./routes/components/save-component'); 
+const saveNewComponentRoute = require('./routes/components/save-component');
 const getComponentsRoute = require('./routes/components/get-component');
 const getSearchItems = require('./routes/search');
 const removeComponentRoute = require('./routes/components/remove-component');
@@ -58,8 +65,8 @@ const updateComponentCost = require('./routes/components/updateComponentPrice')
 const getComponentCategory = require('./routes/components/get-component-category')
 const deleteComponentFromRecord = require('./routes/records/delete-component')
 const exportRecords = require('./routes/records/export-records')
-const getComponentsLength  = require('./routes/components/get-components-length');
-const getUserInfo  = require('./routes/user/get-user');
+const getComponentsLength = require('./routes/components/get-components-length');
+const getUserInfo = require('./routes/user/get-user');
 
 app.use(signupRoute);
 app.use(signinRoute);
