@@ -8,7 +8,13 @@ const app = express();
 const ComponentModel = require('./models/NewComponent');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+    {
+        origin: ["https://estimator-frontend.vercel.app/"],
+        methods: ["POST", "GET","PUT","DELETE"],
+        credentials: true
+    }
+));
 
 mongoose.connect("mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority").then(() => {
     console.log("MongoDB is connected!");
