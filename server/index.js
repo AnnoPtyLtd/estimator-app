@@ -7,7 +7,7 @@ const app = express();
 // require('dotenv').config();
 const ComponentModel = require('./models/NewComponent');
 
-app.use(express.json());
+{/*app.use(express.json());
 app.use(cors(
     {
         origin: ["https://estimator-frontend.vercel.app/"],
@@ -15,7 +15,7 @@ app.use(cors(
         credentials: true
     }
 ));
-
+*/}
 mongoose.connect("mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority").then(() => {
     console.log("MongoDB is connected!");
 });
