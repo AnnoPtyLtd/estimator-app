@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -11,8 +11,9 @@ const Signin = () => {
   const navigate = useNavigate();
   const { signIn } = useAuth();
 
-  //new url for deployment
-  const backendURL = 'https://estimator-vercel-server.vercel.app'; 
+  //new vercel server url of deployment
+  const backendURL = process.env.REACT_APP_BACKEND_URL; 
+  // const backendURL = 'https://estimator-vercel-server.vercel.app'; 
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -24,6 +25,9 @@ const Signin = () => {
       setPassword(value);
     }
   };
+  useEffect(() => {
+    console.log("backend url is:",backendURL)
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
