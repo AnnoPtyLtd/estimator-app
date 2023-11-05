@@ -8,20 +8,19 @@ const app = express();
 const ComponentModel = require('./models/NewComponent');
 
 app.use(express.json());
-app.use(
-    cors({
-        origin: ["https://estimator-frontend.vercel.app"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-        allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you need.
-    })
-);
+
+// app.use(
+//     cors({
+//         origin: ["https://estimator-frontend.vercel.app"],
+//         methods: ["GET", "POST", "PUT", "DELETE"],
+//         credentials: true,
+//         allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you need.
+//     })
+// );
+app.use(cors());
 
 
 
-mongoose.connect("mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority").then(() => {
-    console.log("MongoDB is connected!");
-});
 
 const UserSchema = new mongoose.Schema({
     fullname: {
@@ -43,7 +42,9 @@ const UserSchema = new mongoose.Schema({
 //     const isMatch = await bcrypt.compare(password, this.password);
 //     return isMatch;
 // };
-
+mongoose.connect("mongodb+srv://afaqahmed123:afaqahmed123@cluster0.zibstfo.mongodb.net/?retryWrites=true&w=majority").then(() => {
+    console.log("MongoDB is connected!");
+});
 const User = mongoose.model('users', UserSchema);
 User.createIndexes();
 

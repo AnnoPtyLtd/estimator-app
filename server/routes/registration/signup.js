@@ -29,10 +29,8 @@ router.post("/signup", async (req, res) => {
 
         if (savedUser) {
             res.status(200).json({ message: "User registered successfully" });
-            console.log("User registered successfully:", savedUser);
         } else {
             res.status(500).json({ message: "User registration failed" });
-            console.log("User registration failed");
         }
     } catch (error) {
         console.error("Error registering user:", error);

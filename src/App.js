@@ -8,14 +8,14 @@ import Home from "./components/Home/Home";
 import HomeV2 from "./components/Home/HomeV2";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
-import { AuthProvider, useAuth } from "../src/AuthContext"; // Import AuthProvider and useAuth
+import { AuthProvider, useAuth } from "../src/AuthContext";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import UserProfile from "./components/Home/UserProfile";
 
 function App() {
   return (
-     <AuthProvider>
+    <AuthProvider>
       <ThemeProvider theme={theme}>
         <div className="app">
           <Router>
@@ -31,8 +31,6 @@ function App() {
         </div>
       </ThemeProvider>
     </AuthProvider>
-   
-   
   );
 }
 export default App;
@@ -62,7 +60,7 @@ function UserProfileProtected() {
   return <UserProfile />;
 }
 
- {/* <AuthProvider>
+{/* <AuthProvider>
       <ThemeProvider theme={theme}>
         <div className="app">
           <Router>
@@ -72,26 +70,27 @@ function UserProfileProtected() {
               <Route path="/manage-components" element={<HomeProtectedV2 />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/user-profile" element={<UserProfileProtected/>} />
             </Routes>
           </Router>
         </div>
       </ThemeProvider>
     </AuthProvider> */
-  
-  
-     // <ThemeProvider theme={theme}>
-      //   <div className="app">
-      //     <Router>
-      //       <Routes>
-      //         <Route path="/" element={<Home />} />
-      //         <Route path="/home" element={<Home />} />
-      //         <Route path="/manage-components" element={<HomeV2/>} />
-      //         <Route path="/user-profile" element={<UserProfile/>} />
-      //         <Route path="/signin" element={<Signin />} />
-      //         <Route path="/signup" element={<Signup />} />
-      //       </Routes>
-      //     </Router>
-      //   </div>
-      // </ThemeProvider>
-  
-  }
+
+
+  // <ThemeProvider theme={theme}>
+  //   <div className="app">
+  //     <Router>
+  //       <Routes>
+  //         <Route path="/" element={<Home />} />
+  //         <Route path="/home" element={<Home />} />
+  //         <Route path="/manage-components" element={<HomeV2/>} />
+  //         <Route path="/user-profile" element={<UserProfile/>} />
+  //         <Route path="/signin" element={<Signin />} />
+  //         <Route path="/signup" element={<Signup />} />
+  //       </Routes>
+  //     </Router>
+  //   </div>
+  // </ThemeProvider>
+
+}

@@ -3,10 +3,10 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ButtonMUI from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
+import AddComponentModal from './AddComponentModal';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import StringTextField from '../TextFields/StringTextField';
-import AddComponentModal from './AddComponentModal';
 import './ComponentCard.css'
 
 const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleEditSave }) => {

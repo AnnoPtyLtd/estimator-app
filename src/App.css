@@ -10,7 +10,6 @@
 .left-navbar{
     align-items: center;
     display: flex;
-    background-image: url('./assets/dark-gradient.jpg');
     background-position: center center ;
     background-size: cover;
 }

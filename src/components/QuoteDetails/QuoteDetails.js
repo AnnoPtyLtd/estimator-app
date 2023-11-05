@@ -24,7 +24,7 @@ const QuoteDetails = () => {
   const userId = decodedToken.userId;
   const [showQuotesModal, setShowQuotesModal] = useState(false)
   const [buttoneFlag, setButtoneFlag] = useState('')
-  const backendURL = process.env.REACT_APP_BACKEND_URL; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -57,38 +57,37 @@ const QuoteDetails = () => {
 
   return (
     <div className='quote-details-container'>
-      <div className='quote-details-title'>
-        <p>Quote Details</p>
+      <div className='quote-tab'>
+        <div className='quote-details-title'>
+          <p>Quote Details</p>
+        </div>
+        <div className='quote-details-column'>
+          <>
+            {records[0] ? (
+              <div className='single-quote-details'>
+                <div className='single-quote-left'>
+                  <h4>{records[0].name}</h4>
+                  <p>Components</p>
+                  <ol>
+                    {(records[0].componentNames).map((name) => (
+                      <li className='listofcompnames'>{name}</li>
+                    ))}
+                  </ol>
+                </div>
+                <div className='single-quote-right'>
+                  <p>(${records[0].quoteCost})</p>
+                </div>
+              </div>
+            ) : (
+              <p>No records available</p>
+            )}
+          </>
+        </div>
       </div>
-
-      <div className='quote-details-column'>
-        {/* Top part to show Single Quote opened */}
-        <>
-          {records[0] ? (
-            <div className='single-quote-details'>
-              <div className='single-quote-left'>
-                <h4>{records[0].name}</h4>
-                <p>Components inside</p>
-                <ol>
-                  {(records[0].componentNames).map((name) => (
-                    <li  className='listofcompnames'>{name}</li>
-                  ))}
-                </ol>
-              </div>
-              <div className='single-quote-right'>
-                <p>({records[0].quoteCost} $)</p>
-              </div>
-            </div>
-          ) : (
-            <p>No records available</p>
-          )}
-        </>
-
-      </div> 
 
       {/*quote cards container */}
 
-      <div className='quote-details-components'>
+      <div className='quote-details-controls'>
         <div className='quote-details-header'>
           <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
             <option value='choosequote2'>Choose quote type</option>

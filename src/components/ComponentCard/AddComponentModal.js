@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import './ComponentCard.css';
 
-const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCategories }) => {
+const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, compCategories }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
     const [selectedComponents, setSelectedComponents] = useState([]);
     const [componentNames, setComponentNames] = useState([]);
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
-    const backendURL = process.env.REACT_APP_BACKEND_URL; 
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         const fetchComponents = async () => {
@@ -36,7 +37,7 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
         if (show) {
             fetchComponents();
         }
-    }, [show,categoryComp]);
+    }, [show, categoryComp]);
 
     const handleComponentSelection = (componentName, componentPrice, componentCategory) => {
         if (selectedComponents.includes(componentName)) {
@@ -67,11 +68,11 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
 
     const handleSaveChanges = () => {
         const recordId = recordID;
-         compNames(componentNames);
-         compPrices(componentPrices);
-         compCategories(componentCategories);
+        compNames(componentNames);
+        compPrices(componentPrices);
+        compCategories(componentCategories);
 
-        fetch(`${backendURL}/${recordId}`, {
+        fetch(`${backendURL}/add-components-to-build/${recordId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -115,6 +116,8 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
                         <option value="Cooling Solution">Cooling Solution</option>
                         <option value="Others">Others</option>
                     </select>
+                    <input type='text' placeholder='Search' className='search-box-comp' />
+                    <Button variant='outlined' color='primary'><SearchOutlinedIcon /></Button>
                 </div>
                 <div className='scrollable-list'>
                     <ul className="export-list">
@@ -152,3 +155,4 @@ const AddComponentModal = ({ show, onHide, recordID,compNames,compPrices,compCat
 };
 
 export default AddComponentModal;
+

@@ -106,8 +106,9 @@
 }
 
 .custom-modal-header {
-  background: radial-gradient(circle at 10% 20%, rgb(34, 102, 138) 0%, rgb(154, 118, 255) 80.6%);
-  /* color: #fff; */
+  /* background: radial-gradient(circle at 10% 20%, rgb(34, 102, 138) 0%, rgb(154, 118, 255) 80.6%); */
+  background-color: var(--bg-light-primary);
+  color: var(--light-heading);
 }
 
 
@@ -254,7 +255,7 @@
 
 
 .scrollable-list {
-  max-height: 400px; 
+  max-height: 300px; 
   overflow-y: auto;
   scrollbar-width: thin; 
   scrollbar-color: transparent transparent; 
@@ -301,4 +302,12 @@
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 5px;
   margin-right: 10px;
+}
+.search-box-comp{
+  max-width: 150px;
+  padding: 5px;
+  margin: 0px 10px;
+}
+#dropdown{
+  max-width: 100px;
 }

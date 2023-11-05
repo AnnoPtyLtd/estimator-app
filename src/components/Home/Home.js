@@ -57,7 +57,6 @@ const Home = () => {
           animate="visible">
           <motion.li className="item" variants={item}><QuoteItemsList /></motion.li>
           <motion.li className="item" variants={item}><QuoteDetails /></motion.li>
-          <motion.li className="item" variants={item}><Charts /></motion.li>
         </motion.ul>
         {/* <div className='quote-section'>
           <QuoteItemsList />

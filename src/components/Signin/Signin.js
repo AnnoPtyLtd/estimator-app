@@ -25,9 +25,6 @@ const Signin = () => {
       setPassword(value);
     }
   };
-  useEffect(() => {
-    console.log("backend url is:",backendURL)
-  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
