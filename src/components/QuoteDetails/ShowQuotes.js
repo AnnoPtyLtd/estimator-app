@@ -71,6 +71,10 @@ const ShowQuotes = ({ show, onHide, flag }) => {
     }
 
     const handleEditConfirm = () => {
+        if(!newTitle){
+            console.log("No title, updating components in build");
+            return;
+        }
         fetch(`${backendURL}/updateTitle/${recordId}`, {
             method: 'PUT',
             headers: {

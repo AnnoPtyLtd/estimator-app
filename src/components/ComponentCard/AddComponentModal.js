@@ -68,10 +68,15 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
 
     const handleSaveChanges = () => {
         const recordId = recordID;
+    
+        if (!recordId) {
+            console.log("Record ID is missing or invalid.");
+        }
+    
         compNames(componentNames);
         compPrices(componentPrices);
         compCategories(componentCategories);
-
+    
         fetch(`${backendURL}/add-components-to-build/${recordId}`, {
             method: 'POST',
             headers: {
@@ -92,7 +97,7 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                 onHide();
             });
     };
-
+    
     return (
         <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
             <Modal.Header className="custom-modal-header">
