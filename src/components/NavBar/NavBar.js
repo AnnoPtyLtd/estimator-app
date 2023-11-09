@@ -4,8 +4,6 @@ import MemoryIcon from '@mui/icons-material/Memory';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Image from 'react-bootstrap/Image';
-import profileImg from '../../assets/profileimg.jpg';
 import UploadFileModal from './UploadFileModal';
 import './NavBar.css';
 import SearchModal from './SearchModal';

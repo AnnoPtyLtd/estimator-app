@@ -19,8 +19,10 @@
 
 .quote-details-title {
     font-weight: bold;
-    padding-top: 15px;
-    padding-left: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center !important;
+    padding:15px 15px 0 15px;
     font-size: 18px;
     text-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
 }
@@ -135,7 +137,10 @@ input[type=text] {
     scroll-behavior: smooth;
 }
 
-
+.drop-quote{
+    max-width: 150px;
+    margin: 10px;
+}
 #dropdown2:hover,
 #dropdown:hover {
     cursor: pointer;
@@ -311,4 +316,9 @@ li label {
 
 .listofcompnames{
     word-break: keep-all;
+}
+
+.editbtn{
+    width: 100px;
+    margin: 10px !important;
 }

@@ -7,7 +7,6 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import SearchResultModal from '../ComponentsPage/SearchResultModal';
 import { Toaster, toast } from 'sonner';
 
-
 const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, compCategories }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);

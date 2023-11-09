@@ -2,7 +2,6 @@ import './UserProfile.css'
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
-import QuoteList from '../ComponentsPage/QuoteList';
 import Topbar from '../Topbar/Topbar';
 import NavBar from '../NavBar/NavBar';
 import userAvatar from '../../assets/useravatar.jpg'

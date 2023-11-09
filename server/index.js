@@ -17,10 +17,8 @@ app.use(
         allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you need.
     })
 );
+
 // app.use(cors());
-
-
-
 
 const UserSchema = new mongoose.Schema({
     fullname: {

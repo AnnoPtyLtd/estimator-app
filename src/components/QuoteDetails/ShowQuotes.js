@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import ButtonMUI from '@mui/material/Button';
 import jwt_decode from 'jwt-decode';
 import { Modal } from 'react-bootstrap';
-import { List } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { Toaster, toast } from 'sonner';
 import EditBuildModal from '../ComponentCard/EditBuildModal';

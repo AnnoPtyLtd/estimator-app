@@ -4,7 +4,6 @@ import ButtonMUI from '@mui/material/Button';
 import './QuoteDetails.css';
 import jwt_decode from 'jwt-decode';
 import TouchRipple from "@mui/material/ButtonBase/TouchRipple";
-import InputLabel from "@mui/material/InputLabel";
 import desktop from "../../assets/desktop.png";
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
