@@ -10,9 +10,9 @@ import { Toaster, toast } from 'sonner';
 
 const QuoteItemsList = () => {
 
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState({ components: [], records: [] });
   const [quotes, setQuotes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
   const isAdmin = localStorage.getItem('Admin') === 'admin';
   const token = localStorage.getItem('token');
   const decodedToken = jwt_decode(token);

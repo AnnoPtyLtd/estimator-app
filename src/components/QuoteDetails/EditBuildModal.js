@@ -18,6 +18,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
   const [totalQuoteCost, setTotalQuoteCost] = useState(0);
   const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
+
   useEffect(() => {
     const fetchComponentData = async () => {
 
