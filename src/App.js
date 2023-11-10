@@ -14,6 +14,7 @@ import theme from "./theme";
 import UserProfile from "./components/Home/UserProfile";
 
 function App() {
+  
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>

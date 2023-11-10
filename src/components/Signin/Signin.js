@@ -42,7 +42,7 @@ const Signin = () => {
 
         localStorage.setItem('token', token);
 
-        if (email === 'admin@anno.com.au') {
+        if (email === 'admin@yahoo.com') {
           localStorage.setItem('Admin', 'admin');
         } else {
           localStorage.removeItem('Admin');

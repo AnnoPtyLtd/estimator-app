@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import SearchResultModal from '../ComponentsPage/SearchResultModal';
 import { Toaster, toast } from 'sonner';
+import AddNewComponent from '../NavBar/AddComponentModal';
 
 const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, compCategories }) => {
     const [categoryComp, setCategoryComp] = useState('CPU');
@@ -15,9 +16,10 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
     const backendURL = process.env.REACT_APP_BACKEND_URL;
-    const [searchResults, setSearchResults] = useState({ components: []});
+    const [searchResults, setSearchResults] = useState({ components: [] });
     const [searchTerm, setSearchTerm] = useState('');
-
+    const [searchClicked, setSearchClicked] = useState(false);
+    const [showAddNewComponent, setShowAddNewComponent] = useState(false)
     useEffect(() => {
         const fetchComponents = async () => {
             try {
@@ -100,9 +102,11 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                 console.error(error);
                 onHide();
             });
-            setSearchResults({ components: [] });
+        setSearchResults({ components: [] });
+        setSearchClicked(false);
     };
     const handleSearch = async () => {
+        setSearchClicked(true);
         if (searchTerm.trim() === '' || !searchTerm) {
             toast.error('Search field is empty!')
         }
@@ -140,6 +144,7 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                             <option value="Power Supply">Power Supply</option>
                             <option value="PC Casing">PC Casing</option>
                             <option value="RAM">RAM</option>
+                            <option value="Motherboard">Motherboard</option>
                             <option value="Storage">Storage</option>
                             <option value="Cooling Solution">Cooling Solution</option>
                             <option value="Others">Others</option>
@@ -147,48 +152,63 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                         <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} type='text' placeholder='Search' className='search-box-comp' />
                         <Button onClick={handleSearch} variant='outlined' color='primary'><SearchOutlinedIcon /></Button>
                     </div>
-                    {searchResults.components.length > 0 ? (
-                        <ul className="export-list">
-                            {searchResults.components.map((component) => (
-                                <li className="add-comp-item" key={component._id}>
-                                    <label className='labelxd'>
-                                        <input
-                                            type="checkbox"
-                                            className='input-check'
-                                            checked={selectedComponents.includes(component.componentName)}
-                                            onChange={() => handleComponentSelection(component.componentName, component.componentCost, component.componentCategory)}
-                                        />
-                                        {component.componentName}
-                                    </label>
-                                    <p className="add-comp-cost">{component.componentCost}$</p>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <div className='scrollable-list'>
-                            <ul className="export-list">
-                                {components.map((component) => (
-                                    <li className="add-comp-item" key={component._id}>
-                                        <label className='labelxd'>
-                                            <input
-                                                type="checkbox"
-                                                className='input-check'
-                                                checked={selectedComponents.includes(component.componentName)}
-                                                onChange={() => handleComponentSelection(component.componentName, component.componentCost, component.componentCategory)}
-                                            />
-                                            {component.componentName}
-                                        </label>
-                                        <p className="add-comp-cost">{component.componentCost}$</p>
-                                    </li>
-                                ))}
-                            </ul>
+                    {searchClicked ?
+                        <div>
+                            {searchResults.components.length > 0 ?
+                                <div>
+                                    {/*show the searched components if the array is not empty */}
+                                    <ul className="export-list">
+                                        {searchResults.components.map((component) => (
+                                            <li className="add-comp-item" key={component._id}>
+                                                <label className='labelxd'>
+                                                    <input
+                                                        type="checkbox"
+                                                        className='input-check'
+                                                        checked={selectedComponents.includes(component.componentName)}
+                                                        onChange={() => handleComponentSelection(component.componentName, component.componentCost, component.componentCategory)}
+                                                    />
+                                                    {component.componentName}
+                                                </label>
+                                                <p className="add-comp-cost">{component.componentCost}$</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div> :
+                                <div>
+                                    {/*show the add button if search results are empty*/}
+                                    <p>no components found!</p>
+                                    <Button variant='contained' onClick={()=> setShowAddNewComponent(true)}>Add</Button>
+                                </div>}
+
                         </div>
-                    )}
+                        :
+                        <div>
+                            {/*show the default components list when search is not clicked*/}
+                            <div className='scrollable-list'>
+                                <ul className="export-list">
+                                    {components.map((component) => (
+                                        <li className="add-comp-item" key={component._id}>
+                                            <label className='labelxd'>
+                                                <input
+                                                    type="checkbox"
+                                                    className='input-check'
+                                                    checked={selectedComponents.includes(component.componentName)}
+                                                    onChange={() => handleComponentSelection(component.componentName, component.componentCost, component.componentCategory)}
+                                                />
+                                                {component.componentName}
+                                            </label>
+                                            <p className="add-comp-cost">{component.componentCost}$</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>}
                 </Modal.Body>
                 <Modal.Footer className="custom-modal-footer">
                     <Button variant="secondary" onClick={() => {
                         setSearchResults({ components: [] });
                         setCategoryComp('View All');
+                        setSearchClicked(false);
                         onHide();
                     }}>
                         Close
@@ -199,7 +219,7 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                 </Modal.Footer>
             </Modal>
             <Toaster position="top-right" richColors />
-
+            <AddNewComponent show={showAddNewComponent} onHide={()=>setShowAddNewComponent(false)}/>
         </>
     );
 };

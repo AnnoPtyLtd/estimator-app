@@ -28,29 +28,29 @@ router.post('/saverecord', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 })
-
+//target
 router.get('/records', async (req, res) => {
   try {
     const userId = req.query.userId;
-    const quoteType = req.query.quoteType;
-    if (!userId || !quoteType) {
+    const id = req.query.id;
+    if (!userId || !id) {
       return res.status(400).json({ error: 'quoteType and userId are required' });
     }
-    const records = await Record.find({ quoteUserId: userId, quoteType: quoteType });
+    const records = await Record.find({ quoteUserId: userId, _id: id });
     res.status(200).json(records);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
+//target
 router.get('/adminrecords', async (req, res) => {
   try {
-    const quoteType = req.query.quoteType;
-    if (!quoteType) {
-      return res.status(400).json({ error: 'quoteType is required' });
+    const id = req.query.id;
+    if (!id) {
+      return res.status(400).json({ error: 'id is required' });
     }
-    const records = await Record.find({ quoteType: quoteType });
+    const records = await Record.find({ _id: id });
     res.status(200).json(records);
   } catch (error) {
     console.error(error);
@@ -155,7 +155,7 @@ router.put('/updateTitle/:id', async (req, res) => {
   }
 });
 
-// Modify the /add-components-to-build/:id route
+
 router.post('/add-components-to-build/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -175,16 +175,15 @@ router.post('/add-components-to-build/:id', async (req, res) => {
     existingRecord.componentNames = componentNames;
     existingRecord.componentPrices = componentPrices;
     existingRecord.componentCategories = componentCategories;
-
+    existingRecord.quoteDate = new Date();
     // Calculate total cost based on component prices
     const totalCost = componentPrices.reduce((acc, price) => acc + price, 0);
-
-    existingRecord.quoteCost = totalCost;
+    existingRecord.quoteCost = Number(totalCost.toFixed(2));
 
     const updatedRecord = await existingRecord.save();
-
     res.status(200).json(updatedRecord);
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }

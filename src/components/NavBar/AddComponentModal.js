@@ -30,6 +30,7 @@ const AddComponentModal = ({ show, onHide }) => {
     { value: "Power Supply", label: "Power Supply" },
     { value: "PC Casing", label: "PC Casing" },
     { value: "RAM", label: "RAM" },
+    { value: "Motherboard", label: "Motherboard" },
     { value: "Storage", label: "Storage" },
     { value: "Cooling Solution", label: "Cooling Solution" },
     { value: "Others", label: "Others" },

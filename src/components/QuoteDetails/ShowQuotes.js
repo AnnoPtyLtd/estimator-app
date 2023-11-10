@@ -134,9 +134,6 @@ const ShowQuotes = ({ show, onHide, flag }) => {
                 show={showEditBuildModal}
                 onHide={() => setShowEditBuildModal(false)}
                 recordID={recordId} 
-                handleEditSave={handleEditConfirm}
-                newTitle={newTitle}
-                setNewTitle={setNewTitle}
             />
             <Toaster richColors position='top-right'/>
         </>

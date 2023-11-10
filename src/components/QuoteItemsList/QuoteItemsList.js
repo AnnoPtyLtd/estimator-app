@@ -8,7 +8,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import SearchResultModal from '../ComponentsPage/SearchResultModal';
 import { Toaster, toast } from 'sonner';
 
-const QuoteItemsList = () => {
+const QuoteItemsList = ({ onQuoteClick }) => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState({ components: [], records: [] });
@@ -19,7 +19,7 @@ const QuoteItemsList = () => {
   const userId = decodedToken.userId;
   const [quoteFilter, setQuoteFilter] = useState('View All');
   const [showSearchResultsModal, setShowSearchResultsModal] = useState(false)
-  const backendURL = process.env.REACT_APP_BACKEND_URL; 
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const QuoteItemsList = () => {
     };
     fetchQuotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quotes,quoteFilter]);
+  }, [quotes]);
 
   const handleSearch = async () => {
     if (searchTerm.trim() === '' || !searchTerm) {
@@ -136,17 +136,11 @@ const QuoteItemsList = () => {
           autoHeightMin={500}>
           <List>
             {quotes.map((quote) => (
-              <CollapsibleListItem
-                primaryText={quote.name}
-                priceText={quote.quoteCost}
-                flag='quotes'
-                quotesComponents={quote.componentNames}
-                quoteID={quote._id}
-                handleDuplicate={() => { handleDuplicateQuote(quote) }}
-                dupButton='yes'
-                handleLastUpdate={() => { handleShowLastUpdate(quote.quoteDate) }}
-                handleArchive={() => { handleArchiveQuote(quote._id) }}
-              />
+              <p className='quote-name' onClick={() => {
+                onQuoteClick(quote);
+              }}>
+                {quote.name}
+              </p>
             ))}
           </List>
         </Scrollbars>

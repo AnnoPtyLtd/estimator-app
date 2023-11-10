@@ -1,324 +1,319 @@
 .quote-details-container {
-    display: flex;
-    flex-direction: row;
-    width:130vh;
-    color: var(--light-p2);
-    background-color: var(--bg-light-primary);
-    margin: 10px 5px;
-    border-radius: 10px;
-    padding: 10px 10px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
-    scroll-behavior: smooth;
+  display: flex;
+  flex-direction: row;
+  width: 130vh;
+  color: var(--light-p2);
+  background-color: var(--bg-light-primary);
+  margin: 10px 5px;
+  border-radius: 10px;
+  padding: 10px 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  scroll-behavior: smooth;
 }
-.quote-tab{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.quote-tab {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .quote-details-title {
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center !important;
-    padding:15px 15px 0 15px;
-    font-size: 18px;
-    text-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
+  font-weight: bold;
+  padding: 15px 0 0 15px;
+  font-size: 18px;
+  text-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.37);
 }
 
 .quote-details-header {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
 .export-button {
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    font-size: 16px;
-    background-color: rebeccapurple;
-    box-shadow: 1px 1px 2px black;
-    letter-spacing: 1px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 16px;
+  background-color: rebeccapurple;
+  box-shadow: 1px 1px 2px black;
+  letter-spacing: 1px;
 }
 
-
 .quote-details-column {
-    padding: 10px 10px;
-    width: 90%;
-    background-color: var(--bg-light-primary);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.18);
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
-    margin: 0px 10px;
+  padding: 10px 10px;
+  width: 90%;
+  background-color: var(--bg-light-primary);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+  margin: 0px 10px;
 }
 
 .detail-items {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
 }
 
 .search-name-date {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .detail-items input {
-    padding: 10px;
-    text-align: center;
+  padding: 10px;
+  text-align: center;
 }
 
 .detail-items select {
-    padding: 4px;
-    padding: 10px;
-    width: 150px;
+  padding: 4px;
+  padding: 10px;
+  width: 150px;
 }
 
 label {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .quote-details-controls {
-    display: flex;
-    border-left: 1px solid rgb(181, 181, 181);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 10px;
+  display: flex;
+  border-left: 1px solid rgb(181, 181, 181);
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 10px;
 }
 
 .quote-details-controls h4 {
-    font-weight: 500;
-    font-size: 20px;
-    margin-top: 15px;
+  font-weight: 500;
+  font-size: 20px;
+  margin-top: 15px;
 }
 
 .component-list {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .builds-filter {
-    max-width: 150px !important;
-    word-wrap: break-word;
-    margin: 10px 5px;
-    padding: 10px;
-    text-align: center;
+  max-width: 150px !important;
+  word-wrap: break-word;
+  margin: 10px 5px;
+  padding: 10px;
+  text-align: center;
 }
 
-input[type=text] {
-    text-align: left;
+input[type="text"] {
+  text-align: left;
 }
 
 .quote-details-list-container {
-    max-height: 300px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    position: relative;
-    scroll-behavior: smooth;
-
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+  scroll-behavior: smooth;
 }
 
 .quote-details-list-container::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .quote-details-list-container {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-    scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  scroll-behavior: smooth;
 }
 
-.drop-quote{
-    max-width: 150px;
-    margin: 10px;
+.drop-quote {
+  max-width: 150px;
+  margin: 10px;
 }
 #dropdown2:hover,
 #dropdown:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .modalbodyexport-item {
-    display: flex;
-    flex-direction: row;
-    border-radius: 6px;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 10px;
-    margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 6px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .modalbodyexport-item select {
-    padding: 5px;
-    width: 60%;
+  padding: 5px;
+  width: 60%;
 }
 
 .modalbodyexport-item label {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .export-list li {
-    margin: 5px;
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
-    align-items: center;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .export-list li:hover,
 label:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 li label {
-    margin: 0;
-    color: black;
+  margin: 0;
+  color: black;
 }
 
 .export-list-item:hover {
-    background-color: lightskyblue;
-    transition: 0.5s ease-out;
-    cursor: pointer;
+  background-color: lightskyblue;
+  transition: 0.5s ease-out;
+  cursor: pointer;
 }
 
 .clear-button {
-    background-color: #191D88;
-    display: subgrid;
+  background-color: #191d88;
+  display: subgrid;
 }
 
 .clear-button:hover {
-    background-color: #4877f7;
-    transition: 0.3s ease;
+  background-color: #4877f7;
+  transition: 0.3s ease;
 }
 
 .input-check {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .close-button {
-    padding: 5px;
+  padding: 5px;
 }
 
-
 .scrollable-list {
-    max-height: 400px;
-    /* Adjust the height as needed */
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
+  max-height: 400px;
+  /* Adjust the height as needed */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
 }
 
 .scrollable-list::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .scrollable-list::-webkit-scrollbar-thumb {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .scrollable-list::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .single-quote-details {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.single-quote-details ol{
-    margin-left: 15px;
+.single-quote-details ol {
+  margin-left: 15px;
 }
 
 .single-quote-left p,
-.single-quote-left p{
-    color: var(--light-heading);
-    margin-bottom: 0;
+.single-quote-left p {
+  color: var(--light-heading);
+  margin-bottom: 0;
 }
-.single-quote-left ol{
-    color: var(--light-list);
+.single-quote-left ol {
+  color: var(--light-list);
 }
-.single-quote-left h4{
-    color: var(--light-headingtop);
-    font-weight: bold;
+.single-quote-left h4 {
+  color: var(--light-headingtop);
+  font-weight: bold;
 }
-.single-quote-right p  {
-    font-weight: bold;
-    margin: 5px 0px;
+.single-quote-right p {
+  font-weight: bold;
+  margin: 5px 0px;
 }
 
 .single-quote-left h4 {
-    margin: 0;
-    font-size: 20px;
+  margin: 0;
+  font-size: 20px;
 }
 
-.add-quote-btn{
-    width: 100px;
-    align-self: self-start;
+.add-quote-btn {
+  width: 100px;
+  align-self: self-start;
 }
 
-.add-quote-modal{
+.add-quote-modal {
+  display: flex;
+  flex-direction: column;
+}
+.add-components-btn {
+  margin-top: 10px !important;
+  align-self: flex-end;
+}
+
+.quote-btns {
+  display: flex;
+  gap: 5px;
+}
+.quote-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.quotelist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 5px;
+  border-radius: 10px;
+  cursor: context-menu;
+}
+.quotelist-item:hover {
+  background-color: rgb(235, 235, 235);
+}
+.quote-item-btns {
+  gap: 5px;
+}
+.quote-item-btns i {
+  padding: 5px;
+}
+.quote-item-btns i:hover {
+  background-color: rgb(228, 228, 228);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.quote-item-btn {
+  padding: 0 !important;
+}
+
+.listofcompnames {
+  word-break: keep-all;
+}
+
+.editbtn {
+  width: 80px;
+  margin: 10px !important;
+}
+.quote-btn-group {
     display: flex;
-    flex-direction: column;
-}
-.add-components-btn{
-    margin-top: 10px !important;
-    align-self: flex-end;
-}
-
-.quote-btns{
-    display: flex;
-    gap: 5px;
-}
-.quote-list-container{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-.quotelist-item{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px 5px;
-    border-radius: 10px;
-    cursor: context-menu;
-}
-.quotelist-item:hover{
-    background-color: rgb(235, 235, 235);
-}
-.quote-item-btns{
-    gap: 5px;
-}
-.quote-item-btns i{
-    padding: 5px;
-}
-.quote-item-btns i:hover{
-    background-color: rgb(228, 228, 228);
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.quote-item-btn{
-    padding: 0 !important;
-}
-
-.accordian{
-    background-color: orange !important;
-}
-
-.listofcompnames{
-    word-break: keep-all;
-}
-
-.editbtn{
-    width: 100px;
-    margin: 10px !important;
+    justify-content: end;
 }

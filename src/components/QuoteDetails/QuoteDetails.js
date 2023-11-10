@@ -6,16 +6,18 @@ import Button from '@mui/material/Button';
 import AddNewBuildModal from './AddNewBuildModal';
 import ShowQuotes from '../QuoteDetails/ShowQuotes';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid';
-import Form from 'react-bootstrap/Form';
-const QuoteDetails = () => {
+import { Toaster, toast } from 'sonner';
+import DuplicateIcon from '@mui/icons-material/FileCopy';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import { Tooltip } from '@mui/material';
+import EditBuildModal from './EditBuildModal';
 
-  // const [name, setName] = useState('');
-  // const [quoteDate, setQuoteDate] = useState('');
-  // const [quoteCost, setQuoteCost] = useState(0);
-  // const [quoteComps, setQuoteComps] = useState([]);
+const QuoteDetails = ({ selectedQuote }) => {
+
   const [quoteType, setQuoteType] = useState('first');
-  const [records, setRecords] = useState([]);
+  const [record, setRecord] = useState([]);
   const [quotes, setQuotes] = useState([]);
   const [quoteUserId, setQuoteUserId] = useState('');
   const [quoteType2, setQuoteType2] = useState('Gaming PC');
@@ -25,80 +27,101 @@ const QuoteDetails = () => {
   const token = localStorage.getItem('token');
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
-  const [showQuotesModal, setShowQuotesModal] = useState(false)
+  const [showEditBuild, setShowEditBuild] = useState(false)
   const [buttoneFlag, setButtoneFlag] = useState('')
   const [ind, setInd] = useState(0)
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
-    const fetchRecords = async () => {
+    const fetchRecord = async () => {
       setQuoteUserId(userId);
       try {
         if (isAdmin) {
-          const response = await fetch(`${backendURL}/adminrecords?quoteType=${quoteType2}`);
+          const response = await fetch(`${backendURL}/adminrecords?id=${selectedQuote._id}`);
           if (response.status === 200) {
             const data = await response.json();
-            setRecords(data);
+            await setRecord(data);
           } else {
             console.error('Failed to fetch records');
-          }
-          //for getting all quotes list, not including category
-          const result = await fetch(`${backendURL}/getadminquotes`);
-          if (result.status === 200) {
-            const res = await result.json();
-            setQuotes(res);
-          } else {
-            console.error('Failed to fetch quotes');
           }
         }
         else {
-          const response = await fetch(`${backendURL}/records?userId=${quoteUserId}&quoteType=${quoteType2}`);
+          const response = await fetch(`${backendURL}/records?userId=${quoteUserId}&id=${selectedQuote._id}`);
           if (response.status === 200) {
             const data = await response.json();
-            setRecords(data);
+            await setRecord(data);
           } else {
             console.error('Failed to fetch records');
-          }
-          //for getting all quotes list, not including category
-          const result = await fetch(`${backendURL}/getuserrecords1?userId=${quoteUserId}`);
-          if (result.status === 200) {
-            const res = await result.json();
-            setQuotes(res);
-          } else {
-            console.error('Failed to fetch quotes');
           }
         }
       } catch (error) {
         console.error(error);
       }
     };
-    fetchRecords();
-  }, [isAdmin, quoteType2, quoteUserId, userId]);
+    fetchRecord();
+
+    const refreshInterval = setInterval(() => {
+      fetchRecord();
+    }, 1500); 
+  
+    // Clear the interval when the component unmounts
+    return () => clearInterval(refreshInterval);
+  
+  }, [selectedQuote]);
+
+  const handleDuplicate = async (quote) => {
+    try {
+      const response = await fetch(`${backendURL}/saverecord`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(quote),
+      });
+      if (response.status === 201) {
+        toast.message('Quote duplicated!');
+      } else {
+        const data = await response.json();
+        toast.message('Some error occurred while duplicating!');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred');
+    }
+  }
+  const handleArchive = async (id) => {
+    fetch(`${backendURL}/archive-record/${id}`, {
+      method: 'PUT',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        toast.success("Quote archived!")
+      })
+      .catch((error) => {
+        toast.error('Error archiving record');
+      });
+  }
+  const handleShowLastUpdate = (date) => {
+    const newdate = new Date(date).toDateString();
+    toast.message(`last updated: ${newdate}`);
+  }
 
   return (
     <div className='quote-details-container'>
       <div className='quote-tab'>
         <div className='quote-details-title'>
           <p>Quote Details</p>
-          <Form.Select className='drop-quote' value={ind} onChange={(e) => setInd(e.target.value)} size='sm'>
-            <option>Select quote</option>
-            {quotes.map((record, index) => (
-              <option key={index} value={index}>
-                {record.name}
-              </option>
-            ))}
-          </Form.Select>
         </div>
 
         <div className='quote-details-column'>
           <>
-            {quotes[ind] ? (
+            {record[0] ? (
               <div className='single-quote-details'>
                 <div className='single-quote-left'>
-                  <h4>{quotes[ind].name}</h4>
+                  <h4>{record[0].name}</h4>
                   <p>Components</p>
                   <ol>
-                    {quotes[ind].componentNames.map((name, index) => (
+                    {record[0].componentNames && record[0].componentNames.map((name, index) => (
                       <li key={index} className='listofcompnames'>
                         {name}
                       </li>
@@ -106,51 +129,45 @@ const QuoteDetails = () => {
                   </ol>
                 </div>
                 <div className='single-quote-right'>
-                  <p>(${quotes[ind].quoteCost})</p>
+                  <p>(${record[0].quoteCost})</p>
                 </div>
               </div>
             ) : (
-              <p>No records available</p>
+              <p>Select a quote to display</p>
             )}
           </>
+          {record[0] ?
+            <div className='quote-btn-group'>
+              <ButtonGroup variant="outlined" aria-label="outlined button group" size='small'>
+                <Tooltip title="Duplicate" placement="top-start">
+                  <Button><DuplicateIcon fontSize='small' className='quote-item-icon' onClick={() => { handleDuplicate(record) }} /></Button>
+                </Tooltip>
+                <Tooltip title="archive" placement="top-start">
+                  <Button><ArchiveIcon fontSize='small' className='quote-item-icon' onClick={() => { handleArchive(record._id) }} /></Button>
+                </Tooltip>
+                <Tooltip title="last update" placement="top-start">
+                  <Button><RestartAltIcon fontSize='small' className='quote-item-icon' onClick={() => { handleShowLastUpdate(record[0].quoteDate) }} /></Button>
+                </Tooltip>
+              </ButtonGroup>
+            </div> : <></>
+          }
         </div>
-        <Button className='editbtn' variant='outlined' endIcon={<ArrowUpwardIcon />} onClick={() => { setShowQuotesModal(true); setButtoneFlag('Edit') }}>Edit</Button>
+        <Button className='editbtn' variant='outlined' onClick={() => { setShowEditBuild(true); setButtoneFlag('Edit'); }}>Edit</Button>
       </div>
 
       {/*quote category*/}
       <div className='quote-details-controls'>
         <div className='quote-details-header'>
-          {/* <select id='dropdown2' className='builds-filter' value={quoteType2} onChange={(e) => setQuoteType2(e.target.value)}>
-            <option value='choosequote2'>Choose quote type</option>
-            <option value='Gaming PC'>Gaming PC</option>
-            <option value='Content Creation'>Content creation and productivity</option>
-            <option value='Office/Home PC'>Office/Home</option>
-            <option value='Custom/Other'>Custom/Other</option>
-          </select> */}
           <div className='quote-btns'>
             <Button variant='outlined' onClick={() => setShowAddCompModal(true)}>Add</Button>
-            <Button variant='outlined' onClick={() => { setShowQuotesModal(true); setButtoneFlag('Delete') }}>Delete</Button>
+            <Button variant='outlined' disabled onClick={() => { setShowEditBuild(true); setButtoneFlag('Delete') }}>Delete</Button>
             <Button variant='outlined' onClick={() => setShowExportModal(true)}>Export</Button>
           </div>
         </div>
-
-        {/* <div className='quote-details-list-container'>
-          {records.map((record) => (
-            <motion.div
-              key={record._id}
-              className='component-list'
-              whileHover={{ scale: 1.04 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ComponentCard title={record.name} cost={record.quoteCost} id={record._id} comps={record.quoteComps} type={record.quoteType} ></ComponentCard>
-            </motion.div>
-          ))}
-        </div> */}
-
       </div>
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
       <AddNewBuildModal show={showAddCompModal} onHide={() => setShowAddCompModal(false)} />
-      <ShowQuotes show={showQuotesModal} onHide={() => setShowQuotesModal(false)} flag={buttoneFlag} />
+      <EditBuildModal show={showEditBuild} onHide={() => setShowEditBuild(false)} recordID={selectedQuote ? selectedQuote._id : ''}/>
     </div>
   );
 };

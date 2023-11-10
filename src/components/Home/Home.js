@@ -1,5 +1,5 @@
 import './Home.css';
-import React from 'react';
+import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import QuoteList from '../ComponentsPage/QuoteList';
@@ -12,11 +12,21 @@ import Charts from '../Charts/Charts';
 import { motion } from "framer-motion";
 
 const Home = () => {
+
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [selectedQuote, setSelectedQuote] = useState(null);
+  
   if (!isAuthenticated) {
     navigate('/home')
   }
+
+  const handleQuoteClick = (quote) => {
+    setSelectedQuote(quote);
+    console.log('handleSelectQuote called!')
+  };
+
+
 
   const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -55,8 +65,8 @@ const Home = () => {
           variants={container}
           initial="hidden"
           animate="visible">
-          <motion.li className="item" variants={item}><QuoteItemsList /></motion.li>
-          <motion.li className="item" variants={item}><QuoteDetails /></motion.li>
+          <motion.li className="item" variants={item}><QuoteItemsList onQuoteClick={handleQuoteClick}/></motion.li>
+          <motion.li className="item" variants={item}><QuoteDetails selectedQuote={selectedQuote} /></motion.li>
         </motion.ul>
         {/* <div className='quote-section'>
           <QuoteItemsList />

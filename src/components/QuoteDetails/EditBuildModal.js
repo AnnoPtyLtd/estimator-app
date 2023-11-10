@@ -1,27 +1,31 @@
+import '../ComponentCard/ComponentCard.css'
 import { useState, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ButtonMUI from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
-import AddComponentModal from './AddComponentModal';
+import AddComponentModal from '../ComponentCard/AddComponentModal';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import StringTextField from '../TextFields/StringTextField';
-import './ComponentCard.css'
+import EditCompinBuild from './EditComponentInBuild'
+import { Toaster, toast } from 'sonner';
 
-const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleEditSave }) => {
+const EditBuildModal = ({ show, onHide, recordID }) => {
 
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
+  const [editCompInBuildShow, setEditCompInBuildShow] = useState(false);
   const [componentNames, setComponentNames] = useState([]);
   const [componentPrices, setComponentPrices] = useState([]);
+  const [indexOfComponentArray, setindexOfComponentArray] = useState(0);
   const [componentCategories, setComponentCategories] = useState([]);
   const [totalQuoteCost, setTotalQuoteCost] = useState(0);
-  const backendURL = process.env.REACT_APP_BACKEND_URL; 
-
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
+  const [newPrice, setNewPrice] = useState(0)
+  const [newTitle, setNewTitle] = useState('')
 
   useEffect(() => {
     const fetchComponentData = async () => {
-
       try {
         const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
         if (response.ok) {
@@ -41,7 +45,7 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
     if (show) {
       fetchComponentData();
     }
-  }, [componentNames, show, recordID]);
+  }, [show,componentNames,componentPrices]);
 
   const handleDeleteComponent = (index) => {
     fetch(`${backendURL}/delete-component/${recordID}/${index}`, {
@@ -56,6 +60,26 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
       });
   };
 
+  const handleEditConfirm = () => {
+    if (newTitle) {
+      fetch(`${backendURL}/updateTitle/${recordID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ newTitle: newTitle }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          toast.success("Quote details updated!")
+        })
+        .catch((error) => {
+          toast.error("Quote was not updated!")
+        });
+    }
+      onHide();
+  };
+
   return (
     <div>
       <Modal show={show} onHide={onHide}>
@@ -65,13 +89,14 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
         </Modal.Header>
         <Modal.Body className='edit-record-modalbody'>
           <div className='modalbody-item'>
-            <label>Edit title:</label>
-            <StringTextField label='' value={newTitle} onChange={(e) => setNewTitle(e.target.value)}></StringTextField>
+            <label htmlFor='newtitle'>Edit title:</label>
+            <input id='newtitle' type='text' value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+            {/* <StringTextField label='' value={newTitle} onChange={(e) => setNewTitle(e.target.value)}></StringTextField> */}
           </div>
           <div className='modalbody-item'>
             <div className='modalbody-item-text'>
-              <p>Your components in this build</p>
-              <p>Total Cost: {totalQuoteCost}$</p>
+              <p>Components</p>
+              <p>${totalQuoteCost}</p>
             </div>
             <ul>
               {componentNames.map((componentName, index) => (
@@ -80,9 +105,9 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
                     <p>{componentName}</p>
                     <p>({componentPrices[index]}$)</p>
                   </div>
-
                   <div style={{ display: 'flex', gap: '5px' }}>
-                    <ModeEditOutlineIcon className='comp-edit-icon' color='primary' onClick={() => setAddComponentModalShow(true)} />
+                    {/* <ModeEditOutlineIcon className='comp-edit-icon' color='primary' onClick={() => setAddComponentModalShow(true)} /> for adding component */}
+                    <ModeEditOutlineIcon className='comp-edit-icon' color='primary' onClick={() => { setEditCompInBuildShow(true); setindexOfComponentArray(index) }} /> {/*for changing name,price,url */}
                     <CloseOutlinedIcon className='comp-remove-icon' color='red' onClick={() => handleDeleteComponent(index)} />
                   </div>
                 </li>
@@ -93,10 +118,9 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
         </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={onHide}>Close</Button>
-          <Button variant='primary' onClick={() => {handleEditSave(); onHide();}} >Save</Button>
+          <Button variant='primary' onClick={() => { handleEditConfirm(); }} >Save</Button>
         </Modal.Footer>
       </Modal>
-
 
       <AddComponentModal
         show={addComponentModalShow}
@@ -106,6 +130,15 @@ const EditBuildModal = ({ show, onHide, newTitle, setNewTitle, recordID, handleE
         compPrices={setComponentPrices}
         compCategories={setComponentCategories}
       />
+
+      <EditCompinBuild
+        show={editCompInBuildShow}
+        onHide={() => setEditCompInBuildShow(false)}
+        indexOfComponentArray={indexOfComponentArray}
+        recordID={recordID}
+      />
+      <Toaster richColors position='top-right' />
+
     </div>
   );
 };
