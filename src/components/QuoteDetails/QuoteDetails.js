@@ -4,7 +4,6 @@ import ExportQuotesModal from './ExportQuotesModal';
 import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
 import AddNewBuildModal from './AddNewBuildModal';
-import ShowQuotes from '../QuoteDetails/ShowQuotes';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Toaster, toast } from 'sonner';
 import DuplicateIcon from '@mui/icons-material/FileCopy';
@@ -16,11 +15,8 @@ import EditBuildModal from './EditBuildModal';
 
 const QuoteDetails = ({ selectedQuote }) => {
 
-  const [quoteType, setQuoteType] = useState('first');
   const [record, setRecord] = useState([]);
-  const [quotes, setQuotes] = useState([]);
   const [quoteUserId, setQuoteUserId] = useState('');
-  const [quoteType2, setQuoteType2] = useState('Gaming PC');
   const [showAddCompModal, setShowAddCompModal] = useState(false)
   const [showExportModal, setShowExportModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
@@ -28,8 +24,6 @@ const QuoteDetails = ({ selectedQuote }) => {
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
   const [showEditBuild, setShowEditBuild] = useState(false)
-  const [buttoneFlag, setButtoneFlag] = useState('')
-  const [ind, setInd] = useState(0)
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
@@ -66,7 +60,8 @@ const QuoteDetails = ({ selectedQuote }) => {
   
     // Clear the interval when the component unmounts
     return () => clearInterval(refreshInterval);
-  
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedQuote]);
 
   const handleDuplicate = async (quote) => {
@@ -152,7 +147,7 @@ const QuoteDetails = ({ selectedQuote }) => {
             </div> : <></>
           }
         </div>
-        <Button className='editbtn' variant='outlined' onClick={() => { setShowEditBuild(true); setButtoneFlag('Edit'); }}>Edit</Button>
+        <Button className='editbtn' variant='outlined' onClick={() => { setShowEditBuild(true); }}>Edit</Button>
       </div>
 
       {/*quote category*/}
@@ -160,7 +155,7 @@ const QuoteDetails = ({ selectedQuote }) => {
         <div className='quote-details-header'>
           <div className='quote-btns'>
             <Button variant='outlined' onClick={() => setShowAddCompModal(true)}>Add</Button>
-            <Button variant='outlined' disabled onClick={() => { setShowEditBuild(true); setButtoneFlag('Delete') }}>Delete</Button>
+            <Button variant='outlined' onClick={() => { setShowEditBuild(true); }}>Delete</Button>
             <Button variant='outlined' onClick={() => setShowExportModal(true)}>Export</Button>
           </div>
         </div>
