@@ -16,14 +16,14 @@ router.put('/archive-record/:id', async (req, res) => {
       name: recordToArchive.name,
       quoteType: recordToArchive.quoteType,
       quoteDate: recordToArchive.quoteDate,
-      quoteComps:recordToArchive.quoteComps,
-      quoteStatus:"Archived",
+      quoteComps: recordToArchive.quoteComps,
+      quoteStatus: "Archived",
     });
 
     await archivedRecord.save();
 
-    await Record.findByIdAndRemove(id);
-
+    await Record.findByIdAndDelete(id);
+    
     res.status(200).json({ message: 'Record archived successfully' });
   } catch (error) {
     console.error(error);

@@ -125,7 +125,6 @@ const AddComponentModal = ({ show, onHide }) => {
                   <DatePicker
                     label="Date"
                     format="DD/MM/YYYY"
-                    sx={{ borderColor: "cornflowerblue" }}
                     defaultValue={dayjs}
                     value={compDate}
                     onChange={(date) => setCompDate(date)}

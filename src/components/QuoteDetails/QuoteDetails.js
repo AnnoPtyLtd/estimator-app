@@ -4,7 +4,6 @@ import ExportQuotesModal from './ExportQuotesModal';
 import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
 import AddNewBuildModal from './AddNewBuildModal';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Toaster, toast } from 'sonner';
 import DuplicateIcon from '@mui/icons-material/FileCopy';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -12,6 +11,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import { Tooltip } from '@mui/material';
 import EditBuildModal from './EditBuildModal';
+import DeleteQuoteModal from './DeleteQuoteModal';
 
 const QuoteDetails = ({ selectedQuote }) => {
 
@@ -19,6 +19,7 @@ const QuoteDetails = ({ selectedQuote }) => {
   const [quoteUserId, setQuoteUserId] = useState('');
   const [showAddCompModal, setShowAddCompModal] = useState(false)
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
   const token = localStorage.getItem('token');
   const decodedToken = jwt_decode(token);
@@ -56,22 +57,22 @@ const QuoteDetails = ({ selectedQuote }) => {
 
     const refreshInterval = setInterval(() => {
       fetchRecord();
-    }, 1500); 
-  
+    }, 1500);
+
     // Clear the interval when the component unmounts
     return () => clearInterval(refreshInterval);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedQuote]);
 
-  const handleDuplicate = async (quote) => {
+  const handleDuplicate = async () => {
     try {
       const response = await fetch(`${backendURL}/saverecord`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(quote),
+        body: JSON.stringify(selectedQuote),
       });
       if (response.status === 201) {
         toast.message('Quote duplicated!');
@@ -84,8 +85,8 @@ const QuoteDetails = ({ selectedQuote }) => {
       alert('An error occurred');
     }
   }
-  const handleArchive = async (id) => {
-    fetch(`${backendURL}/archive-record/${id}`, {
+  const handleArchive = async () => {
+    fetch(`${backendURL}/archive-record/${selectedQuote._id}`, {
       method: 'PUT',
     })
       .then((response) => response.json())
@@ -135,10 +136,10 @@ const QuoteDetails = ({ selectedQuote }) => {
             <div className='quote-btn-group'>
               <ButtonGroup variant="outlined" aria-label="outlined button group" size='small'>
                 <Tooltip title="Duplicate" placement="top-start">
-                  <Button><DuplicateIcon fontSize='small' className='quote-item-icon' onClick={() => { handleDuplicate(record) }} /></Button>
+                  <Button><DuplicateIcon fontSize='small' className='quote-item-icon' onClick={() => { handleDuplicate() }} /></Button>
                 </Tooltip>
                 <Tooltip title="archive" placement="top-start">
-                  <Button><ArchiveIcon fontSize='small' className='quote-item-icon' onClick={() => { handleArchive(record._id) }} /></Button>
+                  <Button><ArchiveIcon fontSize='small' className='quote-item-icon' onClick={() => { handleArchive() }} /></Button>
                 </Tooltip>
                 <Tooltip title="last update" placement="top-start">
                   <Button><RestartAltIcon fontSize='small' className='quote-item-icon' onClick={() => { handleShowLastUpdate(record[0].quoteDate) }} /></Button>
@@ -154,15 +155,22 @@ const QuoteDetails = ({ selectedQuote }) => {
       <div className='quote-details-controls'>
         <div className='quote-details-header'>
           <div className='quote-btns'>
-            <Button variant='outlined' onClick={() => setShowAddCompModal(true)}>Add</Button>
-            <Button variant='outlined' onClick={() => { setShowEditBuild(true); }}>Delete</Button>
-            <Button variant='outlined' onClick={() => setShowExportModal(true)}>Export</Button>
+            <Button variant='outlined' onClick={() => setShowAddCompModal(true)}> Add </Button>
+            <Button variant='outlined' onClick={() => setShowDeleteModal(true)}> Delete </Button>
+            <Button variant='outlined' onClick={() => setShowExportModal(true)}> Export </Button>
           </div>
         </div>
       </div>
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
       <AddNewBuildModal show={showAddCompModal} onHide={() => setShowAddCompModal(false)} />
-      <EditBuildModal show={showEditBuild} onHide={() => setShowEditBuild(false)} recordID={selectedQuote ? selectedQuote._id : ''}/>
+      <EditBuildModal show={showEditBuild} onHide={() => setShowEditBuild(false)} recordID={selectedQuote ? selectedQuote._id : ''} />
+      <DeleteQuoteModal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        title={selectedQuote && selectedQuote.name}
+        recordID={selectedQuote && selectedQuote._id}
+      />
+      <Toaster richColors position='top-right' />
     </div>
   );
 };

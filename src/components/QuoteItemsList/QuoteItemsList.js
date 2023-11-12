@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import './QuoteItemsList.css'
+import React, { useEffect, useState } from 'react';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import jwt_decode from 'jwt-decode';
-import CollapsibleListItem from '../CollapsibleListItem/CollapsibleListItem';
 import { List } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars';
 import SearchResultModal from '../ComponentsPage/SearchResultModal';
@@ -70,44 +69,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
     }
   };
 
-  const handleDuplicateQuote = async (quote) => {
-    try {
-      const response = await fetch(`${backendURL}/saverecord`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(quote),
-      });
-      if (response.status === 201) {
-        alert('Record saved successfully');
-      } else {
-        const data = await response.json();
-        alert(data.error || 'Failed to save record');
-      }
-    } catch (error) {
-      console.error(error);
-      alert('An error occurred');
-    }
-  }
-
-  const handleShowLastUpdate = (date) => {
-    const newdate = new Date(date).toDateString();
-    toast.message(`last updated: ${newdate}`);
-  }
-
-  const handleArchiveQuote = async (id) => {
-    fetch(`${backendURL}/archive-record/${id}`, {
-      method: 'PUT',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        toast.success("Quote archived!")
-      })
-      .catch((error) => {
-        toast.error('Error archiving record');
-      });
-  }
 
   return (
     <div className='quotelist-item-container'>
