@@ -8,6 +8,7 @@ import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import StringTextField from '../TextFields/StringTextField';
 import './QuoteDetails.css'
+import { toast } from 'sonner';
 
 const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID }) => {
 
@@ -64,7 +65,8 @@ const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID })
                 onHide();
             } else {
                 // Handle error
-                console.error('Failed to update components');
+                toast.error("Failed to updated the component")
+                onHide();
             }
         } catch (error) {
             console.error('Error updating components:', error);
