@@ -14,7 +14,7 @@ const DeleteQuoteModal = ({ show, onHide, title, recordID }) => {
         })
             .then((response) => response.json())
             .then(() => {
-                toast.success("Toast deleted successfully!")
+                toast.success("Quote deleted successfully!")
             })
             .catch((error) => {
                 toast.error(error);

@@ -15,8 +15,6 @@ const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID })
     const [newName, setNewName] = useState('');
     const backendURL = process.env.REACT_APP_BACKEND_URL;
 
-
-
     const fetchComponents = async (recordID) => {
         try {
             const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
@@ -33,7 +31,6 @@ const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID })
             return null;
         }
     };
-
 
     const handleSaveComp = async () => {
         try {

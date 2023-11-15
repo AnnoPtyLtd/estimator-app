@@ -13,7 +13,7 @@ import { Tooltip } from '@mui/material';
 import EditBuildModal from './EditBuildModal';
 import DeleteQuoteModal from './DeleteQuoteModal';
 
-const QuoteDetails = ({ selectedQuote }) => {
+const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
   const [record, setRecord] = useState([]);
   const [quoteUserId, setQuoteUserId] = useState('');
@@ -55,12 +55,12 @@ const QuoteDetails = ({ selectedQuote }) => {
     };
     fetchRecord();
 
-    const refreshInterval = setInterval(() => {
-      fetchRecord();
-    }, 1500);
+    // const refreshInterval = setInterval(() => {
+    //   fetchRecord();
+    // }, 1500);
 
-    // Clear the interval when the component unmounts
-    return () => clearInterval(refreshInterval);
+    // // Clear the interval when the component unmounts
+    // return () => clearInterval(refreshInterval);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedQuote]);
@@ -77,7 +77,6 @@ const QuoteDetails = ({ selectedQuote }) => {
       if (response.status === 201) {
         toast.message('Quote duplicated!');
       } else {
-        const data = await response.json();
         toast.message('Some error occurred while duplicating!');
       }
     } catch (error) {
@@ -125,7 +124,7 @@ const QuoteDetails = ({ selectedQuote }) => {
                   </ol>
                 </div>
                 <div className='single-quote-right'>
-                  <p>(${record[0].quoteCost})</p>
+                  <p>${parseFloat(record[0].quoteCost).toFixed(2)}</p>
                 </div>
               </div>
             ) : (
@@ -163,13 +162,18 @@ const QuoteDetails = ({ selectedQuote }) => {
       </div>
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
       <AddNewBuildModal show={showAddCompModal} onHide={() => setShowAddCompModal(false)} />
-      <EditBuildModal show={showEditBuild} onHide={() => setShowEditBuild(false)} recordID={selectedQuote ? selectedQuote._id : ''} />
       <DeleteQuoteModal
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}
         title={selectedQuote && selectedQuote.name}
         recordID={selectedQuote && selectedQuote._id}
       />
+      <EditBuildModal
+        setRecord={setRecord}
+        setSelectedQuote={setSelectedQuote}
+        show={showEditBuild}
+        onHide={() => setShowEditBuild(false)}
+        recordID={selectedQuote && selectedQuote._id} />
       <Toaster richColors position='top-right' />
     </div>
   );

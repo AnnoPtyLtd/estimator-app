@@ -20,6 +20,7 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
     const [searchTerm, setSearchTerm] = useState('');
     const [searchClicked, setSearchClicked] = useState(false);
     const [showAddNewComponent, setShowAddNewComponent] = useState(false)
+    
     useEffect(() => {
         const fetchComponents = async () => {
             try {

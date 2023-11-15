@@ -26,8 +26,6 @@ const Home = () => {
     console.log('handleSelectQuote called!')
   };
 
-
-
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -66,7 +64,7 @@ const Home = () => {
           initial="hidden"
           animate="visible">
           <motion.li className="item" variants={item}><QuoteItemsList onQuoteClick={handleQuoteClick}/></motion.li>
-          <motion.li className="item" variants={item}><QuoteDetails selectedQuote={selectedQuote} /></motion.li>
+          <motion.li className="item" variants={item}><QuoteDetails selectedQuote={selectedQuote} setSelectedQuote={handleQuoteClick}/></motion.li>
         </motion.ul>
         {/* <div className='quote-section'>
           <QuoteItemsList />

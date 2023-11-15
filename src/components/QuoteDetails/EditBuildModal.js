@@ -7,11 +7,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import AddComponentModal from '../ComponentCard/AddComponentModal';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import StringTextField from '../TextFields/StringTextField';
 import EditCompinBuild from './EditComponentInBuild'
 import { Toaster, toast } from 'sonner';
 
-const EditBuildModal = ({ show, onHide, recordID }) => {
+const EditBuildModal = ({ show, onHide, recordID, setRecord, setSelectedQuote }) => {
 
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
   const [editCompInBuildShow, setEditCompInBuildShow] = useState(false);
@@ -45,7 +44,7 @@ const EditBuildModal = ({ show, onHide, recordID }) => {
     if (show) {
       fetchComponentData();
     }
-  }, [show,componentNames,componentPrices]);
+  }, [show, componentNames, componentPrices]);
 
   const handleDeleteComponent = (index) => {
     fetch(`${backendURL}/delete-component/${recordID}/${index}`, {
@@ -61,23 +60,28 @@ const EditBuildModal = ({ show, onHide, recordID }) => {
   };
 
   const handleEditConfirm = () => {
-    if (newTitle) {
-      fetch(`${backendURL}/updateTitle/${recordID}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ newTitle: newTitle }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          toast.success("Quote details updated!")
-        })
-        .catch((error) => {
-          toast.error("Quote was not updated!")
-        });
-    }
+    if (!newTitle) {
+      console.log("not name found so skipping it")
+      toast.success("Quote details updated!")
+      setRecord([]);
       onHide();
+      return;
+    }
+    fetch(`${backendURL}/updateTitle/${recordID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ newTitle: newTitle }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+
+      })
+      .catch((error) => {
+        toast.error("Quote was not updated!")
+      });
+    onHide();
   };
 
   return (
@@ -96,14 +100,15 @@ const EditBuildModal = ({ show, onHide, recordID }) => {
           <div className='modalbody-item'>
             <div className='modalbody-item-text'>
               <p>Components</p>
-              <p>${totalQuoteCost}</p>
+              <p>${parseFloat(totalQuoteCost).toFixed(2)}</p>
             </div>
             <ul>
               {componentNames.map((componentName, index) => (
                 <li key={index} className='comp-item'>
                   <div style={{ display: 'flex', gap: '10px' }}>
                     <p>{componentName}</p>
-                    <p>({componentPrices[index]}$)</p>
+                    <p>({parseFloat(componentPrices[index]).toFixed(2)}$)</p>
+
                   </div>
                   <div style={{ display: 'flex', gap: '5px' }}>
                     {/* <ModeEditOutlineIcon className='comp-edit-icon' color='primary' onClick={() => setAddComponentModalShow(true)} /> for adding component */}
@@ -118,7 +123,7 @@ const EditBuildModal = ({ show, onHide, recordID }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={onHide}>Close</Button>
-          <Button variant='primary' onClick={() => { handleEditConfirm(); }} >Save</Button>
+          <Button variant='primary' onClick={handleEditConfirm} >Save</Button>
         </Modal.Footer>
       </Modal>
 

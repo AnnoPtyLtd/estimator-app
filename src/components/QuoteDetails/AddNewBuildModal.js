@@ -61,9 +61,9 @@ const AddNewBuildModal = ({ show, onHide }) => {
                 // setQuoteCost(0);
                 setQuoteComps([]);
                 onHide();
-                toast.success("Quote added successfully!")
+                toast.success("Quote added successfully!",{position:"top-right"})
             } else {
-                toast.error("Some error occurred!");
+                toast.error("Some error occurred!",{position:"top-right"});
             }
         } catch (error) {
             console.error(error);
