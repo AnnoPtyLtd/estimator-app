@@ -20,7 +20,7 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
     const [searchTerm, setSearchTerm] = useState('');
     const [searchClicked, setSearchClicked] = useState(false);
     const [showAddNewComponent, setShowAddNewComponent] = useState(false)
-    
+
     useEffect(() => {
         const fetchComponents = async () => {
             try {
@@ -40,7 +40,6 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                 console.error(error);
             }
         };
-
         if (show) {
             fetchComponents();
         }
@@ -116,7 +115,6 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
             if (response.ok) {
                 const data = await response.json();
                 setSearchResults(data);
-                setSearchTerm('');
             } else {
                 console.log('Error in searching');
             }

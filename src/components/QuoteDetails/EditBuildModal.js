@@ -59,7 +59,7 @@ const EditBuildModal = ({ show, onHide, recordID, setRecord, setSelectedQuote })
       });
   };
 
-  const handleEditConfirm = () => {
+  const handleEditConfirm = async () => {
     if (!newTitle) {
       console.log("not name found so skipping it")
       toast.success("Quote details updated!")
@@ -81,6 +81,7 @@ const EditBuildModal = ({ show, onHide, recordID, setRecord, setSelectedQuote })
       .catch((error) => {
         toast.error("Quote was not updated!")
       });
+    setRecord([]);
     onHide();
   };
 
