@@ -67,7 +67,6 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
 
         // Check if the searchTerm is empty
         if (searchTerm === '') {
-            // Fetch components again or reset the display to fetched components
             fetchComponents(); // This function should fetch components as per the current categoryComp state
             setSearchClicked(false); // Set searchClicked to false to show fetched components
         }

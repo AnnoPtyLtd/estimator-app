@@ -47,6 +47,13 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       }
     };
     fetchQuotes();
+    const refreshInterval = setInterval(() => {
+      fetchQuotes();
+    }, 1500);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(refreshInterval);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes]);
 
