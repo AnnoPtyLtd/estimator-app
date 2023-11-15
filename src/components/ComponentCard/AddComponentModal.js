@@ -21,11 +21,35 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
     const [searchClicked, setSearchClicked] = useState(false);
     const [showAddNewComponent, setShowAddNewComponent] = useState(false)
 
+    // useEffect(() => {
+    //     const fetchComponents = async () => {
+    //         try {
+    //             let url = `${backendURL}/get-components`;
+    //             if (categoryComp !== "View All") {
+    //                 url += `?category=${categoryComp}`;
+    //             }
+    //             const response = await fetch(url);
+
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setComponents(data);
+    //             } else {
+    //                 console.log("Error fetching components");
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
+    //     if (show) {
+    //         fetchComponents();
+    //     }
+    // }, [show, categoryComp]);
+
     useEffect(() => {
         const fetchComponents = async () => {
             try {
                 let url = `${backendURL}/get-components`;
-                if (categoryComp !== "View All") {
+                if (categoryComp !== 'View All') {
                     url += `?category=${categoryComp}`;
                 }
                 const response = await fetch(url);
@@ -34,16 +58,20 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                     const data = await response.json();
                     setComponents(data);
                 } else {
-                    console.log("Error fetching components");
+                    console.log('Error fetching components');
                 }
             } catch (error) {
                 console.error(error);
             }
         };
-        if (show) {
-            fetchComponents();
+
+        // Check if the searchTerm is empty
+        if (searchTerm === '') {
+            // Fetch components again or reset the display to fetched components
+            fetchComponents(); // This function should fetch components as per the current categoryComp state
+            setSearchClicked(false); // Set searchClicked to false to show fetched components
         }
-    }, [show, categoryComp]);
+    }, [searchTerm, categoryComp]); 
 
     const handleComponentSelection = (componentName, componentPrice, componentCategory) => {
         if (selectedComponents.includes(componentName)) {
@@ -105,6 +133,7 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
         setSearchResults({ components: [] });
         setSearchClicked(false);
     };
+
     const handleSearch = async () => {
         setSearchClicked(true);
         if (searchTerm.trim() === '' || !searchTerm) {
@@ -153,7 +182,7 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                     </div>
                     {searchClicked ?
                         <div>
-                            {searchResults.components.length > 0 ?
+                            {searchResults && searchResults.components.length > 0 ?
                                 <div>
                                     {/*show the searched components if the array is not empty */}
                                     <ul className="export-list">
@@ -175,7 +204,7 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
                                 </div> :
                                 <div>
                                     {/*show the add button if search results are empty*/}
-                                    <p>no components found!</p>
+                                    {/* <p>no components found!</p> */}
                                     <Button variant='contained' onClick={()=> setShowAddNewComponent(true)}>Add</Button>
                                 </div>}
 
