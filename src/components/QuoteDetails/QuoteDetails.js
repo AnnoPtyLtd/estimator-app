@@ -31,6 +31,20 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const userId = decodedToken.userId;
   const [showEditBuild, setShowEditBuild] = useState(false)
   const backendURL = process.env.REACT_APP_BACKEND_URL;
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    if (selectedQuote) {
+      const mappedRows = selectedQuote.componentNames.map((componentName, index) => ({
+        id: index + 1,
+        Category: selectedQuote.componentCategories[index],
+        Component: componentName,
+        Price: selectedQuote.componentPrices[index],
+        URL: 'www.amazon.com', // Assuming URL remains constant for all components
+      }));
+      setRows(mappedRows);
+    }
+  }, [selectedQuote]);
 
   // useEffect(() => {
   //   const fetchRecord = async () => {
@@ -109,48 +123,42 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
   const columns = [
     {
-      field: 'firstName',
-      headerName: 'First name',
-      width: 150,
+      field: 'Component',
+      headerName: 'Component',
+      flex:1,
       editable: true,
     },
     {
-      field: 'lastName',
-      headerName: 'Last name',
-      width: 150,
-      editable: true,
+      field: 'Category',
+      headerName: 'Category',
+      flex:1,
     },
     {
-      field: 'age',
-      headerName: 'Age',
+      field: 'Price',
+      headerName: 'Price($)',
       type: 'number',
-      width: 110,
+      flex:1,
       editable: true,
     },
     {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+      field: 'URL',
+      headerName: 'URL',
+      sortable: true,
+      flex:1,
     },
   ];
 
-  const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  ];
-
-
+  // const rows = [
+  //   { id: 1, Category: 'Snow', Component: 'Jon', Price: 35, URL: 'www.amazon.com' },
+  //   { id: 2, Category: 'Lannister', Component: 'Cersei', Price: 42, URL: 'www.amazon.com' },
+  //   { id: 3, Category: 'Lannister', Component: 'Jaime', Price: 45, URL: 'www.amazon.com' },
+  //   { id: 4, Category: 'Stark', Component: 'Arya', Price: 16, URL: 'www.amazon.com' },
+  //   { id: 5, Category: 'Targaryen', Component: 'Daenerys', Price: 220, URL: 'www.amazon.com' },
+  //   { id: 6, Category: 'Melisandre', Component: 'Letso', Price: 150, URL: 'www.amazon.com' },
+  //   { id: 7, Category: 'Clifford', Component: 'Ferrara', Price: 44, URL: 'www.amazon.com' },
+  //   { id: 8, Category: 'Frances', Component: 'Rossini', Price: 36, URL: 'www.amazon.com' },
+  //   { id: 9, Category: 'Roxie', Component: 'Harvey', Price: 65, URL: 'www.amazon.com' },
+  // ];
 
   return (
     <div className='quote-details-container'>
@@ -173,6 +181,21 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                       </li>
                     ))}
                   </ol>
+                  {/* <Box sx={{ height: 400 }}>
+                    <DataGrid
+                      rows={rows}
+                      columns={columns}
+                      initialState={{
+                        pagination: {
+                          paginationModel: {
+                            pageSize: 5,
+                          },
+                        },
+                      }}
+                      pageSizeOptions={[5]}
+                      disableRowSelectionOnClick
+                    />
+                  </Box> */}
                 </div>
                 <div className='single-quote-right'>
                   <p>${parseFloat(selectedQuote.quoteCost).toFixed(2)}</p>
@@ -198,11 +221,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
             </div> : <></>
           }
         </div>
+
         <Button className='editbtn' variant='outlined' onClick={() => { setShowEditBuild(true); }}>Edit</Button>
       </div>
 
-      {/*quote category*/}
-       <div className='quote-details-controls'>
+      {/*quote actions*/}
+      {/* <div className='quote-details-controls'>
         <div className='quote-details-header'>
           <div className='quote-btns'>
             <Tooltip title="Delete this quote" placement="top-start">
@@ -213,7 +237,8 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
             </Tooltip>
           </div>
         </div>
-      </div>
+      </div> */}
+
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
       <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />
       <DeleteQuoteModal
@@ -228,23 +253,8 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         show={showEditBuild}
         onHide={() => setShowEditBuild(false)}
         recordID={selectedQuote && selectedQuote._id} />
-      <Toaster richColors position='top-right' /> 
-      {/* <Box sx={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
-      </Box> */}
+      <Toaster richColors position='top-right' />
+
     </div>
   );
 };

@@ -252,4 +252,3 @@ const AddComponentModal = ({ show, onHide, recordID, compNames, compPrices, comp
 };
 
 export default AddComponentModal;
-

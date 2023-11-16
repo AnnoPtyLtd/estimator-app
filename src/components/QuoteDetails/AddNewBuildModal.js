@@ -28,7 +28,6 @@ const AddNewBuildModal = ({ show, onHide }) => {
     const [name, setName] = useState('');
     const [quoteType, setQuoteType] = useState('Gaming PC');
     const [quoteDate, setQuoteDate] = useState('');
-    const [quoteComps, setQuoteComps] = useState([]);
     const [quoteUserId, setQuoteUserId] = useState('');
     const token = localStorage.getItem('token');
     const decodedToken = jwt_decode(token);
@@ -37,13 +36,12 @@ const AddNewBuildModal = ({ show, onHide }) => {
     const [componentNames, setComponentNames] = useState([]);
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
-    const backendURL = process.env.REACT_APP_BACKEND_URL; 
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
     const handleAddRecord = async () => {
         await setQuoteUserId(userId);
         const quoteCost = componentPrices.reduce((acc, price) => acc + parseFloat(price), 0);
-        // setQuoteCost(totalComponentCost);
         console.log(quoteCost);
         try {
             const response = await fetch(`${backendURL}/saverecord`, {
@@ -51,23 +49,21 @@ const AddNewBuildModal = ({ show, onHide }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ quoteUserId, name, quoteType, quoteDate, quoteCost, quoteComps, componentNames, componentPrices, componentCategories }),
+                body: JSON.stringify({ userId, name, quoteType, quoteDate, quoteCost, componentNames, componentPrices, componentCategories }),
             });
 
             if (response.status === 201) {
                 setName('');
                 setQuoteType('Gaming PC');
                 setQuoteDate('');
-                // setQuoteCost(0);
-                setQuoteComps([]);
                 onHide();
-                toast.success("Quote added successfully!",{position:"top-right"})
+                toast.success("Quote added successfully!")
             } else {
-                toast.error("Some error occurred!",{position:"top-right"});
+                toast.error("Some error occurred!");
             }
         } catch (error) {
             console.error(error);
-            alert('An error occurred');
+            toast.error("Some error occurred!");
         }
     };
 
@@ -116,7 +112,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
                                         <DatePicker
                                             value={quoteDate}
                                             onChange={(date) => setQuoteDate(date)}
-                                            sx={{width:"100%", borderColor:"cornflowerblue"}}
+                                            sx={{ width: "100%", borderColor: "cornflowerblue" }}
                                         />
                                     </DemoContainer>
                                 </LocalizationProvider>

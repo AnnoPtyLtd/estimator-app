@@ -221,7 +221,9 @@ li label {
 .single-quote-details ol {
   margin-left: 15px;
 }
-
+.single-quote-left{
+  min-width: 90%;
+}
 .single-quote-left p,
 .single-quote-left p {
   color: var(--light-heading);

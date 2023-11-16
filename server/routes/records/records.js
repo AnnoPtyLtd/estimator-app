@@ -5,12 +5,12 @@ const NewComponent = require('../../models/NewComponent');
 
 router.post('/saverecord', async (req, res) => {
   try {
-    const { quoteUserId, name, quoteType, quoteDate, quoteCost, componentNames, componentPrices, componentCategories } = req.body;
-    if (!quoteUserId || !name || !quoteType || !quoteDate) {
+    const { userId, name, quoteType, quoteDate, quoteCost, componentNames, componentPrices, componentCategories } = req.body;
+    if (!userId || !name || !quoteType || !quoteDate) {
       return res.status(400).json({ error: 'Missing required fields or id' });
     }
     const record = new Record({
-      quoteUserId,
+      userId,
       name,
       quoteType,
       quoteDate,
@@ -28,7 +28,7 @@ router.post('/saverecord', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 })
-//target
+
 router.get('/records', async (req, res) => {
   try {
     const userId = req.query.userId;
@@ -210,4 +210,3 @@ router.get('/get-components-by-record/:recordID', async (req, res) => {
 
 
 module.exports = router;
-
