@@ -63,10 +63,11 @@ const EditBuildModal = ({ show, onHide, recordID, setRecord, setSelectedQuote })
     if (!newTitle) {
       console.log("not name found so skipping it")
       toast.success("Quote details updated!")
-      setRecord([]);
+      setSelectedQuote(null);
       onHide();
       return;
     }
+    //api for updating quotes name
     fetch(`${backendURL}/updateTitle/${recordID}`, {
       method: 'PUT',
       headers: {
@@ -81,7 +82,8 @@ const EditBuildModal = ({ show, onHide, recordID, setRecord, setSelectedQuote })
       .catch((error) => {
         toast.error("Quote was not updated!")
       });
-    setRecord([]);
+    // set quote empty so that quote resets in main tab
+    setSelectedQuote(null);
     onHide();
   };
 

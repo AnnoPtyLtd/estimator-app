@@ -6,6 +6,10 @@ import { List } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars';
 import SearchResultModal from '../ComponentsPage/SearchResultModal';
 import { Toaster, toast } from 'sonner';
+import AddIcon from '@mui/icons-material/Add';
+import Button from '@mui/material/Button';
+import { Tooltip } from '@mui/material';
+import AddNewBuildModal from '../QuoteDetails/AddNewBuildModal';
 
 const QuoteItemsList = ({ onQuoteClick }) => {
 
@@ -18,8 +22,8 @@ const QuoteItemsList = ({ onQuoteClick }) => {
   const userId = decodedToken.userId;
   const [quoteFilter, setQuoteFilter] = useState('View All');
   const [showSearchResultsModal, setShowSearchResultsModal] = useState(false)
+  const [showAddBuildModal, setShowAddBuildModal] = useState(false);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
-
 
   useEffect(() => {
     const fetchQuotes = async () => {
@@ -49,7 +53,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
     fetchQuotes();
     const refreshInterval = setInterval(() => {
       fetchQuotes();
-    }, 1500);
+    }, 1000);
 
     // Clear the interval when the component unmounts
     return () => clearInterval(refreshInterval);
@@ -96,6 +100,9 @@ const QuoteItemsList = ({ onQuoteClick }) => {
           <option value='Office/Home PC'>Office/Home</option>
           <option value='Custom/Other'>Custom/Other</option>
         </select>
+        <Tooltip title="Add new quote" placement="top-start">
+          <Button variant='outlined' onClick={() => setShowAddBuildModal(true)}> <AddIcon /> </Button>
+        </Tooltip>
       </div>
 
       <div className='quoteitems-list'>
@@ -113,12 +120,12 @@ const QuoteItemsList = ({ onQuoteClick }) => {
           </List>
         </Scrollbars>
       </div>
-
       <SearchResultModal
         show={showSearchResultsModal}
         onHide={() => setShowSearchResultsModal(false)}
         searchResults={searchResults}
       />
+      <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />
       <Toaster position="top-right" richColors />
 
     </div>

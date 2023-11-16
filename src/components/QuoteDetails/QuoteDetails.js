@@ -2,22 +2,27 @@ import './QuoteDetails.css';
 import { useEffect, useState } from 'react';
 import ExportQuotesModal from './ExportQuotesModal';
 import jwt_decode from 'jwt-decode';
+import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
+import { Tooltip } from '@mui/material';
 import AddNewBuildModal from './AddNewBuildModal';
 import { Toaster, toast } from 'sonner';
 import DuplicateIcon from '@mui/icons-material/FileCopy';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ArchiveIcon from '@mui/icons-material/Archive';
-import { Tooltip } from '@mui/material';
 import EditBuildModal from './EditBuildModal';
 import DeleteQuoteModal from './DeleteQuoteModal';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ExportIcon from '@mui/icons-material/IosShare';
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
 
 const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
   const [record, setRecord] = useState([]);
   const [quoteUserId, setQuoteUserId] = useState('');
-  const [showAddCompModal, setShowAddCompModal] = useState(false)
+  const [showAddBuildModal, setShowAddBuildModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const isAdmin = localStorage.getItem('Admin') === 'admin';
@@ -27,43 +32,43 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showEditBuild, setShowEditBuild] = useState(false)
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
-  useEffect(() => {
-    const fetchRecord = async () => {
-      setQuoteUserId(userId);
-      try {
-        if (isAdmin) {
-          const response = await fetch(`${backendURL}/adminrecords?id=${selectedQuote._id}`);
-          if (response.status === 200) {
-            const data = await response.json();
-            await setRecord(data);
-          } else {
-            console.error('Failed to fetch records');
-          }
-        }
-        else {
-          const response = await fetch(`${backendURL}/records?userId=${quoteUserId}&id=${selectedQuote._id}`);
-          if (response.status === 200) {
-            const data = await response.json();
-            await setRecord(data);
-          } else {
-            console.error('Failed to fetch records');
-          }
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchRecord();
+  // useEffect(() => {
+  //   const fetchRecord = async () => {
+  //     setQuoteUserId(userId);
+  //     try {
+  //       if (isAdmin) {
+  //         const response = await fetch(`${backendURL}/adminrecords?id=${selectedQuote._id}`);
+  //         if (response.status === 200) {
+  //           const data = await response.json();
+  //           await setRecord(data);
+  //         } else {
+  //           console.error('Failed to fetch records');
+  //         }
+  //       }
+  //       else {
+  //         const response = await fetch(`${backendURL}/records?userId=${quoteUserId}&id=${selectedQuote._id}`);
+  //         if (response.status === 200) {
+  //           const data = await response.json();
+  //           await setRecord(data);
+  //         } else {
+  //           console.error('Failed to fetch records');
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchRecord();
 
-    // const refreshInterval = setInterval(() => {
-    //   fetchRecord();
-    // }, 1500);
+  //   // const refreshInterval = setInterval(() => {
+  //   //   fetchRecord();
+  //   // }, 1500);
 
-    // // Clear the interval when the component unmounts
-    // return () => clearInterval(refreshInterval);
+  //   // // Clear the interval when the component unmounts
+  //   // return () => clearInterval(refreshInterval);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedQuote]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedQuote]);
 
   const handleDuplicate = async () => {
     try {
@@ -101,6 +106,52 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     toast.message(`last updated: ${newdate}`);
   }
 
+
+  const columns = [
+    {
+      field: 'firstName',
+      headerName: 'First name',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'lastName',
+      headerName: 'Last name',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'age',
+      headerName: 'Age',
+      type: 'number',
+      width: 110,
+      editable: true,
+    },
+    {
+      field: 'fullName',
+      headerName: 'Full name',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: false,
+      width: 160,
+      valueGetter: (params) =>
+        `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    },
+  ];
+
+  const rows = [
+    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
+    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  ];
+
+
+
   return (
     <div className='quote-details-container'>
       <div className='quote-tab'>
@@ -110,13 +161,13 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
         <div className='quote-details-column'>
           <>
-            {record[0] ? (
+            {selectedQuote ? (
               <div className='single-quote-details'>
                 <div className='single-quote-left'>
-                  <h4>{record[0].name}</h4>
+                  <h4>{selectedQuote.name}</h4>
                   <p>Components</p>
                   <ol>
-                    {record[0].componentNames && record[0].componentNames.map((name, index) => (
+                    {selectedQuote.componentNames && selectedQuote.componentNames.map((name, index) => (
                       <li key={index} className='listofcompnames'>
                         {name}
                       </li>
@@ -124,14 +175,14 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                   </ol>
                 </div>
                 <div className='single-quote-right'>
-                  <p>${parseFloat(record[0].quoteCost).toFixed(2)}</p>
+                  <p>${parseFloat(selectedQuote.quoteCost).toFixed(2)}</p>
                 </div>
               </div>
             ) : (
               <p>Select a quote to display</p>
             )}
           </>
-          {record[0] ?
+          {selectedQuote ?
             <div className='quote-btn-group'>
               <ButtonGroup variant="outlined" aria-label="outlined button group" size='small'>
                 <Tooltip title="Duplicate" placement="top-start">
@@ -141,7 +192,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                   <Button><ArchiveIcon fontSize='small' className='quote-item-icon' onClick={() => { handleArchive() }} /></Button>
                 </Tooltip>
                 <Tooltip title="last update" placement="top-start">
-                  <Button><RestartAltIcon fontSize='small' className='quote-item-icon' onClick={() => { handleShowLastUpdate(record[0].quoteDate) }} /></Button>
+                  <Button><RestartAltIcon fontSize='small' className='quote-item-icon' onClick={() => { handleShowLastUpdate(selectedQuote.quoteDate) }} /></Button>
                 </Tooltip>
               </ButtonGroup>
             </div> : <></>
@@ -151,17 +202,20 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       </div>
 
       {/*quote category*/}
-      <div className='quote-details-controls'>
+       <div className='quote-details-controls'>
         <div className='quote-details-header'>
           <div className='quote-btns'>
-            <Button variant='outlined' onClick={() => setShowAddCompModal(true)}> Add </Button>
-            <Button variant='outlined' onClick={() => setShowDeleteModal(true)}> Delete </Button>
-            <Button variant='outlined' onClick={() => setShowExportModal(true)}> Export </Button>
+            <Tooltip title="Delete this quote" placement="top-start">
+              <Button variant='outlined' onClick={() => setShowDeleteModal(true)}> <DeleteIcon /> </Button>
+            </Tooltip>
+            <Tooltip title="Export quotes" placement="top-start">
+              <Button variant='outlined' onClick={() => setShowExportModal(true)}> <ExportIcon /> </Button>
+            </Tooltip>
           </div>
         </div>
       </div>
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
-      <AddNewBuildModal show={showAddCompModal} onHide={() => setShowAddCompModal(false)} />
+      <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />
       <DeleteQuoteModal
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}
@@ -174,7 +228,23 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         show={showEditBuild}
         onHide={() => setShowEditBuild(false)}
         recordID={selectedQuote && selectedQuote._id} />
-      <Toaster richColors position='top-right' />
+      <Toaster richColors position='top-right' /> 
+      {/* <Box sx={{ height: 400, width: '100%' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box> */}
     </div>
   );
 };
