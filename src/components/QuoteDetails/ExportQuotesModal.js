@@ -30,7 +30,6 @@ const ExportQuotesModal = ({ show, onHide }) => {
   }, [allQuotes]);
 
   useEffect(() => {
-    console.log("export quotes are:", selectedQuotes);
     const fetchRecords = async () => {
       try {
         const response = await fetch(`${backendURL}/export-records?quoteType=${quoteType}`);
@@ -45,7 +44,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
       }
     };
     fetchRecords();
-  }, [quoteType]);
+  }, [quoteType, records]);
 
   const handleQuoteSelection = (name) => {
     if (selectedQuotes.includes(name)) {
@@ -61,34 +60,63 @@ const ExportQuotesModal = ({ show, onHide }) => {
   };
 
   const generateCSVContent = () => {
-    // Add a header for the "Name" column
-    let csvContent = 'Name,Category,Component_Names\n';
+    const header = 'Name,Category,Quote Date,Quote Cost,Quote Components\n';
 
-    // Add selected quotes under the "Name" column
-    selectedQuotes.forEach((quote) => {
-      const foundRecord = allQuotes.find((record) => record.name === quote);
-      if (foundRecord) {
-        const { name, quoteType,componentNames } = foundRecord;
-        csvContent += `${name},${quoteType},${componentNames}\n`;
-        console.log("name:",name+ " and category: "+quoteType+ " and comps: "+componentNames);
+    const csvRows = selectedQuotes.map((name) => {
+      const record = allQuotes.find((r) => r.name === name);
+
+      if (!record) {
+        console.error(`Record not found for name: ${name}`);
+        return '';
       }
+
+      const quoteComponents = Array.isArray(record.componentNames)
+        ? record.componentNames.join(', ')
+        : record.componentNames;
+
+      return `${record.name},${record.quoteType},${record.quoteDate},${record.quoteCost},"${quoteComponents}"\n`;
     });
-    return csvContent;
+
+    return header + csvRows.join('');
   };
 
+  const handleExport = async() => {
+    if (selectedQuotes.length === 0) {
+      console.log('No quotes selected for export.');
+      return;
+    }
 
-  const downloadCSV = (content, fileName) => {
-    const element = document.createElement('a');
-    const file = new Blob([content], { type: 'text/csv' });
-    element.href = URL.createObjectURL(file);
-    element.download = fileName;
-    document.body.appendChild(element);
-    element.click();
-  };
+    const csvContent = generateCSVContent();
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    // const url = window.URL.createObjectURL(blob);
+    // const a = document.createElement('a');
+    // a.href = url;
+    // a.download = 'SelectedQuotes.csv';
+    // a.click();
 
-  const handleExport = () => {
-    const csvContent = generateCSVContent(); // Generate CSV content here
-    downloadCSV(csvContent, 'exported_quotes.csv'); // Trigger CSV download
+    // window.URL.revokeObjectURL(url);
+    // Prompt the user to choose a directory and specify a file name
+    try {
+      const options = {
+        types: [
+          {
+            description: 'CSV Files',
+            accept: {
+              'text/csv': ['.csv'],
+            },
+          },
+        ],
+      };
+      const fileHandle = await window.showSaveFilePicker(options);
+      // Create a writable stream and write the blob to the selected file
+      const writable = await fileHandle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+
+      console.log(`File saved as ${fileHandle.csv}`);
+    } catch (error) {
+      console.error('Error saving the file:', error);
+    }
   };
 
   return (
