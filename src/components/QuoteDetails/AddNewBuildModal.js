@@ -32,10 +32,10 @@ const AddNewBuildModal = ({ show, onHide }) => {
     const token = localStorage.getItem('token');
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.userId;
-
     const [componentNames, setComponentNames] = useState([]);
     const [componentPrices, setComponentPrices] = useState([]);
     const [componentCategories, setComponentCategories] = useState([]);
+    const [componentUrls,setComponentURLS]=useState([]);
     const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
@@ -49,7 +49,8 @@ const AddNewBuildModal = ({ show, onHide }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userId, name, quoteType, quoteDate, quoteCost, componentNames, componentPrices, componentCategories }),
+                body: JSON.stringify({ userId, name, quoteType, quoteDate, quoteCost, 
+                    componentNames, componentPrices, componentCategories,componentUrls }),
             });
 
             if (response.status === 201) {
@@ -134,9 +135,10 @@ const AddNewBuildModal = ({ show, onHide }) => {
             <AddComponentModal
                 show={showAddCompModal}
                 onHide={() => setshowAddCompModal(false)}
-                compNames={setComponentNames}
-                compPrices={setComponentPrices}
-                compCategories={setComponentCategories}
+                setcompNames={setComponentNames}
+                setcompPrices={setComponentPrices}
+                setcompCategories={setComponentCategories}
+                setcompURLS={setComponentURLS}
             />
             <Toaster position="top-right" richColors />
         </div>

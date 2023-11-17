@@ -5,7 +5,8 @@ const NewComponent = require('../../models/NewComponent');
 
 router.post('/saverecord', async (req, res) => {
   try {
-    const { userId, name, quoteType, quoteDate, quoteCost, componentNames, componentPrices, componentCategories } = req.body;
+    const { userId, name, quoteType, quoteDate, quoteCost, componentNames, componentPrices, componentCategories,componentUrls } = req.body;
+
     if (!userId || !name || !quoteType || !quoteDate) {
       return res.status(400).json({ error: 'Missing required fields or id' });
     }
@@ -18,6 +19,7 @@ router.post('/saverecord', async (req, res) => {
       componentNames,
       componentPrices,
       componentCategories,
+      componentUrls,
     });
 
     const savedRecord = await record.save();
@@ -159,7 +161,7 @@ router.put('/updateTitle/:id', async (req, res) => {
 router.post('/add-components-to-build/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { componentNames, componentPrices, componentCategories } = req.body;
+    const { componentNames, componentPrices, componentCategories,componentUrls } = req.body;
 
     if (!componentNames || !Array.isArray(componentNames) || !componentPrices || !Array.isArray(componentPrices) || !componentCategories || !Array.isArray(componentCategories) || componentNames.length !== componentPrices.length || componentPrices.length !== componentCategories.length) {
       return res.status(400).json({ error: 'Invalid component data' });
@@ -175,6 +177,7 @@ router.post('/add-components-to-build/:id', async (req, res) => {
     existingRecord.componentNames = componentNames;
     existingRecord.componentPrices = componentPrices;
     existingRecord.componentCategories = componentCategories;
+    existingRecord.componentUrls = componentUrls;
     existingRecord.quoteDate = new Date();
     // Calculate total cost based on component prices
     const totalCost = componentPrices.reduce((acc, price) => acc + price, 0);

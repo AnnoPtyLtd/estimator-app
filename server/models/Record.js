@@ -9,6 +9,7 @@ const recordSchema = new mongoose.Schema({
   componentNames: [String], 
   componentPrices: [Number], 
   componentCategories: [String], 
+  componentUrls:[String],
 });
 
 const Record = mongoose.model('records', recordSchema);
