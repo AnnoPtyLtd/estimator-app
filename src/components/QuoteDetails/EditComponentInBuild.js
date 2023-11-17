@@ -10,7 +10,7 @@ import StringTextField from '../TextFields/StringTextField';
 import './QuoteDetails.css'
 import { toast } from 'sonner';
 
-const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID }) => {
+const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID, setSelectedQuote }) => {
 
     const [newPrice, setNewPrice] = useState(0);
     const [newName, setNewName] = useState('');
@@ -19,7 +19,6 @@ const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID })
     const fetchComponents = async (recordID) => {
         try {
             const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
-
             if (response.ok) {
                 const data = await response.json();
                 return data;
@@ -42,7 +41,6 @@ const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID })
                 console.error('Failed to fetch current components');
                 return;
             }
-
             // Update the component at the specified index
             currentComponents.componentNames[indexOfComponentArray] = newName;
             currentComponents.componentPrices[indexOfComponentArray] = parseFloat(newPrice); // convert to float if necessary
@@ -62,6 +60,10 @@ const EditComponentInBuild = ({ show, onHide, indexOfComponentArray, recordID })
 
             if (response.ok) {
                 // Handle success, close the modal or do other necessary actions
+                setSelectedQuote(null);
+                toast.success('Component updated!', {
+                    description: `New name: ${newName}, New price: $${newPrice}`,
+                  });
                 onHide();
             } else {
                 // Handle error

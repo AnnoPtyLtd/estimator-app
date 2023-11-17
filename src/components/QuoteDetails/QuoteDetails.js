@@ -2,7 +2,6 @@ import './QuoteDetails.css';
 import { useEffect, useState } from 'react';
 import ExportQuotesModal from './ExportQuotesModal';
 import jwt_decode from 'jwt-decode';
-import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import { Tooltip } from '@mui/material';
 import AddNewBuildModal from './AddNewBuildModal';
@@ -17,59 +16,66 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ExportIcon from '@mui/icons-material/IosShare';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import EditRoundedIcon from '@mui/icons-material/EditOutlined';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import EditCompinBuild from './EditComponentInBuild'
 
 const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
   const [record, setRecord] = useState([]);
-  const [quoteUserId, setQuoteUserId] = useState('');
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const isAdmin = localStorage.getItem('Admin') === 'admin';
-  const token = localStorage.getItem('token');
-  const decodedToken = jwt_decode(token);
-  const userId = decodedToken.userId;
-  const [showEditBuild, setShowEditBuild] = useState(false)
+  const [showEditBuild, setShowEditBuild] = useState(false);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [rows, setRows] = useState([]);
+  const [editCompInBuildShow, setEditCompInBuildShow] = useState(false);
+  const [indexOfComponentArray, setindexOfComponentArray] = useState(0);
+
 
   // using for setting up the rows attribute in table 
   useEffect(() => {
     if (selectedQuote) {
       const mappedRows = selectedQuote.componentNames.map((componentName, index) => ({
-        id: index + 1,
-        Category: selectedQuote.componentCategories[index],
+        id: index,
+        Category: selectedQuote.componentCategories && selectedQuote.componentCategories[index],
         Component: componentName,
-        Price: selectedQuote.componentPrices[index],
-        URL: selectedQuote.componentUrls[index],// Assuming URL remains constant for all components
+        Price: selectedQuote.componentPrices && selectedQuote.componentPrices[index],
+        URL: selectedQuote.componentUrls && selectedQuote.componentUrls[index],
+        // Assuming URL remains constant for all components
       }));
-      setRows(mappedRows);
+      setRows(mappedRows || []);
     }
   }, [selectedQuote]);
-
   //column attribute for the table in quote
   const columns = [
     {
       field: 'Component',
+      align: 'center',
       headerName: 'Component',
-      width:100,
+      headerAlign: 'center',
+      flex: 1,
     },
     {
       field: 'Category',
       headerName: 'Category',
-      width:100,
+      align: 'center',
+      headerAlign: 'center',
+      width: 100,
     },
     {
       field: 'Price',
+      headerAlign: 'center',
       headerName: 'Price($)',
-      type: 'number',
-      width:100,
+      align: 'center',
+      width: 100,
     },
     {
       field: 'URL',
       headerName: 'URL',
+      headerAlign: 'center',
       sortable: true,
-      flex:1,
+      flex: 1,
       renderCell: (params) => {
         const url = params.value;
         return (
@@ -87,8 +93,57 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         );
       },
     },
+    {
+      field: 'delete',
+      headerName: 'Delete',
+      headerAlign: 'center',
+      align: 'center',
+      type: 'icon',
+      sortable: false,
+      width: 80,
+      editable: false,
+      renderCell: (params) => (
+        <CancelOutlinedIcon className='rounded-delete' onClick={() => handleDeleteButtonClick(params.row)} color="error"></CancelOutlinedIcon>
+      ),
+    },
+    {
+      field: 'edit',
+      headerName: 'Edit',
+      headerAlign: 'center',
+      type: 'icon',
+      sortable: false,
+      width: 50,
+      align: 'center',
+      editable: false,
+      renderCell: (params) => (
+        <EditRoundedIcon className='rounded-edit' onClick={() => handleEditComponent(params.row)} color="primary"></EditRoundedIcon>
+      ),
+    },
   ];
 
+  const handleEditComponent = (row) => {
+    setindexOfComponentArray(row.id);
+    setEditCompInBuildShow(true);
+  }
+
+  //this function will delete the component from quote
+  const handleDeleteButtonClick = (row) => {
+    setindexOfComponentArray(row.id);
+    fetch(`${backendURL}/delete-component/${selectedQuote._id}/${row.id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setSelectedQuote(null);
+        toast.success("Component deleted from quote")
+      })
+      .catch((error) => {
+        toast.error("Some error occurred while deleting!")
+      });
+  }
+
+  //this function duplicates the quote in database
   const handleDuplicate = async () => {
     try {
       const response = await fetch(`${backendURL}/saverecord`, {
@@ -108,6 +163,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       alert('An error occurred');
     }
   }
+  //this function archives the quote
   const handleArchive = async () => {
     fetch(`${backendURL}/archive-record/${selectedQuote._id}`, {
       method: 'PUT',
@@ -120,18 +176,21 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         toast.error('Error archiving record');
       });
   }
+  //this function shows the last updated date of quote
   const handleShowLastUpdate = (date) => {
     const newdate = new Date(date).toDateString();
     toast.message(`last updated: ${newdate}`);
   }
+  //this function will redirect towards the website of component
   const handleVisitSite = (row) => {
     if (row.URL) {
-        window.open(row.URL, '_blank');
+      window.open(row.URL, '_blank');
     }
     else {
-        toast.message("No URL found!")
+      toast.message("No URL found!")
     }
-}
+  }
+
   return (
     <div className='quote-details-container'>
       <div className='quote-tab'>
@@ -146,13 +205,6 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                 <div className='single-quote-left'>
                   <h4>{selectedQuote.name}</h4>
                   <p>Components</p>
-                  {/* <ol>
-                    {selectedQuote.componentNames && selectedQuote.componentNames.map((name, index) => (
-                      <li key={index} className='listofcompnames'>
-                        {name}
-                      </li>
-                    ))}
-                  </ol> */}
                   <Box sx={{ height: 400 }}>
                     <DataGrid
                       rows={rows}
@@ -220,13 +272,19 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         recordID={selectedQuote && selectedQuote._id}
       />
       <EditBuildModal
-        setRecord={setRecord}
         setSelectedQuote={setSelectedQuote}
         show={showEditBuild}
         onHide={() => setShowEditBuild(false)}
         recordID={selectedQuote && selectedQuote._id} />
       <Toaster richColors position='top-right' />
 
+      <EditCompinBuild
+        show={editCompInBuildShow}
+        onHide={() => setEditCompInBuildShow(false)}
+        indexOfComponentArray={indexOfComponentArray}
+        recordID={selectedQuote && selectedQuote._id}
+        setSelectedQuote={setSelectedQuote}
+      />
     </div>
   );
 };

@@ -10,7 +10,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import EditCompinBuild from './EditComponentInBuild'
 import { Toaster, toast } from 'sonner';
 
-const EditBuildModal = ({ show, onHide, recordID, setRecord, setSelectedQuote }) => {
+const EditBuildModal = ({ show, onHide, recordID, setSelectedQuote }) => {
 
   const [addComponentModalShow, setAddComponentModalShow] = useState(false);
   const [editCompInBuildShow, setEditCompInBuildShow] = useState(false);
