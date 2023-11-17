@@ -53,7 +53,6 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       field: 'Component',
       headerName: 'Component',
       width:100,
-      editable: true,
     },
     {
       field: 'Category',
@@ -65,7 +64,6 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       headerName: 'Price($)',
       type: 'number',
       width:100,
-      editable: true,
     },
     {
       field: 'URL',

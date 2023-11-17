@@ -4,14 +4,33 @@ import Button from 'react-bootstrap/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import ButtonMUI from '@mui/material/Button';
 
-
 const ExportQuotesModal = ({ show, onHide }) => {
   const [quoteType, setQuoteType] = useState('Gaming PC');
   const [records, setRecords] = useState([]);
   const [selectedQuotes, setSelectedQuotes] = useState([]);
-  const backendURL = process.env.REACT_APP_BACKEND_URL; 
+  const [allQuotes, setAllQuotes] = useState([]);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
+    const fetchQuotes = async () => {
+      try {
+          const response = await fetch(`${backendURL}/getadminquotes`);
+          if (response.status === 200) {
+            const data = await response.json();
+            await setAllQuotes(data);
+          } else {
+            console.error('Failed to fetch records');
+          }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchQuotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allQuotes]);
+
+  useEffect(() => {
+    console.log("export quotes are:", selectedQuotes);
     const fetchRecords = async () => {
       try {
         const response = await fetch(`${backendURL}/export-records?quoteType=${quoteType}`);
@@ -26,7 +45,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
       }
     };
     fetchRecords();
-  }, [quoteType, records]);
+  }, [quoteType]);
 
   const handleQuoteSelection = (name) => {
     if (selectedQuotes.includes(name)) {
@@ -42,63 +61,34 @@ const ExportQuotesModal = ({ show, onHide }) => {
   };
 
   const generateCSVContent = () => {
-    const header = 'Name,Category,Quote Date,Quote Cost,Quote Components\n';
+    // Add a header for the "Name" column
+    let csvContent = 'Name,Category,Component_Names\n';
 
-    const csvRows = selectedQuotes.map((name) => {
-      const record = records.find((r) => r.name === name);
-
-      if (!record) {
-        console.error(`Record not found for name: ${name}`);
-        return '';
+    // Add selected quotes under the "Name" column
+    selectedQuotes.forEach((quote) => {
+      const foundRecord = allQuotes.find((record) => record.name === quote);
+      if (foundRecord) {
+        const { name, quoteType,componentNames } = foundRecord;
+        csvContent += `${name},${quoteType},${componentNames}\n`;
+        console.log("name:",name+ " and category: "+quoteType+ " and comps: "+componentNames);
       }
-
-      const quoteComponents = Array.isArray(record.componentNames)
-        ? record.componentNames.join(', ')
-        : record.componentNames;
-
-      return `${record.name},${record.quoteType},${record.quoteDate},${record.quoteCost},"${quoteComponents}"\n`;
     });
-
-    return header + csvRows.join('');
+    return csvContent;
   };
 
-  const handleExport = async() => {
-    if (selectedQuotes.length === 0) {
-      console.log('No quotes selected for export.');
-      return;
-    }
 
-    const csvContent = generateCSVContent();
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    // const url = window.URL.createObjectURL(blob);
-    // const a = document.createElement('a');
-    // a.href = url;
-    // a.download = 'SelectedQuotes.csv';
-    // a.click();
+  const downloadCSV = (content, fileName) => {
+    const element = document.createElement('a');
+    const file = new Blob([content], { type: 'text/csv' });
+    element.href = URL.createObjectURL(file);
+    element.download = fileName;
+    document.body.appendChild(element);
+    element.click();
+  };
 
-    // window.URL.revokeObjectURL(url);
-    // Prompt the user to choose a directory and specify a file name
-    try {
-      const options = {
-        types: [
-          {
-            description: 'CSV Files',
-            accept: {
-              'text/csv': ['.csv'],
-            },
-          },
-        ],
-      };
-      const fileHandle = await window.showSaveFilePicker(options);
-      // Create a writable stream and write the blob to the selected file
-      const writable = await fileHandle.createWritable();
-      await writable.write(blob);
-      await writable.close();
-
-      console.log(`File saved as ${fileHandle.csv}`);
-    } catch (error) {
-      console.error('Error saving the file:', error);
-    }
+  const handleExport = () => {
+    const csvContent = generateCSVContent(); // Generate CSV content here
+    downloadCSV(csvContent, 'exported_quotes.csv'); // Trigger CSV download
   };
 
   return (
