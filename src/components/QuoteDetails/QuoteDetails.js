@@ -33,6 +33,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [rows, setRows] = useState([]);
 
+  // using for setting up the rows attribute in table 
   useEffect(() => {
     if (selectedQuote) {
       const mappedRows = selectedQuote.componentNames.map((componentName, index) => ({
@@ -40,49 +41,55 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         Category: selectedQuote.componentCategories[index],
         Component: componentName,
         Price: selectedQuote.componentPrices[index],
-        URL: 'www.amazon.com', // Assuming URL remains constant for all components
+        URL: selectedQuote.componentUrls[index],// Assuming URL remains constant for all components
       }));
       setRows(mappedRows);
     }
   }, [selectedQuote]);
 
-  // useEffect(() => {
-  //   const fetchRecord = async () => {
-  //     setQuoteUserId(userId);
-  //     try {
-  //       if (isAdmin) {
-  //         const response = await fetch(`${backendURL}/adminrecords?id=${selectedQuote._id}`);
-  //         if (response.status === 200) {
-  //           const data = await response.json();
-  //           await setRecord(data);
-  //         } else {
-  //           console.error('Failed to fetch records');
-  //         }
-  //       }
-  //       else {
-  //         const response = await fetch(`${backendURL}/records?userId=${quoteUserId}&id=${selectedQuote._id}`);
-  //         if (response.status === 200) {
-  //           const data = await response.json();
-  //           await setRecord(data);
-  //         } else {
-  //           console.error('Failed to fetch records');
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchRecord();
-
-  //   // const refreshInterval = setInterval(() => {
-  //   //   fetchRecord();
-  //   // }, 1500);
-
-  //   // // Clear the interval when the component unmounts
-  //   // return () => clearInterval(refreshInterval);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectedQuote]);
+  //column attribute for the table in quote
+  const columns = [
+    {
+      field: 'Component',
+      headerName: 'Component',
+      width:100,
+      editable: true,
+    },
+    {
+      field: 'Category',
+      headerName: 'Category',
+      width:100,
+    },
+    {
+      field: 'Price',
+      headerName: 'Price($)',
+      type: 'number',
+      width:100,
+      editable: true,
+    },
+    {
+      field: 'URL',
+      headerName: 'URL',
+      sortable: true,
+      flex:1,
+      renderCell: (params) => {
+        const url = params.value;
+        return (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              e.preventDefault();
+              handleVisitSite(params.row);
+            }}
+          >
+            {url}
+          </a>
+        );
+      },
+    },
+  ];
 
   const handleDuplicate = async () => {
     try {
@@ -119,47 +126,14 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     const newdate = new Date(date).toDateString();
     toast.message(`last updated: ${newdate}`);
   }
-
-
-  const columns = [
-    {
-      field: 'Component',
-      headerName: 'Component',
-      flex:1,
-      editable: true,
-    },
-    {
-      field: 'Category',
-      headerName: 'Category',
-      flex:1,
-    },
-    {
-      field: 'Price',
-      headerName: 'Price($)',
-      type: 'number',
-      flex:1,
-      editable: true,
-    },
-    {
-      field: 'URL',
-      headerName: 'URL',
-      sortable: true,
-      flex:1,
-    },
-  ];
-
-  // const rows = [
-  //   { id: 1, Category: 'Snow', Component: 'Jon', Price: 35, URL: 'www.amazon.com' },
-  //   { id: 2, Category: 'Lannister', Component: 'Cersei', Price: 42, URL: 'www.amazon.com' },
-  //   { id: 3, Category: 'Lannister', Component: 'Jaime', Price: 45, URL: 'www.amazon.com' },
-  //   { id: 4, Category: 'Stark', Component: 'Arya', Price: 16, URL: 'www.amazon.com' },
-  //   { id: 5, Category: 'Targaryen', Component: 'Daenerys', Price: 220, URL: 'www.amazon.com' },
-  //   { id: 6, Category: 'Melisandre', Component: 'Letso', Price: 150, URL: 'www.amazon.com' },
-  //   { id: 7, Category: 'Clifford', Component: 'Ferrara', Price: 44, URL: 'www.amazon.com' },
-  //   { id: 8, Category: 'Frances', Component: 'Rossini', Price: 36, URL: 'www.amazon.com' },
-  //   { id: 9, Category: 'Roxie', Component: 'Harvey', Price: 65, URL: 'www.amazon.com' },
-  // ];
-
+  const handleVisitSite = (row) => {
+    if (row.URL) {
+        window.open(row.URL, '_blank');
+    }
+    else {
+        toast.message("No URL found!")
+    }
+}
   return (
     <div className='quote-details-container'>
       <div className='quote-tab'>
@@ -174,14 +148,14 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                 <div className='single-quote-left'>
                   <h4>{selectedQuote.name}</h4>
                   <p>Components</p>
-                  <ol>
+                  {/* <ol>
                     {selectedQuote.componentNames && selectedQuote.componentNames.map((name, index) => (
                       <li key={index} className='listofcompnames'>
                         {name}
                       </li>
                     ))}
-                  </ol>
-                  {/* <Box sx={{ height: 400 }}>
+                  </ol> */}
+                  <Box sx={{ height: 400 }}>
                     <DataGrid
                       rows={rows}
                       columns={columns}
@@ -195,7 +169,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                       pageSizeOptions={[5]}
                       disableRowSelectionOnClick
                     />
-                  </Box> */}
+                  </Box>
                 </div>
                 <div className='single-quote-right'>
                   <p>${parseFloat(selectedQuote.quoteCost).toFixed(2)}</p>
@@ -226,7 +200,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       </div>
 
       {/*quote actions*/}
-      {/* <div className='quote-details-controls'>
+      <div className='quote-details-controls'>
         <div className='quote-details-header'>
           <div className='quote-btns'>
             <Tooltip title="Delete this quote" placement="top-start">
@@ -237,7 +211,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
             </Tooltip>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
       <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />

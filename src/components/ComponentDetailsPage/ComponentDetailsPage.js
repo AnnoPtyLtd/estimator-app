@@ -49,7 +49,6 @@ const ComponentDetailsPage = () => {
             renderCell: (params) => (
                 <CallMissedOutgoingIcon className='visit-site-icon' onClick={() => handleVisitSite(params.row)} color="primary"></CallMissedOutgoingIcon>
             ),
-
         },
         {
             field: 'actions',
