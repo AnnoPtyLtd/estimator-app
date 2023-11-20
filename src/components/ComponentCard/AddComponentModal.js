@@ -8,7 +8,7 @@ import SearchResultModal from '../ComponentsPage/SearchResultModal';
 import { Toaster, toast } from 'sonner';
 import AddNewComponent from '../NavBar/AddComponentModal';
 
-const AddComponentModal = ({ show, onHide, recordID, setcompNames, setcompPrices, setcompCategories, setcompURLS,showlist }) => {
+const AddComponentModal = ({ show, onHide, recordID, setcompNames, setcompPrices, setcompCategories, setcompURLS,setSelectedQuote }) => {
 
     const [categoryComp, setCategoryComp] = useState('CPU');
     const [components, setComponents] = useState([]);
@@ -107,11 +107,15 @@ const AddComponentModal = ({ show, onHide, recordID, setcompNames, setcompPrices
             })
                 .then((response) => response.json())
                 .then((data) => {
+                    setSelectedQuote(null);
+                    toast.success("Components saved successfully!")
                     onHide();
                 })
                 .catch((error) => {
                     console.error(error);
                     onHide();
+                    toast.error("Error in saving components!")
+
                 });
             setSearchResults({ components: [] });
             setSearchClicked(false);

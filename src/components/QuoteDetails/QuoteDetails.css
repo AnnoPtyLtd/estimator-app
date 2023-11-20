@@ -45,6 +45,9 @@
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
   margin: 0px 10px;
 }
+.quote-details-column p{
+  font-weight: 400;
+}
 
 .detail-items {
   display: flex;
@@ -215,9 +218,11 @@ li label {
 
 .single-quote-details {
   display: flex;
+  font-weight: 400;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .single-quote-details ol {
   margin-left: 15px;
 }
@@ -227,6 +232,7 @@ li label {
 .single-quote-left p,
 .single-quote-left p {
   color: var(--light-heading);
+  font-weight: 400;
   margin-bottom: 0;
 }
 .single-quote-left ol {
@@ -325,4 +331,8 @@ li label {
   &:hover{
     background-color: rgb(255, 170, 170);
   }
+}
+
+.comp-item p{
+  font-weight: 400 !important;
 }

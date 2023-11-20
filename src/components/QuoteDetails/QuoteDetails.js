@@ -1,7 +1,6 @@
 import './QuoteDetails.css';
 import { useEffect, useState } from 'react';
 import ExportQuotesModal from './ExportQuotesModal';
-import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
 import { Tooltip } from '@mui/material';
 import AddNewBuildModal from './AddNewBuildModal';
@@ -19,21 +18,21 @@ import { DataGrid } from '@mui/x-data-grid';
 import EditRoundedIcon from '@mui/icons-material/EditOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import EditCompinBuild from './EditComponentInBuild'
+import AddComponentModal from '../ComponentCard/AddComponentModal';
 
 const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
-  const [record, setRecord] = useState([]);
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditBuild, setShowEditBuild] = useState(false);
+  const [showAddCompinBuild, setShowAddCompinBuild] = useState(false);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [rows, setRows] = useState([]);
   const [editCompInBuildShow, setEditCompInBuildShow] = useState(false);
   const [indexOfComponentArray, setindexOfComponentArray] = useState(0);
 
 
-  // using for setting up the rows attribute in table 
+  // using for the rows attribute in table 
   useEffect(() => {
     if (selectedQuote) {
       const mappedRows = selectedQuote.componentNames.map((componentName, index) => ({
@@ -47,6 +46,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       setRows(mappedRows || []);
     }
   }, [selectedQuote]);
+
   //column attribute for the table in quote
   const columns = [
     {
@@ -246,7 +246,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           }
         </div>
 
-        <Button className='editbtn' variant='outlined' onClick={() => { setShowEditBuild(true); }}>Edit</Button>
+        <Button className='editbtn' variant='outlined' onClick={() => { setShowAddCompinBuild(true); }}>Edit</Button>
       </div>
 
       {/*quote actions*/}
@@ -271,11 +271,14 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         title={selectedQuote && selectedQuote.name}
         recordID={selectedQuote && selectedQuote._id}
       />
-      <EditBuildModal
+     
+      <AddComponentModal 
+        show={showAddCompinBuild}
+        onHide={()=>setShowAddCompinBuild(false)}
+        recordID={selectedQuote && selectedQuote._id}
         setSelectedQuote={setSelectedQuote}
-        show={showEditBuild}
-        onHide={() => setShowEditBuild(false)}
-        recordID={selectedQuote && selectedQuote._id} />
+      />
+
       <Toaster richColors position='top-right' />
 
       <EditCompinBuild
