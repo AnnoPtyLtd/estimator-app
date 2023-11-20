@@ -186,7 +186,7 @@ const AddComponentModal = ({ show, onHide, recordID, setcompNames, setcompPrices
                                                     />
                                                     {component.componentName}
                                                 </label>
-                                                <p className="add-comp-cost">{component.componentCost}$</p>
+                                                <p className="add-comp-cost">${component.componentCost}</p>
                                             </li>
                                         ))}
                                     </ul>
@@ -214,7 +214,7 @@ const AddComponentModal = ({ show, onHide, recordID, setcompNames, setcompPrices
                                                 />
                                                 {component.componentName}
                                             </label>
-                                            <p className="add-comp-cost">{component.componentCost}$</p>
+                                            <p className="add-comp-cost">${component.componentCost}</p>
                                         </li>
                                     ))}
                                 </ul>
