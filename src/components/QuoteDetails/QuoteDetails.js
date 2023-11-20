@@ -246,7 +246,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           }
         </div>
 
-        <Button className='editbtn' variant='outlined' onClick={() => { setShowAddCompinBuild(true); }}>Edit</Button>
+        <Button className='editbtn' variant='outlined' onClick={() => { setShowAddCompinBuild(true); }}>Select Components</Button>
       </div>
 
       {/*quote actions*/}
