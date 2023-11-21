@@ -59,7 +59,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
     return () => clearInterval(refreshInterval);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quotes]);
+  }, [quotes,userId,isAdmin]);
 
   const handleSearch = async () => {
     if (searchTerm.trim() === '' || !searchTerm) {
