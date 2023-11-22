@@ -32,10 +32,10 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [exComponentCategories, setExComponentCategories] = useState([]);
   const [exComponentPrices, setExComponentPrices] = useState([]);
   const [exComponentUrls, setExComponentUrls] = useState([]);
+  const [record, setRecord] = useState();
 
   // using for the rows attribute in table
   useEffect(() => {
-    
     if (selectedQuote) {
       const mappedRows = selectedQuote.componentNames.map(
         (componentName, index) => ({
@@ -58,6 +58,25 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       setExComponentUrls(selectedQuote.componentUrls);
     }
   }, [selectedQuote]);
+
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        if(selectedQuote){
+          const response = await fetch(`${backendURL}/getSelectedQuote/${selectedQuote._id}`);
+          if (response.status === 200) {
+            const data = await response.json();
+            setRecord(data);
+          } else {
+            console.error('Failed to fetch records');
+          }
+        }  
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchQuote();
+  }, [record]);
 
   //column attribute for the table in quote
   const columns = [
@@ -140,12 +159,10 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       ),
     },
   ];
-
   const handleEditComponent = (row) => {
     setindexOfComponentArray(row.id);
     setEditCompInBuildShow(true);
   };
-
   //this function will delete the component from quote
   const handleDeleteButtonClick = (row) => {
     setindexOfComponentArray(row.id);
@@ -155,7 +172,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setSelectedQuote(null);
+        // setSelectedQuote(null);
         toast.success("Component deleted from quote");
       })
       .catch((error) => {
@@ -361,7 +378,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         exComponentPrices={exComponentPrices}
         exComponentUrls={exComponentUrls}
       />
-      
+
       <EditCompinBuild
         show={editCompInBuildShow}
         onHide={() => setEditCompInBuildShow(false)}
