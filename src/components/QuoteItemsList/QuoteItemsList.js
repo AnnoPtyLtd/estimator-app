@@ -111,7 +111,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
           autoHeightMin={500}>
           <List>
             {quotes.map((quote) => (
-              <p className='quote-name' onClick={() => {
+              <p key={quote._id} className='quote-name' onClick={() => {
                 onQuoteClick(quote);
               }}>
                 {quote.name}

@@ -67,6 +67,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           if (response.status === 200) {
             const data = await response.json();
             setRecord(data);
+            console.log(`found quote ${record}`);
           } else {
             console.error('Failed to fetch records');
           }
