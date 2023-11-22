@@ -18,7 +18,6 @@ import EditRoundedIcon from "@mui/icons-material/EditOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import EditCompinBuild from "./EditComponentInBuild";
 import AddComponentModal from "../ComponentCard/AddComponentModal";
-import { sync } from "framer-motion";
 
 const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
@@ -36,51 +35,45 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [record, setRecord] = useState();
 
   // using for the rows attribute in table
-  useEffect(() => {
-    if (selectedQuote) {
-      const mappedRows = selectedQuote.componentNames.map(
-        (componentName, index) => ({
-          id: index,
-          Category:
-            selectedQuote.componentCategories &&
-            selectedQuote.componentCategories[index],
-          Component: componentName,
-          Price:
-            selectedQuote.componentPrices &&
-            selectedQuote.componentPrices[index],
-          URL:
-            selectedQuote.componentUrls && selectedQuote.componentUrls[index],
-        })
-      );
-      setRows(mappedRows || []);
-      setExComponentNames(selectedQuote.componentNames);
-      setExComponentCategories(selectedQuote.componentCategories);
-      setExComponentPrices(selectedQuote.componentPrices);
-      setExComponentUrls(selectedQuote.componentUrls);
-    }
-  }, [selectedQuote]);
 
+  useEffect(() => {
+    const mappedRows = selectedQuote && selectedQuote.componentNames.map(
+      (componentName, index) => ({
+        id: index,
+        Category:
+          selectedQuote.componentCategories &&
+          selectedQuote.componentCategories[index],
+        Component: componentName,
+        Price:
+          selectedQuote.componentPrices && selectedQuote.componentPrices[index],
+        URL: selectedQuote.componentUrls && selectedQuote.componentUrls[index],
+      })
+    );
+    setRows(mappedRows || []);
+  }, [selectedQuote])
+  
   useEffect(() => {
     const fetchQuote = async () => {
       try {
-        if(selectedQuote){
-          const response = await fetch(`${backendURL}/getSelectedQuote/${selectedQuote._id}`);
+        if (selectedQuote) {
+          const response = await fetch(
+            `${backendURL}/getSelectedQuote/${selectedQuote._id}`
+          );
           if (response.status === 200) {
             const data = await response.json();
-            await setRecord(data);
-            console.log('found selected quote:',record);
+            setRecord(data);
           } else {
-            console.error('Failed to fetch thiss record');
+            console.error("Failed to fetch records");
           }
-        }  
+        }
       } catch (error) {
         console.error(error);
       }
     };
-    selectedQuote && fetchQuote();
+    fetchQuote();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [record,selectedQuote]);
+    // eslint-disable-next-line
+  }, [selectedQuote]);
 
   //column attribute for the table in quote
   const columns = [
@@ -167,7 +160,6 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     setindexOfComponentArray(row.id);
     setEditCompInBuildShow(true);
   };
-
   //this function will delete the component from quote
   const handleDeleteButtonClick = (row) => {
     setindexOfComponentArray(row.id);
@@ -176,8 +168,8 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setSelectedQuote([]);
+        // Update the selectedQuote state with the updated data after deletion
+        setSelectedQuote(data); // Assuming the returned data from the delete API call is the updated quote
         toast.success("Component deleted from quote");
       })
       .catch((error) => {
@@ -193,7 +185,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(record),
+        body: JSON.stringify(selectedQuote),
       });
       if (response.status === 201) {
         toast.message("Quote duplicated!");
@@ -208,7 +200,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
   //this function archives the quote
   const handleArchive = async () => {
-    fetch(`${backendURL}/archive-record/${record._id}`, {
+    fetch(`${backendURL}/archive-record/${selectedQuote._id}`, {
       method: "PUT",
     })
       .then((response) => response.json())
@@ -244,10 +236,10 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
         <div className="quote-details-column">
           <>
-            {record ? (
+            {selectedQuote ? (
               <div className="single-quote-details">
                 <div className="single-quote-left">
-                  <h4>{record.name}</h4>
+                  <h4>{selectedQuote.name}</h4>
                   <p>Components</p>
                   <Box sx={{ height: 400 }}>
                     <DataGrid
@@ -266,14 +258,14 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                   </Box>
                 </div>
                 <div className="single-quote-right">
-                  <p>${parseFloat(record.quoteCost).toFixed(2)}</p>
+                  <p>${parseFloat(selectedQuote.quoteCost).toFixed(2)}</p>
                 </div>
               </div>
             ) : (
               <p>Select a quote to display</p>
             )}
           </>
-          {record ? (
+          {selectedQuote ? (
             <div className="quote-btn-group">
               <ButtonGroup
                 variant="outlined"
@@ -308,7 +300,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                       fontSize="small"
                       className="quote-item-icon"
                       onClick={() => {
-                        handleShowLastUpdate(record.quoteDate);
+                        handleShowLastUpdate(selectedQuote.quoteDate);
                       }}
                     />
                   </Button>
