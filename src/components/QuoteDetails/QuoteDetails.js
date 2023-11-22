@@ -18,6 +18,7 @@ import EditRoundedIcon from "@mui/icons-material/EditOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import EditCompinBuild from "./EditComponentInBuild";
 import AddComponentModal from "../ComponentCard/AddComponentModal";
+import { sync } from "framer-motion";
 
 const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
@@ -66,18 +67,20 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           const response = await fetch(`${backendURL}/getSelectedQuote/${selectedQuote._id}`);
           if (response.status === 200) {
             const data = await response.json();
-            setRecord(data);
-            console.log(`found quote ${record}`);
+            await setRecord(data);
+            console.log('found selected quote:',record);
           } else {
-            console.error('Failed to fetch records');
+            console.error('Failed to fetch thiss record');
           }
         }  
       } catch (error) {
         console.error(error);
       }
     };
-    fetchQuote();
-  }, [record]);
+    selectedQuote && fetchQuote();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [record,selectedQuote]);
 
   //column attribute for the table in quote
   const columns = [
@@ -164,6 +167,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     setindexOfComponentArray(row.id);
     setEditCompInBuildShow(true);
   };
+
   //this function will delete the component from quote
   const handleDeleteButtonClick = (row) => {
     setindexOfComponentArray(row.id);
@@ -173,7 +177,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // setSelectedQuote(null);
+        setSelectedQuote([]);
         toast.success("Component deleted from quote");
       })
       .catch((error) => {
@@ -189,7 +193,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(selectedQuote),
+        body: JSON.stringify(record),
       });
       if (response.status === 201) {
         toast.message("Quote duplicated!");
@@ -204,7 +208,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
   //this function archives the quote
   const handleArchive = async () => {
-    fetch(`${backendURL}/archive-record/${selectedQuote._id}`, {
+    fetch(`${backendURL}/archive-record/${record._id}`, {
       method: "PUT",
     })
       .then((response) => response.json())
@@ -240,10 +244,10 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
         <div className="quote-details-column">
           <>
-            {selectedQuote ? (
+            {record ? (
               <div className="single-quote-details">
                 <div className="single-quote-left">
-                  <h4>{selectedQuote.name}</h4>
+                  <h4>{record.name}</h4>
                   <p>Components</p>
                   <Box sx={{ height: 400 }}>
                     <DataGrid
@@ -262,14 +266,14 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                   </Box>
                 </div>
                 <div className="single-quote-right">
-                  <p>${parseFloat(selectedQuote.quoteCost).toFixed(2)}</p>
+                  <p>${parseFloat(record.quoteCost).toFixed(2)}</p>
                 </div>
               </div>
             ) : (
               <p>Select a quote to display</p>
             )}
           </>
-          {selectedQuote ? (
+          {record ? (
             <div className="quote-btn-group">
               <ButtonGroup
                 variant="outlined"
@@ -304,7 +308,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                       fontSize="small"
                       className="quote-item-icon"
                       onClick={() => {
-                        handleShowLastUpdate(selectedQuote.quoteDate);
+                        handleShowLastUpdate(record.quoteDate);
                       }}
                     />
                   </Button>
