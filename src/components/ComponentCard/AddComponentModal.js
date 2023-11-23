@@ -146,6 +146,7 @@ const AddComponentModal = ({
         })
         .then((response) => response.json())
         .then((data) => {
+          setSelectedQuote(data);
           toast.success("Components saved successfully!");
           onHide();
         })
