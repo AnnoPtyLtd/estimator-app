@@ -37,8 +37,9 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   // using for the rows attribute in table
 
   useEffect(() => {
-    const mappedRows = selectedQuote && selectedQuote.componentNames.map(
-      (componentName, index) => ({
+    const mappedRows =
+      selectedQuote &&
+      selectedQuote.componentNames.map((componentName, index) => ({
         id: index,
         Category:
           selectedQuote.componentCategories &&
@@ -47,11 +48,10 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         Price:
           selectedQuote.componentPrices && selectedQuote.componentPrices[index],
         URL: selectedQuote.componentUrls && selectedQuote.componentUrls[index],
-      })
-    );
+      }));
     setRows(mappedRows || []);
-  }, [selectedQuote])
-  
+  }, [selectedQuote]);
+
   useEffect(() => {
     const fetchQuote = async () => {
       try {
@@ -179,14 +179,17 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
   //this function duplicates the quote in database
   const handleDuplicate = async () => {
+    console.log("duplicate quote", selectedQuote);
     try {
-      const response = await fetch(`${backendURL}/saverecord`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(selectedQuote),
-      });
+      const response = await fetch(
+        `${backendURL}/duplicate-quote/${selectedQuote._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 201) {
         toast.message("Quote duplicated!");
       } else {
