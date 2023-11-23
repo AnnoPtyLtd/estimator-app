@@ -17,7 +17,7 @@ router.delete('/delete-component/:recordID/:index', async (req, res) => {
         }
 
         // Get the arrays of component names, prices, and categories
-        const { componentNames, componentPrices, componentCategories } = record;
+        const { componentNames, componentPrices, componentCategories,componentUrls } = record;
 
         // Check if the index is valid
         if (index < 0 || index >= componentNames.length) {
@@ -28,6 +28,7 @@ router.delete('/delete-component/:recordID/:index', async (req, res) => {
         componentNames.splice(index, 1);
         componentPrices.splice(index, 1);
         componentCategories.splice(index, 1);
+        componentUrls.splice(index,1)
 
         // Recalculate the total cost
         const totalCost = componentPrices.reduce((acc, price) => acc + price, 0);
@@ -36,6 +37,7 @@ router.delete('/delete-component/:recordID/:index', async (req, res) => {
         record.componentNames = componentNames;
         record.componentPrices = componentPrices;
         record.componentCategories = componentCategories;
+        record.componentUrls = componentUrls;
         record.quoteCost = totalCost;
 
         // Save the updated record

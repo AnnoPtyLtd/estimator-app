@@ -1,11 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import ButtonMUI from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
-import AddComponentModal from "../ComponentCard/AddComponentModal";
-import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import StringTextField from "../TextFields/StringTextField";
 import "./QuoteDetails.css";
 import { toast } from "sonner";

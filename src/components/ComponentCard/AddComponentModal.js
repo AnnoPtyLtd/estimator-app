@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import SearchResultModal from "../ComponentsPage/SearchResultModal";
 import { Toaster, toast } from "sonner";
 import AddNewComponent from "../NavBar/AddComponentModal";
 
@@ -20,7 +19,7 @@ const AddComponentModal = ({
   exComponentNames,
   exComponentCategories,
   exComponentPrices,
-  exComponentUrls
+  exComponentUrls,
 }) => {
   const [categoryComp, setCategoryComp] = useState("CPU");
   const [components, setComponents] = useState([]);
@@ -35,6 +34,15 @@ const AddComponentModal = ({
   const [searchClicked, setSearchClicked] = useState(false);
   const [showAddNewComponent, setShowAddNewComponent] = useState(false);
 
+
+  useEffect(() => {
+    if (!show) {
+      setSelectedComponents([]);
+    }
+  }, [show]);  
+
+
+  //fetching components list to select components
   useEffect(() => {
     const fetchComponents = async () => {
       try {
@@ -60,6 +68,8 @@ const AddComponentModal = ({
       fetchComponents(); // This function should fetch components as per the current categoryComp state
       setSearchClicked(false); // Set searchClicked to false to show fetched components
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, categoryComp]);
 
   const handleComponentSelection = (
@@ -117,9 +127,8 @@ const AddComponentModal = ({
     }
   };
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = async () => {
     const recordId = recordID;
-
     if (!recordId) {
       console.log(
         "Record ID is missing, sending selected components back to editbuildmodal."
@@ -132,35 +141,102 @@ const AddComponentModal = ({
       setComponentNames([]);
       onHide();
     } else {
-        fetch(`${backendURL}/add-components-to-build/${recordId}`, {
+      // Merging existing and new component details
+      const mergedComponentNames = exComponentNames.concat(componentNames);
+      const mergedComponentPrices = exComponentPrices.concat(componentPrices);
+      const mergedComponentCategories = exComponentCategories.concat(componentCategories);
+      const mergedComponentUrls = exComponentUrls.concat(componentUrls);
+  
+      // Send merged components to the backend
+      try {
+        const response = await fetch(
+          `${backendURL}/add-components-to-build/${recordId}`,
+          {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                componentNames,
-                componentPrices,
-                componentCategories,
-                componentUrls,
+              componentNames: mergedComponentNames,
+              componentPrices: mergedComponentPrices,
+              componentCategories: mergedComponentCategories,
+              componentUrls: mergedComponentUrls,
             }),
-        })
-        .then((response) => response.json())
-        .then((data) => {
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
           setSelectedQuote(data);
           toast.success("Components saved successfully!");
+          console.log('selected comps were:', componentNames, componentPrices);
           onHide();
-        })
-        .catch((error) => {
-          console.error(error);
-          setComponentNames([]);
-          setSelectedComponents([]);
-          onHide();
+        } else {
           toast.error("Error in saving components!");
-        });
+        }
+      } catch (error) {
+        console.error(error);
+        onHide();
+        toast.error("Error in saving components!");
+      }
+      // Clear states or perform other necessary actions
       setSearchResults({ components: [] });
       setSearchClicked(false);
+      setComponentNames([]);
+      setComponentCategories([]);
+      setComponentPrices([]);
+      setComponentUrls([]);
     }
   };
+  
+
+
+  // const handleSaveChanges = async () => {
+  //   const recordId = recordID;
+  //   if (!recordId) {
+  //     console.log(
+  //       "Record ID is missing, sending selected components back to editbuildmodal."
+  //     );
+  //     setcompNames(componentNames);
+  //     setcompPrices(componentPrices);
+  //     setcompCategories(componentCategories);
+  //     setcompURLS(componentUrls);
+  //     setSelectedComponents([]);
+  //     setComponentNames([]);
+  //     onHide();
+  //   } else {
+  //     fetch(`${backendURL}/add-components-to-build/${recordId}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         componentNames,
+  //         componentPrices,
+  //         componentCategories,
+  //         componentUrls,
+  //       }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setSelectedQuote(data);
+  //         console.log("updated data:", data);
+  //         toast.success("Components saved successfully!");
+  //         console.log('selected comps were:',componentNames,componentPrices);
+  //         onHide();
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //         onHide();
+  //         toast.error("Error in saving components!");
+  //       });
+  //     setSearchResults({ components: [] });
+  //     setSearchClicked(false);
+  //     setComponentNames([]);
+  //     setComponentCategories([]);
+  //     setComponentPrices([]);
+  //     setComponentUrls([]);
+  //   }
+  // };
 
   const handleSearch = async () => {
     setSearchClicked(true);

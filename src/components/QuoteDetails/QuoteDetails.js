@@ -32,7 +32,6 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [exComponentCategories, setExComponentCategories] = useState([]);
   const [exComponentPrices, setExComponentPrices] = useState([]);
   const [exComponentUrls, setExComponentUrls] = useState([]);
-  const [record, setRecord] = useState();
 
   // using for the rows attribute in table
 
@@ -50,29 +49,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         URL: selectedQuote.componentUrls && selectedQuote.componentUrls[index],
       }));
     setRows(mappedRows || []);
-  }, [selectedQuote]);
 
-  useEffect(() => {
-    const fetchQuote = async () => {
-      try {
-        if (selectedQuote) {
-          const response = await fetch(
-            `${backendURL}/getSelectedQuote/${selectedQuote._id}`
-          );
-          if (response.status === 200) {
-            const data = await response.json();
-            setRecord(data);
-          } else {
-            console.error("Failed to fetch records");
-          }
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchQuote();
-
-    // eslint-disable-next-line
+    selectedQuote &&
+      (setExComponentNames(selectedQuote.componentNames) ||
+        setExComponentPrices(selectedQuote.componentPrices) ||
+        setExComponentCategories(selectedQuote.componentCategories) ||
+        setExComponentUrls(selectedQuote.componentUrls));
   }, [selectedQuote]);
 
   //column attribute for the table in quote
@@ -322,7 +304,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
             setShowAddCompinBuild(true);
           }}
         >
-          Select Components
+          Add Components
         </Button>
       </div>
 
