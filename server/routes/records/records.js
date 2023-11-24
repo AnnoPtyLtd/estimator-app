@@ -224,9 +224,9 @@ router.get("/get-components-by-record/:recordID", async (req, res) => {
       return res.status(404).json({ error: "Record not found" });
     }
 
-    const { componentNames, componentPrices, componentCategories } = record;
+    const { componentNames, componentPrices, componentCategories, componentUrls } = record;
 
-    res.json({ componentNames, componentPrices, componentCategories });
+    res.json({ componentNames, componentPrices, componentCategories,componentUrls });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });

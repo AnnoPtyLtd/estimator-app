@@ -103,7 +103,7 @@ const ComponentDetailsPage = () => {
             }
         };
         fetchComponents();
-
+        
     }, [components]);
 
 

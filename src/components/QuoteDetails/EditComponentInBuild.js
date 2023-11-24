@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import CloseIcon from "@mui/icons-material/Close";
@@ -6,6 +6,7 @@ import StringTextField from "../TextFields/StringTextField";
 import "./QuoteDetails.css";
 import "./EditPanel.css";
 import { toast } from "sonner";
+import { Bold } from "lucide-react";
 
 const EditComponentInBuild = ({
   show,
@@ -17,6 +18,31 @@ const EditComponentInBuild = ({
   const [newPrice, setNewPrice] = useState();
   const [newName, setNewName] = useState();
   const backendURL = process.env.REACT_APP_BACKEND_URL;
+  const [exComponents, setExComponents] = useState([]);
+
+  useEffect(() => {
+    const fetchComponents = async () => {
+      try {
+        const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
+        if (response.ok) {
+          const data = await response.json();
+          setExComponents(data);
+          console.log('name',exComponents.componentNames[indexOfComponentArray]);
+          console.log('price',exComponents.componentPrices[indexOfComponentArray]);
+          setNewName(exComponents.componentNames[indexOfComponentArray])
+          setNewPrice(exComponents.componentPrices[indexOfComponentArray])
+        } else {
+          console.error("Failed to fetch components");
+          return null;
+        }
+      } catch (error) {
+        console.error("Error fetching components:", error);
+        return null;
+      }
+    };
+
+    fetchComponents();
+  }, [show,recordID]);
 
   const fetchComponents = async (recordID) => {
     try {
@@ -61,12 +87,14 @@ const EditComponentInBuild = ({
           componentNames: currentComponents.componentNames,
           componentPrices: currentComponents.componentPrices,
           componentCategories: currentComponents.componentCategories,
+          componentUrls: currentComponents.componentUrls,
         }),
       });
 
       if (response.ok) {
         const data = await response.json();
         setSelectedQuote(data);
+        console.log('quote after editing comp:',data);
         toast.success("Component updated!");
         setNewName("");
         setNewPrice(undefined);
@@ -90,6 +118,7 @@ const EditComponentInBuild = ({
           </button>
         </Modal.Header>
         <Modal.Body className="edit-record-modalbody">
+          <h4 style={{fontWeight:'bolder'}}>{exComponents.componentNames && exComponents.componentNames[indexOfComponentArray]}</h4>
           <div className="modalbody-item">
             <label>Edit name:</label>
             <StringTextField
@@ -106,6 +135,8 @@ const EditComponentInBuild = ({
               onChange={(e) => setNewPrice(e.target.value)}
             ></StringTextField>
           </div>
+          <p style={{margin:0}}>Stock: 15</p>
+          <p>Stock: low-stock/available/out-of-stock</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onHide}>

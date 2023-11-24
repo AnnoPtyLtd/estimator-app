@@ -21,7 +21,7 @@ const AddComponentModal = ({
   exComponentPrices,
   exComponentUrls,
 }) => {
-  const [categoryComp, setCategoryComp] = useState("CPU");
+  const [categoryComp, setCategoryComp] = useState("View All");
   const [components, setComponents] = useState([]);
   const [selectedComponents, setSelectedComponents] = useState([]);
   const [componentNames, setComponentNames] = useState([]);

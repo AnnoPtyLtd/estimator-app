@@ -45,7 +45,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           selectedQuote.componentCategories[index],
         Component: componentName,
         Price:
-          selectedQuote.componentPrices && selectedQuote.componentPrices[index],
+          selectedQuote.componentPrices && '$'+selectedQuote.componentPrices[index],
         URL: selectedQuote.componentUrls && selectedQuote.componentUrls[index],
       }));
     setRows(mappedRows || []);
@@ -76,7 +76,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     {
       field: "Price",
       headerAlign: "center",
-      headerName: "Price($)",
+      headerName: "Price",
       align: "center",
       width: 100,
     },
