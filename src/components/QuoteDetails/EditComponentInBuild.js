@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import StringTextField from "../TextFields/StringTextField";
 import "./QuoteDetails.css";
+import "./EditPanel.css";
 import { toast } from "sonner";
 
 const EditComponentInBuild = ({
@@ -13,15 +14,13 @@ const EditComponentInBuild = ({
   recordID,
   setSelectedQuote,
 }) => {
-  const [newPrice, setNewPrice] = useState(0);
-  const [newName, setNewName] = useState("");
+  const [newPrice, setNewPrice] = useState();
+  const [newName, setNewName] = useState();
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   const fetchComponents = async (recordID) => {
     try {
-      const response = await fetch(
-        `${backendURL}/get-components-by-record/${recordID}`
-      );
+      const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
       if (response.ok) {
         const data = await response.json();
         return data;
@@ -45,34 +44,32 @@ const EditComponentInBuild = ({
         return;
       }
       // Update the component at the specified index
-      currentComponents.componentNames[indexOfComponentArray] = newName;
-      currentComponents.componentPrices[indexOfComponentArray] =
-        parseFloat(newPrice); // convert to float if necessary
+      if (newName && newPrice) {
+        currentComponents.componentNames[indexOfComponentArray] = newName;
+        currentComponents.componentPrices[indexOfComponentArray] = parseFloat(newPrice);
+      }
+      if (newName) currentComponents.componentNames[indexOfComponentArray] = newName;
+      if (newPrice) currentComponents.componentPrices[indexOfComponentArray] = parseFloat(newPrice);
 
       // Make a request to update the components in the backend
-      const response = await fetch(
-        `${backendURL}/add-components-to-build/${recordID}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            componentNames: currentComponents.componentNames,
-            componentPrices: currentComponents.componentPrices,
-            componentCategories: currentComponents.componentCategories,
-          }),
-        }
-      );
+      const response = await fetch(`${backendURL}/add-components-to-build/${recordID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          componentNames: currentComponents.componentNames,
+          componentPrices: currentComponents.componentPrices,
+          componentCategories: currentComponents.componentCategories,
+        }),
+      });
 
       if (response.ok) {
-        // Handle success, close the modal or do other necessary actions
         const data = await response.json();
-        // Handle success with the updated record data
         setSelectedQuote(data);
-        toast.success("Component updated!", {
-          description: `New name: ${newName}, New price: $${newPrice}`,
-        });
+        toast.success("Component updated!");
+        setNewName("");
+        setNewPrice(undefined);
         onHide();
       } else {
         toast.error("Failed to updated the component");
@@ -85,7 +82,7 @@ const EditComponentInBuild = ({
 
   return (
     <div>
-      <Modal show={show} onHide={onHide}>
+      <Modal show={show} onHide={onHide} className="editComponetPanel">
         <Modal.Header className="custom-modal-header">
           <Modal.Title>Edit Record</Modal.Title>
           <button className="close-button" onClick={onHide}>
