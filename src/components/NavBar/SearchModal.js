@@ -21,7 +21,6 @@ const SearchModal = ({ show, onHide }) => {
             if (response.ok) {
                 const data = await response.json();
                 setSearchResults(data);
-                setSearchTerm('');
             } else {
                 console.log('Error in searching');
             }

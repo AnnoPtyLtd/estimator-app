@@ -220,4 +220,6 @@
 .search-result{
   margin-top: 20px;
 }
-
+.search-result h4,ul{
+  font-weight: 400 !important;
+}

@@ -113,7 +113,7 @@ const EditComponentInBuild = ({
     <div>
       <Modal show={show} onHide={onHide} dialogClassName="editComponentPanel">
         <Modal.Header className="custom-modal-header">
-          <Modal.Title>Edit Record</Modal.Title>
+          <Modal.Title>{quote && quote.name}</Modal.Title>
           <button className="close-button" onClick={onHide}>
             <CloseIcon />
           </button>

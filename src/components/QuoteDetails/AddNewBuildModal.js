@@ -4,7 +4,7 @@ import ButtonMUI from "@mui/material/Button";
 import "./QuoteDetails.css";
 import jwt_decode from "jwt-decode";
 import TouchRipple from "@mui/material/ButtonBase/TouchRipple";
-import desktop from "../../assets/desktop.png";
+import desktop from "../../assets/build.png";
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -96,7 +96,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
           }}
         >
           <div>
-            <img src={desktop} alt="img" width="500px" className="img-fluid" />
+            <img src={desktop} alt="img" width="500px" />
           </div>
           <div>
             <form>
