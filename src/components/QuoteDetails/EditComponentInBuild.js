@@ -6,13 +6,13 @@ import StringTextField from "../TextFields/StringTextField";
 import "./QuoteDetails.css";
 import "./EditPanel.css";
 import { toast } from "sonner";
-import { Bold } from "lucide-react";
 
 const EditComponentInBuild = ({
   show,
   onHide,
   indexOfComponentArray,
   recordID,
+  quote,
   setSelectedQuote,
 }) => {
   const [newPrice, setNewPrice] = useState();
@@ -27,10 +27,10 @@ const EditComponentInBuild = ({
         if (response.ok) {
           const data = await response.json();
           setExComponents(data);
-          console.log('name',exComponents.componentNames[indexOfComponentArray]);
-          console.log('price',exComponents.componentPrices[indexOfComponentArray]);
-          setNewName(exComponents.componentNames[indexOfComponentArray])
-          setNewPrice(exComponents.componentPrices[indexOfComponentArray])
+          console.log("name", exComponents.componentNames[indexOfComponentArray]);
+          console.log("price", exComponents.componentPrices[indexOfComponentArray]);
+          setNewName(exComponents.componentNames[indexOfComponentArray]);
+          setNewPrice(exComponents.componentPrices[indexOfComponentArray]);
         } else {
           console.error("Failed to fetch components");
           return null;
@@ -42,7 +42,8 @@ const EditComponentInBuild = ({
     };
 
     fetchComponents();
-  }, [show,recordID]);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show, recordID]);
 
   const fetchComponents = async (recordID) => {
     try {
@@ -94,7 +95,7 @@ const EditComponentInBuild = ({
       if (response.ok) {
         const data = await response.json();
         setSelectedQuote(data);
-        console.log('quote after editing comp:',data);
+        console.log("quote after editing comp:", data);
         toast.success("Component updated!");
         setNewName("");
         setNewPrice(undefined);
@@ -110,15 +111,26 @@ const EditComponentInBuild = ({
 
   return (
     <div>
-      <Modal show={show} onHide={onHide} className="editComponetPanel">
+      <Modal show={show} onHide={onHide} dialogClassName="editComponentPanel">
         <Modal.Header className="custom-modal-header">
           <Modal.Title>Edit Record</Modal.Title>
           <button className="close-button" onClick={onHide}>
             <CloseIcon />
           </button>
         </Modal.Header>
-        <Modal.Body className="edit-record-modalbody">
-          <h4 style={{fontWeight:'bolder'}}>{exComponents.componentNames && exComponents.componentNames[indexOfComponentArray]}</h4>
+        <Modal.Body className="mdbd">
+          <div className="edit-panel-heading">
+            <h4 style={{ fontWeight: "bolder" }}>
+              {exComponents.componentNames && exComponents.componentNames[indexOfComponentArray]}
+            </h4>
+            <p>
+              {exComponents.componentPrices &&
+                "$" + exComponents.componentPrices[indexOfComponentArray]}
+            </p>
+          </div>
+          <p>
+            {exComponents.componentNames && exComponents.componentCategories[indexOfComponentArray]}
+          </p>
           <div className="modalbody-item">
             <label>Edit name:</label>
             <StringTextField
@@ -135,8 +147,7 @@ const EditComponentInBuild = ({
               onChange={(e) => setNewPrice(e.target.value)}
             ></StringTextField>
           </div>
-          <p style={{margin:0}}>Stock: 15</p>
-          <p>Stock: low-stock/available/out-of-stock</p>
+          <p>last updated: {quote && new Date(quote.quoteDate).toLocaleDateString()}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onHide}>

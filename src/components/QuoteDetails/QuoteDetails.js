@@ -61,30 +61,26 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const columns = [
     {
       field: "Component",
-      align: "center",
+      align: "left",
       headerName: "Component",
-      headerAlign: "center",
+      headerAlign: "left",
       flex: 1,
     },
     {
       field: "Category",
       headerName: "Category",
-      align: "center",
-      headerAlign: "center",
       width: 100,
     },
     {
       field: "Price",
-      headerAlign: "center",
+      headerAlign: "right",
+      align: "right",
       headerName: "Price",
-      align: "center",
       width: 100,
     },
     {
       field: "URL",
       headerName: "URL",
-      headerAlign: "center",
-      sortable: true,
       flex: 1,
       renderCell: (params) => {
         const url = params.value;
@@ -367,6 +363,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         indexOfComponentArray={indexOfComponentArray}
         recordID={selectedQuote && selectedQuote._id}
         setSelectedQuote={setSelectedQuote}
+        quote={selectedQuote}
       />
 
       <Toaster richColors position="top-right" />

@@ -88,14 +88,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
 
     const csvContent = generateCSVContent();
     const blob = new Blob([csvContent], { type: 'text/csv' });
-    // const url = window.URL.createObjectURL(blob);
-    // const a = document.createElement('a');
-    // a.href = url;
-    // a.download = 'SelectedQuotes.csv';
-    // a.click();
-
-    // window.URL.revokeObjectURL(url);
-    // Prompt the user to choose a directory and specify a file name
+   
     try {
       const options = {
         types: [
@@ -106,6 +99,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
             },
           },
         ],
+        suggestedName: 'exported quotes.csv',
       };
       const fileHandle = await window.showSaveFilePicker(options);
       // Create a writable stream and write the blob to the selected file
@@ -114,8 +108,11 @@ const ExportQuotesModal = ({ show, onHide }) => {
       await writable.close();
 
       console.log(`File saved as ${fileHandle.csv}`);
+      onHide();
     } catch (error) {
       console.error('Error saving the file:', error);
+      window.alert('Failed to export :(');
+      onHide();
     }
   };
 

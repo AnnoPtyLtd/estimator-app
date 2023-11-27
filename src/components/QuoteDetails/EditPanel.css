@@ -1,4 +1,16 @@
-.editComponetPanel{
-    min-width: 90% !important;
-    
+.editComponentPanel {
+  min-width: 80vh;
+  min-height: 80vh;
+  max-height: 80vh;
+  position: absolute;
+  margin-top: 0px;
+  right: 0%;
+}
+.mdbd{
+  min-height: 80vh !important;
+}
+.edit-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
