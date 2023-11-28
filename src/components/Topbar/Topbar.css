@@ -1,63 +1,54 @@
-*{
-     padding: 0;
-     margin: 0;
-     box-sizing: border-box;
- }
-
- .topbar {
-     max-height: 100px;
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     padding: 0px 20px;
-     background-color: var(--bg-light-primary);
-
-     margin: 10px;
-     border-radius: 20px;
-     border: 1px solid rgba(0, 0, 0, 0.18);
-     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
- }
-
- .topbar-title {
-     color: rgb(95, 95, 95);
-     align-items: center;
-     padding-top: 15px;
-     display: flex;
-     flex-grow: 1;
-     text-align: center;
-     justify-content: center;
-     font-weight: bold;
-     font-size: 18px;
- }
- .topbar-title-text{
-    text-transform: capitalize;
-    font-weight: 100;
-    letter-spacing: 0.3rem;
-    word-spacing: 0.5rem;
-font-weight: normal;
-    color: #444;
- }
-.topbar img{
-    height: 50px;
-    width: 50px;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
- button {
-     border: none;
-     padding: 8px;
-     border-radius: 5px;
-     color: white;
-     font-size: 14px;
-     font-weight: bold;
-     background-color: rgb(255, 63, 63);
- }
+.topbar {
+  max-height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  background-color: var(--bg-light-primary);
+  margin: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
 
- button:hover {
-     background-color: rgb(255, 17, 17);
-     border: none;
-     outline: none;
- }
+.topbar-title {
+  color: rgb(95, 95, 95);
+  align-items: center;
+  padding-top: 15px;
+  display: flex;
+  flex-grow: 1;
+  text-align: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+.topbar-title-text {
+  text-transform: capitalize;
+  font-weight: 100;
+  letter-spacing: 0.3rem;
+  word-spacing: 0.5rem;
+  font-weight: normal;
+  color: #444;
+}
 
- button:active {
-     background-color: rgb(255, 63, 63);
- } 
+@media screen and (min-width: 2560px) {
+    .topbar{
+        max-height: 200px;
+    }
+    .topbar-title{
+        font-size: 30px;
+    }
+    .signout-btn{
+        min-width: 100px !important;
+        height: 50px;
+        font-size: 24px !important;
+        letter-spacing: 1px;
+    }
+
+}

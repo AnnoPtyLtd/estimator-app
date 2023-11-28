@@ -16,8 +16,8 @@ const Topbar = () => {
           <p className='topbar-title-text'>QUOTE ESTIMATOR</p>
         </div>
       </div>
-      <div className='signout-div'>
-        <Button variant='outlined' color='error' onClick={handleSignOut}>Sign Out</Button>
+      <div>
+        <Button className='signout-btn' variant='outlined' color='error' onClick={handleSignOut}>Sign Out</Button>
       </div>
     </div>
   )
