@@ -99,14 +99,14 @@ const NavBar = () => {
         <li
           className='menu-item' 
           onClick={() => { handleMenuItemClick(5); }}>
-          <ManageAccountsIcon/>
+          <ManageAccountsIcon className='menu-icon'/>
           <p>Manage Comps</p>
         </li>
 
         <li className='menu-item' 
           onClick={() => { handleMenuItemClick(6); }}>
           <div className='centered-content'>
-            <AccountCircleIcon/>
+            <AccountCircleIcon className='menu-icon'/>
             <p className='profile-name'>User</p>
           </div>
         </li>

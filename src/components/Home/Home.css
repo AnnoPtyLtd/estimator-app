@@ -3,7 +3,6 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Poppins;
-
 }
 
 .home {
@@ -23,8 +22,8 @@
   display: none;
 }
 .home {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .left-panel {
@@ -49,14 +48,19 @@
 }
 
 @media screen and (max-width: 1270px) {
-  .quote-section{
+  .quote-section {
     flex-direction: column;
   }
-  .left-panel{
+  .left-panel {
     position: fixed;
     bottom: 0;
     z-index: 999999;
   }
-
 }
 
+@media screen and (min-width: 2560px) {
+  .home {
+    background-color: rgb(255, 98, 0);
+  }
+  
+}
