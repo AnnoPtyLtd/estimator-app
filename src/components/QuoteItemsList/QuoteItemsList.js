@@ -91,12 +91,12 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         <SearchOutlinedIcon className='search-icon' onClick={handleSearch} />
       </div>
       <div className='filter-field'>
-        <select value={quoteFilter} onChange={(e) => setQuoteFilter(e.target.value)}>
-          <option value='View All'>View All</option>
-          <option value='Gaming PC'>Gaming PC</option>
-          <option value='Content Creation'>Content creation and productivity</option>
-          <option value='Office/Home PC'>Office/Home</option>
-          <option value='Custom/Other'>Custom/Other</option>
+        <select value={quoteFilter} onChange={(e) => setQuoteFilter(e.target.value)} className='filter-field'>
+          <option className='option' value='View All'>View All</option>
+          <option className='option' value='Gaming PC'>Gaming PC</option>
+          <option className='option' value='Content Creation'>Content creation and productivity</option>
+          <option className='option' value='Office/Home PC'>Office/Home</option>
+          <option className='option' value='Custom/Other'>Custom/Other</option>
         </select>
         <Tooltip title="Add new quote" placement="top-start">
           <Button variant='outlined' onClick={() => setShowAddBuildModal(true)}> <AddIcon /> </Button>

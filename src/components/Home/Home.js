@@ -66,11 +66,6 @@ const Home = () => {
           <motion.li className="item" variants={item}><QuoteItemsList onQuoteClick={handleQuoteClick}/></motion.li>
           <motion.li className="item" variants={item}><QuoteDetails selectedQuote={selectedQuote} setSelectedQuote={handleQuoteClick}/></motion.li>
         </motion.ul>
-        {/* <div className='quote-section'>
-          <QuoteItemsList />
-          <QuoteDetails />
-          <Charts />
-        </div> */}
       </div>
     </div>
   );

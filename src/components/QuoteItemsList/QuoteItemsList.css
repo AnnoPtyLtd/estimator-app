@@ -1,68 +1,88 @@
 .quotelist-item-container {
-    display: flex;
-    margin: 10px 5px 10px 10px;
-    padding: 20px;
-    flex-direction: column;
-    color: var(--light-p2);
-    background-color: var(--bg-light-primary);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    scroll-behavior: smooth;
-    max-width: 40vh;
+  display: flex;
+  margin: 10px 5px 10px 10px;
+  padding: 20px;
+  flex-direction: column;
+  color: var(--light-p2);
+  background-color: var(--bg-light-primary);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  scroll-behavior: smooth;
+  max-width: 40vh;
 }
 
 .quotelist-item-title {
-    padding-bottom: 0;
-    margin-bottom: 0;
-    color: var(--light-p2);
+  padding-bottom: 0;
+  margin-bottom: 0;
+  color: var(--light-p2);
 }
 .search-field {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    border: 1px solid rgb(107, 114, 142);
-    border-radius: 5px;
-    padding-right: 5px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  border: 1px solid rgb(107, 114, 142);
+  border-radius: 5px;
+  padding-right: 5px;
 }
 
 .search-field input {
-    padding: 15px;
-    border-radius: 5px;
+  padding: 15px;
+  border-radius: 5px;
 }
 
-.quoteitems-list{
-    max-height: 60vh;
-    overflow: auto;
-    max-width: 40vh;
-    scroll-behavior: smooth;
-    scrollbar-gutter: 5px;
+.quoteitems-list {
+  max-height: 60vh;
+  overflow: auto;
+  max-width: 40vh;
+  scroll-behavior: smooth;
+  scrollbar-gutter: 5px;
 }
-.quoteitems-list::-webkit-scrollbar{
-    width:15px;
-}
-
-.filter-field{
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-}
-.filter-field select{
-    padding: 5px;
-    margin: 10px 0px;
-    width: 100px;
+.quoteitems-list::-webkit-scrollbar {
+  width: 15px;
 }
 
-.quote-name{
-    cursor: pointer;
-    margin: 5px 0px;
-    font-weight: 400;
-    border-radius: 5px;
-    padding: 5px;
-    &:hover{
-        background-color: rgb(103, 191, 255);
-        color: var(--bg-light-primary);
-        transition: 0.2s ease-in;
+.filter-field {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+.filter-field select {
+  padding: 5px;
+  margin: 10px 0px;
+  width: 100px;
+}
+
+.quote-name {
+  cursor: pointer;
+  margin: 5px 0px;
+  font-weight: 400;
+  border-radius: 5px;
+  padding: 5px;
+  &:hover {
+    background-color: rgb(103, 191, 255);
+    color: var(--bg-light-primary);
+    transition: 0.2s ease-in;
+  }
+}
+
+@media screen and (min-width: 2560px) {
+    .quotelist-item-container{
+        min-width: 36vh !important;
+        font-size: 26px !important;
     }
+    .quoteitems-list {
+        max-height: 60vh;
+        overflow: auto;
+        min-width: 35vh;
+        scroll-behavior: smooth;
+        scrollbar-gutter: 5px;
+      }
+      .filter-field{
+        width: 50% !important;
+      }
+      .option {
+        font-size: 10px;
+      }
 }
