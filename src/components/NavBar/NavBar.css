@@ -231,6 +231,7 @@
   }
   .menu.expanded{
     padding: 10px;
+    min-width: 240px;
   }
   .menu.collapsed .menu-icon{
     font-size: 30px !important;

@@ -27,19 +27,17 @@
 }
 
 .left-panel {
-  z-index: 1;
   display: flex;
+  height: fit-content !important;
+  align-self: center;
   flex-direction: column;
   justify-content: center;
 }
-
 .right-panel {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  z-index: 1;
-  top: 0;
-  right: 0;
+  position: absolute;
+  left: 10%;
 }
 
 .quote-section {
@@ -57,4 +55,3 @@
     z-index: 999999;
   }
 }
-

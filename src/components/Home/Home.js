@@ -57,7 +57,7 @@ const Home = () => {
         </motion.div>
       </div>
       <div className='right-panel'>
-        <Topbar />
+        <Topbar/>
         <motion.ul
           className="quote-section"
           variants={container}
