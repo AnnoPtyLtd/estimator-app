@@ -8,8 +8,7 @@
   border-radius: 10px;
   padding: 10px 10px 20px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
-    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
   scroll-behavior: smooth;
 }
 .quote-tab {
@@ -32,8 +31,6 @@
   align-items: center;
 }
 
-
-
 .quote-details-column {
   padding: 10px 10px;
   width: 90%;
@@ -45,30 +42,8 @@
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
   margin: 0px 10px;
 }
-.quote-details-column p{
+.quote-details-column p {
   font-weight: 400;
-}
-
-.detail-items {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
-.search-name-date {
-  display: flex;
-  justify-content: space-between;
-}
-
-.detail-items input {
-  padding: 10px;
-  text-align: center;
-}
-
-.detail-items select {
-  padding: 4px;
-  padding: 10px;
-  width: 150px;
 }
 
 label {
@@ -88,10 +63,6 @@ label {
   margin-top: 15px;
 }
 
-.component-list {
-  margin-bottom: 10px;
-}
-
 .builds-filter {
   max-width: 150px !important;
   word-wrap: break-word;
@@ -104,31 +75,6 @@ input[type="text"] {
   text-align: left;
 }
 
-.quote-details-list-container {
-  max-height: 300px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  position: relative;
-  scroll-behavior: smooth;
-}
-
-.quote-details-list-container::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.quote-details-list-container {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
-  scroll-behavior: smooth;
-}
-
-.drop-quote {
-  max-width: 150px;
-  margin: 10px;
-}
 #dropdown2:hover,
 #dropdown:hover {
   cursor: pointer;
@@ -178,16 +124,6 @@ li label {
   cursor: pointer;
 }
 
-.clear-button {
-  background-color: #191d88;
-  display: subgrid;
-}
-
-.clear-button:hover {
-  background-color: #4877f7;
-  transition: 0.3s ease;
-}
-
 .input-check {
   margin-right: 10px;
 }
@@ -226,7 +162,7 @@ li label {
 .single-quote-details ol {
   margin-left: 15px;
 }
-.single-quote-left{
+.single-quote-left {
   min-width: 90%;
 }
 .single-quote-left p,
@@ -252,15 +188,6 @@ li label {
   font-size: 20px;
 }
 
-.add-quote-btn {
-  width: 100px;
-  align-self: self-start;
-}
-
-.add-quote-modal {
-  display: flex;
-  flex-direction: column;
-}
 .add-components-btn {
   margin-top: 10px !important;
   align-self: flex-end;
@@ -275,6 +202,7 @@ li label {
   flex-direction: column;
   gap: 5px;
 }
+
 .quotelist-item {
   display: flex;
   align-items: center;
@@ -286,54 +214,69 @@ li label {
 .quotelist-item:hover {
   background-color: rgb(235, 235, 235);
 }
-.quote-item-btns {
-  gap: 5px;
-}
-.quote-item-btns i {
-  padding: 5px;
-}
-.quote-item-btns i:hover {
-  background-color: rgb(228, 228, 228);
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.quote-item-btn {
-  padding: 0 !important;
-}
-
-.listofcompnames {
-  word-break: keep-all;
-}
 
 .editbtn {
   max-width: fit-content;
   margin: 10px !important;
 }
 .quote-btn-group {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
 }
 
-.rounded-edit{
+.rounded-edit {
   border-radius: 50%;
   padding: 2px;
   cursor: pointer;
   border: 1px solid rgb(86, 170, 255);
-  &:hover{
+  &:hover {
     background-color: rgb(176, 216, 255);
   }
 }
 
-.rounded-delete{
+.rounded-delete {
   border-radius: 50%;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background-color: rgb(255, 170, 170);
   }
 }
 
-.comp-item p{
+.comp-item p {
   font-weight: 400 !important;
+}
+
+@media screen and (min-width: 2560px) {
+  .quote-details-title {
+    font-size: 1.5rem;
+  }
+  .quote-details-column p {
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  .editbtn {
+    font-size: 1.1rem !important;
+  }
+  .single-quote-left h4{
+    font-size: 1.5em !important ;
+  }
+  .single-quote-left p{
+    font-size: 1.3em !important ;
+  }
+
+  .MuiDataGrid-row {
+    font-size: 1.5rem !important; /* Adjust the desired font size */
+  }
+ .MuiDataGrid-cell {
+    font-size: 1.2rem !important; /* Adjust the desired font size */
+  }
+ .MuiDataGrid-columnHeader {
+    font-size: 1.3rem; /* Adjust the desired font size for column headers */
+  }
+  .single-quote-right p {
+    font-size: 1.2em !important;
+  }
+
 }

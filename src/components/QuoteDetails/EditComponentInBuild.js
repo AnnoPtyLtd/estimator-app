@@ -17,6 +17,7 @@ const EditComponentInBuild = ({
 }) => {
   const [newPrice, setNewPrice] = useState();
   const [newName, setNewName] = useState();
+  const [newUrl, setNewUrl] = useState();
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [exComponents, setExComponents] = useState([]);
 
@@ -27,10 +28,9 @@ const EditComponentInBuild = ({
         if (response.ok) {
           const data = await response.json();
           setExComponents(data);
-          console.log("name", exComponents.componentNames[indexOfComponentArray]);
-          console.log("price", exComponents.componentPrices[indexOfComponentArray]);
           setNewName(exComponents.componentNames[indexOfComponentArray]);
           setNewPrice(exComponents.componentPrices[indexOfComponentArray]);
+          setNewUrl(exComponents.componentUrls[indexOfComponentArray]);
         } else {
           console.error("Failed to fetch components");
           return null;
@@ -71,12 +71,14 @@ const EditComponentInBuild = ({
         return;
       }
       // Update the component at the specified index
-      if (newName && newPrice) {
+      if (newName && newPrice && newUrl) {
         currentComponents.componentNames[indexOfComponentArray] = newName;
         currentComponents.componentPrices[indexOfComponentArray] = parseFloat(newPrice);
+        currentComponents.componentUrls[indexOfComponentArray] = newUrl;
       }
       if (newName) currentComponents.componentNames[indexOfComponentArray] = newName;
       if (newPrice) currentComponents.componentPrices[indexOfComponentArray] = parseFloat(newPrice);
+      if (newUrl) currentComponents.componentUrls[indexOfComponentArray] = newUrl;
 
       // Make a request to update the components in the backend
       const response = await fetch(`${backendURL}/add-components-to-build/${recordID}`, {
@@ -145,6 +147,14 @@ const EditComponentInBuild = ({
               label=""
               value={newPrice}
               onChange={(e) => setNewPrice(e.target.value)}
+            ></StringTextField>
+          </div>
+          <div className="modalbody-item">
+            <label>Edit URL:</label>
+            <StringTextField
+              label=""
+              value={newUrl}
+              onChange={(e) => setNewUrl(e.target.value)}
             ></StringTextField>
           </div>
           <p>last updated: {quote && new Date(quote.quoteDate).toLocaleDateString()}</p>
