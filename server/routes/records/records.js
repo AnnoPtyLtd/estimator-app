@@ -15,6 +15,7 @@ router.post("/saverecord", async (req, res) => {
       componentPrices,
       componentCategories,
       componentUrls,
+      componentDates,
     } = req.body;
     let quoteUserId = userId;
     if (!quoteUserId || !name || !quoteType || !quoteDate) {
@@ -30,6 +31,7 @@ router.post("/saverecord", async (req, res) => {
       componentPrices,
       componentCategories,
       componentUrls,
+      componentDates,
     });
 
     const savedRecord = await record.save();
@@ -176,7 +178,6 @@ router.post("/add-components-to-build/:id", async (req, res) => {
       componentCategories,
       componentUrls,
     } = req.body;
-
     if (
       !componentNames ||
       !Array.isArray(componentNames) ||
@@ -191,7 +192,6 @@ router.post("/add-components-to-build/:id", async (req, res) => {
     }
 
     const existingRecord = await Record.findById(id);
-
     if (!existingRecord) {
       return res.status(404).json({ error: "Record not found" });
     }
@@ -205,7 +205,6 @@ router.post("/add-components-to-build/:id", async (req, res) => {
     // Calculate total cost based on component prices
     const totalCost = componentPrices.reduce((acc, price) => acc + price, 0);
     existingRecord.quoteCost = Number(totalCost.toFixed(2));
-
     const updatedRecord = await existingRecord.save();
     res.status(200).json(updatedRecord);
   } catch (error) {
@@ -217,15 +216,12 @@ router.post("/add-components-to-build/:id", async (req, res) => {
 router.get("/get-components-by-record/:recordID", async (req, res) => {
   try {
     const { recordID } = req.params;
-
     const record = await Record.findById(recordID);
-
     if (!record) {
       return res.status(404).json({ error: "Record not found" });
     }
 
     const { componentNames, componentPrices, componentCategories, componentUrls } = record;
-
     res.json({ componentNames, componentPrices, componentCategories,componentUrls });
   } catch (error) {
     console.error(error);
@@ -254,7 +250,6 @@ router.post('/duplicate-quote/:quoteId', async (req, res) => {
 
     // Save the duplicated record
     const savedDuplicatedQuote = await duplicatedQuote.save();
-
     res.status(201).json(savedDuplicatedQuote);
   } catch (error) {
     console.error(error);

@@ -36,6 +36,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
   const [componentPrices, setComponentPrices] = useState([]);
   const [componentCategories, setComponentCategories] = useState([]);
   const [componentUrls, setComponentURLS] = useState([]);
+  const [componentDates, setComponentDates] = useState([]);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   const handleAddRecord = async () => {
@@ -63,6 +64,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
           componentPrices,
           componentCategories,
           componentUrls,
+          componentDates,
         }),
       });
 
@@ -155,6 +157,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
         setcompPrices={setComponentPrices}
         setcompCategories={setComponentCategories}
         setcompURLS={setComponentURLS}
+        setcompDates={setComponentDates}
       />
       <Toaster position="top-right" richColors />
     </div>

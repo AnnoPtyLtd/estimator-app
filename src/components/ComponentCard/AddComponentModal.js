@@ -4,8 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Toaster, toast } from "sonner";
 import AddNewComponent from "../NavBar/AddComponentModal";
+import { Toaster, toast } from "sonner";
 
 const AddComponentModal = ({
   show,
@@ -15,6 +15,7 @@ const AddComponentModal = ({
   setcompPrices,
   setcompCategories,
   setcompURLS,
+  setcompDates,
   setSelectedQuote,
   exComponentNames,
   exComponentCategories,
@@ -28,19 +29,18 @@ const AddComponentModal = ({
   const [componentPrices, setComponentPrices] = useState([]);
   const [componentCategories, setComponentCategories] = useState([]);
   const [componentUrls, setComponentUrls] = useState([]);
+  const [componentDates, setComponentDates] = useState([]);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [searchResults, setSearchResults] = useState({ components: [] });
   const [searchTerm, setSearchTerm] = useState("");
   const [searchClicked, setSearchClicked] = useState(false);
   const [showAddNewComponent, setShowAddNewComponent] = useState(false);
 
-
   useEffect(() => {
     if (!show) {
       setSelectedComponents([]);
     }
-  }, [show]);  
-
+  }, [show]);
 
   //fetching components list to select components
   useEffect(() => {
@@ -62,13 +62,11 @@ const AddComponentModal = ({
         console.error(error);
       }
     };
-
     // Check if the searchTerm is empty
     if (searchTerm === "") {
       fetchComponents(); // This function should fetch components as per the current categoryComp state
       setSearchClicked(false); // Set searchClicked to false to show fetched components
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, categoryComp]);
 
@@ -80,31 +78,18 @@ const AddComponentModal = ({
   ) => {
     if (selectedComponents.includes(componentName)) {
       setSelectedComponents((prevSelectedComponents) =>
-        prevSelectedComponents.filter(
-          (component) => component !== componentName
-        )
+        prevSelectedComponents.filter((component) => component !== componentName)
       );
     } else {
-      setSelectedComponents((prevSelectedComponents) => [
-        ...prevSelectedComponents,
-        componentName,
-      ]);
+      setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
     }
-
+    const today = new Date().toISOString().split("T")[0];
     const selectedIndex = componentNames.indexOf(componentName);
     if (selectedIndex === -1) {
-      setComponentNames((prevComponentNames) => [
-        ...prevComponentNames,
-        componentName,
-      ]);
-      setComponentPrices((prevComponentPrices) => [
-        ...prevComponentPrices,
-        componentPrice,
-      ]);
-      setComponentUrls((prevComponentUrls) => [
-        ...prevComponentUrls,
-        componentUrl,
-      ]);
+      setComponentNames((prevComponentNames) => [...prevComponentNames, componentName]);
+      setComponentPrices((prevComponentPrices) => [...prevComponentPrices, componentPrice]);
+      setComponentUrls((prevComponentUrls) => [...prevComponentUrls, componentUrl]);
+      setComponentDates((prevComponentDates) => [...prevComponentDates, today]);
       setComponentCategories((prevComponentCategories) => [
         ...prevComponentCategories,
         componentCategory,
@@ -120,9 +105,10 @@ const AddComponentModal = ({
         prevComponentUrls.filter((url, index) => index !== selectedIndex)
       );
       setComponentCategories((prevComponentCategories) =>
-        prevComponentCategories.filter(
-          (category, index) => index !== selectedIndex
-        )
+        prevComponentCategories.filter((category, index) => index !== selectedIndex)
+      );
+      setComponentDates((prevComponentDates) =>
+        prevComponentDates.filter((date, index) => index !== selectedIndex)
       );
     }
   };
@@ -130,15 +116,15 @@ const AddComponentModal = ({
   const handleSaveChanges = async () => {
     const recordId = recordID;
     if (!recordId) {
-      console.log(
-        "Record ID is missing, sending selected components back to editbuildmodal."
-      );
+      console.log("Record ID is missing, sending selected components back to editbuildmodal.");
       setcompNames(componentNames);
       setcompPrices(componentPrices);
       setcompCategories(componentCategories);
       setcompURLS(componentUrls);
+      setcompDates(componentDates);
       setSelectedComponents([]);
       setComponentNames([]);
+      setCategoryComp("View All");
       onHide();
     } else {
       // Merging existing and new component details
@@ -146,30 +132,28 @@ const AddComponentModal = ({
       const mergedComponentPrices = exComponentPrices.concat(componentPrices);
       const mergedComponentCategories = exComponentCategories.concat(componentCategories);
       const mergedComponentUrls = exComponentUrls.concat(componentUrls);
-  
+
       // Send merged components to the backend
       try {
-        const response = await fetch(
-          `${backendURL}/add-components-to-build/${recordId}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              componentNames: mergedComponentNames,
-              componentPrices: mergedComponentPrices,
-              componentCategories: mergedComponentCategories,
-              componentUrls: mergedComponentUrls,
-            }),
-          }
-        );
+        const response = await fetch(`${backendURL}/add-components-to-build/${recordId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            componentNames: mergedComponentNames,
+            componentPrices: mergedComponentPrices,
+            componentCategories: mergedComponentCategories,
+            componentUrls: mergedComponentUrls,
+          }),
+        });
         if (response.ok) {
           const data = await response.json();
           setSelectedQuote(data);
           toast.success("Components saved successfully!");
-          console.log('selected comps were:', componentNames, componentPrices);
+          console.log("selected comps were:", componentNames, componentPrices);
           onHide();
+          setCategoryComp("View All");
         } else {
           toast.error("Error in saving components!");
         }
@@ -178,6 +162,7 @@ const AddComponentModal = ({
         onHide();
         toast.error("Error in saving components!");
       }
+
       // Clear states or perform other necessary actions
       setSearchResults({ components: [] });
       setSearchClicked(false);
@@ -187,56 +172,6 @@ const AddComponentModal = ({
       setComponentUrls([]);
     }
   };
-  
-
-
-  // const handleSaveChanges = async () => {
-  //   const recordId = recordID;
-  //   if (!recordId) {
-  //     console.log(
-  //       "Record ID is missing, sending selected components back to editbuildmodal."
-  //     );
-  //     setcompNames(componentNames);
-  //     setcompPrices(componentPrices);
-  //     setcompCategories(componentCategories);
-  //     setcompURLS(componentUrls);
-  //     setSelectedComponents([]);
-  //     setComponentNames([]);
-  //     onHide();
-  //   } else {
-  //     fetch(`${backendURL}/add-components-to-build/${recordId}`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         componentNames,
-  //         componentPrices,
-  //         componentCategories,
-  //         componentUrls,
-  //       }),
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setSelectedQuote(data);
-  //         console.log("updated data:", data);
-  //         toast.success("Components saved successfully!");
-  //         console.log('selected comps were:',componentNames,componentPrices);
-  //         onHide();
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //         onHide();
-  //         toast.error("Error in saving components!");
-  //       });
-  //     setSearchResults({ components: [] });
-  //     setSearchClicked(false);
-  //     setComponentNames([]);
-  //     setComponentCategories([]);
-  //     setComponentPrices([]);
-  //     setComponentUrls([]);
-  //   }
-  // };
 
   const handleSearch = async () => {
     setSearchClicked(true);
@@ -244,9 +179,7 @@ const AddComponentModal = ({
       toast.error("Search field is empty!");
     }
     try {
-      const response = await fetch(
-        `${backendURL}/search?searchTerm=${searchTerm}`
-      );
+      const response = await fetch(`${backendURL}/search?searchTerm=${searchTerm}`);
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data);
@@ -260,12 +193,7 @@ const AddComponentModal = ({
 
   return (
     <>
-      <Modal
-        show={show}
-        onHide={onHide}
-        centered
-        dialogClassName="custom-modal-dialog"
-      >
+      <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
         <Modal.Header className="custom-modal-header">
           <Modal.Title>Add Components</Modal.Title>
           <button className="close-button" onClick={onHide}>
@@ -316,9 +244,7 @@ const AddComponentModal = ({
                           <input
                             type="checkbox"
                             className="input-check"
-                            checked={selectedComponents.includes(
-                              component.componentName
-                            )}
+                            checked={selectedComponents.includes(component.componentName)}
                             onChange={() =>
                               handleComponentSelection(
                                 component.componentName,
@@ -330,9 +256,7 @@ const AddComponentModal = ({
                           />
                           {component.componentName}
                         </label>
-                        <p className="add-comp-cost">
-                          ${component.componentCost}
-                        </p>
+                        <p className="add-comp-cost">${component.componentCost}</p>
                       </li>
                     ))}
                   </ul>
@@ -341,10 +265,7 @@ const AddComponentModal = ({
                 <div>
                   {/*show the add button if search results are empty*/}
                   {/* <p>no components found!</p> */}
-                  <Button
-                    variant="contained"
-                    onClick={() => setShowAddNewComponent(true)}
-                  >
+                  <Button variant="contained" onClick={() => setShowAddNewComponent(true)}>
                     Add
                   </Button>
                 </div>
@@ -361,9 +282,7 @@ const AddComponentModal = ({
                         <input
                           type="checkbox"
                           className="input-check"
-                          checked={selectedComponents.includes(
-                            component.componentName
-                          )}
+                          checked={selectedComponents.includes(component.componentName)}
                           onChange={() =>
                             handleComponentSelection(
                               component.componentName,
@@ -375,9 +294,7 @@ const AddComponentModal = ({
                         />
                         {component.componentName}
                       </label>
-                      <p className="add-comp-cost">
-                        ${component.componentCost}
-                      </p>
+                      <p className="add-comp-cost">${component.componentCost}</p>
                     </li>
                   ))}
                 </ul>
@@ -390,9 +307,9 @@ const AddComponentModal = ({
             variant="secondary"
             onClick={() => {
               setSearchResults({ components: [] });
-              setCategoryComp("View All");
               setSearchClicked(false);
               onHide();
+              setCategoryComp("View All");
             }}
           >
             Close
@@ -403,10 +320,7 @@ const AddComponentModal = ({
         </Modal.Footer>
       </Modal>
       <Toaster position="top-right" richColors />
-      <AddNewComponent
-        show={showAddNewComponent}
-        onHide={() => setShowAddNewComponent(false)}
-      />
+      <AddNewComponent show={showAddNewComponent} onHide={() => setShowAddNewComponent(false)} />
     </>
   );
 };
