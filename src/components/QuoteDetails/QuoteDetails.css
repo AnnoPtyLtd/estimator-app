@@ -248,6 +248,9 @@ li label {
 }
 
 @media screen and (min-width: 2560px) {
+  .quote-details-container {
+    max-width: 90% !important;
+  }
   .quote-details-title {
     font-size: 1.5rem;
   }
@@ -259,24 +262,57 @@ li label {
   .editbtn {
     font-size: 1.1rem !important;
   }
-  .single-quote-left h4{
+  .single-quote-left h4 {
     font-size: 1.5em !important ;
   }
-  .single-quote-left p{
+  .single-quote-left p {
     font-size: 1.3em !important ;
   }
 
   .MuiDataGrid-row {
     font-size: 1.5rem !important; /* Adjust the desired font size */
   }
- .MuiDataGrid-cell {
+  .MuiDataGrid-cell {
     font-size: 1.2rem !important; /* Adjust the desired font size */
   }
- .MuiDataGrid-columnHeader {
+  .MuiDataGrid-columnHeader {
     font-size: 1.3rem; /* Adjust the desired font size for column headers */
   }
   .single-quote-right p {
     font-size: 1.2em !important;
   }
+}
 
+@media screen and (min-width: 3840px) {
+ 
+  .quote-details-title {
+    font-size: 3rem;
+  }
+  .quote-details-column p {
+    font-weight: 500;
+    font-size: 2.4rem;
+  }
+
+  .editbtn {
+    font-size: 2.2rem !important;
+  }
+  .single-quote-left h4 {
+    font-size: 3em !important ;
+  }
+  .single-quote-left p {
+    font-size: 2.6em !important ;
+  }
+
+  .MuiDataGrid-row {
+    font-size: 3rem !important; /* Adjust the desired font size */
+  }
+  .MuiDataGrid-cell {
+    font-size: 2.4rem !important; /* Adjust the desired font size */
+  }
+  .MuiDataGrid-columnHeader {
+    font-size: 2.6rem; /* Adjust the desired font size for column headers */
+  }
+  .single-quote-right p {
+    font-size: 2.4em !important;
+  }
 }

@@ -8,7 +8,11 @@ router.get('/export-records', async (req, res) => {
       if ( !quoteType) {
         return res.status(400).json({ error: 'quoteType required' });
       }
-      const records = await Record.find({ quoteType: quoteType });
+      let records=[]
+      if(quoteType==='View All')
+        records = await Record.find();
+      else
+        records = await Record.find({ quoteType: quoteType });
       res.status(200).json(records);
     } catch (error) {
       console.error(error);

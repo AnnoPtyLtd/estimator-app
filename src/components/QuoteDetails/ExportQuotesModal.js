@@ -132,7 +132,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
             className="builds-filter"
             value={quoteType}
             onChange={(e) => setQuoteType(e.target.value)}>
-            <option value="choosequote2">Choose quote type</option>
+            <option value="View All">View all</option>
             <option value="Gaming PC">Gaming PC</option>
             <option value="Content Creation">Content creation and productivity</option>
             <option value="Office/Home PC">Office/Home</option>

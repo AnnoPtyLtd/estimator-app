@@ -50,5 +50,18 @@
         font-size: 24px !important;
         letter-spacing: 1px;
     }
-
+}
+@media screen and (min-width: 3840px) {
+    .topbar{
+        max-height: 400px;
+    }
+    .topbar-title{
+        font-size: 3em;
+    }
+    .signout-btn{
+        min-width: 200px !important;
+        height: 100px;
+        font-size: 24px !important;
+        letter-spacing: 1px;
+    }
 }
