@@ -177,6 +177,7 @@ router.post("/add-components-to-build/:id", async (req, res) => {
       componentPrices,
       componentCategories,
       componentUrls,
+      componentDates
     } = req.body;
     if (
       !componentNames ||
@@ -201,6 +202,7 @@ router.post("/add-components-to-build/:id", async (req, res) => {
     existingRecord.componentPrices = componentPrices;
     existingRecord.componentCategories = componentCategories;
     existingRecord.componentUrls = componentUrls;
+    existingRecord.componentDates = componentDates;
     existingRecord.quoteDate = new Date();
     // Calculate total cost based on component prices
     const totalCost = componentPrices.reduce((acc, price) => acc + price, 0);
@@ -221,8 +223,8 @@ router.get("/get-components-by-record/:recordID", async (req, res) => {
       return res.status(404).json({ error: "Record not found" });
     }
 
-    const { componentNames, componentPrices, componentCategories, componentUrls } = record;
-    res.json({ componentNames, componentPrices, componentCategories,componentUrls });
+    const { componentNames, componentPrices, componentCategories, componentUrls,componentDates } = record;
+    res.json({ componentNames, componentPrices, componentCategories,componentUrls,componentDates });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });

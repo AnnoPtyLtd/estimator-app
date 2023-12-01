@@ -75,7 +75,8 @@ const AddComponentModal = ({
     componentName,
     componentPrice,
     componentCategory,
-    componentUrl
+    componentUrl,
+    componentDate,
   ) => {
     if (selectedComponents.includes(componentName)) {
       setSelectedComponents((prevSelectedComponents) =>
@@ -84,13 +85,13 @@ const AddComponentModal = ({
     } else {
       setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
     }
-    const today = new Date().toISOString().split("T")[0];
+    console.log('componentDate:',componentDate);
     const selectedIndex = componentNames.indexOf(componentName);
     if (selectedIndex === -1) {
       setComponentNames((prevComponentNames) => [...prevComponentNames, componentName]);
       setComponentPrices((prevComponentPrices) => [...prevComponentPrices, componentPrice]);
       setComponentUrls((prevComponentUrls) => [...prevComponentUrls, componentUrl]);
-      setComponentDates((prevComponentDates) => [...prevComponentDates, today]);
+      setComponentDates((prevComponentDates) => [...prevComponentDates, componentDate]);
       setComponentCategories((prevComponentCategories) => [
         ...prevComponentCategories,
         componentCategory,
@@ -138,6 +139,7 @@ const AddComponentModal = ({
       const mergedComponentPrices = exComponentPrices.concat(componentPrices);
       const mergedComponentCategories = exComponentCategories.concat(componentCategories);
       const mergedComponentUrls = exComponentUrls.concat(componentUrls);
+      const mergedComponentDates = exComponentDates.concat(componentDates);
 
       // Send merged components to the backend
       try {
@@ -151,6 +153,7 @@ const AddComponentModal = ({
             componentPrices: mergedComponentPrices,
             componentCategories: mergedComponentCategories,
             componentUrls: mergedComponentUrls,
+            componentDates: mergedComponentDates
           }),
         });
         if (response.ok) {
@@ -176,6 +179,7 @@ const AddComponentModal = ({
       setComponentCategories([]);
       setComponentPrices([]);
       setComponentUrls([]);
+      setComponentDates([]);
     }
   };
 
@@ -256,7 +260,8 @@ const AddComponentModal = ({
                                 component.componentName,
                                 component.componentCost,
                                 component.componentCategory,
-                                component.componentUrl
+                                component.componentUrl,
+                                new Date().toLocaleString()
                               )
                             }
                           />
@@ -294,7 +299,8 @@ const AddComponentModal = ({
                               component.componentName,
                               component.componentCost,
                               component.componentCategory,
-                              component.componentUrl
+                              component.componentUrl,
+                              new Date().toLocaleString()
                             )
                           }
                         />

@@ -18,8 +18,8 @@ const EditComponentInBuild = ({
   const [newPrice, setNewPrice] = useState();
   const [newName, setNewName] = useState();
   const [newUrl, setNewUrl] = useState();
-  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [exComponents, setExComponents] = useState([]);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchComponents = async () => {
@@ -75,10 +75,20 @@ const EditComponentInBuild = ({
         currentComponents.componentNames[indexOfComponentArray] = newName;
         currentComponents.componentPrices[indexOfComponentArray] = parseFloat(newPrice);
         currentComponents.componentUrls[indexOfComponentArray] = newUrl;
+        currentComponents.componentDates[indexOfComponentArray] = new Date().toLocaleString();
       }
-      if (newName) currentComponents.componentNames[indexOfComponentArray] = newName;
-      if (newPrice) currentComponents.componentPrices[indexOfComponentArray] = parseFloat(newPrice);
-      if (newUrl) currentComponents.componentUrls[indexOfComponentArray] = newUrl;
+      if (newName) {
+        currentComponents.componentNames[indexOfComponentArray] = newName;
+        currentComponents.componentDates[indexOfComponentArray] = new Date().toLocaleString();
+      }
+      if (newPrice) {
+        currentComponents.componentPrices[indexOfComponentArray] = parseFloat(newPrice);
+        currentComponents.componentDates[indexOfComponentArray] = new Date().toLocaleString();
+      }
+      if (newUrl) {
+        currentComponents.componentUrls[indexOfComponentArray] = newUrl;
+        currentComponents.componentDates[indexOfComponentArray] = new Date().toLocaleString();
+      }
 
       // Make a request to update the components in the backend
       const response = await fetch(`${backendURL}/add-components-to-build/${recordID}`, {
@@ -91,6 +101,7 @@ const EditComponentInBuild = ({
           componentPrices: currentComponents.componentPrices,
           componentCategories: currentComponents.componentCategories,
           componentUrls: currentComponents.componentUrls,
+          componentDates: currentComponents.componentDates,
         }),
       });
 
