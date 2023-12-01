@@ -168,7 +168,7 @@ const EditComponentInBuild = ({
               onChange={(e) => setNewUrl(e.target.value)}
             ></StringTextField>
           </div>
-          <p>last updated: {quote && new Date(quote.quoteDate).toLocaleDateString()}</p>
+          <p>last updated: {quote && quote.componentDates[indexOfComponentArray]}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onHide}>
