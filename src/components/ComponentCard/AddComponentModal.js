@@ -126,6 +126,11 @@ const AddComponentModal = ({
       setComponentNames([]);
       setCategoryComp("View All");
       onHide();
+      setComponentNames([]);
+      setComponentPrices([]);
+      setComponentCategories([]);
+      setComponentUrls([]);
+      setComponentDates([]);
     } else {
       // Merging existing and new component details
       const mergedComponentNames = exComponentNames.concat(componentNames);
