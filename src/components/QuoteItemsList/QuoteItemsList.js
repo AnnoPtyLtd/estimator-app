@@ -99,7 +99,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
           <option className='option' value='Custom/Other'>Custom/Other</option>
         </select>
         <Tooltip title="Add new quote" placement="top-start">
-          <Button variant='outlined' onClick={() => setShowAddBuildModal(true)}> <AddIcon /> </Button>
+          <Button variant='outlined' className='add-button' onClick={() => setShowAddBuildModal(true)}> <AddIcon className='add-btn-icon' /> </Button>
         </Tooltip>
       </div>
 

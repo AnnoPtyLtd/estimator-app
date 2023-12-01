@@ -243,3 +243,26 @@
     font-size: 20px !important;
   }
 }
+@media screen and (min-width: 3840px) {
+  .menu.expanded{
+    padding: 20px;
+    min-width: 320px;
+  }
+  .menu.expanded .menu-icon{
+    font-size: 50px !important;
+  }
+  .menu.collapsed {
+    width: 160px !important; /* Adjusted width for larger screens */
+    padding: 40px 0px; /* Increased padding */
+  }
+  .menu.collapsed .menu-icon{
+    font-size: 56px !important;
+    margin: 10px 0px;
+  }
+  .menu-item{
+    padding-right: 10px !important;
+  }
+  .menu-item p{
+    font-size: 36px !important;
+  }
+}

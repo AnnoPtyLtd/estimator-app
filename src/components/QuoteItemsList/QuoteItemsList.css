@@ -68,21 +68,60 @@
 }
 
 @media screen and (min-width: 2560px) {
-    .quotelist-item-container{
-        min-width: 36vh !important;
-        font-size: 26px !important;
-    }
-    .quoteitems-list {
-        max-height: 60vh;
-        overflow: auto;
-        min-width: 35vh;
-        scroll-behavior: smooth;
-        scrollbar-gutter: 5px;
-      }
-      .filter-field{
-        width: 50% !important;
-      }
-      .option {
-        font-size: 10px;
-      }
+  .quotelist-item-container {
+    min-width: 36vh !important;
+    font-size: 26px !important;
+  }
+  .quoteitems-list {
+    max-height: 60vh;
+    overflow: auto;
+    min-width: 35vh;
+    scroll-behavior: smooth;
+    scrollbar-gutter: 5px;
+  }
+  .filter-field {
+    width: 50% !important;
+  }
+  .option {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 3840px) {
+  .quotelist-item-container {
+    min-width: 40vh !important;
+    font-size: 50px !important;
+  }
+  .quoteitems-list {
+    max-height: 60vh;
+    overflow: auto;
+    min-width: 90%;
+    scroll-behavior: smooth;
+    scrollbar-gutter: 5px;
+  }
+  .search-icon {
+    font-size: 40px !important;
+    margin-right: 1%;
+  }
+
+  .filter-field {
+    width: 100% !important;
+  }
+  .filter-field-select {
+    font-size: 40px !important;
+    width: 300px !important;
+  }
+  .filter-field-select .option {
+    width: 300px !important;
+  }
+  .option {
+    font-size: 10px;
+  }
+  .add-button {
+    min-width: 20% !important; 
+    min-height: 80px; 
+  }
+  .add-btn-icon{
+    font-size: 50px !important;
+  }
 }
