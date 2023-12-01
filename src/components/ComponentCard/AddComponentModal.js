@@ -21,6 +21,7 @@ const AddComponentModal = ({
   exComponentCategories,
   exComponentPrices,
   exComponentUrls,
+  exComponentDates,
 }) => {
   const [categoryComp, setCategoryComp] = useState("View All");
   const [components, setComponents] = useState([]);

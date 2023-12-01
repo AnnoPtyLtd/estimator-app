@@ -32,29 +32,27 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [exComponentCategories, setExComponentCategories] = useState([]);
   const [exComponentPrices, setExComponentPrices] = useState([]);
   const [exComponentUrls, setExComponentUrls] = useState([]);
+  const [exComponentDates, setExComponentDates] = useState([]);
 
   // using for the rows attribute in table
-
   useEffect(() => {
-    const mappedRows =
-      selectedQuote &&
-      selectedQuote.componentNames.map((componentName, index) => ({
+    if (selectedQuote && selectedQuote.componentNames) {
+      const mappedRows = selectedQuote.componentNames.map((componentName, index) => ({
         id: index,
-        Category:
-          selectedQuote.componentCategories &&
-          selectedQuote.componentCategories[index],
+        Category: selectedQuote.componentCategories && selectedQuote.componentCategories[index],
         Component: componentName,
-        Price:
-          selectedQuote.componentPrices && '$'+selectedQuote.componentPrices[index],
+        Price: selectedQuote.componentPrices && "$" + selectedQuote.componentPrices[index],
         URL: selectedQuote.componentUrls && selectedQuote.componentUrls[index],
       }));
-    setRows(mappedRows || []);
+      setRows(mappedRows || []);
 
-    selectedQuote &&
-      (setExComponentNames(selectedQuote.componentNames) ||
-        setExComponentPrices(selectedQuote.componentPrices) ||
-        setExComponentCategories(selectedQuote.componentCategories) ||
-        setExComponentUrls(selectedQuote.componentUrls));
+      selectedQuote &&
+        (setExComponentNames(selectedQuote.componentNames) ||
+          setExComponentPrices(selectedQuote.componentPrices) ||
+          setExComponentCategories(selectedQuote.componentCategories) ||
+          setExComponentUrls(selectedQuote.componentUrls) ||
+          setExComponentDates(selectedQuote.componentDates));
+    }
   }, [selectedQuote]);
 
   //column attribute for the table in quote
@@ -140,6 +138,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   };
   //this function will delete the component from quote
   const handleDeleteButtonClick = (row) => {
+    console.log("id:", selectedQuote._id, "row id:", row.id);
     setindexOfComponentArray(row.id);
     fetch(`${backendURL}/delete-component/${selectedQuote._id}/${row.id}`, {
       method: "DELETE",
@@ -159,15 +158,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const handleDuplicate = async () => {
     console.log("duplicate quote", selectedQuote);
     try {
-      const response = await fetch(
-        `${backendURL}/duplicate-quote/${selectedQuote._id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backendURL}/duplicate-quote/${selectedQuote._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 201) {
         toast.message("Quote duplicated!");
       } else {
@@ -248,11 +244,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           </>
           {selectedQuote ? (
             <div className="quote-btn-group">
-              <ButtonGroup
-                variant="outlined"
-                aria-label="outlined button group"
-                size="small"
-              >
+              <ButtonGroup variant="outlined" aria-label="outlined button group" size="small">
                 <Tooltip title="Duplicate" placement="top-start">
                   <Button>
                     <DuplicateIcon
@@ -309,19 +301,13 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         <div className="quote-details-header">
           <div className="quote-btns">
             <Tooltip title="Delete this quote" placement="top-start">
-              <Button
-                variant="outlined"
-                onClick={() => setShowDeleteModal(true)}
-              >
+              <Button variant="outlined" onClick={() => setShowDeleteModal(true)}>
                 {" "}
                 <DeleteIcon />{" "}
               </Button>
             </Tooltip>
             <Tooltip title="Export quotes" placement="top-start">
-              <Button
-                variant="outlined"
-                onClick={() => setShowExportModal(true)}
-              >
+              <Button variant="outlined" onClick={() => setShowExportModal(true)}>
                 {" "}
                 <ExportIcon />{" "}
               </Button>
@@ -330,14 +316,8 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         </div>
       </div>
 
-      <ExportQuotesModal
-        show={showExportModal}
-        onHide={() => setShowExportModal(false)}
-      />
-      <AddNewBuildModal
-        show={showAddBuildModal}
-        onHide={() => setShowAddBuildModal(false)}
-      />
+      <ExportQuotesModal show={showExportModal} onHide={() => setShowExportModal(false)} />
+      <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />
       <DeleteQuoteModal
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}
@@ -355,6 +335,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         exComponentCategories={exComponentCategories}
         exComponentPrices={exComponentPrices}
         exComponentUrls={exComponentUrls}
+        exComponentDates={exComponentDates}
       />
 
       <EditCompinBuild
