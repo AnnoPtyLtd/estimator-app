@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import CloseIcon from '@mui/icons-material/Close';
-import ButtonMUI from '@mui/material/Button';
+import React, { useState, useEffect } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import CloseIcon from "@mui/icons-material/Close";
+import ButtonMUI from "@mui/material/Button";
 
 const ExportQuotesModal = ({ show, onHide }) => {
-  const [quoteType, setQuoteType] = useState('Gaming PC');
+  const [quoteType, setQuoteType] = useState("View All");
   const [records, setRecords] = useState([]);
   const [selectedQuotes, setSelectedQuotes] = useState([]);
   const [allQuotes, setAllQuotes] = useState([]);
@@ -14,13 +14,13 @@ const ExportQuotesModal = ({ show, onHide }) => {
   useEffect(() => {
     const fetchQuotes = async () => {
       try {
-          const response = await fetch(`${backendURL}/getadminquotes`);
-          if (response.status === 200) {
-            const data = await response.json();
-            await setAllQuotes(data);
-          } else {
-            console.error('Failed to fetch records');
-          }
+        const response = await fetch(`${backendURL}/getadminquotes`);
+        if (response.status === 200) {
+          const data = await response.json();
+          await setAllQuotes(data);
+        } else {
+          console.error("Failed to fetch records");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -37,7 +37,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
           const data = await response.json();
           setRecords(data);
         } else {
-          console.error('Failed to fetch records');
+          console.error("Failed to fetch records");
         }
       } catch (error) {
         console.error(error);
@@ -60,46 +60,46 @@ const ExportQuotesModal = ({ show, onHide }) => {
   };
 
   const generateCSVContent = () => {
-    const header = 'Name,Category,Quote Date,Quote Cost,Quote Components\n';
+    const header = "Name,Category,Quote Date,Quote Cost,Quote Components\n";
 
     const csvRows = selectedQuotes.map((name) => {
       const record = allQuotes.find((r) => r.name === name);
 
       if (!record) {
         console.error(`Record not found for name: ${name}`);
-        return '';
+        return "";
       }
 
       const quoteComponents = Array.isArray(record.componentNames)
-        ? record.componentNames.join(', ')
+        ? record.componentNames.join(", ")
         : record.componentNames;
 
       return `${record.name},${record.quoteType},${record.quoteDate},${record.quoteCost},"${quoteComponents}"\n`;
     });
 
-    return header + csvRows.join('');
+    return header + csvRows.join("");
   };
 
-  const handleExport = async() => {
+  const handleExport = async () => {
     if (selectedQuotes.length === 0) {
-      console.log('No quotes selected for export.');
+      console.log("No quotes selected for export.");
       return;
     }
 
     const csvContent = generateCSVContent();
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-   
+    const blob = new Blob([csvContent], { type: "text/csv" });
+
     try {
       const options = {
         types: [
           {
-            description: 'CSV Files',
+            description: "CSV Files",
             accept: {
-              'text/csv': ['.csv'],
+              "text/csv": [".csv"],
             },
           },
         ],
-        suggestedName: 'exported quotes.csv',
+        suggestedName: "exported quotes.csv",
       };
       const fileHandle = await window.showSaveFilePicker(options);
       // Create a writable stream and write the blob to the selected file
@@ -107,11 +107,11 @@ const ExportQuotesModal = ({ show, onHide }) => {
       await writable.write(blob);
       await writable.close();
 
-      console.log(`File saved as ${fileHandle.csv}`);
+      setQuoteType("View All");
       onHide();
     } catch (error) {
-      console.error('Error saving the file:', error);
-      window.alert('Failed to export :(');
+      console.error("Error saving the file:", error);
+      window.alert("Failed to export :(");
       onHide();
     }
   };
@@ -131,22 +131,21 @@ const ExportQuotesModal = ({ show, onHide }) => {
             id="dropdown2"
             className="builds-filter"
             value={quoteType}
-            onChange={(e) => setQuoteType(e.target.value)}>
-            <option value="View All">View all</option>
+            onChange={(e) => setQuoteType(e.target.value)}
+          >
+            <option value="View All">View All</option>
             <option value="Gaming PC">Gaming PC</option>
             <option value="Content Creation">Content creation and productivity</option>
             <option value="Office/Home PC">Office/Home</option>
             <option value="Custom/Other">Custom/Other</option>
           </select>
-          <ButtonMUI variant='outlined' onClick={handleClearSelection}>Clear</ButtonMUI>
+          <ButtonMUI variant="outlined" onClick={handleClearSelection}>
+            Clear
+          </ButtonMUI>
         </div>
         <ul className="export-list">
           {records.map((record) => (
-            <li
-              key={record._id}
-              whileHover={{ scale: 1.04 }}
-              transition={{ duration: 0.2 }}
-            >
+            <li key={record._id} whileHover={{ scale: 1.04 }} transition={{ duration: 0.2 }}>
               <label className="labelxd">
                 <input
                   type="checkbox"
@@ -161,7 +160,13 @@ const ExportQuotesModal = ({ show, onHide }) => {
         </ul>
       </Modal.Body>
       <Modal.Footer className="custom-modal-footer">
-        <Button variant="secondary" onClick={onHide}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            setQuoteType("View All");
+            onHide();
+          }}
+        >
           Cancel
         </Button>
         <Button variant="primary" onClick={handleExport}>
