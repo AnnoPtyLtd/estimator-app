@@ -28,7 +28,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
   const [name, setName] = useState("");
   const [quoteType, setQuoteType] = useState("Gaming PC");
   const [quoteDate, setQuoteDate] = useState("");
-  const [quoteUserId, setQuoteUserId] = useState("");
+  // const [quoteUserId, setQuoteUserId] = useState("");
   const token = localStorage.getItem("token");
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
@@ -40,14 +40,11 @@ const AddNewBuildModal = ({ show, onHide }) => {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   const handleAddRecord = async () => {
-    setQuoteUserId(userId);
+    // setQuoteUserId(userId);
     const quoteCost = componentPrices.reduce(
       (acc, price) => acc + parseFloat(price),
       0
     );
-    console.log("user id:", userId);
-    console.log("quote user id is:",quoteUserId);
-
     try {
       const response = await fetch(`${backendURL}/saverecord`, {
         method: "POST",
@@ -74,6 +71,11 @@ const AddNewBuildModal = ({ show, onHide }) => {
         setQuoteDate("");
         onHide();
         toast.success("Quote added successfully!");
+        setComponentNames([]);
+        setComponentPrices([]);
+        setComponentCategories([]);
+        setComponentURLS([]);
+        setComponentDates([]);
       } else {
         toast.error("Some error occurred!");
       }

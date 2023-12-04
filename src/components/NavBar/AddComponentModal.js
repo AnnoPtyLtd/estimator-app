@@ -76,7 +76,7 @@ const AddComponentModal = ({ show, onHide }) => {
         <Modal.Title>Add Components</Modal.Title>
       </ModalHeader>
       <Modal.Body
-        className="addCompModal-Body"
+        className="addCompModal-Body modal-xl"
         style={{
           maxHeight: "600px",
           opacity: "0.9",

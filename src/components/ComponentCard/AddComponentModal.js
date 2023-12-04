@@ -125,14 +125,14 @@ const AddComponentModal = ({
       setcompURLS(componentUrls);
       setcompDates(componentDates);
       setSelectedComponents([]);
-      setComponentNames([]);
-      setCategoryComp("View All");
-      onHide();
+      //setting arrays empty again for new selection
       setComponentNames([]);
       setComponentPrices([]);
       setComponentCategories([]);
       setComponentUrls([]);
       setComponentDates([]);
+      setCategoryComp("View All");
+      onHide();
     } else {
       // Merging existing and new component details
       const mergedComponentNames = exComponentNames.concat(componentNames);
@@ -160,7 +160,11 @@ const AddComponentModal = ({
           const data = await response.json();
           setSelectedQuote(data);
           toast.success("Components saved successfully!");
-          console.log("selected comps were:", componentNames, componentPrices);
+          setComponentNames([]);
+          setComponentPrices([]);
+          setComponentCategories([]);
+          setComponentUrls([]);
+          setComponentDates([]);
           onHide();
           setCategoryComp("View All");
         } else {

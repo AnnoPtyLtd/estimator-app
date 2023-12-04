@@ -1,14 +1,14 @@
 import './QuoteItemsList.css'
 import React, { useEffect, useState } from 'react';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import jwt_decode from 'jwt-decode';
 import { List } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars';
-import SearchResultModal from '../ComponentsPage/SearchResultModal';
+import { Tooltip } from '@mui/material';
 import { Toaster, toast } from 'sonner';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import jwt_decode from 'jwt-decode';
+import SearchResultModal from '../ComponentsPage/SearchResultModal';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import { Tooltip } from '@mui/material';
 import AddNewBuildModal from '../QuoteDetails/AddNewBuildModal';
 
 const QuoteItemsList = ({ onQuoteClick }) => {
