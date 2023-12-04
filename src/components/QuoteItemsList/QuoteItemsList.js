@@ -28,10 +28,10 @@ const QuoteItemsList = ({ onQuoteClick }) => {
 
   useEffect(() => {
     // handleSearch(); //for automatic list updating without button click
-    if (searchTerm.trim() === "" || !searchTerm) {
+    if (searchTerm.trim() === "" || !searchTerm || quoteFilter) {
       setSearchResults([]);
     }
-  }, [searchTerm]);
+  }, [searchTerm,quoteFilter]);
 
   //this use effect is used for screen width fetching and setting height of list body
   useEffect(() => {
@@ -168,7 +168,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
                     {quote.name}
                   </p>
                 ))
-              : quotes.map((quote) => (
+              : quotes && quotes.map((quote) => (
                   <p
                     key={quote._id}
                     className="quote-name"
@@ -184,11 +184,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       </div>
       <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />
       <Toaster position="top-right" richColors />
-      {/* <SearchResultModal
-        show={showSearchResultsModal}
-        onHide={() => setShowSearchResultsModal(false)}
-        searchResults={searchResults}
-      /> */}
     </div>
   );
 };
