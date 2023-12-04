@@ -76,7 +76,7 @@ const AddComponentModal = ({
     componentPrice,
     componentCategory,
     componentUrl,
-    componentDate,
+    componentDate
   ) => {
     if (selectedComponents.includes(componentName)) {
       setSelectedComponents((prevSelectedComponents) =>
@@ -85,7 +85,7 @@ const AddComponentModal = ({
     } else {
       setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, componentName]);
     }
-    console.log('componentDate:',componentDate);
+    console.log("componentDate:", componentDate);
     const selectedIndex = componentNames.indexOf(componentName);
     if (selectedIndex === -1) {
       setComponentNames((prevComponentNames) => [...prevComponentNames, componentName]);
@@ -153,7 +153,7 @@ const AddComponentModal = ({
             componentPrices: mergedComponentPrices,
             componentCategories: mergedComponentCategories,
             componentUrls: mergedComponentUrls,
-            componentDates: mergedComponentDates
+            componentDates: mergedComponentDates,
           }),
         });
         if (response.ok) {

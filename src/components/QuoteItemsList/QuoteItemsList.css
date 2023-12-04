@@ -71,13 +71,18 @@
   .quotelist-item-container {
     min-width: 36vh !important;
     font-size: 26px !important;
+    min-height: 80vh;
   }
   .quoteitems-list {
-    max-height: 60vh;
+    min-height: 70vh;
     overflow: auto;
     min-width: 35vh;
     scroll-behavior: smooth;
     scrollbar-gutter: 5px;
+  }
+  .quoteitems-list::-webkit-scrollbar {
+    min-height: 90vh; /* Define the height you want for the scrollbar thumb */
+    background-color: red;
   }
   .filter-field {
     width: 50% !important;
@@ -118,10 +123,10 @@
     font-size: 10px;
   }
   .add-button {
-    min-width: 20% !important; 
-    min-height: 80px; 
+    min-width: 20% !important;
+    min-height: 80px;
   }
-  .add-btn-icon{
+  .add-btn-icon {
     font-size: 50px !important;
   }
 }
