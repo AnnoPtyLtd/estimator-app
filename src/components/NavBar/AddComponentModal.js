@@ -6,23 +6,21 @@ import InputLabel from "@mui/material/InputLabel";
 import desktop from "../../assets/desktop.png";
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import StringTextField from "../TextFields/StringTextField";
 import SelectTextField from "../TextFields/SelectTextField";
 
 const AddComponentModal = ({ show, onHide }) => {
-
   const [compName, setCompName] = useState("");
   const [compCategory, setCompCategory] = useState("");
   const [compPrice, setCompPrice] = useState("");
   const [compURL, setCompURL] = useState("");
   const [compDate, setCompDate] = useState(dayjs("DD/MM/YYYY"));
-  const backendURL = process.env.REACT_APP_BACKEND_URL; 
-
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   const option = [
     { value: "CPU", label: "CPU" },
@@ -34,7 +32,7 @@ const AddComponentModal = ({ show, onHide }) => {
     { value: "Storage", label: "Storage" },
     { value: "Cooling Solution", label: "Cooling Solution" },
     { value: "Others", label: "Others" },
-  ]
+  ];
 
   const handleCloseComp = () => {
     onHide();
@@ -71,7 +69,9 @@ const AddComponentModal = ({ show, onHide }) => {
       show={show}
       onHide={onHide}
       animation={TouchRipple}
-      size="lg">
+      dialogClassName="addComponentPanel"
+      size="lg"
+    >
       <ModalHeader closeButton>
         <Modal.Title>Add Components</Modal.Title>
       </ModalHeader>
@@ -81,11 +81,12 @@ const AddComponentModal = ({ show, onHide }) => {
           maxHeight: "600px",
           opacity: "0.9",
           display: "flex",
-        }}>
+        }}
+      >
         <div>
           <img src={desktop} alt="img" width="500px" className="img-fluid" />
         </div>
-        <div>
+        <div className="addcomp-form">
           <form>
             <div className="modalbodycomp-item">
               <StringTextField
@@ -121,7 +122,7 @@ const AddComponentModal = ({ show, onHide }) => {
             <div>
               <InputLabel id="demo-simple-select-autowidth-label">Date</InputLabel>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DateField', 'DatePicker']}>
+                <DemoContainer components={["DateField", "DatePicker"]}>
                   <DatePicker
                     label="Date"
                     format="DD/MM/YYYY"

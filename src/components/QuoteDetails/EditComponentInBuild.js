@@ -28,7 +28,7 @@ const EditComponentInBuild = ({
           const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
           if (response.ok) {
             const data = await response.json();
-            data && setExComponents(data);
+            setExComponents(data);
             setNewName(exComponents.componentNames[indexOfComponentArray]);
             setNewPrice(exComponents.componentPrices[indexOfComponentArray]);
             setNewUrl(exComponents.componentUrls[indexOfComponentArray]);

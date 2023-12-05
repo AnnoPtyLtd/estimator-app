@@ -1,7 +1,7 @@
 .menu {
   display: flex;
   flex-direction: column;
-  color: #4477CE;
+  color: #4477ce;
   width: 160px;
   padding: 10px 0px;
   transition: 0.3s ease;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 1270px) {
-  .menu{
+  .menu {
     display: flex;
     flex-direction: row !important;
     width: fit-content !important;
@@ -59,9 +59,8 @@
   align-items: center;
   padding-left: 10px;
   cursor: pointer;
-  background-color: #6B728E;
+  background-color: #6b728e;
   color: white;
-
 }
 
 .centered-content {
@@ -79,13 +78,11 @@
   width: 30px;
 }
 
-
 .menu-item.active {
   transition: 0.4 ease;
   background-color: var(--light-hover);
   color: var(--bg-light-primary);
   border-radius: 10px;
-
 }
 
 .menu.expanded {
@@ -112,7 +109,6 @@
   justify-content: center;
   padding-right: 3px;
   border-radius: 10px;
-  
 }
 
 .menu.collapsed .menu-item p {
@@ -127,7 +123,7 @@
   justify-content: center;
   padding: 0;
 }
-.menu-items{
+.menu-items {
   padding-left: 0;
   margin-left: 0;
   transition: width 0.5s ease;
@@ -147,7 +143,7 @@
 
 .menu-item:hover {
   cursor: pointer;
-  background-color: #6B728E;
+  background-color: #6b728e;
   color: white;
 }
 
@@ -198,7 +194,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 5px;
- padding: 10px 10px 10px 10%;
+  padding: 10px 10px 10px 10%;
 }
 
 .search-field {
@@ -216,10 +212,11 @@
   width: 100%;
   border: none;
 }
-.search-result{
+.search-result {
   margin-top: 20px;
 }
-.search-result h4,ul{
+.search-result h4,
+ul {
   font-weight: 400 !important;
 }
 
@@ -229,40 +226,55 @@
     width: 80px !important; /* Adjusted width for larger screens */
     padding: 20px 0px; /* Increased padding */
   }
-  .menu.expanded{
+  .menu.expanded {
     padding: 10px;
     min-width: 240px;
   }
-  .menu.collapsed .menu-icon{
+  .menu.collapsed .menu-icon {
     font-size: 30px !important;
   }
-  .menu-item{
+  .menu-item {
     padding-right: 5px !important;
   }
-  .menu-item p{
+  .menu-item p {
     font-size: 20px !important;
+  }
+  .addComponentPanel {
+    min-width: 60vh;
+    min-height: 80vh !important;
+    font-size: 40px !important;
   }
 }
 @media screen and (min-width: 3840px) {
-  .menu.expanded{
+  .menu.expanded {
     padding: 20px;
-    min-width: 320px;
+    min-width: 360px;
   }
-  .menu.expanded .menu-icon{
+  .menu.expanded .menu-icon {
     font-size: 50px !important;
   }
   .menu.collapsed {
     width: 160px !important; /* Adjusted width for larger screens */
     padding: 40px 0px; /* Increased padding */
   }
-  .menu.collapsed .menu-icon{
+  .menu.collapsed .menu-icon {
     font-size: 56px !important;
     margin: 10px 0px;
   }
-  .menu-item{
+  .menu-item {
     padding-right: 10px !important;
   }
-  .menu-item p{
+  .menu-item p {
     font-size: 36px !important;
+  }
+
+  .addCompModal-Body {
+    min-height: 30vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .addcomp-form {
+    width: 50%;
   }
 }
