@@ -6,7 +6,6 @@ import { Tooltip } from "@mui/material";
 import { Toaster, toast } from "sonner";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import jwt_decode from "jwt-decode";
-// import SearchResultModal from "../ComponentsPage/SearchResultModal";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import AddNewBuildModal from "../QuoteDetails/AddNewBuildModal";
@@ -24,7 +23,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [autoHeightMin, setAutoHeightMin] = useState(700); // Default value for autoHeightMin
   const backendURL = process.env.REACT_APP_BACKEND_URL;
-  // const [showSearchResultsModal, setShowSearchResultsModal] = useState(false);
 
   useEffect(() => {
     if (searchTerm.trim() === "" || quoteFilter) {
@@ -98,7 +96,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         const data = await response.json();
         setSearchResults(data);
         console.log("search results", data);
-        // setShowSearchResultsModal(true);
       } else {
         console.log("Error in searching");
       }
@@ -151,7 +148,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
           </Button>
         </Tooltip>
       </div>
-
       <div className="quoteitems-list">
         <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
           <List>
