@@ -22,26 +22,28 @@ const EditComponentInBuild = ({
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
-    const fetchComponents = async () => {
-      try {
-        const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
-        if (response.ok) {
-          const data = await response.json();
-          setExComponents(data);
-          setNewName(exComponents.componentNames[indexOfComponentArray]);
-          setNewPrice(exComponents.componentPrices[indexOfComponentArray]);
-          setNewUrl(exComponents.componentUrls[indexOfComponentArray]);
-        } else {
-          console.error("Failed to fetch components");
+    if (recordID) {
+      const fetchComponents = async () => {
+        try {
+          const response = await fetch(`${backendURL}/get-components-by-record/${recordID}`);
+          if (response.ok) {
+            const data = await response.json();
+            data && setExComponents(data);
+            setNewName(exComponents.componentNames[indexOfComponentArray]);
+            setNewPrice(exComponents.componentPrices[indexOfComponentArray]);
+            setNewUrl(exComponents.componentUrls[indexOfComponentArray]);
+          } else {
+            console.error("Failed to fetch components");
+            return null;
+          }
+        } catch (error) {
+          console.error("Error fetching components:", error);
           return null;
         }
-      } catch (error) {
-        console.error("Error fetching components:", error);
-        return null;
-      }
-    };
+      };
+      fetchComponents();
+    }
 
-    fetchComponents();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, recordID]);
 
