@@ -94,8 +94,13 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       const response = await fetch(`${backendURL}/search?searchTerm=${searchTerm}`);
       if (response.ok) {
         const data = await response.json();
-        setSearchResults(data);
-        console.log("search results", data);
+        if (data.records && data.records.length > 0) {
+          setSearchResults(data);
+        } else {
+          // Trigger toast message when no results are found
+          toast.info("No results found");
+          setSearchResults({ records: [] }); // Set empty records
+        }
       } else {
         console.log("Error in searching");
       }
