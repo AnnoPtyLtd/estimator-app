@@ -17,7 +17,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import EditRoundedIcon from "@mui/icons-material/EditOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import EditCompinBuild from "./EditComponentInBuild";
-import AddComponentModal from "../ComponentCard/AddComponentModal";
+import AddComponentModal from "../SelectComponents/AddComponentModal";
 
 const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);

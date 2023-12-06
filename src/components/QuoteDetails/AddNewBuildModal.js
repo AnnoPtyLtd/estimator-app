@@ -13,7 +13,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import StringTextField from "../TextFields/StringTextField";
 import SelectTextField from "../TextFields/SelectTextField";
-import AddComponentModal from "../ComponentCard/AddComponentModal";
+import AddComponentModal from "../SelectComponents/AddComponentModal";
 import { Toaster, toast } from "sonner";
 
 const AddNewBuildModal = ({ show, onHide }) => {
