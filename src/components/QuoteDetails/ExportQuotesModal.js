@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import ButtonMUI from "@mui/material/Button";
+import jwt_decode from "jwt-decode";
 
 const ExportQuotesModal = ({ show, onHide }) => {
   const [quoteType, setQuoteType] = useState("View All");
@@ -10,6 +11,11 @@ const ExportQuotesModal = ({ show, onHide }) => {
   const [selectedQuotes, setSelectedQuotes] = useState([]);
   const [allQuotes, setAllQuotes] = useState([]);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
+
+  const isAdmin = localStorage.getItem("Admin") === "admin";
+  const token = localStorage.getItem("token");
+  const decodedToken = jwt_decode(token);
+  const userId = decodedToken.userId;
 
   useEffect(() => {
     const fetchQuotes = async () => {
@@ -32,12 +38,24 @@ const ExportQuotesModal = ({ show, onHide }) => {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const response = await fetch(`${backendURL}/export-records?quoteType=${quoteType}`);
-        if (response.status === 200) {
-          const data = await response.json();
-          setRecords(data);
+        if (isAdmin) {
+          const response = await fetch(`${backendURL}/getadminrecords?quoteType=${quoteType}`);
+          if (response.status === 200) {
+            const data = await response.json();
+            await setRecords(data);
+          } else {
+            console.error("Failed to fetch records");
+          }
         } else {
-          console.error("Failed to fetch records");
+          const response = await fetch(
+            `${backendURL}/getuserrecords?userId=${userId}&quoteType=${quoteType}`
+          );
+          if (response.status === 200) {
+            const data = await response.json();
+            await setRecords(data);
+          } else {
+            console.error("Failed to fetch records");
+          }
         }
       } catch (error) {
         console.error(error);
@@ -108,6 +126,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
       await writable.close();
 
       setQuoteType("View All");
+      setSelectedQuotes([]);
       onHide();
     } catch (error) {
       console.error("Error saving the file:", error);
@@ -124,7 +143,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
           <CloseIcon />
         </button>
       </Modal.Header>
-      <Modal.Body className="custom-modal-body">
+      <Modal.Body className="custom-export-body">
         <div className="modalbodyexport-item">
           <label htmlFor="dropdown"> Category: </label>
           <select
@@ -164,6 +183,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
           variant="secondary"
           onClick={() => {
             setQuoteType("View All");
+            setSelectedQuotes([]);
             onHide();
           }}
         >

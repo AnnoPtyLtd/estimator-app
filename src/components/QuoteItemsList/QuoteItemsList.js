@@ -40,6 +40,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   useEffect(() => {
     // Check window width and update autoHeightMin based on the condition
     if (windowWidth === 3840) {
