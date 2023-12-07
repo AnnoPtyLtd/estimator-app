@@ -2,13 +2,11 @@ import "./Home.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-import QuoteList from "../ComponentsPage/QuoteList";
 import Topbar from "../Topbar/Topbar";
 import QuoteDetails from "../QuoteDetails/QuoteDetails";
 import NavBar from "../NavBar/NavBar";
 import QuoteItemsList from "../QuoteItemsList/QuoteItemsList";
-import ComponentDetailsPage from "../ComponentDetailsPage/ComponentDetailsPage";
-import Charts from "../Charts/Charts";
+
 import { motion } from "framer-motion";
 
 const Home = () => {

@@ -249,7 +249,7 @@ li label {
 
 @media screen and (min-width: 2560px) {
   .quote-details-container {
-    max-width: 90% !important;
+    max-width: 80% !important;
   }
   .quote-details-title {
     font-size: 1.5rem;
@@ -284,7 +284,6 @@ li label {
 }
 
 @media screen and (min-width: 3840px) {
- 
   .quote-details-title {
     font-size: 3rem;
   }
@@ -304,13 +303,13 @@ li label {
   }
 
   .MuiDataGrid-row {
-    font-size: 3rem !important; /* Adjust the desired font size */
+    font-size: 2.3rem !important; /* Adjust the desired font size */
   }
   .MuiDataGrid-cell {
-    font-size: 2.4rem !important; /* Adjust the desired font size */
+    font-size: 2rem !important; /* Adjust the desired font size */
   }
   .MuiDataGrid-columnHeader {
-    font-size: 2.6rem; /* Adjust the desired font size for column headers */
+    font-size: 2.3rem; /* Adjust the desired font size for column headers */
   }
   .single-quote-right p {
     font-size: 2.4em !important;
@@ -323,7 +322,7 @@ li label {
   color: #333;
   overflow: hidden;
 }
-.export-list{
+.export-list {
   max-height: 400px;
   overflow: auto;
 }

@@ -216,7 +216,7 @@ const AddComponentModal = ({
         </Modal.Header>
         <Modal.Body className="custom-modal-body">
           <div className="modalbodycomp-item">
-            <label htmlFor="dropdown"> Category: </label>
+            <label sx={{ color: "#fff" }}> Category: </label>
             <select
               id="dropdown"
               value={categoryComp}

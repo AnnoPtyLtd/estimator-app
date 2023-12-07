@@ -33,6 +33,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [exComponentPrices, setExComponentPrices] = useState([]);
   const [exComponentUrls, setExComponentUrls] = useState([]);
   const [exComponentDates, setExComponentDates] = useState([]);
+  const [height, setHeight] = useState(500);
 
   // using for the rows attribute in table
   useEffect(() => {
@@ -218,18 +219,18 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                 <div className="single-quote-left">
                   <h4>{selectedQuote.name}</h4>
                   <p>Components</p>
-                  <Box sx={{ height: 400 }}>
+                  <Box sx={{ height: 500 }}>
                     <DataGrid
                       rows={rows}
                       columns={columns}
                       initialState={{
                         pagination: {
                           paginationModel: {
-                            pageSize: 5,
+                            pageSize: 8,
                           },
                         },
                       }}
-                      pageSizeOptions={[5]}
+                      pageSizeOptions={[8]}
                       disableRowSelectionOnClick
                     />
                   </Box>
