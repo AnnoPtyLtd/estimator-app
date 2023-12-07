@@ -32,17 +32,19 @@
   align-self: center;
   flex-direction: column;
   justify-content: center;
+  z-index: 999999;
 }
 .right-panel {
   display: flex;
   flex-direction: column;
   position: absolute;
-  left: 10%;
+  left: 12%;
 }
 
 .quote-section {
   display: flex;
   flex-direction: row;
+  padding-left: 1% !important;
 }
 
 @media screen and (max-width: 1270px) {
@@ -52,7 +54,7 @@
   .left-panel {
     position: fixed;
     bottom: 0;
-    z-index: 999999;
+    z-index: 999;
   }
   .right-panel{
     max-width: fit-content;
