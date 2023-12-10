@@ -144,7 +144,10 @@ const ComponentDetailsPage = () => {
         console.error("Failed to fetch components");
       }
     };
-    fetchComponents();
+    const fetchDataInterval = setInterval(() => {
+      fetchComponents();
+    }, 1000);
+    return () => clearInterval(fetchDataInterval);
   }, []);
 
   const rows = components.map((component) => ({
