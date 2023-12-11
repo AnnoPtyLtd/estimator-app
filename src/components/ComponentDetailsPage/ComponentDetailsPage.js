@@ -145,7 +145,7 @@ const ComponentDetailsPage = () => {
       }
     };
     fetchComponents();
-  }, [components]);
+  }, []);
 
   const rows = components.map((component) => ({
     id: component._id,
