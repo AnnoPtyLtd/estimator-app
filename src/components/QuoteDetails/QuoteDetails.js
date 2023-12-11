@@ -42,7 +42,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         id: index,
         Category: selectedQuote.componentCategories && selectedQuote.componentCategories[index],
         Component: componentName,
-        Price: selectedQuote.componentPrices && "$" + selectedQuote.componentPrices[index],
+        Price:
+          selectedQuote.componentPrices &&
+          "$" +
+            (Number.isInteger(selectedQuote.componentPrices[index])
+              ? `${selectedQuote.componentPrices[index]}.00`
+              : `${parseFloat(selectedQuote.componentPrices[index]).toFixed(2)}`),
         URL: selectedQuote.componentUrls && selectedQuote.componentUrls[index],
       }));
       setRows(mappedRows || []);
@@ -226,18 +231,18 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                       initialState={{
                         pagination: {
                           paginationModel: {
-                            pageSize: 8,
+                            pageSize: 15,
                           },
                         },
                       }}
-                      pageSizeOptions={[8]}
+                      pageSizeOptions={[15]}
                       disableRowSelectionOnClick
                     />
                   </Box>
                 </div>
-                <div className="single-quote-right">
-                  <p>${parseFloat(selectedQuote.quoteCost).toFixed(2)}</p>
-                </div>
+                {Number.isInteger(selectedQuote.quoteCost)
+                  ? `${selectedQuote.quoteCost}.00`
+                  : `${parseFloat(selectedQuote.quoteCost).toFixed(2)}`}
               </div>
             ) : (
               <p>Select a quote to display</p>

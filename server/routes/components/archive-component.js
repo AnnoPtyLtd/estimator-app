@@ -22,7 +22,7 @@ router.put('/archive-component/:id', async (req, res) => {
 
         await archivedComponent.save();
 
-        await Component.findByIdAndRemove(id);
+        await Component.findByIdAndDelete(id);
 
         res.status(200).json({ message: 'Component archived successfully' });
     } catch (error) {

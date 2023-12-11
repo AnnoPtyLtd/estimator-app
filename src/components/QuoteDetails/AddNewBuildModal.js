@@ -15,6 +15,7 @@ import StringTextField from "../TextFields/StringTextField";
 import SelectTextField from "../TextFields/SelectTextField";
 import AddComponentModal from "../SelectComponents/AddComponentModal";
 import { Toaster, toast } from "sonner";
+import dayjs from "dayjs";
 
 const AddNewBuildModal = ({ show, onHide }) => {
   const option = [
@@ -23,12 +24,14 @@ const AddNewBuildModal = ({ show, onHide }) => {
     { value: "Office/Home PC", label: "Home/Office" },
     { value: "Custom/Other", label: "Custom/Others" },
   ];
+  const defaultDate = dayjs(); // You can set any default date you want here
 
+  // const [quoteUserId, setQuoteUserId] = useState("");
   const [showAddCompModal, setshowAddCompModal] = useState(false);
   const [name, setName] = useState("");
   const [quoteType, setQuoteType] = useState("Gaming PC");
-  const [quoteDate, setQuoteDate] = useState("");
-  // const [quoteUserId, setQuoteUserId] = useState("");
+  // const [quoteDate, setQuoteDate] = useState("");
+  const [quoteDate, setQuoteDate] = useState(defaultDate);
   const token = localStorage.getItem("token");
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
@@ -41,10 +44,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
 
   const handleAddRecord = async () => {
     // setQuoteUserId(userId);
-    const quoteCost = componentPrices.reduce(
-      (acc, price) => acc + parseFloat(price),
-      0
-    );
+    const quoteCost = componentPrices.reduce((acc, price) => acc + parseFloat(price), 0);
     try {
       const response = await fetch(`${backendURL}/saverecord`, {
         method: "POST",
@@ -68,7 +68,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
       if (response.status === 201) {
         setName("");
         setQuoteType("Gaming PC");
-        setQuoteDate("");
+        setQuoteDate(defaultDate);
         onHide();
         toast.success("Quote added successfully!");
         setComponentNames([]);
@@ -143,7 +143,13 @@ const AddNewBuildModal = ({ show, onHide }) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={onHide}>
+          <Button
+            variant="danger"
+            onClick={() => {
+              onHide();
+              setQuoteDate(defaultDate);
+            }}
+          >
             Close
           </Button>
           <Button variant="danger" onClick={handleAddRecord}>
