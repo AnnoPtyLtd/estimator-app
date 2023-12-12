@@ -19,10 +19,42 @@ const ComponentDetailsPage = () => {
       editable: true,
     },
     {
-      field: "category",
-      headerName: "Category",
+      field: 'category',
+      headerName: 'Category',
       width: 150,
       editable: true,
+      valueGetter: (params) => params.row.category,
+      valueSetter: (params) => {
+        setComponents((prevComponents) => {
+          const updatedComponents = prevComponents.map((component) => {
+            if (component.id === params.row.id) {
+              return { ...component, category: params.newValue };
+            }
+            return component;
+          });
+          return updatedComponents;
+        });
+        return true;
+      },
+      renderCell: (params) => (
+        <select
+          value={params.row.category}
+          onChange={(e) => {
+            const newValue = e.target.value;
+            handleUpdateButtonClick({ ...params.row, category: newValue });
+          }}
+        >
+            <option value="CPU">CPU</option>
+          <option value="Graphic Card">Graphic Card</option>
+          <option value="Power Supply">Power Supply</option>
+          <option value="PC Casing">PC Casing</option>
+          <option value="RAM">RAM</option>
+          <option value="Motherboard">Motherboard</option>
+          <option value="Storage">Storage</option>
+          <option value="Cooling Solution">Cooling Solution</option>
+          <option value="Others">Others</option>
+        </select>
+      ),
     },
     {
       field: "price",
