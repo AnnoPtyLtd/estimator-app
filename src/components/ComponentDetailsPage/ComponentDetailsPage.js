@@ -6,6 +6,9 @@ import Button from "@mui/material/Button";
 import { Toaster, toast } from "sonner";
 import CallMissedOutgoingIcon from "@mui/icons-material/CallMissedOutgoing";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import { Tooltip } from "@mui/material";
+import ExportIcon from "@mui/icons-material/IosShare";
+import ExportCompsModal from "./ExportCompsModal";
 
 const ComponentDetailsPage = () => {
   const columns = [
@@ -110,6 +113,7 @@ const ComponentDetailsPage = () => {
   const [components, setComponents] = useState([]);
   const [rowSelectable, setRowSelectable] = useState(false);
   const [height, setHeight] = useState(500);
+  const [showExportModal, setShowExportModal] = useState(false);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
@@ -238,6 +242,14 @@ const ComponentDetailsPage = () => {
 
   return (
     <div className="components-container">
+      <div className="quote-btns">
+            <Tooltip title="Export quotes" placement="top-start">
+              <Button variant="outlined" onClick={() => setShowExportModal(true)}>
+                {" "}
+                <ExportIcon />{" "}
+              </Button>
+            </Tooltip>
+          </div>
       <Box sx={{ height: 700, width: "100%" }}>
         <DataGrid
           rows={rows}
@@ -254,6 +266,7 @@ const ComponentDetailsPage = () => {
           disableRowSelectionOnClick
         />
       </Box>
+      <ExportCompsModal show={showExportModal} onHide={() => setShowExportModal(false)} />
       <Toaster position="top-center" richColors visibleToasts={1} />
     </div>
   );

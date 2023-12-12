@@ -18,6 +18,8 @@ import EditRoundedIcon from "@mui/icons-material/EditOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import EditCompinBuild from "./EditComponentInBuild";
 import AddComponentModal from "../SelectComponents/AddComponentModal";
+import EditBuildModal from "./EditBuildModal";
+import EditIcon from '@mui/icons-material/ModeEditOutline';
 
 const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
@@ -33,6 +35,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [exComponentPrices, setExComponentPrices] = useState([]);
   const [exComponentUrls, setExComponentUrls] = useState([]);
   const [exComponentDates, setExComponentDates] = useState([]);
+  const [showEditBuild, setShowEditBuild] = useState(false);
   const [height, setHeight] = useState(500);
 
   // using for the rows attribute in table
@@ -307,6 +310,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         <div className="quote-details-header">
           <div className="quote-btns">
             <Tooltip title="Delete this quote" placement="top-start">
+              <Button variant="outlined" onClick={() => setShowEditBuild(true)}>
+                {" "}
+                <EditIcon />{" "}
+              </Button>
+            </Tooltip>
+            <Tooltip title="Delete this quote" placement="top-start">
               <Button variant="outlined" onClick={() => setShowDeleteModal(true)}>
                 {" "}
                 <DeleteIcon />{" "}
@@ -352,7 +361,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         setSelectedQuote={setSelectedQuote}
         quote={selectedQuote}
       />
-
+      <EditBuildModal
+        setSelectedQuote={setSelectedQuote}
+        show={showEditBuild}
+        onHide={() => setShowEditBuild(false)}
+        recordID={selectedQuote && selectedQuote._id}
+      />
       <Toaster richColors position="top-right" />
     </div>
   );

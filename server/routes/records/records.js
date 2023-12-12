@@ -47,9 +47,7 @@ router.get("/records", async (req, res) => {
     const userId = req.query.userId;
     const id = req.query.id;
     if (!userId || !id) {
-      return res
-        .status(400)
-        .json({ error: "quoteType and userId are required" });
+      return res.status(400).json({ error: "quoteType and userId are required" });
     }
     const records = await Record.find({ quoteUserId: userId, _id: id });
     res.status(200).json(records);
@@ -141,17 +139,26 @@ router.get("/getadminquotes", async (req, res) => {
   }
 });
 
-router.put("/updateTitle/:id", async (req, res) => {
+router.put("/updateQuote/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { newTitle } = req.body;
+    const { newTitle, quoteType } = req.body;
+    const quoteDate = new Date();
 
-    if (!newTitle) {
-      return res.status(400).json({ error: "New title or cost is required" });
+    if (!newTitle && !quoteType) {
+      return res.status(400).json({ error: "No fields to update" });
     }
-    const updateFields = {};
+
+    const updateFields = {}; // Always update the quoteDate
+
     if (newTitle) {
       updateFields.name = newTitle;
+      updateFields.quoteDate = quoteDate;
+    }
+
+    if (quoteType) {
+      updateFields.quoteType = quoteType;
+      updateFields.quoteDate = quoteDate;
     }
 
     const updatedRecord = await Record.findByIdAndUpdate(id, updateFields, {
@@ -172,13 +179,8 @@ router.put("/updateTitle/:id", async (req, res) => {
 router.post("/add-components-to-build/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      componentNames,
-      componentPrices,
-      componentCategories,
-      componentUrls,
-      componentDates
-    } = req.body;
+    const { componentNames, componentPrices, componentCategories, componentUrls, componentDates } =
+      req.body;
     if (
       !componentNames ||
       !Array.isArray(componentNames) ||
@@ -223,15 +225,22 @@ router.get("/get-components-by-record/:recordID", async (req, res) => {
       return res.status(404).json({ error: "Record not found" });
     }
 
-    const { componentNames, componentPrices, componentCategories, componentUrls,componentDates } = record;
-    res.json({ componentNames, componentPrices, componentCategories,componentUrls,componentDates });
+    const { componentNames, componentPrices, componentCategories, componentUrls, componentDates } =
+      record;
+    res.json({
+      componentNames,
+      componentPrices,
+      componentCategories,
+      componentUrls,
+      componentDates,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-router.post('/duplicate-quote/:quoteId', async (req, res) => {
+router.post("/duplicate-quote/:quoteId", async (req, res) => {
   try {
     const quoteId = req.params.quoteId;
     // Fetch the selected quote based on the provided ID
@@ -240,7 +249,7 @@ router.post('/duplicate-quote/:quoteId', async (req, res) => {
     // Create a duplicate record based on the selected quote
     const duplicatedQuote = new Record({
       quoteUserId: selectedQuote.quoteUserId,
-      name: selectedQuote.name + ' (duplicate)', // Appending '(Duplicate)' to the name
+      name: selectedQuote.name + " (duplicate)", // Appending '(Duplicate)' to the name
       quoteType: selectedQuote.quoteType,
       quoteDate: new Date(), // You might want to update the date for the duplicated quote
       quoteCost: selectedQuote.quoteCost,
@@ -255,7 +264,7 @@ router.post('/duplicate-quote/:quoteId', async (req, res) => {
     res.status(201).json(savedDuplicatedQuote);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
