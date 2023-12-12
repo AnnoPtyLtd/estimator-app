@@ -8,7 +8,7 @@ import jwt_decode from "jwt-decode";
 const ExportCompsModal = ({ show, onHide }) => {
   const [components, setComponents] = useState([]);
   const [compType, setCompType] = useState("View All");
-  const [selectedComponents, setSelectedQuotes] = useState([]);
+  const [selectedComponents, setSelectedComponents] = useState([]);
   const [allComponents, setAllComponents] = useState([]);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
@@ -16,6 +16,24 @@ const ExportCompsModal = ({ show, onHide }) => {
   const token = localStorage.getItem("token");
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.userId;
+
+  useEffect(() => {
+    const fetchAllComps = async () => {
+      try {
+        const response = await fetch(`${backendURL}/get-components-all`);
+        if (response.status === 200) {
+          const data = await response.json();
+          await setAllComponents(data);
+        } else {
+          console.error("Failed to fetch all components");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchAllComps();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allComponents]);
 
   useEffect(() => {
     const fetchComponents = async () => {
@@ -28,6 +46,7 @@ const ExportCompsModal = ({ show, onHide }) => {
         if (response.ok) {
           const data = await response.json();
           setComponents(data);
+          setAllComponents(data);
         } else {
           console.log("Error fetching components");
         }
@@ -39,66 +58,25 @@ const ExportCompsModal = ({ show, onHide }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [components]);
 
-  useEffect(() => {
-    const fetchRecords = async () => {
-      try {
-        if (isAdmin) {
-          const response = await fetch(`${backendURL}/getadminrecords?compType=${compType}`);
-          if (response.status === 200) {
-            const data = await response.json();
-            await setComponents(data);
-          } else {
-            console.error("Failed to fetch records");
-          }
-        } else {
-          const response = await fetch(
-            `${backendURL}/getuserrecords?userId=${userId}&compType=${compType}`
-          );
-          if (response.status === 200) {
-            const data = await response.json();
-            await setComponents(data);
-          } else {
-            console.error("Failed to fetch records");
-          }
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchRecords();
-  }, [compType, components]);
-
   const handleQuoteSelection = (name) => {
     if (selectedComponents.includes(name)) {
-      setSelectedQuotes((prevSelectedQuotes) =>
-        prevSelectedQuotes.filter((record) => record !== name)
+      setSelectedComponents((prevSelectedComponents) =>
+        prevSelectedComponents.filter((record) => record !== name)
       );
     } else {
-      setSelectedQuotes((prevSelectedQuotes) => [...prevSelectedQuotes, name]);
+      setSelectedComponents((prevSelectedComponents) => [...prevSelectedComponents, name]);
     }
   };
   const handleClearSelection = () => {
-    setSelectedQuotes([]);
+    setSelectedComponents([]);
   };
 
   const generateCSVContent = () => {
-    const header = "Name,Category,Quote Date,Quote Cost,Quote Components\n";
-
-    const csvRows = selectedComponents.map((name) => {
-      const record = allComponents.find((r) => r.name === name);
-
-      if (!record) {
-        console.error(`Record not found for name: ${name}`);
-        return "";
-      }
-
-      const quoteComponents = Array.isArray(record.componentNames)
-        ? record.componentNames.join(", ")
-        : record.componentNames;
-
-      return `${record.name},${record.compType},${record.quoteDate},${record.quoteCost},"${quoteComponents}"\n`;
+    const header = "Name,Category,Cost,Url\n";
+    const csvRows = selectedComponents.map((componentName) => {
+      const record = allComponents.find((r) => r.componentName === componentName);
+      return `${record.componentName},${record.componentCategory},${record.componentCost},${record.componentUrl}\n`;
     });
-
     return header + csvRows.join("");
   };
 
@@ -107,10 +85,9 @@ const ExportCompsModal = ({ show, onHide }) => {
       console.log("No quotes selected for export.");
       return;
     }
-
     const csvContent = generateCSVContent();
+    console.log('csv content for comps:',csvContent);
     const blob = new Blob([csvContent], { type: "text/csv" });
-
     try {
       const options = {
         types: [
@@ -121,7 +98,7 @@ const ExportCompsModal = ({ show, onHide }) => {
             },
           },
         ],
-        suggestedName: "exported quotes.csv",
+        suggestedName: "exported-components.csv",
       };
       const fileHandle = await window.showSaveFilePicker(options);
       // Create a writable stream and write the blob to the selected file
@@ -130,7 +107,7 @@ const ExportCompsModal = ({ show, onHide }) => {
       await writable.close();
 
       setCompType("View All");
-      setSelectedQuotes([]);
+      setSelectedComponents([]);
       onHide();
     } catch (error) {
       console.error("Error saving the file:", error);
@@ -142,7 +119,7 @@ const ExportCompsModal = ({ show, onHide }) => {
   return (
     <Modal show={show} onHide={onHide} centered dialogClassName="custom-modal-dialog">
       <Modal.Header className="custom-modal-header">
-        <Modal.Title>Export Quotes</Modal.Title>
+        <Modal.Title>Export Components</Modal.Title>
         <button className="close-button" onClick={onHide}>
           <CloseIcon />
         </button>
@@ -157,10 +134,15 @@ const ExportCompsModal = ({ show, onHide }) => {
             onChange={(e) => setCompType(e.target.value)}
           >
             <option value="View All">View All</option>
-            <option value="Gaming PC">Gaming PC</option>
-            <option value="Content Creation">Content creation and productivity</option>
-            <option value="Office/Home PC">Office/Home</option>
-            <option value="Custom/Other">Custom/Other</option>
+            <option value="CPU">CPU</option>
+            <option value="Graphic Card">Graphic Card</option>
+            <option value="Power Supply">Power Supply</option>
+            <option value="PC Casing">PC Casing</option>
+            <option value="RAM">RAM</option>
+            <option value="Motherboard">Motherboard</option>
+            <option value="Storage">Storage</option>
+            <option value="Cooling Solution">Cooling Solution</option>
+            <option value="Others">Others</option>
           </select>
           <ButtonMUI variant="outlined" onClick={handleClearSelection}>
             Clear
@@ -168,18 +150,18 @@ const ExportCompsModal = ({ show, onHide }) => {
         </div>
         <ul className="export-list">
           {components.map((comp) => (
-            <li key={comp._id} whileHover={{ scale: 1.04 }} transition={{ duration: 0.2 }}>
-              <label className="labelxd">
-                <input
-                  type="checkbox"
-                  className="input-check"
-                  checked={selectedComponents.includes(comp.name)}
-                  onChange={() => handleQuoteSelection(comp.name)}
-                />
-                {comp.name}
-              </label>
-            </li>
-          ))}
+              <li key={comp._id} whileHover={{ scale: 1.04 }} transition={{ duration: 0.2 }}>
+                <label className="labelxd">
+                  <input
+                    type="checkbox"
+                    className="input-check"
+                    checked={selectedComponents.includes(comp.componentName)}
+                    onChange={() => handleQuoteSelection(comp.componentName)}
+                  />
+                  {comp.componentName}
+                </label>
+              </li>
+            ))}
         </ul>
       </Modal.Body>
       <Modal.Footer className="custom-modal-footer">
@@ -187,7 +169,7 @@ const ExportCompsModal = ({ show, onHide }) => {
           variant="secondary"
           onClick={() => {
             setCompType("View All");
-            setSelectedQuotes([]);
+            setSelectedComponents([]);
             onHide();
           }}
         >

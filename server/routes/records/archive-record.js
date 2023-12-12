@@ -13,10 +13,16 @@ router.put('/archive-record/:id', async (req, res) => {
       return res.status(404).json({ error: 'Record not found' });
     }
     const archivedRecord = new ArchivedRecord({
+      quoteUserId: recordToArchive.quoteUserId,
       name: recordToArchive.name,
       quoteType: recordToArchive.quoteType,
       quoteDate: recordToArchive.quoteDate,
-      quoteComps: recordToArchive.quoteComps,
+      quoteCost: recordToArchive.quoteCost,
+      componentNames: recordToArchive.componentNames,
+      componentPrices: recordToArchive.componentPrices,
+      componentCategories: recordToArchive.componentCategories,
+      componentUrls: recordToArchive.componentUrls,
+      componentDates: recordToArchive.componentDates,
       quoteStatus: "Archived",
     });
 

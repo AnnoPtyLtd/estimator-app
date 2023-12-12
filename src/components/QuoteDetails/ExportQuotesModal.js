@@ -11,7 +11,6 @@ const ExportQuotesModal = ({ show, onHide }) => {
   const [selectedQuotes, setSelectedQuotes] = useState([]);
   const [allQuotes, setAllQuotes] = useState([]);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
-
   const isAdmin = localStorage.getItem("Admin") === "admin";
   const token = localStorage.getItem("token");
   const decodedToken = jwt_decode(token);
@@ -82,19 +81,16 @@ const ExportQuotesModal = ({ show, onHide }) => {
 
     const csvRows = selectedQuotes.map((name) => {
       const record = allQuotes.find((r) => r.name === name);
-
       if (!record) {
         console.error(`Record not found for name: ${name}`);
         return "";
       }
-
       const quoteComponents = Array.isArray(record.componentNames)
         ? record.componentNames.join(", ")
         : record.componentNames;
 
       return `${record.name},${record.quoteType},${record.quoteDate},${record.quoteCost},"${quoteComponents}"\n`;
     });
-
     return header + csvRows.join("");
   };
 
@@ -103,10 +99,8 @@ const ExportQuotesModal = ({ show, onHide }) => {
       console.log("No quotes selected for export.");
       return;
     }
-
     const csvContent = generateCSVContent();
     const blob = new Blob([csvContent], { type: "text/csv" });
-
     try {
       const options = {
         types: [
@@ -163,19 +157,20 @@ const ExportQuotesModal = ({ show, onHide }) => {
           </ButtonMUI>
         </div>
         <ul className="export-list">
-          {records.map((record) => (
-            <li key={record._id} whileHover={{ scale: 1.04 }} transition={{ duration: 0.2 }}>
-              <label className="labelxd">
-                <input
-                  type="checkbox"
-                  className="input-check"
-                  checked={selectedQuotes.includes(record.name)}
-                  onChange={() => handleQuoteSelection(record.name)}
-                />
-                {record.name}
-              </label>
-            </li>
-          ))}
+          {records &&
+            records.map((record) => (
+              <li key={record._id} whileHover={{ scale: 1.04 }} transition={{ duration: 0.2 }}>
+                <label className="labelxd">
+                  <input
+                    type="checkbox"
+                    className="input-check"
+                    checked={selectedQuotes.includes(record.name)}
+                    onChange={() => handleQuoteSelection(record.name)}
+                  />
+                  {record.name}
+                </label>
+              </li>
+            ))}
         </ul>
       </Modal.Body>
       <Modal.Footer className="custom-modal-footer">

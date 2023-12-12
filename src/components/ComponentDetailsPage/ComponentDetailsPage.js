@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
 import "./ComponentDetailsPage.css";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
-import { Toaster, toast } from "sonner";
+import ExportIcon from "@mui/icons-material/IosShare";
 import CallMissedOutgoingIcon from "@mui/icons-material/CallMissedOutgoing";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
-import { Tooltip } from "@mui/material";
-import ExportIcon from "@mui/icons-material/IosShare";
 import ExportCompsModal from "./ExportCompsModal";
+import { DataGrid } from "@mui/x-data-grid";
+import { Tooltip } from "@mui/material";
+import { Toaster, toast } from "sonner";
 
 const ComponentDetailsPage = () => {
   const columns = [
@@ -113,8 +113,34 @@ const ComponentDetailsPage = () => {
   const [components, setComponents] = useState([]);
   const [rowSelectable, setRowSelectable] = useState(false);
   const [height, setHeight] = useState(500);
+  const [componentUpdated, setcomponentUpdated] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
+
+
+  useEffect(() => {
+    const fetchComponents = async () => {
+      const response = await fetch(`${backendURL}/get-components-all`);
+      if (response.status === 200) {
+        const data = await response.json();
+        setComponents(data);
+      } else {
+        console.error("Failed to fetch components");
+      }
+    };
+
+    fetchComponents();
+    //eslint-disable-next-line
+  }, []);
+
+  const rows = components.map((component) => ({
+    id: component._id,
+    name: component.componentName,
+    category: component.componentCategory,
+    price: component.componentCost,
+    url: component.componentUrl,
+    date: component.componentDate,
+  }));
 
   useEffect(() => {
     const handleResize = () => {
@@ -138,35 +164,8 @@ const ComponentDetailsPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchComponents = async () => {
-      const response = await fetch(`${backendURL}/get-components-all`);
-      if (response.status === 200) {
-        const data = await response.json();
-        setComponents(data);
-      } else {
-        console.error("Failed to fetch components");
-      }
-    };
-    const fetchDataInterval = setInterval(() => {
-      fetchComponents();
-    }, 1000);
-    return () => clearInterval(fetchDataInterval);
-  }, []);
-
-  const rows = components.map((component) => ({
-    id: component._id,
-    name: component.componentName,
-    category: component.componentCategory,
-    price: component.componentCost,
-    url: component.componentUrl,
-    date: component.componentDate,
-  }));
-
   const handleUpdateButtonClick = async (row) => {
-    console.log(row.id);
     const currentDate = new Date();
-
     try {
       const response = await fetch(`${backendURL}/updateComponent/${row.id}`, {
         method: "PUT",
@@ -181,10 +180,23 @@ const ComponentDetailsPage = () => {
           compCategory: row.category,
         }),
       });
-
+  
       if (response.status === 200) {
-        console.log("Component updated successfully");
-
+        // Update the state with the updated component
+        const updatedComponents = components.map((component) => {
+          if (component._id === row.id) {
+            return {
+              ...component,
+              componentName: row.name,
+              componentCategory: row.category,
+              componentCost: row.price,
+              componentUrl: row.url,
+              componentDate: currentDate,
+            };
+          }
+          return component;
+        });
+        setComponents(updatedComponents); // Update the state with the updated data
         toast.success("Component updated successfully!");
       } else {
         console.error("Failed to update component in the database");
@@ -193,6 +205,7 @@ const ComponentDetailsPage = () => {
       console.error(error);
     }
   };
+  
 
   const handleDeleteButtonClick = async (row) => {
     console.log("item id for delete: ", row.id);
@@ -243,13 +256,13 @@ const ComponentDetailsPage = () => {
   return (
     <div className="components-container">
       <div className="quote-btns">
-            <Tooltip title="Export quotes" placement="top-start">
-              <Button variant="outlined" onClick={() => setShowExportModal(true)}>
-                {" "}
-                <ExportIcon />{" "}
-              </Button>
-            </Tooltip>
-          </div>
+        <Tooltip title="Export quotes" placement="top-start">
+          <Button variant="outlined" onClick={() => setShowExportModal(true)}>
+            {" "}
+            <ExportIcon />{" "}
+          </Button>
+        </Tooltip>
+      </div>
       <Box sx={{ height: 700, width: "100%" }}>
         <DataGrid
           rows={rows}

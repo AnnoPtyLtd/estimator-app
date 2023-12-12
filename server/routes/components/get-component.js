@@ -7,7 +7,6 @@ const ComponentModel = require('../../models/NewComponent');
 
 router.get('/get-components', async (req, res) => {
   const category = req.query.category;
-
   try {
     let components;
 

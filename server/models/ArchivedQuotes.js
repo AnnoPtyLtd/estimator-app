@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 
 const archivedRecordSchema = new mongoose.Schema({
-  // Define the schema for archived records here
+  quoteUserId: String,
   name: String,
   quoteType: String,
   quoteDate: Date,
   quoteCost: Number,
-  quoteComps: String,
+  componentNames: [String], 
+  componentPrices: [Number], 
+  componentCategories: [String], 
+  componentUrls:[String],
+  componentDates:[String],
   quoteStatus: String,
 });
 

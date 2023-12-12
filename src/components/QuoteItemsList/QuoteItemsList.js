@@ -6,14 +6,16 @@ import { Tooltip } from "@mui/material";
 import { Toaster, toast } from "sonner";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import jwt_decode from "jwt-decode";
-import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import AddNewBuildModal from "../QuoteDetails/AddNewBuildModal";
 
 const QuoteItemsList = ({ onQuoteClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [titleName, setTitleName] = useState("Quotes list");
+  const [archBtnName, setArchBtnName] = useState("Show");
   const [searchResults, setSearchResults] = useState({ records: [] });
   const [quotes, setQuotes] = useState([]);
+  const [archivedQuotes, setArchivedQuotes] = useState([]);
   const isAdmin = localStorage.getItem("Admin") === "admin";
   const token = localStorage.getItem("token");
   const decodedToken = jwt_decode(token);
@@ -21,6 +23,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
   const [quoteFilter, setQuoteFilter] = useState("View All");
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isToggled, setIsToggled] = useState(false);
   const [autoHeightMin, setAutoHeightMin] = useState(700); // Default value for autoHeightMin
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
@@ -86,7 +89,28 @@ const QuoteItemsList = ({ onQuoteClick }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes, userId, isAdmin]);
+  useEffect(() => {
+    const fetchQuotes = async () => {
+      try {
+        const response = await fetch(`${backendURL}/get-all-archived-quotes`);
+        if (response.status === 200) {
+          const data = await response.json();
+          await setArchivedQuotes(data);
+        } else {
+          console.error("Failed to fetch archived records");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchQuotes();
+    const refreshInterval = setInterval(() => {
+      fetchQuotes();
+    }, 1000);
+    return () => clearInterval(refreshInterval);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [archivedQuotes]);
   const handleSearch = async () => {
     if (searchTerm.trim() === "" || !searchTerm) {
       toast.error("Search field is empty!");
@@ -108,6 +132,16 @@ const QuoteItemsList = ({ onQuoteClick }) => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleToggleShow = () => {
+    setIsToggled((prevState) => !prevState);
+    setTitleName((prevTitle) =>
+      prevTitle === "Quotes list" ? "Archived quotes list" : "Quotes list"
+    );
+    setArchBtnName((prevTitle) =>
+      prevTitle === "Show" ? "Hide" : "Show"
+    );
   };
 
   return (
@@ -149,40 +183,59 @@ const QuoteItemsList = ({ onQuoteClick }) => {
             className="add-button"
             onClick={() => setShowAddBuildModal(true)}
           >
-            {" "}
-            <AddIcon className="add-btn-icon" />{" "}
+            Add
+          </Button>
+        </Tooltip>
+        <Tooltip title="Show archived quotes" placement="top-start">
+          <Button variant="outlined" className="show-archquotes-button" onClick={handleToggleShow}>
+            <i className="bi bi-archive"></i>
+            {archBtnName}
           </Button>
         </Tooltip>
       </div>
+      <span>{titleName}</span>
       <div className="quoteitems-list">
-        <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
-          <List>
-            {searchResults.records && searchResults.records.length > 0
-              ? searchResults.records.map((quote) => (
-                  <p
-                    key={quote._id}
-                    className="quote-name"
-                    onClick={() => {
-                      onQuoteClick(quote);
-                    }}
-                  >
-                    {quote.name}
-                  </p>
-                ))
-              : quotes &&
-                quotes.map((quote) => (
-                  <p
-                    key={quote._id}
-                    className="quote-name"
-                    onClick={() => {
-                      onQuoteClick(quote);
-                    }}
-                  >
+        {isToggled ? (
+          <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
+            <List>
+              {archivedQuotes &&
+                archivedQuotes.map((quote) => (
+                  <p key={quote._id} className="quote-name">
                     {quote.name}
                   </p>
                 ))}
-          </List>
-        </Scrollbars>
+            </List>
+          </Scrollbars>
+        ) : (
+          <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
+            <List>
+              {searchResults.records && searchResults.records.length > 0
+                ? searchResults.records.map((quote) => (
+                    <p
+                      key={quote._id}
+                      className="quote-name"
+                      onClick={() => {
+                        onQuoteClick(quote);
+                      }}
+                    >
+                      {quote.name}
+                    </p>
+                  ))
+                : quotes &&
+                  quotes.map((quote) => (
+                    <p
+                      key={quote._id}
+                      className="quote-name"
+                      onClick={() => {
+                        onQuoteClick(quote);
+                      }}
+                    >
+                      {quote.name}
+                    </p>
+                  ))}
+            </List>
+          </Scrollbars>
+        )}
       </div>
       <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />
       <Toaster position="top-right" richColors />
