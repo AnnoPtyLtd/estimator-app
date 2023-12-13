@@ -8,6 +8,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import jwt_decode from "jwt-decode";
 import Button from "@mui/material/Button";
 import AddNewBuildModal from "../QuoteDetails/AddNewBuildModal";
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 
 const QuoteItemsList = ({ onQuoteClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -139,9 +140,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
     setTitleName((prevTitle) =>
       prevTitle === "Quotes list" ? "Archived quotes list" : "Quotes list"
     );
-    setArchBtnName((prevTitle) =>
-      prevTitle === "Show" ? "Hide" : "Show"
-    );
+    setArchBtnName((prevTitle) => (prevTitle === "Show" ? "Hide" : "Show"));
   };
 
   return (
@@ -154,6 +153,26 @@ const QuoteItemsList = ({ onQuoteClick }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <SearchOutlinedIcon className="search-icon" onClick={handleSearch} />
+      </div>
+      <div className="quotelist-field">
+        <Tooltip title="Add new quote" placement="top-start">
+          <Button
+            variant="outlined"
+            className="add-button"
+            onClick={() => setShowAddBuildModal(true)}
+          >
+            Add
+          </Button>
+        </Tooltip>
+        <Tooltip title="Show archived quotes" placement="top-start">
+          <Button
+            variant="outlined"
+            onClick={handleToggleShow}
+            endIcon={<ArchiveOutlinedIcon/>}
+          >
+            {archBtnName}
+          </Button>
+        </Tooltip>
       </div>
       <div className="filter-field">
         <select
@@ -177,21 +196,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
             Custom/Other
           </option>
         </select>
-        <Tooltip title="Add new quote" placement="top-start">
-          <Button
-            variant="outlined"
-            className="add-button"
-            onClick={() => setShowAddBuildModal(true)}
-          >
-            Add
-          </Button>
-        </Tooltip>
-        <Tooltip title="Show archived quotes" placement="top-start">
-          <Button variant="outlined" className="show-archquotes-button" onClick={handleToggleShow}>
-            <i className="bi bi-archive"></i>
-            {archBtnName}
-          </Button>
-        </Tooltip>
       </div>
       <span>{titleName}</span>
       <div className="quoteitems-list">
