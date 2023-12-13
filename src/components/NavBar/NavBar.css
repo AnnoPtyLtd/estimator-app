@@ -185,7 +185,10 @@
 ul {
   font-weight: 400 !important;
 }
-
+.title-quotelist{
+  margin: 0px !important;
+  padding: 0px !important;
+}
 /* responsive style for 1440 x 2560 resolution */
 @media screen and (min-width: 2560px) {
   .menu.collapsed {

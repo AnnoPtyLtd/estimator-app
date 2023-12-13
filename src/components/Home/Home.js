@@ -19,7 +19,7 @@ const Home = () => {
   const [selectedQuote, setSelectedQuote] = useState(null);
   const handleQuoteClick = (quote) => {
     setSelectedQuote(quote);
-    console.log("handleSelectQuote called!");
+    console.log('function called of selecting quote')
   };
 
   const container = {
@@ -50,7 +50,7 @@ const Home = () => {
           animate={{ x: 0 }}
           transition={{ type: "tween", stiffness: 160, damping: 20 }}
         >
-          <NavBar />
+          <NavBar setSelectedQuote={handleQuoteClick}/>
         </motion.div>
       </div>
       <div className="right-panel">

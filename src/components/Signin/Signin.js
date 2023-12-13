@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -13,7 +13,33 @@ const Signin = () => {
 
   //new vercel server url of deployment
   const backendURL = process.env.REACT_APP_BACKEND_URL; 
-  // const backendURL = process.env.REACT_APP_BACKEND_URL; 
+
+  const handleTokenExpiry = () => {
+    const token = localStorage.getItem('token');
+    const tokenExpiration = localStorage.getItem('tokenExpiration');
+
+    if (token && tokenExpiration) {
+      const currentTime = new Date().getTime();
+      if (currentTime > tokenExpiration) {
+        // Token expired, remove it and set isAuthenticated to false
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
+        return false;
+      }
+      return true; // Token is valid
+    }
+    return false; // No token found
+  };
+
+  // Check token validity on initial load
+  useEffect(() => {
+    const isAuthenticated = handleTokenExpiry();
+    if (isAuthenticated) {
+      // Token is valid, set user as authenticated
+      signIn();
+      navigate('/home');
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -38,18 +64,20 @@ const Signin = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        const { token } = data;
-
+        const { token, expiration } = data; // Assuming your backend sends expiration timestamp
+  
         localStorage.setItem('token', token);
-
+        localStorage.setItem('tokenExpiration', expiration); // Store expiration timestamp
+  
         if (email === 'admin@yahoo.com') {
           localStorage.setItem('Admin', 'admin');
         } else {
           localStorage.removeItem('Admin');
         }
+  
         signIn();
         navigate('/home');
-      } else {
+      }else {
         const data = await response.json();
         console.error(data.message);
         alert('Invalid credentials!');

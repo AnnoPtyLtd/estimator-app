@@ -21,11 +21,6 @@ router.get("/getSelectedQuote/:quoteID", async (req, res) => {
 
 router.get("/get-all-archived-quotes", async (req, res) => {
   try {
-    // const id = req.query.id;
-    // if (!id) {
-    //   return res.status(400).json({ error: "id is required" });
-    // }
-    // const records = await ArchivedRecord.find({ _id: id });
     const records = await ArchivedRecord.find();
     res.status(200).json(records);
   } catch (error) {

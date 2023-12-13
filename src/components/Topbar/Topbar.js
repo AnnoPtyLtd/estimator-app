@@ -6,6 +6,9 @@ import './Topbar.css'
 const Topbar = () => {
   const navigate = useNavigate();
   const handleSignOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenExpiration');
+    localStorage.removeItem('Admin');
     navigate('/signin')
   }
 

@@ -23,8 +23,8 @@ const QuoteItemsList = ({ onQuoteClick }) => {
   const userId = decodedToken.userId;
   const [quoteFilter, setQuoteFilter] = useState("View All");
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isToggled, setIsToggled] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [autoHeightMin, setAutoHeightMin] = useState(700); // Default value for autoHeightMin
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
@@ -202,6 +202,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         {isToggled ? (
           <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
             <List>
+            {/* showing the archived quotes */}
               {archivedQuotes &&
                 archivedQuotes.map((quote) => (
                   <p key={quote._id} className="quote-name">
@@ -213,6 +214,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         ) : (
           <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
             <List>
+            {/* showing the normal quotes */}
               {searchResults.records && searchResults.records.length > 0
                 ? searchResults.records.map((quote) => (
                     <p
