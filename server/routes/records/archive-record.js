@@ -30,7 +30,7 @@ router.put('/archive-record/:id', async (req, res) => {
 
     await Record.findByIdAndDelete(id);
     
-    res.status(200).json({ message: 'Record archived successfully' });
+    res.status(200).json(archivedRecord);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

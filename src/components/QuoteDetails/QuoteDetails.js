@@ -204,6 +204,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        setSelectedQuote(data);
         toast.success("Quote archived!");
       })
       .catch((error) => {
