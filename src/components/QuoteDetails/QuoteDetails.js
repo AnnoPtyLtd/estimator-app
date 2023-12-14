@@ -212,21 +212,6 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       });
   };
 
-  //this function shows the last updated date of quote
-  const handleShowLastUpdate = (date) => {
-    const newdate = new Date(date).toDateString();
-    toast.message(`last updated: ${newdate}`);
-  };
-
-  //this function will redirect towards the website of component
-  const handleVisitSite = (row) => {
-    if (row.URL) {
-      window.open(row.URL, "_blank");
-    } else {
-      toast.message("No URL found!");
-    }
-  };
-
   //function for unarchiving quote
   const handleUnarchive = () => {
     fetch(`${backendURL}/unarchive-record/${selectedQuote._id}`, {
@@ -240,6 +225,21 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       .catch((error) => {
         toast.error("Error archiving record");
       });
+  };
+
+  //this function shows the last updated date of quote
+  const handleShowLastUpdate = (date) => {
+    const newdate = new Date(date).toDateString();
+    toast.message(`last updated: ${newdate}`);
+  };
+
+  //this function will redirect towards the website of component
+  const handleVisitSite = (row) => {
+    if (row.URL) {
+      window.open(row.URL, "_blank");
+    } else {
+      toast.message("No URL found!");
+    }
   };
 
   return (
@@ -259,7 +259,11 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                     <p>This quote is archived</p>
                   ) : (
                     <>
-                      <p>Components</p>
+                      <div className="quote-comps-top">
+                        <p>Components</p>
+                        
+                      </div>
+
                       <Box sx={{ height: 500 }}>
                         <DataGrid
                           rows={rows}
@@ -393,6 +397,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         onHide={() => setShowDeleteModal(false)}
         title={selectedQuote && selectedQuote.name}
         recordID={selectedQuote && selectedQuote._id}
+        status={selectedQuote && selectedQuote.quoteStatus}
       />
 
       <AddComponentModal

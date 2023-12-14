@@ -4,11 +4,25 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Toaster, toast } from 'sonner';
 import './QuoteDetails.css';
 
-const DeleteQuoteModal = ({ show, onHide, title, recordID }) => {
+const DeleteQuoteModal = ({ show, onHide, title, recordID,status }) => {
 
   const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
     const handleConfirmDelete = async () => {
+        if(status){
+            fetch(`${backendURL}/delete-archived-record/${recordID}`, {
+                method: 'DELETE',
+            })
+                .then((response) => response.json())
+                .then(() => {
+                    toast.success("Quote deleted successfully!")
+                })
+                .catch((error) => {
+                    toast.error(error);
+                });
+                onHide();
+        }
+
         fetch(`${backendURL}/delete-record/${recordID}`, {
             method: 'DELETE',
         })
