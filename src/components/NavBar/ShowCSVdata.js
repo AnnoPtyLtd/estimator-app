@@ -5,12 +5,40 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const ShowCSVdata = ({ show, onHide, data }) => {
 
-  const handleSaveComponent = () => {};
-  
-  const handleClose = () => {
-    onHide();
-    console.log(data);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
+
+  // Function to filter out keys with empty values or null
+  const filterEmptyValues = (obj) => {
+    const filtered = {};
+    Object.entries(obj).forEach(([key, value]) => {
+      if (value !== "" && value !== null && value !== undefined) {
+        filtered[key] = value;
+      }
+    });
+    return filtered;
   };
+  // Filter out empty and null values from each object in the data array
+  const filteredData = data.map((item) => filterEmptyValues(item));
+
+
+  const handleSaveComponent = () => {
+    console.log(JSON.stringify(data));
+    fetch(`${backendURL}/save-components`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Components saved:', data);
+      })
+      .catch((error) => {
+        console.error('Error saving components:', error);
+        // Handle error, e.g., show an error message to the user
+      });
+  }
 
   return (
     <div className="csv-data-container">
@@ -30,15 +58,15 @@ const ShowCSVdata = ({ show, onHide, data }) => {
         <Modal.Body>
           <div>
             <ol>
-              {data.map((item, index) => (
+              {filteredData.map((item, index) => (
                 <p key={index}>{JSON.stringify(item)}</p>
               ))}
             </ol>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleClose}>Close</Button>
-          <Button onClick={handleSaveComponent}>Close</Button>
+          <Button onClick={onHide}>Close</Button>
+          <Button onClick={handleSaveComponent}>Save</Button>
         </Modal.Footer>
       </Modal>
     </div>

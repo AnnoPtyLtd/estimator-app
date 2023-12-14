@@ -32,17 +32,20 @@ const UploadFileModal = ({ show, onHide }) => {
         onHide();
     };
 
+    
+
+
     const convertCSVToJson = (csvData) => {
         const lines = csvData.split('\n');
         const headers = lines[0].split(',');
-    
+        
         // Define regex patterns for each key
         const patterns = {
-            componentCategory: /category|type/i, // Match 'category' or 'type'
-            componentName: /name/i, // Match 'name'
-            componentDate: /date/i, // Match 'date'
-            componentCost: /cost|price/i, // Match 'cost' or 'price'
-            componentUrl: /url|link/i // Match 'url' or 'link'
+            componentCategory: /category|type/i,
+            componentName: /name/i,
+            componentDate: /date/i,
+            componentCost: /cost|price/i,
+            componentUrl: /url|link/i
         };
     
         const jsonObjects = [];
@@ -51,23 +54,30 @@ const UploadFileModal = ({ show, onHide }) => {
             const currentLine = lines[i].split(',');
             const jsonObject = {};
     
+            let hasComponentCost = false; // Flag to check if 'componentCost' exists
+    
             for (let j = 0; j < headers.length; j++) {
-                // Find the key that matches the regex pattern
                 const key = Object.keys(patterns).find((patternKey) => patterns[patternKey].test(headers[j]));
     
-                // If a matching key is found, assign the value to the corresponding property in the object
                 if (key) {
                     if (key === 'componentDate') {
-                        jsonObject[key] = new Date(currentLine[j]); // Convert date string to Date object
+                        jsonObject[key] = new Date(currentLine[j]);
                     } else if (key === 'componentCost') {
-                        jsonObject[key] = parseFloat(currentLine[j]); // Parse cost as a number
+                        const cost = parseFloat(currentLine[j]);
+                        if (!isNaN(cost)) {
+                            jsonObject[key] = cost;
+                            hasComponentCost = true;
+                        }
                     } else {
-                        jsonObject[key] = currentLine[j]; // Assign other values directly
+                        jsonObject[key] = currentLine[j];
                     }
                 }
             }
     
-            jsonObjects.push(jsonObject);
+            // Add object to result array only if 'componentCost' exists
+            if (hasComponentCost) {
+                jsonObjects.push(jsonObject);
+            }
         }
     
         return jsonObjects;
@@ -110,6 +120,7 @@ const UploadFileModal = ({ show, onHide }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleOnClose}>Close</Button>
+                    <Button>Save to database</Button>
                 </Modal.Footer>
             </Modal>
 
