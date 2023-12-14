@@ -232,7 +232,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       .then((response) => response.json())
       .then((data) => {
         toast.success("Quote Unarchived!");
-        setSelectedQuote(data);
+        // setSelectedQuote(data);
       })
       .catch((error) => {
         toast.error("Error archiving record");

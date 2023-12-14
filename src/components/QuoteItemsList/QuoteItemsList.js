@@ -90,6 +90,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes, userId, isAdmin]);
+
   useEffect(() => {
     const fetchArcQuotes = async () => {
       try {
@@ -105,8 +106,14 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       }
     };
     fetchArcQuotes();
+    fetchArcQuotes();
+    const refreshInterval = setInterval(() => {
+      fetchArcQuotes();
+    }, 500);
+    return () => clearInterval(refreshInterval);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quotes, archivedQuotes, isToggled]);
+  }, []);
 
   const handleSearch = async () => {
     if (searchTerm.trim() === "" || !searchTerm) {
