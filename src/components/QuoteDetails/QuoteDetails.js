@@ -19,7 +19,8 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import EditCompinBuild from "./EditComponentInBuild";
 import AddComponentModal from "../SelectComponents/AddComponentModal";
 import EditBuildModal from "./EditBuildModal";
-import EditIcon from '@mui/icons-material/ModeEditOutline';
+import EditIcon from "@mui/icons-material/ModeEditOutline";
+import UnarchiveIcon from "@mui/icons-material/Unarchive";
 
 const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
@@ -27,6 +28,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddCompinBuild, setShowAddCompinBuild] = useState(false);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
+  // const [height, setHeight] = useState(500);
   const [rows, setRows] = useState([]);
   const [editCompInBuildShow, setEditCompInBuildShow] = useState(false);
   const [indexOfComponentArray, setindexOfComponentArray] = useState(0);
@@ -36,7 +38,18 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [exComponentUrls, setExComponentUrls] = useState([]);
   const [exComponentDates, setExComponentDates] = useState([]);
   const [showEditBuild, setShowEditBuild] = useState(false);
-  const [height, setHeight] = useState(500);
+  const [displayButtonStatus, setDisplayButtonStatus] = useState(false);
+
+  //for setting the unarchive button
+  useEffect(() => {
+    if (selectedQuote) {
+      if (selectedQuote.quoteStatus && selectedQuote.quoteStatus === "Archived") {
+        setDisplayButtonStatus(true);
+      } else {
+        setDisplayButtonStatus(false);
+      }
+    }
+  }, [selectedQuote]);
 
   // using for the rows attribute in table
   useEffect(() => {
@@ -212,6 +225,19 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       toast.message("No URL found!");
     }
   };
+  const handleUnarchive = () => {
+    fetch(`${backendURL}/unarchive-record/${selectedQuote._id}`, {
+      method: "PUT",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        toast.success("Quote Unarchived!");
+        setSelectedQuote(data);
+      })
+      .catch((error) => {
+        toast.error("Error archiving record");
+      });
+  };
 
   return (
     <div className="quote-details-container">
@@ -226,22 +252,28 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
               <div className="single-quote-details">
                 <div className="single-quote-left">
                   <h4>{selectedQuote.name}</h4>
-                  <p>Components</p>
-                  <Box sx={{ height: 500 }}>
-                    <DataGrid
-                      rows={rows}
-                      columns={columns}
-                      initialState={{
-                        pagination: {
-                          paginationModel: {
-                            pageSize: 15,
-                          },
-                        },
-                      }}
-                      pageSizeOptions={[15]}
-                      disableRowSelectionOnClick
-                    />
-                  </Box>
+                  {selectedQuote.quoteStatus && selectedQuote.quoteStatus === "Archived" ? (
+                    <p>This quote is archived</p>
+                  ) : (
+                    <>
+                      <p>Components</p>
+                      <Box sx={{ height: 500 }}>
+                        <DataGrid
+                          rows={rows}
+                          columns={columns}
+                          initialState={{
+                            pagination: {
+                              paginationModel: {
+                                pageSize: 15,
+                              },
+                            },
+                          }}
+                          pageSizeOptions={[15]}
+                          disableRowSelectionOnClick
+                        />
+                      </Box>
+                    </>
+                  )}
                 </div>
                 {Number.isInteger(selectedQuote.quoteCost)
                   ? `${selectedQuote.quoteCost}.00`
@@ -253,7 +285,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           </>
           {selectedQuote ? (
             <div className="quote-btn-group">
-              <ButtonGroup variant="outlined" aria-label="outlined button group" size="small">
+              <ButtonGroup
+                variant="outlined"
+                aria-label="outlined button group"
+                size="small"
+                disabled={displayButtonStatus}
+              >
                 <Tooltip title="Duplicate" placement="top-start">
                   <Button>
                     <DuplicateIcon
@@ -296,6 +333,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
 
         <Button
           className="editbtn"
+          disabled={displayButtonStatus}
           variant="outlined"
           onClick={() => {
             setShowAddCompinBuild(true);
@@ -309,22 +347,36 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       <div className="quote-details-controls">
         <div className="quote-details-header">
           <div className="quote-btns">
-            <Tooltip title="Delete this quote" placement="top-start">
-              <Button variant="outlined" onClick={() => setShowEditBuild(true)}>
-                {" "}
-                <EditIcon />{" "}
+            <Tooltip title="Edit quote" placement="top-start">
+              <Button
+                variant="outlined"
+                onClick={() => setShowEditBuild(true)}
+                disabled={displayButtonStatus}
+              >
+                <EditIcon />
               </Button>
             </Tooltip>
             <Tooltip title="Delete this quote" placement="top-start">
               <Button variant="outlined" onClick={() => setShowDeleteModal(true)}>
-                {" "}
-                <DeleteIcon />{" "}
+                <DeleteIcon />
               </Button>
             </Tooltip>
             <Tooltip title="Export quotes" placement="top-start">
-              <Button variant="outlined" onClick={() => setShowExportModal(true)}>
-                {" "}
-                <ExportIcon />{" "}
+              <Button
+                variant="outlined"
+                onClick={() => setShowExportModal(true)}
+                disabled={displayButtonStatus}
+              >
+                <ExportIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Unarchive" placement="top-start">
+              <Button
+                variant="outlined"
+                onClick={() => handleUnarchive()}
+                disabled={!displayButtonStatus}
+              >
+                <UnarchiveIcon />
               </Button>
             </Tooltip>
           </div>

@@ -8,7 +8,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import jwt_decode from "jwt-decode";
 import Button from "@mui/material/Button";
 import AddNewBuildModal from "../QuoteDetails/AddNewBuildModal";
-import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 
 const QuoteItemsList = ({ onQuoteClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -91,12 +91,12 @@ const QuoteItemsList = ({ onQuoteClick }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes, userId, isAdmin]);
   useEffect(() => {
-    const fetchQuotes = async () => {
+    const fetchArcQuotes = async () => {
       try {
         const response = await fetch(`${backendURL}/get-all-archived-quotes`);
         if (response.status === 200) {
           const data = await response.json();
-          await setArchivedQuotes(data);
+          setArchivedQuotes(data);
         } else {
           console.error("Failed to fetch archived records");
         }
@@ -104,14 +104,10 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         console.error(error);
       }
     };
-    fetchQuotes();
-    const refreshInterval = setInterval(() => {
-      fetchQuotes();
-    }, 1000);
-    return () => clearInterval(refreshInterval);
-
+    fetchArcQuotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [archivedQuotes]);
+  }, [quotes, archivedQuotes, isToggled]);
+
   const handleSearch = async () => {
     if (searchTerm.trim() === "" || !searchTerm) {
       toast.error("Search field is empty!");
@@ -155,6 +151,11 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         <SearchOutlinedIcon className="search-icon" onClick={handleSearch} />
       </div>
       <div className="quotelist-field">
+        <Tooltip title="Show archived quotes" placement="top-start">
+          <Button variant="outlined" onClick={handleToggleShow} endIcon={<ArchiveOutlinedIcon />}>
+            {archBtnName}
+          </Button>
+        </Tooltip>
         <Tooltip title="Add new quote" placement="top-start">
           <Button
             variant="outlined"
@@ -162,15 +163,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
             onClick={() => setShowAddBuildModal(true)}
           >
             Add
-          </Button>
-        </Tooltip>
-        <Tooltip title="Show archived quotes" placement="top-start">
-          <Button
-            variant="outlined"
-            onClick={handleToggleShow}
-            endIcon={<ArchiveOutlinedIcon/>}
-          >
-            {archBtnName}
           </Button>
         </Tooltip>
       </div>
@@ -202,10 +194,16 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         {isToggled ? (
           <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
             <List>
-            {/* showing the archived quotes */}
+              {/* showing the archived quotes */}
               {archivedQuotes &&
                 archivedQuotes.map((quote) => (
-                  <p key={quote._id} className="quote-name">
+                  <p
+                    key={quote._id}
+                    className="quote-name"
+                    onClick={() => {
+                      onQuoteClick(quote);
+                    }}
+                  >
                     {quote.name}
                   </p>
                 ))}
@@ -214,7 +212,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         ) : (
           <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
             <List>
-            {/* showing the normal quotes */}
+              {/* showing the normal quotes */}
               {searchResults.records && searchResults.records.length > 0
                 ? searchResults.records.map((quote) => (
                     <p

@@ -14,39 +14,65 @@ const UploadFileModal = ({ show, onHide }) => {
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
     };
-
     const handleUpload = () => {
         if (selectedFile) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 const csvData = event.target.result;
-                const jsonData = convertCSVToJson(csvData);
-                setJsonData(jsonData);
+                const parsedJsonData = convertCSVToJson(csvData);
+                setJsonData(parsedJsonData);
+                setShowCSVdataModal(true);
+            };
+            reader.onerror = (error) => {
+                console.error('Error reading the file:', error);
+                // Handle error, e.g., show an error message to the user
             };
             reader.readAsText(selectedFile);
         }
         onHide();
-        setShowCSVdataModal(true);
     };
 
     const convertCSVToJson = (csvData) => {
         const lines = csvData.split('\n');
         const headers = lines[0].split(',');
+    
+        // Define regex patterns for each key
+        const patterns = {
+            componentCategory: /category|type/i, // Match 'category' or 'type'
+            componentName: /name/i, // Match 'name'
+            componentDate: /date/i, // Match 'date'
+            componentCost: /cost|price/i, // Match 'cost' or 'price'
+            componentUrl: /url|link/i // Match 'url' or 'link'
+        };
+    
         const jsonObjects = [];
-
+    
         for (let i = 1; i < lines.length; i++) {
             const currentLine = lines[i].split(',');
             const jsonObject = {};
-
+    
             for (let j = 0; j < headers.length; j++) {
-                jsonObject[headers[j]] = currentLine[j];
+                // Find the key that matches the regex pattern
+                const key = Object.keys(patterns).find((patternKey) => patterns[patternKey].test(headers[j]));
+    
+                // If a matching key is found, assign the value to the corresponding property in the object
+                if (key) {
+                    if (key === 'componentDate') {
+                        jsonObject[key] = new Date(currentLine[j]); // Convert date string to Date object
+                    } else if (key === 'componentCost') {
+                        jsonObject[key] = parseFloat(currentLine[j]); // Parse cost as a number
+                    } else {
+                        jsonObject[key] = currentLine[j]; // Assign other values directly
+                    }
+                }
             }
-
+    
             jsonObjects.push(jsonObject);
         }
-
+    
         return jsonObjects;
     };
+    
 
     const handleOnClose = () => {
         setSelectedFile(null);
@@ -73,7 +99,6 @@ const UploadFileModal = ({ show, onHide }) => {
                     <div className="uploadfile-modalbody">
                         <div className="uploadfile-text">
                             <img src={uploadImg} alt="upload here" />
-                            <h5>Upload your file</h5>
                         </div>
                         <div className="file-input-field">
                             <input type="file" accept=".csv" onChange={handleFileChange} />

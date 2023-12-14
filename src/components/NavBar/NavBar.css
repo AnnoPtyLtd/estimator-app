@@ -123,9 +123,9 @@
 }
 
 .uploadfile-box {
-  min-height: 50vh;
+  min-height: 60vh;
   text-align: center;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .uploadfile-modalbody {

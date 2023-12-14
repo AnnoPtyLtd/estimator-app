@@ -227,7 +227,12 @@
   font-size: 14px;
   margin-top: 0px;
 }
-
+.modalbodycomp-btns{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
 .quote-details-text p:nth-child(1) {
   font-weight: 500;
   font-size: 18px;
@@ -297,6 +302,10 @@
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 5px;
   margin-right: 10px;
+}
+.category-box-comp{
+  max-width: 150px;
+  padding: 5px;
 }
 .search-box-comp{
   max-width: 150px;

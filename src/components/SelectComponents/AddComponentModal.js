@@ -1,4 +1,4 @@
-import "./ComponentCard.css";
+import "./SelectComponents.css";
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
@@ -215,11 +215,11 @@ const AddComponentModal = ({
           </button>
         </Modal.Header>
         <Modal.Body className="custom-modal-body">
-          <div className="modalbodycomp-item">
-            <label sx={{ color: "#fff" }}> Category: </label>
+          <div className="modalbodycomp-btns">
             <select
               id="dropdown"
               value={categoryComp}
+              className="category-box-comp"
               onChange={(e) => {
                 setCategoryComp(e.target.value);
               }}
