@@ -63,7 +63,7 @@ router.put('/unarchive-record/:id', async (req, res) => {
 
     await ArchivedRecord.findByIdAndDelete(id);
     
-    res.status(200).json({ message: 'Record Unarchived successfully' });
+    res.status(200).json(newRecord);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

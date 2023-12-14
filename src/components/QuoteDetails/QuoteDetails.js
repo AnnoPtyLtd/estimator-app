@@ -225,14 +225,16 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       toast.message("No URL found!");
     }
   };
+
+  //function for unarchiving quote
   const handleUnarchive = () => {
     fetch(`${backendURL}/unarchive-record/${selectedQuote._id}`, {
       method: "PUT",
     })
       .then((response) => response.json())
       .then((data) => {
+        setSelectedQuote(data);
         toast.success("Quote Unarchived!");
-        // setSelectedQuote(data);
       })
       .catch((error) => {
         toast.error("Error archiving record");

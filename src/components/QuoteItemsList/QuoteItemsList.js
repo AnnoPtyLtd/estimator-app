@@ -90,7 +90,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes, userId, isAdmin]);
-
+  
   useEffect(() => {
     const fetchArcQuotes = async () => {
       try {
@@ -106,14 +106,8 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       }
     };
     fetchArcQuotes();
-    fetchArcQuotes();
-    const refreshInterval = setInterval(() => {
-      fetchArcQuotes();
-    }, 500);
-    return () => clearInterval(refreshInterval);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [quotes,archivedQuotes]);
 
   const handleSearch = async () => {
     if (searchTerm.trim() === "" || !searchTerm) {
@@ -201,7 +195,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         {isToggled ? (
           <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
             <List>
-              {/* showing the archived quotes */}
               {archivedQuotes &&
                 archivedQuotes.map((quote) => (
                   <p
@@ -217,7 +210,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
             </List>
           </Scrollbars>
         ) : (
-          <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
+          <Scrollbars autoHeight autoHeightMin={500}>
             <List>
               {/* showing the normal quotes */}
               {searchResults.records && searchResults.records.length > 0
