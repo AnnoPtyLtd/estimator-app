@@ -19,8 +19,8 @@ const ComponentDetailsPage = () => {
       editable: true,
     },
     {
-      field: 'category',
-      headerName: 'Category',
+      field: "category",
+      headerName: "Category",
       width: 150,
       editable: true,
       valueGetter: (params) => params.row.category,
@@ -44,7 +44,7 @@ const ComponentDetailsPage = () => {
             handleUpdateButtonClick({ ...params.row, category: newValue });
           }}
         >
-            <option value="CPU">CPU</option>
+          <option value="CPU">CPU</option>
           <option value="Graphic Card">Graphic Card</option>
           <option value="Power Supply">Power Supply</option>
           <option value="PC Casing">PC Casing</option>
@@ -149,7 +149,6 @@ const ComponentDetailsPage = () => {
   const [showExportModal, setShowExportModal] = useState(false);
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
-
   useEffect(() => {
     const fetchComponents = async () => {
       const response = await fetch(`${backendURL}/get-components-all`);
@@ -212,7 +211,7 @@ const ComponentDetailsPage = () => {
           compCategory: row.category,
         }),
       });
-  
+
       if (response.status === 200) {
         // Update the state with the updated component
         const updatedComponents = components.map((component) => {
@@ -237,7 +236,6 @@ const ComponentDetailsPage = () => {
       console.error(error);
     }
   };
-  
 
   const handleDeleteButtonClick = async (row) => {
     console.log("item id for delete: ", row.id);
@@ -255,10 +253,18 @@ const ComponentDetailsPage = () => {
       console.error(error);
     }
   };
-
   const handleVisitSite = (row) => {
     if (row.url) {
-      window.open(row.url, "_blank");
+      let fullURL = row.url;
+
+      // Check if the URL is missing the protocol
+      if (!/^https?:\/\//i.test(fullURL)) {
+        // If it's missing, add the https:// protocol
+        fullURL = `http://${fullURL}`;
+      }
+
+      // Open the URL in a new tab
+      window.open(fullURL, "_blank");
     } else {
       toast.message("No URL found!");
     }
