@@ -4,16 +4,16 @@ const mongoose = require('mongoose');
 const app = express();
 require('dotenv').config();
 
-app.use(express.json());
+// app.use(express.json());
 
-// app.use(
-//     cors({
-//         origin: ["https://estimator-frontend.vercel.app"],
-//         methods: ["GET", "POST", "PUT", "DELETE"],
-//         credentials: true,
-//         allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you need.
-//     })
-// );
+app.use(
+    cors({
+        origin: ["https://estimator-frontend.vercel.app"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you need.
+    })
+);
 
 app.use(cors());
 

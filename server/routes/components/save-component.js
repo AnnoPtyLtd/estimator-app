@@ -24,7 +24,7 @@ router.post('/save-newcomponent', async (req, res) => {
   }
 });
 
-router.post('/save-components', async (req, res) => {
+router.post('/save-import-components', async (req, res) => {
   try {
     const jsonData = req.body; // Assuming frontend sends JSON data
 

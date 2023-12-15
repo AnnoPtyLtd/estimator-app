@@ -23,7 +23,7 @@ const ShowCSVdata = ({ show, onHide, data }) => {
 
   const handleSaveComponent = () => {
     console.log(JSON.stringify(data));
-    fetch(`${backendURL}/save-components`, {
+    fetch(`${backendURL}/save-import-components`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
