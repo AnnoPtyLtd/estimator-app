@@ -74,6 +74,16 @@
   margin-top: 10px;
   gap: 10px;
 }
+
+@media screen and (min-width: 2160px) {
+  .quotelist-item-container{
+    min-height: 70vh;
+    min-width: 25vh ;
+  }
+  
+}
+
+
 @media screen and (min-width: 2560px) {
   .quotelist-item-container {
     min-width: 30vh !important;

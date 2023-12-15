@@ -39,6 +39,35 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [exComponentDates, setExComponentDates] = useState([]);
   const [showEditBuild, setShowEditBuild] = useState(false);
   const [displayButtonStatus, setDisplayButtonStatus] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    //this use effect is used for screen width fetching and setting height of list body
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+  
+    const calculateHeight = (width) => {
+      if (width === 3840) {
+        return 1200;
+      } else if (width === 2560) {
+        return 1000;
+      } else if (width === 2160) {
+        return 900;
+      } else {
+        return 700; // Default height
+      }
+    };
+  
+    // Dynamically set height for the Box component
+    const boxHeight = calculateHeight(windowWidth);
+
+
 
   //for setting the unarchive button
   useEffect(() => {
@@ -119,41 +148,49 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         );
       },
     },
-    {
-      field: "delete",
-      headerName: "Delete",
-      headerAlign: "center",
-      align: "center",
-      type: "icon",
-      sortable: false,
-      width: 80,
-      editable: false,
-      renderCell: (params) => (
-        <CancelOutlinedIcon
-          className="rounded-delete"
-          onClick={() => handleDeleteButtonClick(params.row)}
-          color="error"
-        ></CancelOutlinedIcon>
-      ),
-    },
-    {
-      field: "edit",
-      headerName: "Edit",
-      headerAlign: "center",
-      type: "icon",
-      sortable: false,
-      width: 50,
-      align: "center",
-      editable: false,
-      renderCell: (params) => (
-        <EditRoundedIcon
-          className="rounded-edit"
-          onClick={() => handleEditComponent(params.row)}
-          color="primary"
-        ></EditRoundedIcon>
-      ),
-    },
   ];
+  
+  // Conditionally render both "Delete" and "Edit" buttons based on displayButtonStatus
+  if (!displayButtonStatus) {
+    columns.push(
+      {
+        field: "delete",
+        headerName: "Delete",
+        headerAlign: "center",
+        align: "center",
+        type: "icon",
+        sortable: false,
+        width: 80,
+        editable: false,
+        renderCell: (params) => (
+          <CancelOutlinedIcon
+            className="rounded-delete"
+            onClick={() => handleDeleteButtonClick(params.row)}
+            color="error"
+          ></CancelOutlinedIcon>
+        ),
+      },
+      {
+        field: "edit",
+        headerName: "Edit",
+        headerAlign: "center",
+        type: "icon",
+        sortable: false,
+        width: 50,
+        align: "center",
+        editable: false,
+        renderCell: (params) => (
+          <EditRoundedIcon
+            className="rounded-edit"
+            onClick={() => handleEditComponent(params.row)}
+            color="primary"
+          ></EditRoundedIcon>
+        ),
+      }
+    );
+  }
+  
+  
   const handleEditComponent = (row) => {
     setindexOfComponentArray(row.id);
     setEditCompInBuildShow(true);
@@ -256,15 +293,30 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                 <div className="single-quote-left">
                   <h4>{selectedQuote.name}</h4>
                   {selectedQuote.quoteStatus && selectedQuote.quoteStatus === "Archived" ? (
-                    <p>This quote is archived</p>
+                    <>
+                      <p>This quote is archived</p>
+                      <Box sx={{ height: boxHeight }}>
+                        <DataGrid
+                          rows={rows}
+                          columns={columns}
+                          initialState={{
+                            pagination: {
+                              paginationModel: {
+                                pageSize: 15,
+                              },
+                            },
+                          }}
+                          pageSizeOptions={[15]}
+                          disableRowSelectionOnClick
+                        />
+                      </Box>
+                    </>
                   ) : (
                     <>
                       <div className="quote-comps-top">
                         <p>Components</p>
-                        
                       </div>
-
-                      <Box sx={{ height: 500 }}>
+                      <Box sx={{ height: boxHeight }}>
                         <DataGrid
                           rows={rows}
                           columns={columns}

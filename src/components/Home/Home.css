@@ -70,33 +70,47 @@
     bottom: 0;
     z-index: 999;
   }
-  .right-panel{
+  .right-panel {
     max-width: fit-content;
   }
-  .right-panel2{
+  .right-panel2 {
     max-width: fit-content;
   }
 }
 
+@media screen and (min-width: 2160px) {
+  .right-panel {
+    max-width: 80% !important;
+  }
+  .right-panel2 {
+    flex-grow: 1;
+    max-width: 100% !important;
+    min-height: 95vh !important;
+  }
+  .quote-section{
+    background-color: yellow;
+    min-height: 80vh;
+  }
+}
+
 @media screen and (min-width: 2560px) {
-  .right-panel{
+  .right-panel {
     max-width: 80% !important;
     min-height: 95vh !important;
   }
-  .right-panel2{
+  .right-panel2 {
     flex-grow: 1;
     max-width: 100% !important;
     min-height: 95vh !important;
   }
 }
+
 @media screen and (min-width: 3840px) {
-  .right-panel2{
+  .right-panel2 {
     min-width: 80% !important;
     min-height: 95vh !important;
   }
-  .component-section{
+  .component-section {
     min-height: 60vh !important;
   }
 }
-
-

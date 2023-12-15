@@ -251,6 +251,14 @@ li label {
   font-weight: 400 !important;
 }
 
+@media screen and (min-width: 2160px) {
+  .quote-details-container {
+    max-width: 70% !important;
+    min-height: 70vh;
+  }
+}
+
+
 @media screen and (min-width: 2560px) {
   .quote-details-container {
     max-width: 80% !important;

@@ -51,6 +51,8 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       setAutoHeightMin(1200);
     } else if (windowWidth === 2560) {
       setAutoHeightMin(900); // Reset to default value when width changes
+    } else if (windowWidth === 2160) {
+      setAutoHeightMin(700); // Reset to default value when width changes
     } else {
       setAutoHeightMin(700);
     }
@@ -90,7 +92,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes, userId, isAdmin]);
-  
+
   useEffect(() => {
     const fetchArcQuotes = async () => {
       try {
@@ -107,7 +109,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
     };
     fetchArcQuotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quotes,archivedQuotes]);
+  }, [quotes, archivedQuotes]);
 
   const handleSearch = async () => {
     if (searchTerm.trim() === "" || !searchTerm) {
@@ -210,7 +212,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
             </List>
           </Scrollbars>
         ) : (
-          <Scrollbars autoHeight autoHeightMin={500}>
+          <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
             <List>
               {/* showing the normal quotes */}
               {searchResults.records && searchResults.records.length > 0
