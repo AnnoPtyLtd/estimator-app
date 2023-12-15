@@ -2,11 +2,10 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import { Toaster, toast } from "sonner";
 
 const ShowCSVdata = ({ show, onHide, data }) => {
-
   const backendURL = process.env.REACT_APP_BACKEND_URL;
-
   // Function to filter out keys with empty values or null
   const filterEmptyValues = (obj) => {
     const filtered = {};
@@ -20,25 +19,25 @@ const ShowCSVdata = ({ show, onHide, data }) => {
   // Filter out empty and null values from each object in the data array
   const filteredData = data.map((item) => filterEmptyValues(item));
 
-
   const handleSaveComponent = () => {
     console.log(JSON.stringify(data));
     fetch(`${backendURL}/save-import-components`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Components saved:', data);
+        toast.info('Components saved');
+        onHide();
       })
       .catch((error) => {
-        console.error('Error saving components:', error);
-        // Handle error, e.g., show an error message to the user
+        toast.error("Error saving components");
+        onHide();
       });
-  }
+  };
 
   return (
     <div className="csv-data-container">
@@ -57,9 +56,10 @@ const ShowCSVdata = ({ show, onHide, data }) => {
         </Modal.Header>
         <Modal.Body>
           <div>
+            <p>Is the following data correct?</p>
             <ol>
-              {filteredData.map((item, index) => (
-                <p key={index}>{JSON.stringify(item)}</p>
+              {Object.values(data).map((item, index) => (
+                <li className="csv-data-item">{item.componentName},{item.componentCategory},${item.componentCost}</li>
               ))}
             </ol>
           </div>
@@ -69,6 +69,7 @@ const ShowCSVdata = ({ show, onHide, data }) => {
           <Button onClick={handleSaveComponent}>Save</Button>
         </Modal.Footer>
       </Modal>
+      <Toaster position="top-right" richColors />
     </div>
   );
 };

@@ -189,6 +189,11 @@ ul {
   margin: 0px !important;
   padding: 0px !important;
 }
+
+.csv-data-item{
+  font-weight: 400;
+}
+
 /* responsive style for 1440 x 2560 resolution */
 @media screen and (min-width: 2560px) {
   .menu.collapsed {
