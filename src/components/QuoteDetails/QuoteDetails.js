@@ -60,13 +60,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       } else if (width === 2160) {
         return 900;
       } else {
-        return 700; // Default height
+        return 500; // Default height
       }
     };
   
     // Dynamically set height for the Box component
     const boxHeight = calculateHeight(windowWidth);
-
 
 
   //for setting the unarchive button
