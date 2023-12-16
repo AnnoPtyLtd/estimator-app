@@ -90,7 +90,7 @@ router.get("/getadminrecords", async (req, res) => {
   }
 });
 
-router.get("/getuserrecords", async (req, res) => {
+router.get("/get-user-quotes", async (req, res) => {
   try {
     const userId = req.query.userId;
     const quoteType = req.query.quoteType;

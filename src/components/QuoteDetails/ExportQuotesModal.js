@@ -47,7 +47,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
           }
         } else {
           const response = await fetch(
-            `${backendURL}/getuserrecords?userId=${userId}&quoteType=${quoteType}`
+            `${backendURL}/get-user-quotes?userId=${userId}&quoteType=${quoteType}`
           );
           if (response.status === 200) {
             const data = await response.json();
@@ -61,6 +61,7 @@ const ExportQuotesModal = ({ show, onHide }) => {
       }
     };
     fetchRecords();
+    //eslint-disable-next-line
   }, [quoteType, records]);
 
   const handleQuoteSelection = (name) => {

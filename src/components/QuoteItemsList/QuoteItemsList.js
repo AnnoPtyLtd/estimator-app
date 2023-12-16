@@ -71,7 +71,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
           }
         } else {
           const response = await fetch(
-            `${backendURL}/getuserrecords?userId=${userId}&quoteType=${quoteFilter}`
+            `${backendURL}/get-user-quotes?userId=${userId}&quoteType=${quoteFilter}`
           );
           if (response.status === 200) {
             const data = await response.json();
@@ -85,18 +85,18 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       }
     };
     fetchQuotes();
-    const refreshInterval = setInterval(() => {
-      fetchQuotes();
-    }, 1000);
-    return () => clearInterval(refreshInterval);
+    // const refreshInterval = setInterval(() => {
+    //   fetchQuotes();
+    // }, 1000);
+    // return () => clearInterval(refreshInterval);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes, userId, isAdmin]);
 
   useEffect(() => {
-    const fetchArcQuotes = async () => {
+    const fetchArchQuotes = async () => {
       try {
-        const response = await fetch(`${backendURL}/get-all-archived-quotes`);
+        const response = await fetch(`${backendURL}/filter-archived?category=${quoteFilter}`);
         if (response.status === 200) {
           const data = await response.json();
           setArchivedQuotes(data);
@@ -107,7 +107,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         console.error(error);
       }
     };
-    fetchArcQuotes();
+    fetchArchQuotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotes, archivedQuotes]);
 
@@ -197,7 +197,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         {isToggled ? (
           <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
             <List>
-              {archivedQuotes &&
+              {archivedQuotes.length>0 &&
                 archivedQuotes.map((quote) => (
                   <p
                     key={quote._id}
