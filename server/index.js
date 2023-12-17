@@ -56,6 +56,7 @@ const exportRecords = require('./routes/records/export-records')
 const getComponentsLength = require('./routes/components/get-components-length');
 const getUserInfo = require('./routes/user/get-user');
 const getQuote = require('./routes/records/get-quote');
+const filterArhchivedQuote = require('./routes/records/filter-archived')
 
 app.use(signupRoute);
 app.use(signinRoute);
@@ -74,6 +75,7 @@ app.use(exportRecords);
 app.use(getComponentsLength);
 app.use(getUserInfo);
 app.use(getQuote);
+app.use(filterArhchivedQuote);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");
