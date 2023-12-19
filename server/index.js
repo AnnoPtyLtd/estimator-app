@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 require('dotenv').config();
 
-// app.use(express.json());
+app.use(express.json());
 
 app.use(
     cors({
@@ -15,7 +15,7 @@ app.use(
     })
 );
 
-app.use(cors());
+// app.use(cors());
 
 const UserSchema = new mongoose.Schema({
     fullname: {
