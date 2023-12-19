@@ -66,7 +66,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
           if (response.status === 200) {
             const data = await response.json();
             await setQuotes(data);
-            console.log('quotes',data);
           } else {
             console.error("Failed to fetch records");
           }
@@ -101,7 +100,6 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         if (response.status === 200) {
           const data = await response.json();
           setArchivedQuotes(data);
-          console.log('archived quotes:',archivedQuotes);
         } else {
           console.error("Failed to fetch archived records");
         }

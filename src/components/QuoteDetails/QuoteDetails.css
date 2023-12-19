@@ -222,6 +222,7 @@ li label {
 .editbtn {
   max-width: fit-content;
   margin: 10px !important;
+  max-height: 50px !important;
 }
 .quote-btn-group {
   display: flex;
@@ -251,13 +252,39 @@ li label {
   font-weight: 400 !important;
 }
 
+.quote-btm-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  align-items: center;
+}
+.quote-btm-list-item{
+  display: flex;
+  flex-direction: column;
+  gap: 5px !important;
+  & :nth-child(1){
+    color: #333;
+    margin: 2px 2px 0px 2px !important;
+  }
+  & :nth-child(2){
+    color: var(--light-h);
+    margin: 0px 2px !important;
+  }
+  & input{
+    width: 100px;
+    height: 50px;
+    padding: 5px;
+    font-size: large;
+  }
+}
+
 @media screen and (min-width: 2160px) {
   .quote-details-container {
     max-width: 70% !important;
     min-height: 70vh;
   }
 }
-
 
 @media screen and (min-width: 2560px) {
   .quote-details-container {

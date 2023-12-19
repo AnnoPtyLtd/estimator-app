@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const recordSchema = new mongoose.Schema({
   quoteUserId: String,
@@ -6,12 +6,13 @@ const recordSchema = new mongoose.Schema({
   quoteType: String,
   quoteDate: Date,
   quoteCost: Number,
-  componentNames: [String], 
-  componentPrices: [Number], 
-  componentCategories: [String], 
-  componentUrls:[String],
-  componentDates:[String],
+  componentNames: [String],
+  componentPrices: [Number],
+  componentCategories: [String],
+  componentUrls: [String],
+  componentDates: [String],
+  buildFee: Number,
 });
 
-const Record = mongoose.model('records', recordSchema);
+const Record = mongoose.model("records", recordSchema);
 module.exports = Record;

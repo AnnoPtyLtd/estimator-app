@@ -40,33 +40,33 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showEditBuild, setShowEditBuild] = useState(false);
   const [displayButtonStatus, setDisplayButtonStatus] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [buildFee, setBuildFee] = useState(0);
 
-    //this use effect is used for screen width fetching and setting height of list body
-    useEffect(() => {
-      const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-      };
-      window.addEventListener("resize", handleResize);
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }, []);
-  
-    const calculateHeight = (width) => {
-      if (width >= 3840) {
-        return 1200;
-      } else if (width >= 2560) {
-        return 1000;
-      } else if (width >= 2160) {
-        return 900;
-      } else {
-        return 500; // Default height
-      }
+  //this use effect is used for screen width fetching and setting height of list body
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
     };
-  
-    // Dynamically set height for the Box component
-    const boxHeight = calculateHeight(windowWidth);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
+  const calculateHeight = (width) => {
+    if (width >= 3840) {
+      return 1200;
+    } else if (width >= 2560) {
+      return 1000;
+    } else if (width >= 2160) {
+      return 900;
+    } else {
+      return 500; // Default height
+    }
+  };
+
+  // Dynamically set height for the Box component
+  const boxHeight = calculateHeight(windowWidth);
 
   //for setting the unarchive button
   useEffect(() => {
@@ -77,6 +77,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         setDisplayButtonStatus(false);
       }
     }
+    setBuildFee(0);
   }, [selectedQuote]);
 
   // using for the rows attribute in table
@@ -148,7 +149,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       },
     },
   ];
-  
+
   // Conditionally render both "Delete" and "Edit" buttons based on displayButtonStatus
   if (!displayButtonStatus) {
     columns.push(
@@ -188,12 +189,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       }
     );
   }
-  
-  
+
   const handleEditComponent = (row) => {
     setindexOfComponentArray(row.id);
     setEditCompInBuildShow(true);
   };
+
   //this function will delete the component from quote
   const handleDeleteButtonClick = (row) => {
     console.log("id:", selectedQuote._id, "row id:", row.id);
@@ -333,9 +334,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                     </>
                   )}
                 </div>
-                {Number.isInteger(selectedQuote.quoteCost)
-                  ? `${selectedQuote.quoteCost}.00`
-                  : `${parseFloat(selectedQuote.quoteCost).toFixed(2)}`}
+                ${selectedQuote && selectedQuote.quoteCost.toFixed(2)}
               </div>
             ) : (
               <p>Select a quote to display</p>
@@ -388,17 +387,39 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
             <></>
           )}
         </div>
-
-        <Button
-          className="editbtn"
-          disabled={displayButtonStatus}
-          variant="outlined"
-          onClick={() => {
-            setShowAddCompinBuild(true);
-          }}
-        >
-          Add Components
-        </Button>
+        <div className="quote-btm-list">
+          <Button
+            className="editbtn"
+            disabled={displayButtonStatus}
+            variant="outlined"
+            onClick={() => {
+              setShowAddCompinBuild(true);
+            }}
+          >
+            Add Components
+          </Button>
+          <div className="quote-btm-list-item">
+            <input
+              type="number"
+              value={buildFee}
+              onChange={(e) => {
+                setBuildFee(parseFloat(e.target.value));
+              }}
+            />
+          </div>
+          <div className="quote-btm-list-item">
+            <p>Build fee</p>
+            <p>${buildFee.toFixed(2)}</p>
+          </div>
+          <div className="quote-btm-list-item">
+            <p>Parts Cost</p>
+            <p>${selectedQuote ? selectedQuote.quoteCost.toFixed(2) : 0}</p>
+          </div>
+          <div className="quote-btm-list-item">
+            <p>$Total Estimate</p>
+            <p>${selectedQuote ? (selectedQuote.quoteCost + buildFee).toFixed(2) : 0}</p>
+          </div>
+        </div>
       </div>
 
       {/*quote actions*/}
