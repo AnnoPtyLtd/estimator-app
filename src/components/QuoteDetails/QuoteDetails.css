@@ -33,7 +33,7 @@
 
 .quote-details-column {
   padding: 10px 10px;
-  width: 90%;
+  width: 98%;
   background-color: var(--bg-light-primary);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -117,7 +117,7 @@ li label {
   margin: 0;
   color: black;
 }
-.quote-comps-top{
+.quote-comps-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -167,7 +167,7 @@ li label {
   margin-left: 15px;
 }
 .single-quote-left {
-  min-width: 90%;
+  min-width: 95%;
 }
 .single-quote-left p,
 .single-quote-left p {
@@ -252,26 +252,34 @@ li label {
   font-weight: 400 !important;
 }
 
-.quote-btm-list{
+.quote-btm-list {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   margin-top: 10px;
   align-items: center;
 }
-.quote-btm-list-item{
+.build-fee-row {
+  display: flex;
+  width: 90%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 10%;
+}
+
+.quote-btm-list-item {
   display: flex;
   flex-direction: column;
   gap: 5px !important;
-  & :nth-child(1){
+  & :nth-child(1) {
     color: #333;
     margin: 2px 2px 0px 2px !important;
   }
-  & :nth-child(2){
+  & :nth-child(2) {
     color: var(--light-h);
     margin: 0px 2px !important;
   }
-  & input{
+  & input {
     width: 100px;
     height: 50px;
     padding: 5px;
@@ -364,4 +372,16 @@ li label {
 .export-list {
   max-height: 400px;
   overflow: auto;
+}
+
+
+.MuiDataGrid-row {
+  border: 1px solid gray;
+  margin-bottom: 10px !important;
+  border-radius: 5px;
+}
+.MuiDataGrid-cell {
+  border-right: 1px solid gray !important;/* Border on the left side of each cell */
+  padding-top: 0 !important; /* Remove top padding */
+  padding-bottom: 0 !important;
 }

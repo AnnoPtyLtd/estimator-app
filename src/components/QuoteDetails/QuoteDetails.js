@@ -40,8 +40,8 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showEditBuild, setShowEditBuild] = useState(false);
   const [displayButtonStatus, setDisplayButtonStatus] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [buildFee, setBuildFee] = useState(0.00);
-  const [totalEstimate, setTotalEstimate] = useState(0.00);
+  const [buildFee, setBuildFee] = useState(0.0);
+  const [totalEstimate, setTotalEstimate] = useState(0.0);
 
   //this use effect is used for screen width fetching and setting height of list body
   useEffect(() => {
@@ -78,7 +78,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         setDisplayButtonStatus(false);
       }
       setBuildFee(selectedQuote.buildFee);
-      setTotalEstimate(selectedQuote.buildFee + selectedQuote.quoteCost)
+      setTotalEstimate(selectedQuote.buildFee + selectedQuote.quoteCost);
     }
   }, [selectedQuote]);
 
@@ -282,13 +282,11 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   };
 
   const handleKeyPress = (e) => {
-   
     if (e.key === "Enter") {
       if (selectedQuote) {
         // Ensure buildFee and selectedQuote.quoteCost are converted to numbers
         const buildFeeNumber = parseFloat(buildFee);
         const quoteCostNumber = parseFloat(selectedQuote.quoteCost);
-
         // Check if both values are valid numbers
         if (!isNaN(buildFeeNumber) && !isNaN(quoteCostNumber)) {
           // Perform the addition to calculate total estimate
@@ -303,14 +301,14 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           })
             .then((response) => response.json())
             .then((data) => {
-              toast.info('Build fee is updated')
+              toast.info("Build fee is updated");
             })
             .catch((error) => {
               toast.error("Quote was not updated!");
             });
         }
-        if(isNaN(buildFeeNumber)){
-          toast.info('Build fee should be valid!')
+        if (isNaN(buildFeeNumber)) {
+          toast.info("Build fee should be valid!");
         }
       }
     }
@@ -323,18 +321,62 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           <p>Quote Details</p>
         </div>
 
+        {/*quote actions*/}
+        <div className="quote-details-controls">
+          <div className="quote-details-header">
+            <div className="quote-btns">
+              <Tooltip title="Edit quote" placement="top-start">
+                <Button
+                  variant="outlined"
+                  onClick={() => setShowEditBuild(true)}
+                  disabled={displayButtonStatus}
+                >
+                  <EditIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Delete this quote" placement="top-start">
+                <Button variant="outlined" onClick={() => setShowDeleteModal(true)}>
+                  <DeleteIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Export quotes" placement="top-start">
+                <Button
+                  variant="outlined"
+                  onClick={() => setShowExportModal(true)}
+                  disabled={displayButtonStatus}
+                >
+                  <ExportIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Unarchive" placement="top-start">
+                <Button
+                  variant="outlined"
+                  onClick={() => handleUnarchive()}
+                  disabled={!displayButtonStatus}
+                >
+                  <UnarchiveIcon />
+                </Button>
+              </Tooltip>
+            </div>
+          </div>
+        </div>
+
         <div className="quote-details-column">
           <>
             {selectedQuote ? (
               <div className="single-quote-details">
                 <div className="single-quote-left">
-                  <h4>{selectedQuote.name}</h4>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <h4>{selectedQuote.name}</h4>
+                    <p>${selectedQuote && selectedQuote.quoteCost.toFixed(2)}</p>
+                  </div>
                   {selectedQuote.quoteStatus && selectedQuote.quoteStatus === "Archived" ? (
                     <>
                       <p>This quote is archived</p>
-                      <Box sx={{ height: boxHeight }}>
+                      <div style={{ height: boxHeight }}>
                         <DataGrid
                           rows={rows}
+                          rowHeight={40}
                           columns={columns}
                           initialState={{
                             pagination: {
@@ -343,20 +385,23 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                               },
                             },
                           }}
+                          className="comps-list-of-quote"
                           pageSizeOptions={[15]}
                           disableRowSelectionOnClick
                         />
-                      </Box>
+                      </div>
                     </>
                   ) : (
                     <>
                       <div className="quote-comps-top">
                         <p>Components</p>
                       </div>
-                      <Box sx={{ height: boxHeight }}>
+                      <div style={{ height: boxHeight }}>
                         <DataGrid
                           rows={rows}
+                          rowHeight={40}
                           columns={columns}
+                          headerClassName={() => 'custom-header-class'}
                           initialState={{
                             pagination: {
                               paginationModel: {
@@ -367,11 +412,10 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                           pageSizeOptions={[15]}
                           disableRowSelectionOnClick
                         />
-                      </Box>
+                      </div>
                     </>
                   )}
                 </div>
-                ${selectedQuote && selectedQuote.quoteCost.toFixed(2)}
               </div>
             ) : (
               <p>Select a quote to display</p>
@@ -435,67 +479,29 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
           >
             Add Components
           </Button>
-          <div className="quote-btm-list-item">
-            <input
-              type="number"
-              value={buildFee}
-              onChange={(e) => {
-                setBuildFee(e.target.value);
-              }}
-              onKeyDown={handleKeyPress}
-            />
-          </div>
-          <div className="quote-btm-list-item">
-            <p>Build fee</p>
-            <p>${isNaN(parseFloat(buildFee)) ? 0.0 : parseFloat(buildFee).toFixed(2)}</p>
-          </div>
-          <div className="quote-btm-list-item">
-            <p>Parts Cost</p>
-            <p>${selectedQuote ? selectedQuote.quoteCost.toFixed(2) : 0.0}</p>
-          </div>
-          <div className="quote-btm-list-item">
-            <p>$Total Estimate</p>
-            <p>${selectedQuote ? parseFloat(totalEstimate).toFixed(2) : 0.0}</p>
-          </div>
-        </div>
-      </div>
-
-      {/*quote actions*/}
-      <div className="quote-details-controls">
-        <div className="quote-details-header">
-          <div className="quote-btns">
-            <Tooltip title="Edit quote" placement="top-start">
-              <Button
-                variant="outlined"
-                onClick={() => setShowEditBuild(true)}
-                disabled={displayButtonStatus}
-              >
-                <EditIcon />
-              </Button>
-            </Tooltip>
-            <Tooltip title="Delete this quote" placement="top-start">
-              <Button variant="outlined" onClick={() => setShowDeleteModal(true)}>
-                <DeleteIcon />
-              </Button>
-            </Tooltip>
-            <Tooltip title="Export quotes" placement="top-start">
-              <Button
-                variant="outlined"
-                onClick={() => setShowExportModal(true)}
-                disabled={displayButtonStatus}
-              >
-                <ExportIcon />
-              </Button>
-            </Tooltip>
-            <Tooltip title="Unarchive" placement="top-start">
-              <Button
-                variant="outlined"
-                onClick={() => handleUnarchive()}
-                disabled={!displayButtonStatus}
-              >
-                <UnarchiveIcon />
-              </Button>
-            </Tooltip>
+          <div className="build-fee-row">
+            <div className="quote-btm-list-item">
+              <input
+                type="number"
+                value={buildFee}
+                onChange={(e) => {
+                  setBuildFee(e.target.value);
+                }}
+                onKeyDown={handleKeyPress}
+              />
+            </div>
+            <div className="quote-btm-list-item">
+              <p>Build fee</p>
+              <p>${isNaN(parseFloat(buildFee)) ? 0.0 : parseFloat(buildFee).toFixed(2)}</p>
+            </div>
+            <div className="quote-btm-list-item">
+              <p>Parts Cost</p>
+              <p>${selectedQuote ? selectedQuote.quoteCost.toFixed(2) : 0.0}</p>
+            </div>
+            <div className="quote-btm-list-item">
+              <p>$Total Estimate</p>
+              <p>${selectedQuote ? parseFloat(totalEstimate).toFixed(2) : 0.0}</p>
+            </div>
           </div>
         </div>
       </div>
