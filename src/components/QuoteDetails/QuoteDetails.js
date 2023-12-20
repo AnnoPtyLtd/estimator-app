@@ -140,12 +140,8 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => {
-              e.preventDefault();
-              handleVisitSite(params.row);
-            }}
           >
-            {url}
+            View Online
           </a>
         );
       },
@@ -270,15 +266,6 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const handleShowLastUpdate = (date) => {
     const newdate = new Date(date).toDateString();
     toast.message(`last updated: ${newdate}`);
-  };
-
-  //this function will redirect towards the website of component
-  const handleVisitSite = (row) => {
-    if (row.URL) {
-      window.open(row.URL, "_blank");
-    } else {
-      toast.message("No URL found!");
-    }
   };
 
   const handleKeyPress = (e) => {

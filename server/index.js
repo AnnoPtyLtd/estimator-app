@@ -6,16 +6,16 @@ require('dotenv').config();
 
 app.use(express.json());
 
-// app.use(
-//     cors({
-//         origin: ["https://estimator-frontend.vercel.app"],
-//         methods: ["GET", "POST", "PUT", "DELETE"],
-//         credentials: true,
-//         allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you need.
-//     })
-// );
+app.use(
+    cors({
+        origin: ["https://estimator-frontend.vercel.app"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you need.
+    })
+);
 
-app.use(cors());
+// app.use(cors());
 
 const UserSchema = new mongoose.Schema({
     fullname: {
@@ -57,6 +57,7 @@ const getComponentsLength = require('./routes/components/get-components-length')
 const getUserInfo = require('./routes/user/get-user');
 const getQuote = require('./routes/records/get-quote');
 const filterArhchivedQuote = require('./routes/records/filter-archived')
+const addPrebuildQuote = require('./routes/records/add-prebuild');
 
 app.use(signupRoute);
 app.use(signinRoute);
@@ -76,6 +77,7 @@ app.use(getComponentsLength);
 app.use(getUserInfo);
 app.use(getQuote);
 app.use(filterArhchivedQuote);
+app.use(addPrebuildQuote);
 
 app.get("/", (req, res) => {
     res.send("Server is Working");

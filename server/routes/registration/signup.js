@@ -1,8 +1,7 @@
 const express = require('express');
 const User = require('../../models/User'); 
-// const bcrypt = require('bcrypt');
-
 const router = express.Router();
+
 
 router.post("/signup", async (req, res) => {
         try {
@@ -13,14 +12,9 @@ router.post("/signup", async (req, res) => {
             res.status(400).json({ message: "User already exists" });
             return;
         }
-        // Hash the user's password
-        // const saltRounds = 10;
-        // const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-
         const user = new User({
             fullname: req.body.fullName,
             email: req.body.email,
-            // password: hashedPassword,
             password: req.body.password,
 
         });

@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 import Button from "@mui/material/Button";
 import AddNewBuildModal from "../QuoteDetails/AddNewBuildModal";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import PrebuildModal from "./PrebuildModal";
 
 const QuoteItemsList = ({ onQuoteClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,6 +24,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
   const userId = decodedToken.userId;
   const [quoteFilter, setQuoteFilter] = useState("View All");
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
+  const [showPrebuildModal, setshowPrebuildModal] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [autoHeightMin, setAutoHeightMin] = useState(700); // Default value for autoHeightMin
@@ -191,13 +193,16 @@ const QuoteItemsList = ({ onQuoteClick }) => {
             Custom/Other
           </option>
         </select>
+        <Button variant="outlined" className={isAdmin ? "prebuilds-btn-admin" : "prebuilds-btn"} onClick={()=>setshowPrebuildModal(true)}>
+          prebuilds
+        </Button>
       </div>
       <span>{titleName}</span>
       <div className="quoteitems-list">
         {isToggled ? (
           <Scrollbars autoHeight autoHeightMin={autoHeightMin}>
             <List>
-              {archivedQuotes.length>0 &&
+              {archivedQuotes.length > 0 &&
                 archivedQuotes.map((quote) => (
                   <p
                     key={quote._id}
@@ -244,6 +249,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
         )}
       </div>
       <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />
+      <PrebuildModal show={showPrebuildModal} onHide={() => setshowPrebuildModal(false)} />
       <Toaster position="top-right" richColors />
     </div>
   );
