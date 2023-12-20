@@ -21,6 +21,7 @@ router.post("/saverecord", async (req, res) => {
     if (!quoteUserId || !name || !quoteType || !quoteDate) {
       return res.status(400).json({ error: "Missing required fields or id" });
     }
+    let buildFee = 0;
     const record = new Record({
       quoteUserId,
       name,
@@ -32,6 +33,7 @@ router.post("/saverecord", async (req, res) => {
       componentCategories,
       componentUrls,
       componentDates,
+      buildFee,
     });
 
     const savedRecord = await record.save();
@@ -267,5 +269,35 @@ router.post("/duplicate-quote/:quoteId", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+router.put("/updateBuildFee/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { buildFee } = req.body;
+
+    if (!buildFee) {
+      return res.status(400).json({ error: "No fields to update" });
+    }
+
+    const updateFields = {}; // Always update the quoteDate
+
+    if (buildFee) {
+      updateFields.buildFee = buildFee;
+    }
+
+    const updatedRecord = await Record.findByIdAndUpdate(id, updateFields, {
+      new: true,
+    });
+
+    if (!updatedRecord) {
+      return res.status(404).json({ error: "Record not found" });
+    }
+    res.status(200).json(updatedRecord);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 module.exports = router;

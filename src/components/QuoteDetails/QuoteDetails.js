@@ -40,7 +40,8 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   const [showEditBuild, setShowEditBuild] = useState(false);
   const [displayButtonStatus, setDisplayButtonStatus] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [buildFee, setBuildFee] = useState(0);
+  const [buildFee, setBuildFee] = useState(0.00);
+  const [totalEstimate, setTotalEstimate] = useState(0.00);
 
   //this use effect is used for screen width fetching and setting height of list body
   useEffect(() => {
@@ -76,8 +77,9 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       } else {
         setDisplayButtonStatus(false);
       }
+      setBuildFee(selectedQuote.buildFee);
+      setTotalEstimate(selectedQuote.buildFee + selectedQuote.quoteCost)
     }
-    setBuildFee(0);
   }, [selectedQuote]);
 
   // using for the rows attribute in table
@@ -279,6 +281,41 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     }
   };
 
+  const handleKeyPress = (e) => {
+   
+    if (e.key === "Enter") {
+      if (selectedQuote) {
+        // Ensure buildFee and selectedQuote.quoteCost are converted to numbers
+        const buildFeeNumber = parseFloat(buildFee);
+        const quoteCostNumber = parseFloat(selectedQuote.quoteCost);
+
+        // Check if both values are valid numbers
+        if (!isNaN(buildFeeNumber) && !isNaN(quoteCostNumber)) {
+          // Perform the addition to calculate total estimate
+          const total = buildFeeNumber + quoteCostNumber;
+          setTotalEstimate(total);
+          fetch(`${backendURL}/updateBuildFee/${selectedQuote && selectedQuote._id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ buildFee: buildFee }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              toast.info('Build fee is updated')
+            })
+            .catch((error) => {
+              toast.error("Quote was not updated!");
+            });
+        }
+        if(isNaN(buildFeeNumber)){
+          toast.info('Build fee should be valid!')
+        }
+      }
+    }
+  };
+
   return (
     <div className="quote-details-container">
       <div className="quote-tab">
@@ -403,21 +440,22 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
               type="number"
               value={buildFee}
               onChange={(e) => {
-                setBuildFee(parseFloat(e.target.value));
+                setBuildFee(e.target.value);
               }}
+              onKeyDown={handleKeyPress}
             />
           </div>
           <div className="quote-btm-list-item">
             <p>Build fee</p>
-            <p>${buildFee.toFixed(2)}</p>
+            <p>${isNaN(parseFloat(buildFee)) ? 0.0 : parseFloat(buildFee).toFixed(2)}</p>
           </div>
           <div className="quote-btm-list-item">
             <p>Parts Cost</p>
-            <p>${selectedQuote ? selectedQuote.quoteCost.toFixed(2) : 0}</p>
+            <p>${selectedQuote ? selectedQuote.quoteCost.toFixed(2) : 0.0}</p>
           </div>
           <div className="quote-btm-list-item">
             <p>$Total Estimate</p>
-            <p>${selectedQuote ? (selectedQuote.quoteCost + buildFee).toFixed(2) : 0}</p>
+            <p>${selectedQuote ? parseFloat(totalEstimate).toFixed(2) : 0.0}</p>
           </div>
         </div>
       </div>
