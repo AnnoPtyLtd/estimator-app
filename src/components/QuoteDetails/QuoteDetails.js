@@ -514,6 +514,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
         title={selectedQuote && selectedQuote.name}
         recordID={selectedQuote && selectedQuote._id}
         status={selectedQuote && selectedQuote.quoteStatus}
+        setSelectedQuote={setSelectedQuote}
       />
 
       <AddComponentModal

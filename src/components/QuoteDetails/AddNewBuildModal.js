@@ -29,6 +29,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
   // const [quoteUserId, setQuoteUserId] = useState("");
   const [showAddCompModal, setshowAddCompModal] = useState(false);
   const [name, setName] = useState("");
+  const [buildFee, setBuildFee] = useState(0);
   const [quoteType, setQuoteType] = useState("Gaming PC");
   // const [quoteDate, setQuoteDate] = useState("");
   const [quoteDate, setQuoteDate] = useState(defaultDate);
@@ -55,6 +56,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
           userId,
           name,
           quoteType,
+          buildFee,
           quoteDate,
           quoteCost,
           componentNames,
@@ -76,6 +78,7 @@ const AddNewBuildModal = ({ show, onHide }) => {
         setComponentCategories([]);
         setComponentURLS([]);
         setComponentDates([]);
+        setBuildFee(0);
       } else {
         toast.error("Some error occurred!");
       }
@@ -119,6 +122,13 @@ const AddNewBuildModal = ({ show, onHide }) => {
                   onChange={(e) => setQuoteType(e.target.value)}
                   fullWidth
                   options={option}
+                />
+              </div>
+              <div className="modalbodycomp-item">
+              <StringTextField
+                  label="Build Fee"
+                  value={buildFee}
+                  onChange={(e) => setBuildFee(e.target.value)}
                 />
               </div>
               <div>

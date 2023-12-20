@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Toaster, toast } from 'sonner';
 import './QuoteDetails.css';
 
-const DeleteQuoteModal = ({ show, onHide, title, recordID,status }) => {
+const DeleteQuoteModal = ({ show, onHide, title, recordID,status,setSelectedQuote }) => {
 
   const backendURL = process.env.REACT_APP_BACKEND_URL; 
 
@@ -33,6 +33,7 @@ const DeleteQuoteModal = ({ show, onHide, title, recordID,status }) => {
             .catch((error) => {
                 toast.error(error);
             });
+            setSelectedQuote();
             onHide();
     }
 

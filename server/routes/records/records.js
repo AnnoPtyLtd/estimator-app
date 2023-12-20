@@ -9,6 +9,7 @@ router.post("/saverecord", async (req, res) => {
       userId,
       name,
       quoteType,
+      buildFee,
       quoteDate,
       quoteCost,
       componentNames,
@@ -21,11 +22,11 @@ router.post("/saverecord", async (req, res) => {
     if (!quoteUserId || !name || !quoteType || !quoteDate) {
       return res.status(400).json({ error: "Missing required fields or id" });
     }
-    let buildFee = 0;
     const record = new Record({
       quoteUserId,
       name,
       quoteType,
+      buildFee,
       quoteDate,
       quoteCost,
       componentNames,
@@ -33,7 +34,6 @@ router.post("/saverecord", async (req, res) => {
       componentCategories,
       componentUrls,
       componentDates,
-      buildFee,
     });
 
     const savedRecord = await record.save();
