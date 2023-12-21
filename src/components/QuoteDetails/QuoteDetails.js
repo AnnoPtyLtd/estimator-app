@@ -12,7 +12,6 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import DeleteQuoteModal from "./DeleteQuoteModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExportIcon from "@mui/icons-material/IosShare";
-import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import EditRoundedIcon from "@mui/icons-material/EditOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -115,12 +114,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       align: "left",
       headerName: "Component",
       headerAlign: "left",
-      flex: 1,
+      flex:1,
     },
     {
       field: "Category",
       headerName: "Category",
-      width: 100,
+      flex:1,
     },
     {
       field: "Price",
@@ -132,15 +131,11 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     {
       field: "URL",
       headerName: "URL",
-      flex: 1,
+      width: 120,
       renderCell: (params) => {
         const url = params.value;
         return (
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={url} target="_blank" rel="noopener noreferrer">
             View Online
           </a>
         );
@@ -388,7 +383,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                           rows={rows}
                           rowHeight={40}
                           columns={columns}
-                          headerClassName={() => 'custom-header-class'}
+                          headerClassName={() => "custom-header-class"}
                           initialState={{
                             pagination: {
                               paginationModel: {

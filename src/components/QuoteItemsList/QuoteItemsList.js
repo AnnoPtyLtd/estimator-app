@@ -38,6 +38,8 @@ const QuoteItemsList = ({ onQuoteClick }) => {
 
   //this use effect is used for screen width fetching and setting height of list body
   useEffect(() => {
+    console.log("width:",window.innerWidth);
+    console.log("height:",window.innerHeight);
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };

@@ -84,10 +84,9 @@
 
 @media screen and (min-width: 2160px) {
   .quotelist-item-container{
-    min-height: 70vh;
+    min-height: 87vh;
     min-width: 25vh ;
-  }
-  
+  }  
 }
 
 @media screen and (min-width: 2560px) {

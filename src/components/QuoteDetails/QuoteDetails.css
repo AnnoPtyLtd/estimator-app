@@ -167,7 +167,7 @@ li label {
   margin-left: 15px;
 }
 .single-quote-left {
-  min-width: 95%;
+  width: 98%;
 }
 .single-quote-left p,
 .single-quote-left p {
@@ -286,6 +286,28 @@ li label {
     font-size: large;
   }
 }
+.custom-export-body {
+  min-height: 500px;
+  background-color: #f8f9fa;
+  color: #333;
+  overflow: hidden;
+}
+.export-list {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.MuiDataGrid-row {
+  border: 1px solid rgb(187, 187, 187);
+  margin-bottom: 10px !important;
+  border-radius: 5px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.MuiDataGrid-cell {
+  border-right: 1px solid rgb(187, 187, 187) !important;
+}
 
 @media screen and (min-width: 2160px) {
   .quote-details-container {
@@ -363,25 +385,3 @@ li label {
   }
 }
 
-.custom-export-body {
-  min-height: 500px;
-  background-color: #f8f9fa;
-  color: #333;
-  overflow: hidden;
-}
-.export-list {
-  max-height: 400px;
-  overflow: auto;
-}
-
-
-.MuiDataGrid-row {
-  border: 1px solid gray;
-  margin-bottom: 10px !important;
-  border-radius: 5px;
-}
-.MuiDataGrid-cell {
-  border-right: 1px solid gray !important;/* Border on the left side of each cell */
-  padding-top: 0 !important; /* Remove top padding */
-  padding-bottom: 0 !important;
-}
