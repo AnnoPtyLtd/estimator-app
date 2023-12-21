@@ -311,7 +311,7 @@ li label {
 
 @media screen and (min-width: 2160px) {
   .quote-details-container {
-    max-width: 70% !important;
+    max-width: 90% !important;
     min-height: 70vh;
   }
 }
