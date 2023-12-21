@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import AddNewBuildModal from "../QuoteDetails/AddNewBuildModal";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import PrebuildModal from "./PrebuildModal";
+import PrebuildList from "./PrebuildList";
 
 const QuoteItemsList = ({ onQuoteClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,6 +26,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
   const [quoteFilter, setQuoteFilter] = useState("View All");
   const [showAddBuildModal, setShowAddBuildModal] = useState(false);
   const [showPrebuildModal, setshowPrebuildModal] = useState(false);
+  const [showPrebuildList, setshowPrebuildList] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [autoHeightMin, setAutoHeightMin] = useState(700); // Default value for autoHeightMin
@@ -38,8 +40,8 @@ const QuoteItemsList = ({ onQuoteClick }) => {
 
   //this use effect is used for screen width fetching and setting height of list body
   useEffect(() => {
-    console.log("width:",window.innerWidth);
-    console.log("height:",window.innerHeight);
+    console.log("width:", window.innerWidth);
+    console.log("height:", window.innerHeight);
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -195,9 +197,22 @@ const QuoteItemsList = ({ onQuoteClick }) => {
             Custom/Other
           </option>
         </select>
-        <Button variant="outlined" className={isAdmin ? "prebuilds-btn-admin" : "prebuilds-btn"} onClick={()=>setshowPrebuildModal(true)}>
-          prebuilds
-        </Button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button
+            variant="outlined"
+            className={isAdmin ? "prebuilds-btn-admin" : "prebuilds-btn"}
+            onClick={() => setshowPrebuildModal(true)}
+          >
+            prebuilds
+          </Button>
+          <Button
+            variant="outlined"
+            className={isAdmin ? "prebuilds-btn-admin" : "prebuilds-btn"}
+            onClick={() => setshowPrebuildList(true)}
+          >
+            view
+          </Button>
+        </div>
       </div>
       <span>{titleName}</span>
       <div className="quoteitems-list">
@@ -252,6 +267,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
       </div>
       <AddNewBuildModal show={showAddBuildModal} onHide={() => setShowAddBuildModal(false)} />
       <PrebuildModal show={showPrebuildModal} onHide={() => setshowPrebuildModal(false)} />
+      <PrebuildList show={showPrebuildList} onHide={() => setshowPrebuildList(false)} />
       <Toaster position="top-right" richColors />
     </div>
   );

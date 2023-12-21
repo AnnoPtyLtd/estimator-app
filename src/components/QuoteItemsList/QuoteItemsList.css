@@ -10,6 +10,7 @@
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   scroll-behavior: smooth;
   max-width: 42vh;
+  min-height: 122vh;
   list-style: none;
 }
 .quotelist-item-title {
@@ -30,7 +31,7 @@
   padding: 15px;
   border-radius: 5px;
 }
-.show-archquotes-button{
+.show-archquotes-button {
   min-width: 25% !important;
 }
 
@@ -47,9 +48,10 @@
 
 .filter-field {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 10px;
-  align-items: center;
+  align-items: flex-start;
+  gap: 0;
 }
 .filter-field select {
   padding: 5px;
@@ -69,24 +71,30 @@
     transition: 0.2s ease-in;
   }
 }
-.quotelist-field{
+.quotelist-field {
   display: flex;
   margin-top: 10px;
   gap: 10px;
 }
 
-.prebuilds-btn{
+.prebuilds-btn {
   display: none !important;
 }
-.prebuilds-btn-admin{
+.prebuilds-btn-admin {
   display: block !important;
 }
 
+.prebuild-list-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 @media screen and (min-width: 2160px) {
-  .quotelist-item-container{
+  .quotelist-item-container {
     min-height: 87vh;
-    min-width: 25vh ;
-  }  
+    min-width: 25vh;
+  }
 }
 
 @media screen and (min-width: 2560px) {
