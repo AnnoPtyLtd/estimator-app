@@ -22,7 +22,7 @@ const ComponentDetailsPage = () => {
       field: "category",
       headerName: "Category",
       width: 150,
-      editable: true,
+      editable: false,
       valueGetter: (params) => params.row.category,
       valueSetter: (params) => {
         setComponents((prevComponents) => {
@@ -38,6 +38,7 @@ const ComponentDetailsPage = () => {
       },
       renderCell: (params) => (
         <select
+        className='component-category'
           value={params.row.category}
           onChange={(e) => {
             const newValue = e.target.value;
