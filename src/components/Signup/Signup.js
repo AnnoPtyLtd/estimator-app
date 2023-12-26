@@ -109,12 +109,6 @@ const Signup = () => {
                                 value={confirmPassword}
                                 onChange={(e) => handleInputChange(e)} />
                         </div>
-                        <div className='form-checkbox'>
-                            <Form.Check
-                                type="checkbox"
-                                label="I agree to the terms and conditions"
-                                id="checkbox-id"/>
-                        </div>
                         <div className='signup-button'>
                             <Button variant="primary" onClick={handleSubmit} type='submit'>Sign Up</Button>
                         </div>
