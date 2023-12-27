@@ -10,7 +10,7 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import DeleteQuoteModal from "./DeleteQuoteModal";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import ExportIcon from "@mui/icons-material/IosShare";
 import { DataGrid } from "@mui/x-data-grid";
 import EditRoundedIcon from "@mui/icons-material/EditOutlined";
@@ -114,12 +114,12 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
       align: "left",
       headerName: "Component",
       headerAlign: "left",
-      flex:1,
+      flex: 1,
     },
     {
       field: "Category",
       headerName: "Category",
-      flex:1,
+      flex: 1,
     },
     {
       field: "Price",
@@ -299,17 +299,17 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
   return (
     <div className="quote-details-container">
       <div className="quote-tab">
-        <div className="quote-details-title">
-          <p>Quote Details</p>
-        </div>
-
         {/*quote actions*/}
         <div className="quote-details-controls">
+          <div className="quote-details-title">
+            <p>Quote Details</p>
+          </div>
           <div className="quote-details-header">
             <div className="quote-btns">
               <Tooltip title="Edit quote" placement="top-start">
                 <Button
                   variant="outlined"
+                  sx={{padding:'5px 10px', minHeight:0, minWidth:0}}
                   onClick={() => setShowEditBuild(true)}
                   disabled={displayButtonStatus}
                 >
@@ -317,12 +317,17 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                 </Button>
               </Tooltip>
               <Tooltip title="Delete this quote" placement="top-start">
-                <Button variant="outlined" onClick={() => setShowDeleteModal(true)}>
+                <Button
+                  variant="outlined"
+                  sx={{padding:'5px 10px', minHeight:0, minWidth:0}}
+                  onClick={() => setShowDeleteModal(true)}
+                >
                   <DeleteIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="Export quotes" placement="top-start">
                 <Button
+                  sx={{padding:'5px 10px', minHeight:0, minWidth:0}}
                   variant="outlined"
                   onClick={() => setShowExportModal(true)}
                   disabled={displayButtonStatus}
@@ -332,6 +337,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
               </Tooltip>
               <Tooltip title="Unarchive" placement="top-start">
                 <Button
+                  sx={{padding:'5px 10px', minHeight:0, minWidth:0}}
                   variant="outlined"
                   onClick={() => handleUnarchive()}
                   disabled={!displayButtonStatus}
@@ -350,11 +356,14 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                 <div className="single-quote-left">
                   <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <h4>{selectedQuote.name}</h4>
-                    <p>${selectedQuote && selectedQuote.quoteCost.toFixed(2)}</p>
+                    {/* <p>${selectedQuote && selectedQuote.quoteCost.toFixed(2)}</p> */}
                   </div>
                   {selectedQuote.quoteStatus && selectedQuote.quoteStatus === "Archived" ? (
                     <>
-                      <p>This quote is archived</p>
+                      <p className="archived-quote-line">This quote is archived</p>
+                      <div className="quote-comps-top">
+                        <p>Components inside</p>
+                      </div>
                       <div style={{ height: boxHeight }}>
                         <DataGrid
                           rows={rows}
@@ -376,7 +385,7 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
                   ) : (
                     <>
                       <div className="quote-comps-top">
-                        <p>Components</p>
+                        <p>Components inside</p>
                       </div>
                       <div style={{ height: boxHeight }}>
                         <DataGrid

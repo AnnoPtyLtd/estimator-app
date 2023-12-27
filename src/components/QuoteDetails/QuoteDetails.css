@@ -37,10 +37,16 @@
   background-color: var(--bg-light-primary);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 5px;
+  border: 1px solid rgb(187, 187, 187);
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
   margin: 0px 10px;
+}
+.mui-button-custom {
+  padding: 0;
+  min-height: 0;
+  min-width: 0;
+  background-color: red;
 }
 .quote-details-column p {
   font-weight: 400;
@@ -52,9 +58,11 @@ label {
 
 .quote-details-controls {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 20px 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  margin: 0;
 }
 
 .quote-details-controls h4 {
@@ -121,6 +129,7 @@ li label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 10px 0px;
 }
 .export-list-item:hover {
   background-color: lightskyblue;
@@ -286,6 +295,11 @@ li label {
     font-size: large;
   }
 }
+.archived-quote-line{
+  font-style: italic;
+  color: var(--light-p) !important;
+  margin-bottom: 10px;
+}
 .custom-export-body {
   min-height: 500px;
   background-color: #f8f9fa;
@@ -296,7 +310,9 @@ li label {
   max-height: 400px;
   overflow: auto;
 }
-
+.MuiDataGrid-root {
+  border: 1px solid rgb(187, 187, 187) !important ;
+}
 .MuiDataGrid-row {
   border: 1px solid rgb(187, 187, 187);
   margin-bottom: 10px !important;
@@ -384,4 +400,3 @@ li label {
     font-size: 2.4em !important;
   }
 }
-
