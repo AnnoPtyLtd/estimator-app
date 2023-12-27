@@ -101,7 +101,7 @@
   .quotelist-item-container {
     min-width: 30vh !important;
     font-size: 26px !important;
-    min-height: 80vh;
+    min-height: 100vh;
   }
   .quoteitems-list {
     min-height: 70vh;
