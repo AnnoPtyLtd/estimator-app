@@ -4,6 +4,7 @@ const preBuildSchema = new mongoose.Schema({
   name: String,
   quoteType: String,
   quoteBudget: Number,
+  quoteStatus: String,
   buildFee: Number,
   quoteDate: Date,
   quoteCost: Number,
