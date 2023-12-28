@@ -42,12 +42,7 @@
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
   margin: 0px 10px;
 }
-.mui-button-custom {
-  padding: 0;
-  min-height: 0;
-  min-width: 0;
-  background-color: red;
-}
+
 .quote-details-column p {
   font-weight: 400;
 }

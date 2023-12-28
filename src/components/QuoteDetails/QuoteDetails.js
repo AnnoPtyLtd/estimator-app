@@ -57,11 +57,11 @@ const QuoteDetails = ({ selectedQuote, setSelectedQuote }) => {
     if (width >= 3840) {
       return 1200;
     } else if (width >= 2560) {
-      return 1000;
+      return 950;
     } else if (width >= 2160) {
-      return 900;
+      return 850;
     } else {
-      return 500; // Default height
+      return 550; // Default height
     }
   };
 

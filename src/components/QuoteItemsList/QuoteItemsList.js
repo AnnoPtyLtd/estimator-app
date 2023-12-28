@@ -49,6 +49,7 @@ const QuoteItemsList = ({ onQuoteClick }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+
   }, []);
 
   useEffect(() => {
